@@ -1,5 +1,6 @@
-import { Camera } from "@mediapipe/camera_utils";
-import { FaceMesh } from "@mediapipe/face_mesh";
+/ eslint-disable no-undef /;
+// import { Camera } from "@mediapipe/camera_utils";
+// import { FaceMesh } from "@mediapipe/face_mesh";
 export const CustCamera = (video2, faceMesh) => {
   const camera = new Camera(video2, {
     onFrame: async () => {

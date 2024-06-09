@@ -27,8 +27,24 @@ function App() {
     greenLandmarksData: null,
     blueLandmarksData: null,
     redLandmarksData: null,
+    globalPreviousPose: 0,
   });
-
+  let {
+    globalGreenLandmarks,
+    globalBlueLandmarks,
+    globalRedLandmarks,
+    globalGreenImages,
+    globalBlueImages,
+    globalRedImages,
+    globalGreens,
+    globalBlues,
+    globalReds,
+    globalDataNotSent,
+    globalFinished,
+    greenLandmarksData,
+    blueLandmarksData,
+    redLandmarksData,
+  } = globalData;
   let canvasCtx,
     canvasWidth,
     canvasHeight,
@@ -36,6 +52,7 @@ function App() {
     redCtx,
     blueCtx,
     tmpcontext = null;
+  let persistent = false;
   useEffect(() => {
     canvasCtx = out2.current.getContext("2d");
     canvasWidth = out2.current.width;
@@ -46,23 +63,6 @@ function App() {
     tmpcontext = tmpCanvasRef.current.getContext("2d");
   }, []);
   const onResultsFaceMesh = (results) => {
-    let {
-      globalGreenLandmarks,
-      globalBlueLandmarks,
-      globalRedLandmarks,
-      globalGreenImages,
-      globalBlueImages,
-      globalRedImages,
-      globalGreens,
-      globalBlues,
-      globalReds,
-      globalDataNotSent,
-      globalFinished,
-      greenLandmarksData,
-      blueLandmarksData,
-      redLandmarksData,
-    } = globalData;
-
     let landmarks;
     const img = document.createElement("img");
 
@@ -88,7 +88,7 @@ function App() {
       const landmarks = results.multiFaceLandmarks[0];
       let pose = null;
       let colour = "#ACA685"; //skin
-      let persistent = false;
+      persistent = false;
 
       if (globalFinished) {
         pose = null;
@@ -119,7 +119,7 @@ function App() {
       if (pose === "frontal" && persistent) {
         globalGreenLandmarks = landmarks;
         const greenImage = results.image;
-        tmpcontext.drawImage(greenImage, 0, 0);
+        // tmpcontext.drawImage(greenImage, 0, 0);
         greenLandmarksData = JSON.stringify(landmarks);
         const greenImageData = tmpCanvasRef.current.toDataURL("image/png");
 
@@ -135,7 +135,11 @@ function App() {
       }
 
       if (pose === "left" && persistent) {
-        globalBlueLandmarks = landmarks;
+        globalData.globalBlueLandmarks = landmarks;
+        // setGlobalData((lastItem) => ({
+        //   ...lastItem,
+        //   globalBlueLandmarks: landmarks,
+        // }));
         const blueImage = results.image;
         tmpcontext.drawImage(blueImage, 0, 0);
         blueLandmarksData = JSON.stringify(landmarks);
@@ -170,20 +174,20 @@ function App() {
         }
       }
 
-      if (pose === "finished" && persistent) {
-        if (
-          globalGreenLandmarks &&
-          globalBlueLandmarks &&
-          globalRedLandmarks &&
-          globalDataNotSent
-        ) {
-          console.log(
-            "All image and landmarks data have been captured and sent for processing."
-          );
-          globalDataNotSent = false;
-          globalFinished = true;
-        }
-      }
+      // if (pose === "finished" && persistent) {
+      //   if (
+      //     globalGreenLandmarks &&
+      //     globalBlueLandmarks &&
+      //     globalRedLandmarks &&
+      //     globalDataNotSent
+      //   ) {
+      //     console.log(
+      //       "All image and landmarks data have been captured and sent for processing."
+      //     );
+      //     globalDataNotSent = false;
+      //     globalFinished = true;
+      //   }
+      // }
 
       results.multiFaceLandmarks.forEach((landmarks) => {
         drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {
@@ -192,7 +196,6 @@ function App() {
         });
       });
     }
-
     if (globalGreenLandmarks) {
       landmarks = JSON.parse(greenLandmarksData);
       drawConnectors(greenCtx, landmarks, FACEMESH_TESSELATION, {
@@ -201,7 +204,7 @@ function App() {
       });
     }
 
-    if (globalBlueLandmarks) {
+    if (globalData.globalBlueLandmarks) {
       landmarks = JSON.parse(blueLandmarksData);
       drawConnectors(blueCtx, landmarks, FACEMESH_TESSELATION, {
         color: "#64B4FF",
@@ -219,22 +222,22 @@ function App() {
 
     canvasCtx.restore();
 
-    setGlobalData({
-      globalGreenLandmarks,
-      globalBlueLandmarks,
-      globalRedLandmarks,
-      globalGreenImages,
-      globalBlueImages,
-      globalRedImages,
-      globalGreens,
-      globalBlues,
-      globalReds,
-      globalDataNotSent,
-      globalFinished,
-      greenLandmarksData,
-      blueLandmarksData,
-      redLandmarksData,
-    });
+    // setGlobalData({
+    //   globalGreenLandmarks,
+    //   globalBlueLandmarks,
+    //   globalRedLandmarks,
+    //   globalGreenImages,
+    //   globalBlueImages,
+    //   globalRedImages,
+    //   globalGreens,
+    //   globalBlues,
+    //   globalReds,
+    //   globalDataNotSent,
+    //   globalFinished,
+    //   greenLandmarksData,
+    //   blueLandmarksData,
+    //   redLandmarksData,
+    // });
   };
   const faceMesh = CustFaceMash();
   faceMesh.onResults(onResultsFaceMesh);
@@ -291,7 +294,9 @@ function App() {
     const d23 = Math.sqrt(
       Math.pow(x3 - x2, 2) + Math.pow(y3 - y2, 2) + Math.pow(z3 - z2, 2)
     );
+
     const distance = (d14 + d23) / 2;
+    // console.log("distance", distance);
 
     // Confidence, it depends on roll and yaw angles
     const xr = landmark[133].x; // Roll angle between inner corner of the eyes
@@ -341,7 +346,8 @@ function App() {
       Math.pow(x8 - x7, 2) + Math.pow(y8 - y7, 2) + Math.pow(z8 - z7, 2)
     );
     const pitchAngle = Math.atan2(x8 - x7, pitchDistance);
-
+    // console.log("pitchAngle", pitchAngle);
+    // console.log(pitchAngle >= 0.1 && pitchAngle <= 0.2);
     // Pitch angle between 0.10 and 0.15 for blue (looking right)
     // Pitch angle between -0.10 and -0.20 for red (looking left)
     if (pitchAngle >= 0.1 && pitchAngle <= 0.2) return "left";
@@ -351,15 +357,14 @@ function App() {
   };
 
   const isPersistent = (pose) => {
-    const maxCounter = 50; // Adjust this value according to your requirements
     if (pose === globalData.globalPreviousPose) {
       globalData.globalPoseCounter++;
     } else {
       globalData.globalPoseCounter = 1;
+      // state dosent update
       globalData.globalPreviousPose = pose;
     }
-    // Return true if the counter is greater than a certain time, false otherwise
-    return globalData.globalPoseCounter > maxCounter;
+    return globalData.globalPoseCounter > 50;
   };
   const drawEyeLines = (x1, y1, x2, y2) => {
     // Set the line color and width of line 1 then line 2
@@ -378,7 +383,7 @@ function App() {
     ctx.lineTo(canvasWidth - 10, y2);
     ctx.stroke();
   };
-
+  useEffect(() => {}, [globalData]);
   return (
     <>
       <div className="all-poses-auto mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
