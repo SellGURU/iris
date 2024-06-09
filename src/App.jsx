@@ -31,19 +31,21 @@ function App() {
 
   let canvasCtx,
     canvasWidth,
-    canvasHeight = null;
+    canvasHeight,
+    greenCtx,
+    redCtx,
+    blueCtx,
+    tmpcontext = null;
   useEffect(() => {
     canvasCtx = out2.current.getContext("2d");
     canvasWidth = out2.current.width;
     canvasHeight = out2.current.height;
+    greenCtx = green.current.getContext("2d");
+    redCtx = red.current.getContext("2d");
+    blueCtx = blue.current.getContext("2d");
+    tmpcontext = tmpCanvasRef.current.getContext("2d");
   }, []);
   const onResultsFaceMesh = (results) => {
-    const canvasCtx = out2Ref.current.getContext("2d");
-    const greenCtx = greenRef.current.getContext("2d");
-    const blueCtx = blueRef.current.getContext("2d");
-    const redCtx = redRef.current.getContext("2d");
-    const tmpcontext = tmpCanvasRef.current.getContext("2d");
-
     let {
       globalGreenLandmarks,
       globalBlueLandmarks,
@@ -67,26 +69,20 @@ function App() {
     document.body.classList.add("loaded");
 
     canvasCtx.save();
-    canvasCtx.clearRect(0, 0, out2Ref.current.width, out2Ref.current.height);
+    canvasCtx.clearRect(0, 0, out2.current.width, out2.current.height);
     canvasCtx.drawImage(
       results.image,
       0,
       0,
-      out2Ref.current.width,
-      out2Ref.current.height
+      out2.current.width,
+      out2.current.height
     );
-    greenCtx.clearRect(0, 0, greenRef.current.width, greenRef.current.height);
-    greenCtx.drawImage(
-      img,
-      0,
-      0,
-      greenRef.current.width,
-      greenRef.current.height
-    );
-    blueCtx.clearRect(0, 0, blueRef.current.width, blueRef.current.height);
-    blueCtx.drawImage(img, 0, 0, blueRef.current.width, blueRef.current.height);
-    redCtx.clearRect(0, 0, redRef.current.width, redRef.current.height);
-    redCtx.drawImage(img, 0, 0, redRef.current.width, redRef.current.height);
+    greenCtx.clearRect(0, 0, green.current.width, green.current.height);
+    greenCtx.drawImage(img, 0, 0, green.current.width, green.current.height);
+    blueCtx.clearRect(0, 0, blue.current.width, blue.current.height);
+    blueCtx.drawImage(img, 0, 0, blue.current.width, blue.current.height);
+    redCtx.clearRect(0, 0, red.current.width, red.current.height);
+    redCtx.drawImage(img, 0, 0, red.current.width, red.current.height);
 
     if (results.multiFaceLandmarks) {
       const landmarks = results.multiFaceLandmarks[0];
@@ -353,7 +349,7 @@ function App() {
 
     return null;
   };
-  
+
   const isPersistent = (pose) => {
     const maxCounter = 50; // Adjust this value according to your requirements
     if (pose === globalData.globalPreviousPose) {
@@ -364,6 +360,23 @@ function App() {
     }
     // Return true if the counter is greater than a certain time, false otherwise
     return globalData.globalPoseCounter > maxCounter;
+  };
+  const drawEyeLines = (x1, y1, x2, y2) => {
+    // Set the line color and width of line 1 then line 2
+    const ctx = canvasCtx;
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(10, y1);
+    ctx.lineTo(canvasWidth - 10, y1);
+    ctx.stroke();
+
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(10, y2);
+    ctx.lineTo(canvasWidth - 10, y2);
+    ctx.stroke();
   };
 
   return (
