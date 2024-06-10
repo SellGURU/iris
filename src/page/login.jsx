@@ -6,10 +6,10 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   let [isAccess, saveIsAccess] = useLocalStorage("access");
-//   console.log("isAccess l", isAccess);
+  //   console.log("isAccess l", isAccess);
   const onSubmit = (data) => {
-    if (data.userName && data.password) {
-        saveIsAccess("true");
+    if (data.userName === "amin" && data.password === "1") {
+      saveIsAccess("true");
       navigate("/");
     }
   };
