@@ -1,12 +1,19 @@
 import { useRoutes } from "react-router-dom";
 import { route } from "./routes";
 import "./App.css";
+import { HashRouter } from "react-router-dom";
 
 function App() {
-  const routes = useRoutes(route);
-
-
-  return <div>{routes}</div>;
+  return (
+    <>
+      <HashRouter basename="/test">
+        <AppRoutes />
+      </HashRouter>
+    </>
+  );
 }
-
+const AppRoutes = () => {
+  const routes = useRoutes(route);
+  return routes;
+};
 export default App;

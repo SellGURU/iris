@@ -396,6 +396,12 @@ const FaceMesh = () => {
   return (
     <>
       <button
+        className="px-3 py-2 bg-red-600 text-white mb-10 rounded-md"
+        onClick={() => saveAccess("false")}
+      >
+        logout
+      </button>
+      <button
         type="submit"
         class="img-source-selector-cam mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
         id="select-camera-btn0"
