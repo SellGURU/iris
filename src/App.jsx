@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./App.css";
 import { useRef } from "react";
 import { CustCamera, CustFaceMash } from "./utility/camera";
-import { FACEMESH_TESSELATION } from "@mediapipe/face_mesh";
+// import { FACEMESH_TESSELATION } from "@mediapipe/face_mesh";
 import { useState } from "react";
 function App() {
   let cameraStarted = false;
