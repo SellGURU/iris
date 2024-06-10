@@ -1,11 +1,17 @@
 import { useForm } from "react-hook-form";
 import { redirect, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  let [isAccess, saveIsAccess] = useLocalStorage("access");
+//   console.log("isAccess l", isAccess);
   const onSubmit = (data) => {
-    if (data.userName && data.password) navigate("/");
+    if (data.userName && data.password) {
+        saveIsAccess("true");
+      navigate("/");
+    }
   };
   return (
     <div className="w-full h-screen flex items-center justify-center">
