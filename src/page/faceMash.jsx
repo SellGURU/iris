@@ -5,6 +5,7 @@ import { CustCamera, CustFaceMash } from "../utility/camera";
 import { useState } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const FaceMesh = () => {
   let [isAccess, saveAccess] = useLocalStorage("access", "false");
@@ -393,11 +394,16 @@ const FaceMesh = () => {
     ctx.stroke();
   };
   useEffect(() => {}, [globalData]);
+  const navigate = useNavigate();
+
   return (
     <>
       <button
         className="px-3 py-2 absolute top-10 left-10 bg-red-600 text-white mb-10 rounded-md"
-        onClick={() => saveAccess("false")}
+        onClick={() => {
+          navigate("/login");
+          saveAccess("false");
+        }}
       >
         logout
       </button>
