@@ -409,12 +409,20 @@ const FaceMesh = () => {
       </button>
       <button
         type="submit"
-        class="img-source-selector-cam mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+        className="img-source-selector-cam mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
         id="select-camera-btn0"
         onClick={() => img_source_select()}
       >
         Use Camera
       </button>
+     <button
+        type="submit"
+        className="img-source-selector-cam mx-4 mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+        id="select-camera-btn0"
+        onClick={() => navigate('/faceMashFile')}
+      >
+        Use image
+      </button>      
       <div className="flex items-center justify-center gap-10">
         <div className="w-[420px] h-[420px] all-poses-auto mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
           <video
@@ -426,9 +434,9 @@ const FaceMesh = () => {
             autoPlay
           ></video>
         </div>
-        <div class="w-[420px] h-[420px] all-poses-auto mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
+        <div className="w-[420px] h-[420px] all-poses-auto mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-grid">
           <canvas
-            class="cam-preview"
+            className="cam-preview"
             id="output2"
             ref={out2}
             width="420px"
@@ -437,13 +445,13 @@ const FaceMesh = () => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-10">
-        <div class="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
+        <div className="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
           <canvas id="green" ref={green} height="300px" width="300px"></canvas>
         </div>
-        <div class="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
+        <div className="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
           <canvas id="blue" ref={blue} height="300px" width="300px"></canvas>
         </div>
-        <div class="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
+        <div className="all-poses-auto mdl-color--black mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid">
           <canvas id="red" ref={red} height="300px" width="300px"></canvas>
         </div>
       </div>
