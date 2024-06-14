@@ -1,70 +1,76 @@
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "@uidotdev/usehooks";
+import {useForm} from "react-hook-form";
+import {Link, useNavigate} from "react-router-dom";
+import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+import ButtonPrimary from "../components/button/buttonPrimery.jsx";
+import {useState} from "react";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
-  let [,saveIsAccess] = useLocalStorage("access");
-  //   console.log("isAccess l", isAccess);
-  const onSubmit = (data) => {
-    // if (data.userName === "admin" && data.password === "1823648364") {
-    //   saveIsAccess("true");
-    //   navigate("/");
-    // }
+    const {register, handleSubmit} = useForm();
+    const navigate = useNavigate();
+    const [isPanding, setIsPanding] = useState(false);
+    let [, saveIsAccess] = useLocalStorage("token");
+    //   console.log("isAccess l", isAccess);
+    const onSubmit = (data) => {
+        // if (data.userName === "admin" && data.password === "1823648364") {
+        //   saveIsAccess("true");
+        //   navigate("/");
+        // }
 
+    setIsPanding(true)
+        try {
+            Auth.login({
+                username: data.userName,
+                password: data.password
+            }).then((res) => {
+                if (res.data.access_token) {
+                    setIsPanding(false)
+                    saveIsAccess(res.data.access_token);
+                    navigate("/facemash");
 
+                }
+            })
+        } catch (error) {
+            console.log("error")
+        }
 
-    
-    Auth.login({
-      username:data.userName,
-      password:data.password
-    }).then((res) => {
-      if(res.data.access_token){
-        saveIsAccess("true");
-        navigate("/");       
-        localStorage.setItem("token",res.data.access_token) 
-      }else{
-        toast.error(res.data)
-      }
-    })
-  };
-  return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <form
-        action=""
-        className="w-fit px-10 py-5 bg-slate-500 gap-5 rounded-xl border flex flex-col"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className="grid">
-          <label className="flex mb-2 text-base text-gray-300" htmlFor="userName">userName:</label>
-          <input
-            id="userName"
-            className="w-64 pl-3 py-2 rounded-md border"
-            {...register("userName")}
-            type="text"
-          />
+    };
+    return (
+        <div className="w-full h-screen flex items-center text-[#2E2E2E] justify-center">
+            <img src={"image/Rectangle 34625016.svg"}/>
+            <form
+                action=""
+                className="w-fit px-10 py-5 gap-5  flex flex-col"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
+                <div className="grid">
+                    <label className="flex mb-2 text-xl font-medium" htmlFor="userName">User Name:</label>
+                    <input
+                        id="userName"
+                        className="w-64 pl-3 py-2 border-b"
+                        {...register("userName")}
+                        type="text"
+                    />
+                </div>
+                <div className="grid">
+                    <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
+                    <input
+                        id="password"
+                        className="w-64 pl-3 py-2  border-b"
+                        {...register("password")}
+                        type="password"
+                    />
+                </div>
+                <ButtonPrimary disabled={isPanding}>LOG IN</ButtonPrimary>
+                <p className="  text-sm font-normal">
+                    Don’t have an account?
+                    <Link to="/signup"> Sign up</Link>
+                </p>
+            </form>
         </div>
-        <div className="grid">
-           <label className="flex mb-2 text-base text-gray-300" htmlFor="password">userName:</label>
-          <input
-            id="password"
-            className="w-64 pl-3 py-2 rounded-md border"
-            {...register("password")}
-            type="password"
-          />
-        </div>
-        <button
-          type="submit"
-          className="py-2 px-4 text-white  rounded-lg bg-green-500"
-        >
-          login
-        </button>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default Login;

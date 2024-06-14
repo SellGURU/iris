@@ -3,6 +3,8 @@ import {route} from "./routes";
 import "./App.css";
 import {HashRouter} from "react-router-dom";
 import HeaderRegister from "./layout/header.jsx";
+import {useState} from "react";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 function App() {
     return (

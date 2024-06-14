@@ -6,21 +6,27 @@ import SignUp from "./page/signup";
 import GetCode from "./page/signup/getCode";
 import GetNumberPage from "./page/signup/getNumberPage";
 import WelcomePage from "./page/signup/welcome";
+import {IsLogin} from "./utility/isLogin.jsx";
 
 export const route = [
-  { path: "", element: <FaceMesh /> },
-  { path: "/login", element: <Login /> },
-  { path: "/login2", element: <Login2 /> },
-  { path: "/faceMashFile", element: <UploadFaceMash /> },
-  { path: "/faceCamera", element: <FaceMesh /> },
-  {
-    path: "/SignUp",
-    element: <SignUp />,
-    children: [
-      { path: "", element: <WelcomePage /> },
-      { path: "getnumber", element: <GetNumberPage /> },
-      { path: "getnumber", element: <GetCode /> },
-      { path: "test", element: <h1>test</h1> },
-    ],
-  },
+    {path: "/login", element: <Login/>},
+    {path: "/login2", element: <Login2/>},
+    {
+        path: "/faceMashFile", element:
+            <IsLogin><UploadFaceMash/></IsLogin>
+    },
+    {
+        path: "/faceCamera", element:
+            <IsLogin><FaceMesh/></IsLogin>
+    },
+    {
+        path: "/SignUp",
+        element: <SignUp/>,
+        children: [
+            {path: "", element: <WelcomePage/>},
+            {path: "getnumber", element: <GetNumberPage/>},
+            {path: "getnumber", element: <GetCode/>},
+            {path: "test", element: <h1>test</h1>},
+        ],
+    },
 ];
