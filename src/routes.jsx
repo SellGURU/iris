@@ -9,10 +9,10 @@ import WelcomePage from "./page/signup/welcome";
 
 export const route = [
   { path: "", element: <FaceMesh /> },
-  { path: "", element: <FaceMesh /> },
   { path: "/login", element: <Login /> },
   { path: "/login2", element: <Login2 /> },
   { path: "/faceMashFile", element: <UploadFaceMash /> },
+  { path: "/faceCamera", element: <FaceMesh /> },
   {
     path: "/SignUp",
     element: <SignUp />,
