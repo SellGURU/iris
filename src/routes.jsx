@@ -16,7 +16,7 @@ export const route = [
             <IsLogin><UploadFaceMash/></IsLogin>
     },
     {
-        path: "/faceCamera", element:
+        path: "/facecamera", element:
             <IsLogin><FaceMesh/></IsLogin>
     },
     {

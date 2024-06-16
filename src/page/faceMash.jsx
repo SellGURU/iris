@@ -11,6 +11,7 @@ import ButtonSecondary from "../components/button/buttonSecondary.jsx";
 import {IoCameraOutline} from "react-icons/io5";
 import {LuUploadCloud} from "react-icons/lu";
 import {TabsCustume} from "../components/tabs/tabs.jsx";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 const FaceMesh = () => {
 
@@ -132,15 +133,13 @@ const FaceMesh = () => {
                     globalDataNotSent = true;
                 }
             }
-
+            // console.log("globalBlueLandmarks:",globalBlueLandmarks)
+            // console.log("globalRedLandmarks:",globalRedLandmarks)
+            // console.log("globalGreenLandmarks:",globalGreenLandmarks)
             if (pose === "left" && persistent) {
-                globalData.globalBlueLandmarks = landmarks;
-                // setGlobalData((lastItem) => ({
-                //   ...lastItem,
-                //   globalBlueLandmarks: landmarks,
-                // }));
-                const blueImage = results.image;
-                tmpcontext.drawImage(blueImage, 0, 0);
+                globalBlueLandmarks = landmarks;
+                // const blueImage = results.image;
+                // tmpcontext.drawImage(blueImage, 0, 0);
                 blueLandmarksData = JSON.stringify(landmarks);
                 const blueImageData = tmpCanvasRef.current.toDataURL("image/png");
 
@@ -172,21 +171,22 @@ const FaceMesh = () => {
                     globalDataNotSent = true;
                 }
             }
-
-            // if (pose === "finished" && persistent) {
-            //   if (
-            //     globalGreenLandmarks &&
-            //     globalBlueLandmarks &&
-            //     globalRedLandmarks &&
-            //     globalDataNotSent
-            //   ) {
-            //     console.log(
-            //       "All image and landmarks data have been captured and sent for processing."
-            //     );
-            //     globalDataNotSent = false;
-            //     globalFinished = true;
-            //   }
-            // }
+            // console.log(pose === "finished" && persistent)
+            if (pose === "finished" && persistent) {
+                // console.log("if start")
+                if (
+                    globalGreenLandmarks &&
+                    globalBlueLandmarks &&
+                    globalRedLandmarks
+                ) {
+                    console.log(
+                        "All image and landmarks data have been captured and sent for processing."
+                    );
+                    console.log("finish")
+                    analyzeFacemesh();
+                    globalFinished = true;
+                }
+            }
 
             results.multiFaceLandmarks.forEach((landmarks) => {
                 drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {
@@ -369,12 +369,117 @@ const FaceMesh = () => {
         ctx.stroke();
     };
     const navigate = useNavigate();
+    const [access, setAccess] = useLocalStorage("token");
+
+    function analyzeFacemesh() {
+        let poseText = "frontal";
+
+        // let currentAnalysisResultCard;
+        let currentFaceSymmetryResult;
+        // let imageResultRow;
+        let innerBottom;
+        let innerTop;
+        let results;
+        let imageAnalysisResultCard;
+
+
+        console.log("Sending files for analysis");
+
+        let xhr = new XMLHttpRequest();
+        xhr.open(
+            "POST",
+            // `${loc.protocol}//${loc.hostname}:${loc.port}/api/v1/analyze`,
+            "https://iris.ainexus.com/api/v1/analyze",
+            true
+        );
+        xhr.setRequestHeader(
+            "Authorization",
+            `Bearer ${access}`
+        );
+        xhr.onerror = function () {
+            console.log(xhr.responseText);
+        };
+        xhr.onload = function (e) {
+            if (this.readyState === 4) {
+                console.log("Response received from server");
+                let response = JSON.parse(e.target.responseText);
+                console.log(response);
+
+                if (e.target.status !== 200) {
+                    console.log("Error with request, please try another image or contact support if the problem persists.")
+                } else {
+                    // results.classList.remove("hidden");
+                    // resultsRow.classList.remove('hidden');
+                    // imageResultRow.classList.remove('hidden');
+                    // currentAnalysisResultCard.classList.remove('hidden');
+                    // imageAnalysisResultCard.classList.remove("hidden");
+                    // el("reset-all-poses").classList.remove("hidden");
+
+                    if (response.success == true) {
+                        if (response.html_file != null) {
+                            let resultHtmldiv = document.createElement("div");
+                            let resultLink = document.createElement("a");
+                            resultHtmldiv.appendChild(resultLink);
+                            resultLink.innerHTML = "View Detailed Report";
+                            resultLink.href = "golden_ratios/" + response["request_id"];
+                            resultLink.target = "_blank";
+                            resultHtmldiv.innerHTML += "&emsp;";
+                            let resultHtml = document.createElement("a");
+                            resultHtmldiv.appendChild(resultHtml);
+                            resultHtml.innerHTML = "Download Report HTML File";
+                            resultHtml.href = "data:text/html;base64," + response["html_file"];
+                            resultHtml.download = "golden_ratios.html";
+                            resultHtmldiv.innerHTML += "<br><br>";
+                            innerTop.append(resultHtmldiv);
+                        }
+                        if (response["montage"] != null) {
+                            let resultMontage = document.createElement("img");
+                            innerBottom.appendChild(resultMontage);
+                            resultMontage.style.width = "100%";
+                            //resultMontage.src = "static/images/montage.jpg?" + now;
+                            resultMontage.src =
+                                "data:image/png;base64," + response["base64montage"];
+                        } else {
+                            let baseFaceDeteced = response["baseFaceDetected"];
+                            let currFaceDeteced = response["currFaceDetected"];
+                            if (baseFaceDeteced == false || currFaceDeteced == false) {
+                                innerBottom.innerHTML =
+                                    "A face could not be detected in your baseline image, please try another image.";
+                            }
+                        }
+                        // if (response.pose_analysis.length > 0) {
+                        //     response.pose_analysis.forEach((pose) => {
+                        //         if (pose.current_image_analysis != null) {
+                        //         currentFaceSymmetryResult.innerHTML += "<strong>SYMMETRY:</strong>";
+                        //         currentFaceSymmetryResult.innerHTML += "<pre style='font-family: Helvetica,Arial,sans-serif'>" + JSON.stringify(pose.current_image_analysis.symmetry, null, 2) + "</pre>";
+                        //         currentFaceSymmetryResult.innerHTML += "<strong>MEASUREMENTS:</strong>";
+                        //         currentFaceSymmetryResult.innerHTML += "<pre style='font-family: Helvetica,Arial,sans-serif'>" + JSON.stringify(pose.current_image_analysis.measurements, null, 2) + "</pre>";
+                        //         } else {
+                        //             currentFaceSymmetryResult.innerHTML += '<strong>POSE: ' + pose.pose_name.split("_").join(" ").toUpperCase() + "</strong><br><br>";
+                        //             currentFaceSymmetryResult.innerHTML += "Unable to detect a face in the image provided. Please choose another image."
+                        //         }
+                        //     });
+                        // }
+                    }
+                    console.log("All done");
+                }
+            }
+        };
+        let fileData = new FormData();
+        fileData.append('error_threshold', 10);
+        fileData.append("gender", "masculine");
+        fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
+        fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
+        fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
+        xhr.send(fileData);
+    }
 
     return (<>
         <div className={"h-[110px]"}></div>
         <div className={"flex flex-col gap-4 pb-5 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
-            <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis.</p>
+            <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to
+                ensure a complete analysis.</p>
             <TabsCustume/>
         </div>
         <div className={"flex items-center justify-center gap-4"}>
@@ -412,7 +517,7 @@ const FaceMesh = () => {
                     <div className={"w-full p-4"}><h1>1.Front</h1></div>
 
 
-                    <canvas id="green" ref={green} height="174px" width="230px"
+                    <canvas id="green" ref={green} height="130px" width="230px"
                             className={`${isCameraStart ? "" : "hidden"}`}></canvas>
                     <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
                 </div>
@@ -420,7 +525,7 @@ const FaceMesh = () => {
                     className="all-poses-auto flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                     <div className={"w-full p-4"}><h1>2.Left</h1></div>
 
-                    <canvas id="blue" ref={blue} height="174px" width="230px"
+                    <canvas id="blue" ref={blue} height="130px" width="230px"
                             className={` ${isCameraStart ? "" : "hidden"}  `}></canvas>
                     <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
@@ -430,7 +535,7 @@ const FaceMesh = () => {
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
                     <canvas className={` ${isCameraStart ? "" : "hidden"}  border-10`} id="red" ref={red}
-                            height="174px" width="230px"></canvas>
+                            height="130px" width="230px"></canvas>
                     <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
                 </div>

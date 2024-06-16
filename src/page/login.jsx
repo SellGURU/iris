@@ -27,7 +27,7 @@ const Login = () => {
                 if (res.data.access_token) {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
-                    navigate("/facemash");
+                    navigate("/facecamera");
 
                 }
             })
