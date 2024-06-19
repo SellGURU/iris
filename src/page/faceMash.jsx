@@ -66,7 +66,13 @@ const FaceMesh = () => {
         greenCtx = green.current.getContext("2d");
         redCtx = red.current.getContext("2d");
         blueCtx = blue.current.getContext("2d");
+
         tmpcontext = tmpCanvasRef.current.getContext("2d");
+        // size of image that captured in final result
+        tmpCanvasRef.current.height=420
+        tmpCanvasRef.current.width=420
+
+        console.log(tmpCanvasRef.current.height)
     }, []);
     const onResultsFaceMesh = (results) => {
         let landmarks;
@@ -139,8 +145,8 @@ const FaceMesh = () => {
             // console.log("globalGreenLandmarks:",globalGreenLandmarks)
             if (pose === "left" && persistent) {
                 globalBlueLandmarks = landmarks;
-                // const blueImage = results.image;
-                // tmpcontext.drawImage(blueImage, 0, 0);
+                const blueImage = results.image;
+                tmpcontext.drawImage(blueImage, 0, 0);
                 blueLandmarksData = JSON.stringify(landmarks);
                 const blueImageData = tmpCanvasRef.current.toDataURL("image/png");
 
@@ -161,7 +167,7 @@ const FaceMesh = () => {
                 tmpcontext.drawImage(redImage, 0, 0);
                 redLandmarksData = JSON.stringify(landmarks);
                 const redImageData = tmpCanvasRef.current.toDataURL("image/png");
-
+                console.log(redImageData)
                 globalRedImages.unshift(redImageData);
                 globalReds.unshift(redImageData);
 
@@ -488,13 +494,13 @@ const FaceMesh = () => {
 
             <div className="flex items-center justify-center gap-10 rounded-md">
                 <div
-                    className="hidden all-poses-auto ">
+                    className=" all-poses-auto ">
                     <video
-                        className="cam-preview video-cam z-10"
+                        className="cam-preview video-cam hidden"
                         id="video-cam"
                         ref={video2}
-                        width="1660px"
-                        height="1550px"
+                        width="660px"
+                        height="550px"
                         autoPlay
                     ></video>
                 </div>
