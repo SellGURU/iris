@@ -40,6 +40,7 @@ const FaceMesh = () => {
         blueLandmarksData: null,
         redLandmarksData: null,
         globalPreviousPose: 0,
+        IsglobalDataSend:false
     });
     let {
         globalGreenLandmarks,
@@ -56,6 +57,7 @@ const FaceMesh = () => {
         greenLandmarksData,
         blueLandmarksData,
         redLandmarksData,
+
     } = globalData;
     let canvasCtx, canvasWidth, canvasHeight, greenCtx, redCtx, blueCtx, tmpcontext = null;
     let persistent = false;
@@ -137,7 +139,8 @@ const FaceMesh = () => {
                 if (globalGreens.length > 1) globalGreens.pop();
 
                 if (globalGreenImages.length === 5) {
-                    globalDataNotSent = true;
+                    globalDataNotSent= true;
+
                 }
             }
             // console.log("globalBlueLandmarks:",globalBlueLandmarks)
@@ -149,6 +152,7 @@ const FaceMesh = () => {
                 tmpcontext.drawImage(blueImage, 0, 0);
                 blueLandmarksData = JSON.stringify(landmarks);
                 const blueImageData = tmpCanvasRef.current.toDataURL("image/png");
+                console.log(blueImageData)
 
                 globalBlueImages.unshift(blueImageData);
                 globalBlues.unshift(blueImageData);
@@ -167,7 +171,6 @@ const FaceMesh = () => {
                 tmpcontext.drawImage(redImage, 0, 0);
                 redLandmarksData = JSON.stringify(landmarks);
                 const redImageData = tmpCanvasRef.current.toDataURL("image/png");
-                console.log(redImageData)
                 globalRedImages.unshift(redImageData);
                 globalReds.unshift(redImageData);
 
@@ -184,12 +187,14 @@ const FaceMesh = () => {
                 if (
                     globalGreenLandmarks &&
                     globalBlueLandmarks &&
-                    globalRedLandmarks
+                    globalRedLandmarks &&
+                    !globalData.IsglobalDataSend
                 ) {
                     console.log(
                         "All image and landmarks data have been captured and sent for processing."
                     );
                     console.log("finish")
+                    globalData.IsglobalDataSend = true;
                     analyzeFacemesh();
                     globalFinished = true;
                 }
