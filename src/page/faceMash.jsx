@@ -12,6 +12,7 @@ import {IoCameraOutline} from "react-icons/io5";
 import {LuUploadCloud} from "react-icons/lu";
 import {TabsCustume} from "../components/tabs/tabs.jsx";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {toast} from "react-toastify";
 
 const FaceMesh = () => {
 
@@ -404,6 +405,7 @@ const FaceMesh = () => {
             "https://iris.ainexus.com/api/v1/analyze",
             true
         );
+        toast.loading("pending ...")
         xhr.setRequestHeader(
             "Authorization",
             `Bearer ${access}`
@@ -418,6 +420,11 @@ const FaceMesh = () => {
                 console.log(response);
 
                 if (e.target.status !== 200) {
+                    toast.dismiss()
+                    if (e.target.status == 401){
+                        toast.loading("Unauthorized...")
+
+                    }
                     console.log("Error with request, please try another image or contact support if the problem persists.")
                 } else {
                     // results.classList.remove("hidden");
@@ -426,7 +433,6 @@ const FaceMesh = () => {
                     // currentAnalysisResultCard.classList.remove('hidden');
                     // imageAnalysisResultCard.classList.remove("hidden");
                     // el("reset-all-poses").classList.remove("hidden");
-                    console.log("response.success",response.success)
                     if (response.success == true) {
                         if (response.html_file != null) {
                             let resultHtmldiv = document.createElement("div");
@@ -473,6 +479,7 @@ const FaceMesh = () => {
                         //     });
                         // }
                     }
+                    toast.dismiss()
                     console.log("All done");
                 }
             }
