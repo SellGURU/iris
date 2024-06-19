@@ -11,6 +11,7 @@ import {IsLogin} from "./utility/isLogin.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/login2", element: <Login2/>},
+
     {
         path: "/faceMashFile", element:
             <IsLogin><UploadFaceMash/></IsLogin>

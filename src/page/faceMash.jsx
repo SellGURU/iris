@@ -119,13 +119,14 @@ const FaceMesh = () => {
             if (pose === "frontal" && persistent) {
                 globalGreenLandmarks = landmarks;
                 const greenImage = results.image;
-                // tmpcontext.drawImage(greenImage, 0, 0);
+
+                tmpcontext.drawImage(greenImage, 0, 0);
                 greenLandmarksData = JSON.stringify(landmarks);
                 const greenImageData = tmpCanvasRef.current.toDataURL("image/png");
 
                 globalGreenImages.unshift(greenImageData);
                 globalGreens.unshift(greenImageData);
-
+                console.log(globalGreenImages[0])
                 if (globalGreenImages.length > 5) globalGreenImages.pop();
                 if (globalGreens.length > 1) globalGreens.pop();
 
@@ -172,7 +173,7 @@ const FaceMesh = () => {
                 }
             }
             // console.log(pose === "finished" && persistent)
-            if (pose === "finished" && persistent) {
+            // if (pose === "finished" && persistent) {
                 // console.log("if start")
                 if (
                     globalGreenLandmarks &&
@@ -186,7 +187,7 @@ const FaceMesh = () => {
                     analyzeFacemesh();
                     globalFinished = true;
                 }
-            }
+            // }
 
             results.multiFaceLandmarks.forEach((landmarks) => {
                 drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {
@@ -414,7 +415,7 @@ const FaceMesh = () => {
                     // currentAnalysisResultCard.classList.remove('hidden');
                     // imageAnalysisResultCard.classList.remove("hidden");
                     // el("reset-all-poses").classList.remove("hidden");
-
+                    console.log("response.success",response.success)
                     if (response.success == true) {
                         if (response.html_file != null) {
                             let resultHtmldiv = document.createElement("div");
@@ -468,6 +469,7 @@ const FaceMesh = () => {
         let fileData = new FormData();
         fileData.append('error_threshold', 10);
         fileData.append("gender", "masculine");
+        console.log(globalGreenImages[0])
         fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
         fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
         fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
@@ -480,19 +482,19 @@ const FaceMesh = () => {
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
             <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to
                 ensure a complete analysis.</p>
-            <TabsCustume/>
+            {/*<TabsCustume/>*/}
         </div>
         <div className={"flex items-center justify-center gap-4"}>
 
             <div className="flex items-center justify-center gap-10 rounded-md">
                 <div
-                    className="w-[420px] h-[420px] hidden all-poses-auto ">
+                    className="hidden all-poses-auto ">
                     <video
-                        className="cam-preview video-cam hidden"
+                        className="cam-preview video-cam z-10"
                         id="video-cam"
                         ref={video2}
-                        width="420px"
-                        height="420px"
+                        width="1660px"
+                        height="1550px"
                         autoPlay
                     ></video>
                 </div>

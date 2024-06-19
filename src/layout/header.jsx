@@ -4,7 +4,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 const HeaderRegister = () => {
   return (
-    <div className=" fixed py-3 top-0 left-0 w-full bg-inherit flex items-center justify-between px-5">
+    <div className=" static py-3 top-0 left-0 w-full bg-inherit flex items-center justify-between px-5">
       <IoMenu className="w-10 h-10 text-[#544BF0]" />
       <img src="/image/login/IRIS.svg" alt="logo" />
       <ButtonPrimary onClick={() => console.log("account")}>
