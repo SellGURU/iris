@@ -13,6 +13,8 @@ import {LuUploadCloud} from "react-icons/lu";
 import {TabsCustume} from "../components/tabs/tabs.jsx";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
+import {AiFillCheckSquare} from "react-icons/ai";
+import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 
 const FaceMesh = () => {
 
@@ -128,6 +130,7 @@ const FaceMesh = () => {
 
             if (pose === "frontal" && persistent) {
                 globalGreenLandmarks = landmarks;
+                setGlobalData((prv) => ({...prv, globalGreenLandmarks: landmarks}))
                 const greenImage = results.image;
 
                 tmpcontext.drawImage(greenImage, 0, 0);
@@ -148,6 +151,8 @@ const FaceMesh = () => {
 
             if (pose === "left" && persistent) {
                 globalBlueLandmarks = landmarks;
+                setGlobalData((prv) => ({...prv, globalBlueLandmarks: landmarks}))
+
                 const blueImage = results.image;
 
                 tmpcontext.drawImage(blueImage, 0, 0);
@@ -167,6 +172,8 @@ const FaceMesh = () => {
 
             if (pose === "right" && persistent) {
                 globalRedLandmarks = landmarks;
+                setGlobalData((prv) => ({...prv, globalRedLandmarks: landmarks}))
+
                 const redImage = results.image;
                 tmpcontext.drawImage(redImage, 0, 0);
                 redLandmarksData = JSON.stringify(landmarks);
@@ -181,9 +188,7 @@ const FaceMesh = () => {
                     globalDataNotSent = true;
                 }
             }
-            // console.log(pose === "finished" && persistent)
-            // if (pose === "finished" && persistent) {
-            // console.log("if start")
+
             if (
                 globalGreenLandmarks &&
                 globalBlueLandmarks &&
@@ -486,13 +491,19 @@ const FaceMesh = () => {
         let fileData = new FormData();
         fileData.append('error_threshold', 10);
         fileData.append("gender", "masculine");
-        console.log(globalGreenImages[0])
         fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
         fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
         fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
         xhr.send(fileData);
     }
 
+    const calculatePercent = () => {
+        let percent = 0
+        if (globalBlueLandmarks) percent += 33
+        if (globalRedLandmarks) percent += 33
+        if (globalGreenLandmarks) percent += 33
+        return percent
+    }
     return (<>
         <div className={"flex flex-col gap-4 pb-5 pt-10 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
@@ -514,8 +525,9 @@ const FaceMesh = () => {
                         autoPlay
                     ></video>
                 </div>
+
                 <div
-                    className=" all-poses-auto bg-[#D9D9D9]  w-[660px] h-[550px] rounded-md flex items-center justify-center ">
+                    className=" all-poses-auto bg-[#D9D9D9] relative  w-[660px] h-[550px] rounded-md flex items-center justify-center ">
 
                     <img src={"/image/cameraPluse.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                          alt="camera"/>
@@ -526,35 +538,44 @@ const FaceMesh = () => {
                         width="660px"
                         height="550px"
                     ></canvas>
-
+                    {isCameraStart &&
+                        <ProgressbarCustom Percent={calculatePercent()} className={"absolute w-5/6 bottom-6"}/>}
                 </div>
             </div>
             <div className="flex items-center justify-center flex-col gap-4">
                 <div
-                    className="all-poses-auto flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    className="all-poses-auto relative flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                     <div className={"w-full p-4"}><h1>1.Front</h1></div>
+                    {globalGreenLandmarks &&
+                        <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
                     <canvas id="green" ref={green} height="130px" width="230px"
                             className={`${isCameraStart ? "" : "hidden"}`}></canvas>
+
                     <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
                 </div>
                 <div
-                    className="all-poses-auto flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    className="all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                     <div className={"w-full p-4"}><h1>2.Left</h1></div>
+                    {globalBlueLandmarks &&
+                        <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
                     <canvas id="blue" ref={blue} height="130px" width="230px"
                             className={` ${isCameraStart ? "" : "hidden"}  `}></canvas>
-                    <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
+                    <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
+
 
                 </div>
                 <div
-                    className="all-poses-auto flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    className="all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    {globalRedLandmarks &&
+                        <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
                     <canvas className={` ${isCameraStart ? "" : "hidden"}  border-10`} id="red" ref={red}
                             height="130px" width="230px"></canvas>
-                    <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
+                    <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
                 </div>
             </div>
