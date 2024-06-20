@@ -21,6 +21,10 @@ const FaceMesh = () => {
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
 
+    const tabs = [
+        { state: "multi", label: "All poses" },
+        { state: "one", label: "One pose" }
+    ];
     // let cameraStarted = false;
     const video2 = useRef("video-cam");
     const out2 = useRef();
@@ -529,7 +533,7 @@ const FaceMesh = () => {
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
             <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to
                 ensure a complete analysis.</p>
-            <TabsCustume setState={setStatus} state={status}/>
+            <TabsCustume tabs={tabs} setState={setStatus} state={status}/>
         </div>
         <div className={"flex items-center justify-center gap-4"}>
 

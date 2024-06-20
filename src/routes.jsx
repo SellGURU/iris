@@ -8,6 +8,7 @@ import GetNumberPage from "./page/signup/getNumberPage";
 import WelcomePage from "./page/signup/welcome";
 import {IsLogin} from "./utility/isLogin.jsx";
 import { Tour } from "./page/tour/Tour.jsx";
+import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -16,6 +17,10 @@ export const route = [
     {
         path: "/faceMashFile", element:
             <IsLogin><UploadFaceMash/></IsLogin>
+    },
+    {
+        path: "/PatientInformation", element:
+           <PatientInformation/>
     },
     {
         path: "/facecamera", element:
