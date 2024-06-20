@@ -7,6 +7,7 @@ import GetCode from "./page/signup/getCode";
 import GetNumberPage from "./page/signup/getNumberPage";
 import WelcomePage from "./page/signup/welcome";
 import {IsLogin} from "./utility/isLogin.jsx";
+import { Tour } from "./page/tour/Tour.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -19,6 +20,10 @@ export const route = [
     {
         path: "/facecamera", element:
             <IsLogin><FaceMesh/></IsLogin>
+    },
+    {
+        path: "/tour",
+        element : <Tour/>
     },
     {
         path: "/SignUp",

@@ -37,7 +37,7 @@ const Login = () => {
 
     };
     return (
-        <div className="w-full h-screen flex items-center text-[#2E2E2E] justify-center">
+        <div className="w-full h-screen flex items-center text-[#2E2E2E]   justify-center">
             <img src={"image/Rectangle 34625016.svg"}/>
             <form
                 action=""
