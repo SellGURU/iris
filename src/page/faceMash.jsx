@@ -19,6 +19,7 @@ import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 const FaceMesh = () => {
 
     const [isCameraStart, setIsCameraStart] = useState(false);
+    const [status, setStatus] = useState("one")
 
     // let cameraStarted = false;
     const video2 = useRef("video-cam");
@@ -79,6 +80,9 @@ const FaceMesh = () => {
 
         console.log(tmpCanvasRef.current.height)
     }, []);
+    // useEffect(() => {
+    //     setGlobalData((prv) => ({...prv, globalDataNotSent: !globalDataNotSent}));
+    // }, [status]);
     const onResultsFaceMesh = (results) => {
         let landmarks;
         const img = document.createElement("img");
@@ -189,21 +193,34 @@ const FaceMesh = () => {
                 }
             }
 
-            if (
-                globalGreenLandmarks &&
-                globalBlueLandmarks &&
-                globalRedLandmarks &&
-                !globalData.IsglobalDataSend
-            ) {
-                console.log(
-                    "All image and landmarks data have been captured and sent for processing."
-                );
-                console.log("finish")
-                globalData.IsglobalDataSend = true;
-                analyzeFacemesh();
-                globalFinished = true;
+            if (status === "one") {
+                if (
+                    globalGreenLandmarks && !globalData.IsglobalDataSend) {
+                    console.log(
+                        "All image and landmarks data have been captured and sent for processing."
+                    );
+                    console.log("finish")
+                    globalData.IsglobalDataSend = true;
+                    analyzeFacemesh();
+                    globalFinished = true;
+                }
+            } else {
+                if (
+                    globalGreenLandmarks &&
+                    globalBlueLandmarks &&
+                    globalRedLandmarks &&
+                    !globalData.IsglobalDataSend
+                ) {
+                    console.log(
+                        "All image and landmarks data have been captured and sent for processing."
+                    );
+                    console.log("finish")
+                    globalData.IsglobalDataSend = true;
+                    analyzeFacemesh();
+                    globalFinished = true;
+                }
             }
-            // }
+
 
             results.multiFaceLandmarks.forEach((landmarks) => {
                 drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {
@@ -492,8 +509,11 @@ const FaceMesh = () => {
         fileData.append('error_threshold', 10);
         fileData.append("gender", "masculine");
         fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
-        fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
-        fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
+        if (status === "multi") {
+            fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
+            fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
+        }
+
         xhr.send(fileData);
     }
 
@@ -509,7 +529,7 @@ const FaceMesh = () => {
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
             <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to
                 ensure a complete analysis.</p>
-            {/*<TabsCustume/>*/}
+            <TabsCustume setState={setStatus} state={status}/>
         </div>
         <div className={"flex items-center justify-center gap-4"}>
 
@@ -542,7 +562,7 @@ const FaceMesh = () => {
                         <ProgressbarCustom Percent={calculatePercent()} className={"absolute w-5/6 bottom-6"}/>}
                 </div>
             </div>
-            <div className="flex items-center justify-center flex-col gap-4">
+            <div className="flex items-center justify-start h-[550px] flex-col gap-4">
                 <div
                     className="all-poses-auto relative flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                     <div className={"w-full p-4"}><h1>1.Front</h1></div>
@@ -556,7 +576,7 @@ const FaceMesh = () => {
                     <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
                 </div>
                 <div
-                    className="all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                     <div className={"w-full p-4"}><h1>2.Left</h1></div>
                     {globalBlueLandmarks &&
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -568,7 +588,7 @@ const FaceMesh = () => {
 
                 </div>
                 <div
-                    className="all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                    className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                     {globalRedLandmarks &&
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
