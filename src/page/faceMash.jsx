@@ -41,7 +41,7 @@ const FaceMesh = () => {
         blueLandmarksData: null,
         redLandmarksData: null,
         globalPreviousPose: 0,
-        IsglobalDataSend:false
+        IsglobalDataSend: false
     });
     let {
         globalGreenLandmarks,
@@ -72,8 +72,8 @@ const FaceMesh = () => {
 
         tmpcontext = tmpCanvasRef.current.getContext("2d");
         // size of image that captured in final result
-        tmpCanvasRef.current.height=420
-        tmpCanvasRef.current.width=420
+        tmpCanvasRef.current.height = 420
+        tmpCanvasRef.current.width = 420
 
         console.log(tmpCanvasRef.current.height)
     }, []);
@@ -88,6 +88,7 @@ const FaceMesh = () => {
         canvasCtx.drawImage(results.image, 0, 0, out2.current.width, out2.current.height);
         greenCtx.clearRect(0, 0, green.current.width, green.current.height);
         greenCtx.drawImage(img, 0, 0, green.current.width, green.current.height);
+
         blueCtx.clearRect(0, 0, blue.current.width, blue.current.height);
         blueCtx.drawImage(img, 0, 0, blue.current.width, blue.current.height);
         redCtx.clearRect(0, 0, red.current.width, red.current.height);
@@ -135,25 +136,23 @@ const FaceMesh = () => {
 
                 globalGreenImages.unshift(greenImageData);
                 globalGreens.unshift(greenImageData);
-                console.log(globalGreenImages[0])
+
                 if (globalGreenImages.length > 5) globalGreenImages.pop();
                 if (globalGreens.length > 1) globalGreens.pop();
 
                 if (globalGreenImages.length === 5) {
-                    globalDataNotSent= true;
+                    globalDataNotSent = true;
 
                 }
             }
-            // console.log("globalBlueLandmarks:",globalBlueLandmarks)
-            // console.log("globalRedLandmarks:",globalRedLandmarks)
-            // console.log("globalGreenLandmarks:",globalGreenLandmarks)
+
             if (pose === "left" && persistent) {
                 globalBlueLandmarks = landmarks;
                 const blueImage = results.image;
+
                 tmpcontext.drawImage(blueImage, 0, 0);
                 blueLandmarksData = JSON.stringify(landmarks);
                 const blueImageData = tmpCanvasRef.current.toDataURL("image/png");
-                console.log(blueImageData)
 
                 globalBlueImages.unshift(blueImageData);
                 globalBlues.unshift(blueImageData);
@@ -184,21 +183,21 @@ const FaceMesh = () => {
             }
             // console.log(pose === "finished" && persistent)
             // if (pose === "finished" && persistent) {
-                // console.log("if start")
-                if (
-                    globalGreenLandmarks &&
-                    globalBlueLandmarks &&
-                    globalRedLandmarks &&
-                    !globalData.IsglobalDataSend
-                ) {
-                    console.log(
-                        "All image and landmarks data have been captured and sent for processing."
-                    );
-                    console.log("finish")
-                    globalData.IsglobalDataSend = true;
-                    analyzeFacemesh();
-                    globalFinished = true;
-                }
+            // console.log("if start")
+            if (
+                globalGreenLandmarks &&
+                globalBlueLandmarks &&
+                globalRedLandmarks &&
+                !globalData.IsglobalDataSend
+            ) {
+                console.log(
+                    "All image and landmarks data have been captured and sent for processing."
+                );
+                console.log("finish")
+                globalData.IsglobalDataSend = true;
+                analyzeFacemesh();
+                globalFinished = true;
+            }
             // }
 
             results.multiFaceLandmarks.forEach((landmarks) => {
@@ -214,7 +213,7 @@ const FaceMesh = () => {
             });
         }
 
-        if (globalData.globalBlueLandmarks) {
+        if (globalBlueLandmarks) {
             landmarks = JSON.parse(blueLandmarksData);
             drawConnectors(blueCtx, landmarks, FACEMESH_TESSELATION, {
                 color: "#64B4FF", lineWidth: 1,
@@ -382,7 +381,7 @@ const FaceMesh = () => {
         ctx.stroke();
     };
     const navigate = useNavigate();
-    const [access, setAccess] = useLocalStorage("token");
+    const [access] = useLocalStorage("token");
 
     function analyzeFacemesh() {
         let poseText = "frontal";
@@ -421,7 +420,7 @@ const FaceMesh = () => {
 
                 if (e.target.status !== 200) {
                     toast.dismiss()
-                    if (e.target.status == 401){
+                    if (e.target.status == 401) {
                         toast.loading("Unauthorized...")
 
                     }
@@ -495,8 +494,7 @@ const FaceMesh = () => {
     }
 
     return (<>
-        <div className={"h-[110px]"}></div>
-        <div className={"flex flex-col gap-4 pb-5 items-center justify-center"}>
+        <div className={"flex flex-col gap-4 pb-5 pt-10 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
             <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right, and front to
                 ensure a complete analysis.</p>
