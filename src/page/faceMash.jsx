@@ -83,7 +83,8 @@ const FaceMesh = () => {
         tmpCanvasRef.current.width = 420
     });
     useEffect(() => {
-        if(isCameraStart) start()
+        // in first load didn't start the camera
+        if (isCameraStart) start()
         setGlobalData({
             globalGreenLandmarks: null,
             globalBlueLandmarks: null,
@@ -102,6 +103,7 @@ const FaceMesh = () => {
             globalPreviousPose: 0,
             IsglobalDataSend: false
         })
+        globalFinished = false
     }, [status]);
     const onResultsFaceMesh = (results) => {
         let landmarks;
@@ -215,7 +217,7 @@ const FaceMesh = () => {
 
             if (status === "one") {
                 if (
-                    globalGreenLandmarks && !globalData.IsglobalDataSend) {
+                    globalGreenLandmarks && !globalFinished) {
                     console.log(
                         "one"
                     );
@@ -229,7 +231,7 @@ const FaceMesh = () => {
                     globalGreenLandmarks &&
                     globalBlueLandmarks &&
                     globalRedLandmarks &&
-                    !globalData.IsglobalDataSend
+                    !globalFinished
                 ) {
                     console.log(
                         "All image and landmarks data have been captured and sent for processing."
@@ -562,7 +564,7 @@ const FaceMesh = () => {
                 ensure a complete analysis.</p>
 
 
-                <TabsCustume tabs={tabs} setState={setStatus} state={status}/>
+            <TabsCustume tabs={tabs} setState={setStatus} state={status}/>
         </div>
         <div className={"flex items-center justify-center gap-4"}>
 
