@@ -84,6 +84,24 @@ const FaceMesh = () => {
     }, [status]);
     useEffect(() => {
         start()
+        setGlobalData({
+            globalGreenLandmarks: null,
+            globalBlueLandmarks: null,
+            globalRedLandmarks: null,
+            globalGreenImages: [],
+            globalBlueImages: [],
+            globalRedImages: [],
+            globalGreens: [],
+            globalBlues: [],
+            globalReds: [],
+            globalDataNotSent: false,
+            globalFinished: false,
+            greenLandmarksData: null,
+            blueLandmarksData: null,
+            redLandmarksData: null,
+            globalPreviousPose: 0,
+            IsglobalDataSend: false
+        })
     }, [status]);
     const onResultsFaceMesh = (results) => {
         let landmarks;
@@ -524,11 +542,14 @@ const FaceMesh = () => {
     }
 
     const calculatePercent = () => {
-        console.log(status)
         let percent = 0
-        if (globalBlueLandmarks) percent += 33
-        if (globalRedLandmarks) percent += 33
-        if (globalGreenLandmarks) percent += 33
+        if (status === "one") {
+            if (globalGreenLandmarks) percent = 100
+        } else {
+            if (globalBlueLandmarks) percent += 33
+            if (globalRedLandmarks) percent += 33
+            if (globalGreenLandmarks) percent += 33
+        }
         return percent
     }
 
