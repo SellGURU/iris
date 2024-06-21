@@ -621,7 +621,7 @@ const FaceMesh = () => {
                         upload picture
                     </ButtonSecondary>
                 </div>
-                <Link className={" text-base font-normal text-[#544BF0] "} to={"#"}>
+                <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
                     How to scan face?
                 </Link>
             </div>

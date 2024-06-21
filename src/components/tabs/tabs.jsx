@@ -1,9 +1,7 @@
-import React from 'react';
-
-export const TabsCustume = ({ state, setState, tabs,className="" }) => {
+export const TabsCustume = ({state, setState, tabs, className = ""}) => {
     return (
         <>
-            <div className={"w-[300px]  "+className}>
+            <div className={"w-[300px]  " + className}>
                 <div className=" shadow rounded-full h-10 mt-4 flex p-1 relative items-center">
                     {tabs.map((tab, index) => (
                         <div

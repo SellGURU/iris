@@ -17,10 +17,13 @@ function App() {
 const AppRoutes = () => {
     const routes = useRoutes(route);
     return (
-        <>
-            <HeaderRegister/>
+        <div className={"pb-16"}>
+            <div className={""}>
+
+                <HeaderRegister/>
+            </div>
             {routes}
-        </>
+        </div>
     );
 };
 export default App;
