@@ -81,7 +81,7 @@ const FaceMesh = () => {
         // size of image that captured in final result
         tmpCanvasRef.current.height = 420
         tmpCanvasRef.current.width = 420
-    }, [status]);
+    });
     useEffect(() => {
         start()
         setGlobalData({
@@ -217,7 +217,7 @@ const FaceMesh = () => {
                 if (
                     globalGreenLandmarks && !globalData.IsglobalDataSend) {
                     console.log(
-                        "All image and landmarks data have been captured and sent for processing."
+                        "one"
                     );
                     console.log("finish")
                     globalData.IsglobalDataSend = true;
@@ -318,10 +318,9 @@ const FaceMesh = () => {
                 track.stop();
             });
         }
-        console.log(video2);
         const camera = CustCamera(video2.current, faceMesh);
         if (video2) camera.start();
-        // cameraStarted = true;
+
     }
 
     const check_pose = (landmark) => {
@@ -493,7 +492,7 @@ const FaceMesh = () => {
                             resultHtml.href = "data:text/html;base64," + response["html_file"];
                             resultHtml.download = "golden_ratios.html";
                             resultHtmldiv.innerHTML += "<br><br>";
-                            innerTop.append(resultHtmldiv);
+                            // innerTop.append(resultHtmldiv);
                         }
                         if (response["montage"] != null) {
                             let resultMontage = document.createElement("img");
@@ -536,6 +535,9 @@ const FaceMesh = () => {
         if (status === "multi") {
             fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
             fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
+        } else {
+            fileData.append("left_side_current", "");
+            fileData.append("right_side_current", "");
         }
 
         xhr.send(fileData);
