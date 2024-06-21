@@ -22,8 +22,8 @@ const FaceMesh = () => {
     const [status, setStatus] = useState("one")
 
     const tabs = [
-        { state: "multi", label: "All poses" },
-        { state: "one", label: "One pose" }
+        {state: "multi", label: "All poses"},
+        {state: "one", label: "One pose"}
     ];
     // let cameraStarted = false;
     const video2 = useRef("video-cam");
@@ -81,12 +81,10 @@ const FaceMesh = () => {
         // size of image that captured in final result
         tmpCanvasRef.current.height = 420
         tmpCanvasRef.current.width = 420
-
-        console.log(tmpCanvasRef.current.height)
-    }, []);
-    // useEffect(() => {
-    //     setGlobalData((prv) => ({...prv, globalDataNotSent: !globalDataNotSent}));
-    // }, [status]);
+    }, [status]);
+    useEffect(() => {
+        start()
+    }, [status]);
     const onResultsFaceMesh = (results) => {
         let landmarks;
         const img = document.createElement("img");
@@ -275,7 +273,7 @@ const FaceMesh = () => {
     const faceMesh = CustFaceMash();
     faceMesh.onResults(onResultsFaceMesh);
 
-    function img_source_select() {
+    const img_source_select = () => {
         setIsCameraStart(true)
         const constraints = {
             video: {
@@ -296,7 +294,7 @@ const FaceMesh = () => {
         start();
     }
 
-    function start() {
+    const start = () => {
         if (window.stream) {
             window.stream.getTracks().forEach((track) => {
                 track.stop();
@@ -373,8 +371,12 @@ const FaceMesh = () => {
         // console.log(pitchAngle >= 0.1 && pitchAngle <= 0.2);
         // Pitch angle between 0.10 and 0.15 for blue (looking right)
         // Pitch angle between -0.10 and -0.20 for red (looking left)
-        if (pitchAngle >= 0.1 && pitchAngle <= 0.2) return "left";
-        if (pitchAngle >= -0.2 && pitchAngle <= -0.1) return "right";
+
+        if (status === "multi") {
+            if (pitchAngle >= 0.1 && pitchAngle <= 0.2) return "left";
+            if (pitchAngle >= -0.2 && pitchAngle <= -0.1) return "right";
+
+        }
 
         return null;
     };
@@ -409,7 +411,7 @@ const FaceMesh = () => {
     const navigate = useNavigate();
     const [access] = useLocalStorage("token");
 
-    function analyzeFacemesh() {
+    const analyzeFacemesh = () => {
         let poseText = "frontal";
 
         // let currentAnalysisResultCard;
@@ -522,12 +524,14 @@ const FaceMesh = () => {
     }
 
     const calculatePercent = () => {
+        console.log(status)
         let percent = 0
         if (globalBlueLandmarks) percent += 33
         if (globalRedLandmarks) percent += 33
         if (globalGreenLandmarks) percent += 33
         return percent
     }
+
     return (<>
         <div className={"flex flex-col gap-4 pb-5 pt-10 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
