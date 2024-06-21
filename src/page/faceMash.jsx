@@ -452,6 +452,7 @@ const FaceMesh = () => {
             true
         );
         toast.loading("pending ...")
+
         xhr.setRequestHeader(
             "Authorization",
             `Bearer ${access}`
@@ -480,6 +481,9 @@ const FaceMesh = () => {
                     // imageAnalysisResultCard.classList.remove("hidden");
                     // el("reset-all-poses").classList.remove("hidden");
                     if (response.success == true) {
+                        toast.dismiss()
+
+                        toast.success("successes ...")
                         if (response.html_file != null) {
                             let resultHtmldiv = document.createElement("div");
                             let resultLink = document.createElement("a");
@@ -525,7 +529,6 @@ const FaceMesh = () => {
                         //     });
                         // }
                     }
-                    toast.dismiss()
                     console.log("All done");
                 }
             }
