@@ -21,15 +21,15 @@ export const PatientInformation = () => {
                 and
                 typesetting industry. Lorem Ipsum has been t</p>
             <form className={"flex items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
-                <CardPatient className={"w-[272px] h-[118px] border"}>
+                <CardPatient className={"w-[270px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Patient ID</h1>
                     <input {...register("id")} className={"border-b w-full "} placeholder={"number"}/>
                 </CardPatient>
-                <CardPatient className={"w-[272px] h-[118px]"}>
+                <CardPatient className={"w-[270px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Sex Selector</h1>
-                    <TabsCustume className={"w-full rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+                    <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
                 </CardPatient>
-                <CardPatient className={"w-[272px] h-[118px] border"}>
+                <CardPatient className={"w-[270px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Error Threshold (%)</h1>
                     <input {...register("numberError")} type={"range"} min={0} max={10}
                            className={"border-b w-full bg-[#544BF0]"}
