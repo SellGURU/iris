@@ -13,7 +13,7 @@ import {
 export const PatientInformation = () => {
     const [gender, setGender] = useState("male");
     const tabs = [
-        {state: "male", label: "Male"},
+        {state: "masculine", label: "Male"},
         {state: "female", label: "Female"},
     ]
     const dispatch = useDispatch();

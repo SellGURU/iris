@@ -15,8 +15,12 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
+import {useSelector} from "react-redux";
+import {selectErrorThreshold, selectPatientID, selectSex} from "../store/PatientInformationStore.js";
 
 const FaceMesh = () => {
+    const sex = useSelector(selectSex);
+    const errorThreshold = useSelector(selectErrorThreshold);
 
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
@@ -432,7 +436,6 @@ const FaceMesh = () => {
 
     const analyzeFacemesh = () => {
         let poseText = "frontal";
-
         // let currentAnalysisResultCard;
         let currentFaceSymmetryResult;
         // let imageResultRow;
@@ -440,7 +443,6 @@ const FaceMesh = () => {
         let innerTop;
         let results;
         let imageAnalysisResultCard;
-
 
         console.log("Sending files for analysis");
 
@@ -478,7 +480,7 @@ const FaceMesh = () => {
                 resultHtml.href = 'data:text/html;base64,' + response['html_file'];
                 resultHtml.download = 'golden_ratios.html';
                 resultHtmldiv.innerHTML += "<br><br>";
-                result.append(resultHtmldiv);    
+                result.append(resultHtmldiv);
 
                 if (e.target.status !== 200) {
                     toast.dismiss()
@@ -548,8 +550,8 @@ const FaceMesh = () => {
             }
         };
         let fileData = new FormData();
-        fileData.append('error_threshold', 10);
-        fileData.append("gender", "masculine");
+        fileData.append('error_threshold', errorThreshold);
+        fileData.append("gender", sex);
         fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
         if (status === "multi") {
             fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
@@ -561,7 +563,6 @@ const FaceMesh = () => {
 
         xhr.send(fileData);
     }
-
     const calculatePercent = () => {
         let percent = 0
         if (status === "one") {
@@ -665,6 +666,7 @@ const FaceMesh = () => {
                         upload picture
                     </ButtonSecondary>
                 </div>
+                <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary>
                 <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
                     How to scan face?
                 </Link>
@@ -672,8 +674,6 @@ const FaceMesh = () => {
             </div>
             <div className={"flex items-center justify-center flex-col gap-5 w-[229px]"}></div>
         </div>
-
-
     </>);
 };
 
