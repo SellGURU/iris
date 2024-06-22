@@ -464,7 +464,21 @@ const FaceMesh = () => {
             if (this.readyState === 4) {
                 console.log("Response received from server");
                 let response = JSON.parse(e.target.responseText);
-                console.log(response);
+                let result = document.getElementById("result")
+                let resultHtmldiv = document.createElement('div');
+                let resultLink = document.createElement('a');
+                resultHtmldiv.appendChild(resultLink);
+                // resultLink.innerHTML = "View Detailed Report";
+                resultLink.href = 'golden_ratios/' + response["request_id"];
+                resultLink.target = "_blank";
+                resultHtmldiv.innerHTML += "&emsp;";
+                let resultHtml = document.createElement('a');
+                resultHtmldiv.appendChild(resultHtml);
+                resultHtml.innerHTML = "Download Report HTML File";
+                resultHtml.href = 'data:text/html;base64,' + response['html_file'];
+                resultHtml.download = 'golden_ratios.html';
+                resultHtmldiv.innerHTML += "<br><br>";
+                result.append(resultHtmldiv);    
 
                 if (e.target.status !== 200) {
                     toast.dismiss()
@@ -654,6 +668,7 @@ const FaceMesh = () => {
                 <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
                     How to scan face?
                 </Link>
+                <div id="result"></div>
             </div>
             <div className={"flex items-center justify-center flex-col gap-5 w-[229px]"}></div>
         </div>
