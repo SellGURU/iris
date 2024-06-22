@@ -11,6 +11,7 @@ function App() {
         <>
             <HashRouter basename="/">
                 <AppRoutes/>
+                <ToastContainer></ToastContainer>
             </HashRouter>
         </>
     );
