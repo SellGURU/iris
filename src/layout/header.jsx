@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <div>
             <div
-                className=" sticky top-0 left-0 mb-5 shadow-md h-[10vh]  w-full bg-inherit flex items-center justify-between px-5">
+                className=" sticky top-0 left-0 mb-5 shadow-md h-[10vh] z-50  w-full bg-white flex items-center justify-between px-5">
                 <IoMenu className="w-10 h-10 text-[#544BF0]"/>
                 <img src="/image/login/IRIS.svg" alt="logo"/>
                 <ButtonPrimary onClick={() => console.log("account")}>
