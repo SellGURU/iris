@@ -8,9 +8,11 @@ import {
     selectErrorThreshold, selectPatientID,
     selectSex, setErrorThreshold, setPatientID, setSex,
 } from "../../store/PatientInformationStore.js";
+import {useNavigation} from "react-router-dom";
 
 
 export const PatientInformation = () => {
+    const  navigation = useNavigation();
     const [gender, setGender] = useState("male");
     const tabs = [
         {state: "masculine", label: "Male"},
@@ -27,6 +29,7 @@ export const PatientInformation = () => {
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(data.numberError))
         // console.log(sex)
+        navigation("/facecamera")
     }
     return (
         <div className={"flex items-center justify-center flex-col gap-5 mt-10"}>

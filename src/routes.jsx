@@ -10,12 +10,19 @@ import {IsLogin} from "./utility/isLogin.jsx";
 import {Tour} from "./page/tour/Tour.jsx";
 import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 import Header from "./layout/header.jsx";
+import {MainPage} from "./page/mainPage.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/login2", element: <Login2/>},
     {
         path: "/", element: <Header/>, children: [
+            {
+                path: "", element:
+                    <IsLogin>
+                        <MainPage/>
+                    </IsLogin>
+            },
             {
                 path: "faceMashFile", element:
                     <IsLogin>

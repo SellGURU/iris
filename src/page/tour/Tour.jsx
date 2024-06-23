@@ -73,7 +73,7 @@ export const Tour = () => {
                         text="Once the scan is finished, you can download the results as a PDF or share them with others."
                         image={tour5}
                         note="Note: You can also perform a new scan, and all records will be saved in your scan history."
-                        onNext={() => console.log("Finished")}
+                        onNext={() => navigate("/facecamera")}
                         onSkip={handleSkip}
                     />
                 );
