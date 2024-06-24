@@ -16,12 +16,13 @@ import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 import {useSelector} from "react-redux";
-import {selectErrorThreshold, selectPatientID, selectSex} from "../store/PatientInformationStore.js";
+import {selectErrorThreshold, selectPatientID, selectSex, setPdf, setPhoto} from "../store/PatientInformationStore.js";
+import {useDispatch} from "react-redux";
 
 const FaceMesh = () => {
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);
-
+    const dispatch = useDispatch();
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
 
@@ -116,8 +117,8 @@ const FaceMesh = () => {
         document.body.classList.add("loaded");
 
         canvasCtx.save();
-        canvasCtx.clearRect(0, 0, out2.current.width, out2.current.height);
-        canvasCtx.drawImage(results.image, 0, 0, out2.current.width, out2.current.height);
+        canvasCtx.clearRect(0, 0, out2.current?.width, out2.current?.height);
+        canvasCtx.drawImage(results.image, 0, 0, out2?.current?.width, out2?.current?.height);
         greenCtx.clearRect(0, 0, green.current.width, green.current.height);
         greenCtx.drawImage(img, 0, 0, green.current.width, green.current.height);
 
@@ -481,7 +482,10 @@ const FaceMesh = () => {
                 resultHtml.download = 'golden_ratios.html';
                 resultHtmldiv.innerHTML += "<br><br>";
                 result.append(resultHtmldiv);
-
+                
+                dispatch(setPdf('data:text/html;base64,' + response['html_file']))
+                dispatch(setPhoto(globalGreenImages[0]))
+                navigate('/result')
                 if (e.target.status !== 200) {
                     toast.dismiss()
                     if (e.target.status == 401) {
