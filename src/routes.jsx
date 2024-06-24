@@ -11,6 +11,7 @@ import {Tour} from "./page/tour/Tour.jsx";
 import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 import Header from "./layout/header.jsx";
 import {MainPage} from "./page/mainPage.jsx";
+import { Scan } from "./page/Scan/Scan.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -42,6 +43,10 @@ export const route = [
             {
                 path: "tour",
                 element: <Tour/>
+            },
+            {
+                path : "scan",
+                element : <Scan/>
             },
         ]
     },
