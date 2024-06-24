@@ -7,9 +7,9 @@ export const TabsCustume = ({state, setState, tabs, className = ""}) => {
                         <div
                             key={index}
                             className={`w-full flex justify-center ${state === tab.state ? "bg-[#544BF0] text-white" : ""} rounded-full h-full`}>
-                            <button onClick={() => setState(tab.state)}>
+                            <div className="flex items-center" onClick={() => setState(tab.state)}>
                                 {tab.label}
-                            </button>
+                            </div>
                         </div>
                     ))}
                 </div>
