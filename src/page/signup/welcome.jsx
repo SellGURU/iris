@@ -20,8 +20,8 @@ const WelcomePage = () => {
             Learn how we process your data in our Privacy Policy and Cookies
             Policy.
           </p>
-          <ButtonPrimary>create account</ButtonPrimary>
-          <ButtonSecondary>create account</ButtonSecondary>
+          <ButtonPrimary>Create Account</ButtonPrimary>
+          <ButtonSecondary> Log in</ButtonSecondary>
           <Link to={""} className=" text-[14px] font-normal text-[#544BF0]">
             Trouble signing in?
           </Link>
