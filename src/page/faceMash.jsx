@@ -122,6 +122,7 @@ const FaceMesh = () => {
             IsglobalDataSend: false
         })
         globalFinished = false
+        toast.dismiss()
     }, [status]);
     const onResultsFaceMesh = (results) => {
         let landmarks;
@@ -254,7 +255,9 @@ const FaceMesh = () => {
 
             if (status === "one") {
                 if (
-                    globalGreenLandmarks && !globalFinished) {
+                    globalGreenLandmarks &&
+                    globalGreenImages
+                    && !globalFinished) {
                     console.log(
                         "one"
                     );
@@ -266,7 +269,10 @@ const FaceMesh = () => {
             } else {
                 if (
                     globalGreenLandmarks &&
+                    globalGreenImages &&
                     globalBlueLandmarks &&
+                    globalBlueImages &&
+                    globalRedImages &&
                     globalRedLandmarks &&
                     !globalFinished
                 ) {

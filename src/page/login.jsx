@@ -44,7 +44,7 @@ const Login = () => {
                 if (res.data.access_token) {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
-                    navigate("/facecamera");
+                    navigate("/");
                     toast.dismiss()
                 }else {
                     toast.error(res.data)
@@ -63,8 +63,7 @@ const Login = () => {
             </div>
             <div className="w-full h-[90vh] flex items-center text-[#2E2E2E]   justify-center">
                 <img src={"image/Rectangle 34625016.svg"}/>
-                <form
-                    action=""
+                <div
                     className="w-fit px-10 py-5 gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
@@ -102,7 +101,7 @@ const Login = () => {
                         Don’t have an account?
                         <Link to="/signup"> Sign up</Link>
                     </p>
-                </form>
+                </div>
             </div>
 
         </div>
