@@ -27,7 +27,7 @@ export const PatienCard = ({ index, patient }) => {
             <div className="font-medium text-[#606060]">Last Scan: {date}</div>
             <Link to="facecamera">
               <div className="flex items-center gap-1  text-[#544BF0]">
-                <img src="/public/fi_plus-blue.svg" alt="" />
+                <img src="fi_plus-blue.svg" alt="" />
                 New Scan
               </div>
             </Link>
@@ -42,11 +42,11 @@ export const PatienCard = ({ index, patient }) => {
 
             <div className="flex gap-3 items-center">
               <ButtonSecondary>
-                <img src="/public/fi_share-2.svg" alt="" />
+                <img src="fi_share-2.svg" alt="" />
                 Share
               </ButtonSecondary>
               <ButtonPrimary onClickHandler={download}>
-                <img src="/public/fi_download.svg" alt="" />
+                <img src="fi_download.svg" alt="" />
                 Download PDF
               </ButtonPrimary>
             </div>
