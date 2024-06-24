@@ -52,7 +52,7 @@ const Header = () => {
                             </div> */}
 
                             <div onClick={() => {
-                                navigate('/PatientInformation')
+                                // navigate('/PatientInformation')
                                 setShowSideBar(false)
                             }} className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
