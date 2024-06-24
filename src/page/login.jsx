@@ -69,7 +69,7 @@ const Login = () => {
                 >
                     <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
                     <div className="grid">
-                        <label className="flex mb-2 text-xl font-medium" htmlFor="userName">User Name:</label>
+                        <label className="flex mb-2 text-xl font-medium" htmlFor="userName">Username:</label>
                         <input
                             {...form.getFieldProps('userName')}
                             id="userName"
