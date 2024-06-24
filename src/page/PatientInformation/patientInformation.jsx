@@ -1,6 +1,7 @@
 import {CardPatient} from "./component/card.jsx";
 import {TabsCustume} from "../../components/tabs/tabs.jsx";
-import {useState} from "react";
+import {useState , useContext} from "react";
+import { PatientContext } from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,6 +16,7 @@ export const PatientInformation = () => {
     const  navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold,setthrehold] = useState(10)
+    const { addPatient } = useContext(PatientContext);
     const tabs = [
         {state: "masculine", label: "Male"},
         {state: "female", label: "Female"},
@@ -25,13 +27,22 @@ export const PatientInformation = () => {
     // const errorThreshold = useSelector(selectErrorThreshold);
 
     const {register,getValues, handleSubmit} = useForm()
-    const onSubmitData = (data) => {
+    const onSubmitData = (data ,e) => {
+        const patient = {
+            id: data.id,
+            date: new Date().toISOString().split('T')[0],
+            sex: gender,
+            errorThreshold: threhold,
+        };
+        e.preventDefault()
         dispatch(setSex(gender))
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(threhold))
+        addPatient(patient);
         // console.log(sex)
         navigate("/facecamera")
     }
+ 
     return (
         <div className={"flex items-center justify-center flex-col gap-5 mt-10"}>
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>

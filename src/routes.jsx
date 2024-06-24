@@ -20,9 +20,7 @@ export const route = [
         path: "/", element: <Header/>, children: [
             {
                 path: "", element:
-                    <IsLogin>
-                        <MainPage/>
-                    </IsLogin>
+                   <Scan/>
             },
             {
                 path: "faceMashFile", element:
@@ -44,10 +42,9 @@ export const route = [
                 path: "tour",
                 element: <Tour/>
             },
-            {
-                path : "scan",
-                element : <Scan/>
-            },
+            
+            
+          
         ]
     },
 
