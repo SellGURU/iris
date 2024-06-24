@@ -21,7 +21,9 @@ export const route = [
         path: "/", element: <Header/>, children: [
             {
                 path: "", element:
+                <isLogin>
                    <Scan/>
+                </isLogin>
             },
             {
                 path: "faceMashFile", element:
