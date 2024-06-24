@@ -31,18 +31,20 @@ const itemsPerPage = 5;
         <h1 className='text-4xl font-semibold text-[#1A1919] '>Scan History</h1>
         <p className='text-lg font-normal text-[#606060] max-w-xl text-center'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t</p>
       </div>
-      <div className='flex w-full justify-between'>
+      <div className="flex w-full justify-between">
+        <Link to="PatientInformation">
         <ButtonPrimary>
           <img src="/public/fi_plus.svg" alt="" />
           Add a new record
         </ButtonPrimary>
-        <SearchBox placeHolder="Search"/>
-        <div className='flex gap-8 items-center'>
-          <div className='flex items-center gap-3'>
+        </Link>
+        <SearchBox placeHolder="Search" />
+        <div className="flex gap-8 items-center">
+          <div className="flex items-center gap-3">
             <img src="/public/filter.svg" alt="" />
             Filter
           </div>
-          <div className='flex items-center gap-3'>
+          <div className="flex items-center gap-3">
             <img src="/public/sort.svg" alt="" />
             Sort By Date
           </div>
@@ -51,10 +53,23 @@ const itemsPerPage = 5;
       {currentItems.map((patient , i) => (
         <PatienCard index={i+1} key={patient.id} patient={patient} />
       ))}
-      <hr className='h-[1px] bg-gray-700 w-full my-5' />
-      <div className='w-full flex justify-center'> 
-      <Pageination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      </div>
+
+      <hr className="h-[1px] bg-gray-700 w-full my-5" />
+      {patientInfoArray.length == 0 ?(
+       <p className="text-center text-[#606060] font-medium">No records found. <Link to="facecamera"><span className="underline text-[#544BF0]">Go to face scanner page. </span></Link> </p>
+      )
+      :
+      (
+<div className="w-full flex justify-center">
+        <Pageination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
     </div>
   )
 }
+      
+    </div>
+  );
+};
