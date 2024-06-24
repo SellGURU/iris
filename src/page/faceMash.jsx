@@ -18,6 +18,7 @@ import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 import {useSelector} from "react-redux";
 import {selectErrorThreshold, selectPatientID, selectSex, setPdf, setPhoto} from "../store/PatientInformationStore.js";
 import {useDispatch} from "react-redux";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const FaceMesh = () => {
     const sex = useSelector(selectSex);
@@ -33,6 +34,9 @@ const FaceMesh = () => {
     // let cameraStarted = false;
     const video2 = useRef("video-cam");
     const out2 = useRef();
+    const out3 = useRef();
+    const out4 = useRef();
+    const out5 = useRef();
     const green = useRef();
     const blue = useRef();
     const red = useRef();
@@ -72,12 +76,21 @@ const FaceMesh = () => {
         redLandmarksData,
 
     } = globalData;
-    let canvasCtx, canvasWidth, canvasHeight, greenCtx, redCtx, blueCtx, tmpcontext = null;
+    let canvasCtx,canvasCtx3,canvasWidth3,canvasHeight3,canvasCtx4,canvasCtx5, canvasWidth, canvasHeight, greenCtx, redCtx, blueCtx, tmpcontext = null;
     let persistent = false;
     useEffect(() => {
         canvasCtx = out2.current.getContext("2d");
         canvasWidth = out2.current.width;
         canvasHeight = out2.current.height;
+
+
+        canvasCtx3 = out3.current.getContext("2d");
+        canvasWidth3 = out3.current.width;
+        canvasHeight3 = out3.current.height;
+
+        canvasCtx4 = out4.current.getContext("2d");
+        canvasCtx5 = out5.current.getContext("2d");
+        
         greenCtx = green.current.getContext("2d");
         redCtx = red.current.getContext("2d");
         blueCtx = blue.current.getContext("2d");
@@ -119,6 +132,25 @@ const FaceMesh = () => {
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, out2.current?.width, out2.current?.height);
         canvasCtx.drawImage(results.image, 0, 0, out2?.current?.width, out2?.current?.height);
+
+        if(!globalGreenLandmarks){
+            canvasCtx3.save();
+            canvasCtx3.clearRect(0, 0, out3.current?.width, out3.current?.height);
+            canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);        
+        }
+
+        if(!globalBlueLandmarks){
+            canvasCtx4.save();
+            canvasCtx4.clearRect(0, 0, out4.current?.width, out4.current?.height);
+            canvasCtx4.drawImage(results.image, 0, 0, out4?.current?.width, out4?.current?.height);        
+        }
+
+        if(!globalRedLandmarks){
+            canvasCtx5.save();
+            canvasCtx5.clearRect(0, 0, out5.current?.width, out5.current?.height);
+            canvasCtx5.drawImage(results.image, 0, 0, out5?.current?.width, out5?.current?.height);        
+        }
+
         greenCtx.clearRect(0, 0, green.current.width, green.current.height);
         greenCtx.drawImage(img, 0, 0, green.current.width, green.current.height);
 
@@ -404,8 +436,26 @@ const FaceMesh = () => {
 
         return null;
     };
-
+    const [startTimer,setStarttimer] = useState(false)
+    const [startTimer2,setStarttimer2] = useState(false)
+    const [startTimer3,setStarttimer3] = useState(false)
     const isPersistent = (pose) => {
+        if(globalData.globalPoseCounter <=3){
+            setStarttimer(false)
+            setStarttimer2(false)
+            setStarttimer3(false)
+        }        
+        if(globalData.globalPoseCounter == 4){
+            if(pose =='frontal'){
+                setStarttimer(true)
+            }
+            if(pose =='left'){
+                setStarttimer2(true)
+            }   
+            if(pose =='right'){
+                setStarttimer3(true)
+            }                      
+        }
         if (pose === globalData.globalPreviousPose) {
             globalData.globalPoseCounter++;
         } else {
@@ -627,9 +677,41 @@ const FaceMesh = () => {
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-                    <canvas id="green" ref={green} height="130px" width="230px"
-                            className={`${isCameraStart ? "" : "hidden"}`}></canvas>
+                    <div className="relative">
+                        {isCameraStart && startTimer && !globalGreenLandmarks?
+                            <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
+                                
+                                    <CountdownCircleTimer
+                                        isPlaying
+                                        size={100}
+                                        strokeWidth={6}
+                                        duration={5}
+                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                        colorsTime={[5, 3, 2, 0]}
+                                    >
+                                        {({ remainingTime }) => remainingTime}
+                                    </CountdownCircleTimer>
+                            </div>
+                        :
+                        undefined
+                        }
+                        {
+                            globalGreenLandmarks?
+                            <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
+                            :
+                            undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalGreenLandmarks ? "" : "hidden"}`}
+                            id="output3"
+                            ref={out3}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
 
+                        <canvas id="green" ref={green} height="130px" width="230px"
+                                className={`${isCameraStart ? "opacity-40 relative z-10" : "hidden"}`}></canvas>
+                    </div>
                     <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
                 </div>
                 <div
@@ -638,10 +720,45 @@ const FaceMesh = () => {
                     {globalBlueLandmarks &&
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
-                    <canvas id="blue" ref={blue} height="130px" width="230px"
-                            className={` ${isCameraStart ? "" : "hidden"}  `}></canvas>
-                    <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
+
+                    <div className="relative">
+                        {isCameraStart && startTimer2 && !globalBlueLandmarks?
+                            <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
+                                
+                                    <CountdownCircleTimer
+                                        isPlaying
+                                        size={100}
+                                        strokeWidth={6}
+                                        duration={5}
+                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                        colorsTime={[5, 3, 2, 0]}
+                                    >
+                                        {({ remainingTime }) => remainingTime}
+                                    </CountdownCircleTimer>
+                            </div>
+                        :
+                        undefined
+                        }
+                        {
+                            globalBlueLandmarks?
+                            <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
+                            :
+                            undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalBlueLandmarks ? "" : "hidden"}`}
+                            id="output4"
+                            ref={out4}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
+
+                        <canvas id="blue" ref={blue} height="130px" width="230px"
+                            className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
+                    </div>
+
+                    <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
                 </div>
                 <div
@@ -650,8 +767,43 @@ const FaceMesh = () => {
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
-                    <canvas className={` ${isCameraStart ? "" : "hidden"}  border-10`} id="red" ref={red}
-                            height="130px" width="230px"></canvas>
+                    <div className="relative">
+                        {isCameraStart && startTimer3 && !globalRedLandmarks?
+                            <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
+                                
+                                    <CountdownCircleTimer
+                                        isPlaying
+                                        size={100}
+                                        strokeWidth={6}
+                                        duration={5}
+                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                        colorsTime={[5, 3, 2, 0]}
+                                    >
+                                        {({ remainingTime }) => remainingTime}
+                                    </CountdownCircleTimer>
+                            </div>
+                        :
+                        undefined
+                        }
+                        {
+                            globalRedLandmarks?
+                            <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                            :
+                            undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalRedLandmarks ? "" : "hidden"}`}
+                            id="output5"
+                            ref={out5}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
+
+                        <canvas className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`} id="red" ref={red}
+                                height="130px" width="230px"></canvas>
+                    </div>
+
+
                     <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
                 </div>
