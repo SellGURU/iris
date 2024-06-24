@@ -5,9 +5,12 @@ import {Outlet, useNavigate} from "react-router-dom";
 import { createRef, useState } from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {toast} from "react-toastify";
+import Auth from "../api/Auth.js";
+import LogOut from "../api/Auth.js";
 
 const Header = () => {
-    const [, setToken] = useLocalStorage("token");
+    const [token, setToken] = useLocalStorage("token");
     const [showSideBar,setShowSideBar] =useState(false)
     const menuRef = createRef(null)
     useModalAutoClose({
@@ -17,6 +20,23 @@ const Header = () => {
         }
     })
     const navigate = useNavigate()
+    const cleanToken=()=>{
+        try {
+            Auth.LogOut({
+                "access_token": token
+            }).then((res) => {
+                if (res.data.state===200) {
+                    console.log(res.data)
+                }else {
+                    toast.error(res.data)
+                }
+            })
+        } catch (error) {
+            console.log("error")
+        }
+
+    };
+
     return (
         <div>
             <div
