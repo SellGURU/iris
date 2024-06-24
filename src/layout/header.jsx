@@ -4,8 +4,10 @@ import {AiOutlineUser} from "react-icons/ai";
 import {Outlet, useNavigate} from "react-router-dom";
 import { createRef, useState } from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 const Header = () => {
+    const [, setToken] = useLocalStorage("token");
     const [showSideBar,setShowSideBar] =useState(false)
     const menuRef = createRef(null)
     useModalAutoClose({
@@ -37,7 +39,7 @@ const Header = () => {
                         <div className="px-8 mt-[24px]">
                             <img onClick={() => {setShowSideBar(false)}} className="mb-[64px] cursor-pointer" src="./arrow-left.svg" alt="" />
                             <div onClick={() => {
-                                navigate('/facecamera')
+                                navigate('/')
                                 setShowSideBar(false)
                             }} className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt="" />
@@ -62,6 +64,7 @@ const Header = () => {
                             <div className="text-2xl">Help & Support</div>
                             </div>     
                             <div onClick={() => {
+                                setToken("")
                                 navigate('/login')
                                 setShowSideBar(false)
                             }} className="text-[#544BF0] text-[20px] cursor-pointer text-center mt-[64px]">Logout</div>                                                       
