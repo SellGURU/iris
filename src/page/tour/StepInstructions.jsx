@@ -18,7 +18,7 @@ export const StepInstructions = ({step , text,  image , note , onNext , onSkip }
  {note}
 </p>
 <div className="flex flex-col items-center justify-center gap-5">
-  <ButtonPrimary onClickHandler={onNext} className={'w-[200px]'}>Next</ButtonPrimary>
+  <ButtonPrimary onClickHandler={onNext} className={'w-[200px]'}>{step == 5 ? 'Get Started' : 'Next'}</ButtonPrimary>
   <ButtonSecondary onClickHandler={onSkip} ClassName="border-none text-sm">
     Skip the tour <img width={24} src={"/public/arrow-right.svg"} alt="" />
   </ButtonSecondary>
