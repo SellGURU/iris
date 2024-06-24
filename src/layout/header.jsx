@@ -22,7 +22,7 @@ const Header = () => {
     const navigate = useNavigate()
     const cleanToken=()=>{
         try {
-            Auth.LogOut({
+            Auth.logOut({
                 "access_token": token
             }).then((res) => {
                 if (res.data.state===200) {
@@ -84,6 +84,7 @@ const Header = () => {
                             <div className="text-2xl">Help & Support</div>
                             </div>     
                             <div onClick={() => {
+                                cleanToken()
                                 setToken("")
                                 navigate('/login')
                                 setShowSideBar(false)
