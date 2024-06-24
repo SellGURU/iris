@@ -1,9 +1,9 @@
 import {useState} from "react";
-import tour1 from "/public/image/tour-1.svg";
-import tour2 from "/public/image/tour-2.svg";
-import tour3 from "/public/image/tour-3.svg";
-import tour4 from "/public/image/tour-4.svg";
-import tour5 from "/public/image/tour-5.svg";
+import tour1 from "image/tour-1.svg";
+import tour2 from "image/tour-2.svg";
+import tour3 from "image/tour-3.svg";
+import tour4 from "image/tour-4.svg";
+import tour5 from "image/tour-5.svg";
 import {StepInstructions} from "./StepInstructions";
 import {useNavigate} from "react-router-dom";
 
