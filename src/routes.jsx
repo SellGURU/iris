@@ -12,6 +12,7 @@ import {PatientInformation} from "./page/PatientInformation/patientInformation.j
 import Header from "./layout/header.jsx";
 import {MainPage} from "./page/mainPage.jsx";
 import { Scan } from "./page/Scan/Scan.jsx";
+import FaceScaned from "./page/FaceScaned/index.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -29,6 +30,10 @@ export const route = [
                     <IsLogin>
                         <UploadFaceMash/>
                     </IsLogin>
+            },
+            {
+                path:'result',
+                element:<FaceScaned></FaceScaned>
             },
             {
                 path: "PatientInformation", element:
