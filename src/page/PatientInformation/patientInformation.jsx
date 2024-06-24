@@ -13,7 +13,8 @@ import {useNavigate} from "react-router-dom";
 
 export const PatientInformation = () => {
     const  navigate = useNavigate();
-    const [gender, setGender] = useState("male");
+    const [gender, setGender] = useState("masculine");
+    const [threhold,setthrehold] = useState(10)
     const tabs = [
         {state: "masculine", label: "Male"},
         {state: "female", label: "Female"},
@@ -23,11 +24,11 @@ export const PatientInformation = () => {
     // const patientID = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
 
-    const {register, handleSubmit} = useForm()
+    const {register,getValues, handleSubmit} = useForm()
     const onSubmitData = (data) => {
         dispatch(setSex(gender))
         dispatch(setPatientID(data.id))
-        dispatch(setErrorThreshold(data.numberError))
+        dispatch(setErrorThreshold(threhold))
         // console.log(sex)
         navigate("/facecamera")
     }
@@ -47,8 +48,10 @@ export const PatientInformation = () => {
                     <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
                 </CardPatient>
                 <CardPatient className={"w-[272px] h-[118px] border"}>
-                    <h1 className={" text-xl font-medium"}>Error Threshold (%)</h1>
-                    <input {...register("numberError")} type={"range"} min={0} max={10}
+                    <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>
+                    <input value={threhold} onChange={(e) => {
+                        setthrehold(e.target.value)
+                    }} type={"range"} min={0} max={100}
                            className={"border-b w-full bg-[#544BF0]"}
                            placeholder={"number"}/>
                 </CardPatient>

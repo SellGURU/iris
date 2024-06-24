@@ -666,7 +666,7 @@ const FaceMesh = () => {
                         upload picture
                     </ButtonSecondary>
                 </div>
-                <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary>
+                {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
                 <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
                     How to scan face?
                 </Link>
