@@ -3,13 +3,18 @@ import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { Link } from "react-router-dom";
 export const PatienCard = ({ index, patient }) => {
-  const { id, date } = patient;
-
+  const { id, date ,photo} = patient;
+  const download = () => {
+      // const downloadLink = document.createElement("a");
+      // downloadLink.href = pdf;
+      // downloadLink.download = 'download.html';
+      // downloadLink.click();
+  }
   return (
     <div className="flex gap-12 items-center justify-start shadow-lg border px-4 pt-2">
       <div className="flex items-start self-start gap-5 ">
         {index}
-        <img className="mt-3" src="/public/Rectangle 18044.svg" alt="" />
+        <img className="mt-3 w-[120px]" src={photo} alt="" />
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full gap-8 border-b py-3">
@@ -40,7 +45,7 @@ export const PatienCard = ({ index, patient }) => {
                 <img src="/public/fi_share-2.svg" alt="" />
                 Share
               </ButtonSecondary>
-              <ButtonPrimary>
+              <ButtonPrimary onClickHandler={download}>
                 <img src="/public/fi_download.svg" alt="" />
                 Download PDF
               </ButtonPrimary>

@@ -16,7 +16,7 @@ export const PatientInformation = () => {
     const  navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold,setthrehold] = useState(10)
-    const { addPatient } = useContext(PatientContext);
+    // const { addPatient } = useContext(PatientContext);
     const tabs = [
         {state: "masculine", label: "Male"},
         {state: "female", label: "Female"},
@@ -38,9 +38,9 @@ export const PatientInformation = () => {
         dispatch(setSex(gender))
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(threhold))
-        addPatient(patient);
+        // addPatient(patient);
         // console.log(sex)
-        navigate("/facecamera")
+        navigate("/tour")
     }
  
     return (
