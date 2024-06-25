@@ -2,11 +2,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 // import Analytics from "../api/analytics"
 import { useSelector } from "react-redux";
+import {useLocalStorage} from "@uidotdev/usehooks";
 import { selectSex,selectErrorThreshold } from "../store/PatientInformationStore";
 const UploadFaceMash = () => {
     const [resolvedFile,setResolvedFile] = useState('')
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);    
+    const [access] = useLocalStorage("token");
     const sendToAnalyze = () => {
         // let frontal_image_input = document.getElementById('upload-file');
         // console.log(frontal_image_input.files[0])
@@ -21,6 +23,7 @@ const UploadFaceMash = () => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST','https://iris.ainexus.com/api/v1/analyze', true);
         toast.loading("pending ...")
+        
         xhr.onload = function (e) {
             // console.log(e)
             let response = JSON.parse(e.target.responseText);
@@ -45,7 +48,11 @@ const UploadFaceMash = () => {
         fileData.append('error_threshold', errorThreshold);
         fileData.append('gender', sex);
         fileData.append('frontal_current', resolvedFile.split(',')[1]);
-        xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
+        xhr.setRequestHeader(
+                "Authorization",
+                `Bearer ${access}`
+            );    
+        // xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
         xhr.send(fileData);
     }
     return (
