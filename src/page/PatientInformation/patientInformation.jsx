@@ -20,7 +20,7 @@ export const PatientInformation = () => {
     // const { addPatient } = useContext(PatientContext);
     const tabs = [
         {state: "masculine", label: "Male"},
-        {state: "female", label: "Female"},
+        {state: "Feminine", label: "Female"},
     ]
     const dispatch = useDispatch();
     // const sex = useSelector(selectSex);
