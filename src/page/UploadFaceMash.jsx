@@ -42,8 +42,8 @@ const UploadFaceMash = () => {
             toast.dismiss()       
         }
         let fileData = new FormData();
-        fileData.append('error_threshold', 10);
-        fileData.append('gender', 'masculine');
+        fileData.append('error_threshold', errorThreshold);
+        fileData.append('gender', sex);
         fileData.append('frontal_current', resolvedFile.split(',')[1]);
         xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
         xhr.send(fileData);
