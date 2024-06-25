@@ -9,6 +9,15 @@ const UploadFaceMash = () => {
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);    
     const [access] = useLocalStorage("token");
+    const [resp,setResp] =useState('')
+    const download = () => {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = resp;
+        downloadLink.download = 'download.html';
+        downloadLink.click();
+        setResolvedFile("")
+        setResp("")
+    }
     const sendToAnalyze = () => {
         // let frontal_image_input = document.getElementById('upload-file');
         // console.log(frontal_image_input.files[0])
@@ -26,6 +35,7 @@ const UploadFaceMash = () => {
         
         xhr.onload = function (e) {
             // console.log(e)
+            
             let response = JSON.parse(e.target.responseText);
             let result = document.getElementById("result")
             let resultHtmldiv = document.createElement('div');
@@ -39,9 +49,10 @@ const UploadFaceMash = () => {
             resultHtmldiv.appendChild(resultHtml);
             resultHtml.innerHTML = "Download Report HTML File";
             resultHtml.href = 'data:text/html;base64,' + response['html_file'];
+            setResp('data:text/html;base64,' + response['html_file'])
             resultHtml.download = 'golden_ratios.html';
             resultHtmldiv.innerHTML += "<br><br>";
-            result.append(resultHtmldiv);    
+            // result.append(resultHtmldiv);    
             toast.dismiss()       
         }
         let fileData = new FormData();
@@ -90,7 +101,11 @@ const UploadFaceMash = () => {
                 </div>
             </div>
             <div className="w-full flex mt-5 justify-center">
-                <button onClick={sendToAnalyze} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 text-white">ANALYZE</button>
+                {  resp== ''?
+                <button onClick={sendToAnalyze} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 text-white">ANALYZE</button>    
+            :
+                <button onClick={download} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 text-white">Download File</button>    
+            }
             </div>
             {/* <input onChange={(e) => {
                 var file = e.target.files[0];
@@ -103,7 +118,7 @@ const UploadFaceMash = () => {
             }} id="upload-file" type="file"></input>
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={() =>sendToAnalyze()}>send</button>
             <div id="result"></div> */}
-            <div id="result"></div>
+            <div  id="result"></div>
         </>
     )
 }
