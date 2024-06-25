@@ -62,11 +62,12 @@ export const PatientInformation = () => {
                     <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>
                     <input value={threhold} onChange={(e) => {
                         setthrehold(e.target.value)
-                    }} type={"range"} min={0} max={10}
+                    }} type={"range"} min={0} max={100}
                            className={"border-b w-full bg-[#544BF0]"}
                            placeholder={"number"}/>
+
                 </CardPatient>
-                <ButtonPrimary type={"submit"}>save & continue</ButtonPrimary>
+                <ButtonPrimary type={"submit"}>Save & Continue</ButtonPrimary>
             </form>
         </div>
     )
