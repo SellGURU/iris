@@ -25,6 +25,7 @@ const Header = () => {
     })
     const navigate = useNavigate()
     const cleanToken=()=>{
+        localStorage.clear()
         try {
             Auth.logOut({
                 "access_token": token
@@ -92,7 +93,9 @@ const Header = () => {
                                 setToken("")
                                 navigate('/login')
                                 setShowSideBar(false)
-                            }} className="text-[#544BF0] text-[20px] cursor-pointer text-center mt-[64px]">Logout</div>                                                       
+                            }} className="text-[#544BF0] flex justify-center items-center text-[20px] cursor-pointer text-center mt-[64px]">
+                                <img className="mr-2" src="./logout.svg" alt="" />
+                                Logout</div>                                                       
                         </div>
                     </div>
                     <div className="w-full h-[300vh] top-0 bg-[#000000CC] absolute z-50"></div>            

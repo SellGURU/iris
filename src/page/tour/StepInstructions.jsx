@@ -28,7 +28,7 @@ export const StepInstructions = ({step , text,  image , note , onNext , onSkip }
     Skip the tour <img width={24} src={"/public/arrow-right.svg"} alt="" />
   </ButtonSecondary>
 </div>
-<div className=" self-start flex justify-start items-center gap-1">
+{/* <div className=" self-start flex justify-start items-center gap-1">
   <input
   checked={!isShowTour}
       onChange={()=>{
@@ -37,7 +37,7 @@ export const StepInstructions = ({step , text,  image , note , onNext , onSkip }
   <label className="text-sm font-normal" htmlFor="dont-show-again">
     Don’t show again.
   </label>
-</div>
+</div> */}
 </div>
   )
 }
