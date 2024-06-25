@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import ButtonSecondary from "../../components/button/buttonSecondary";
-
+import { useNavigate} from "react-router-dom";
 const WelcomePage = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{ backgroundImage: "" }}
@@ -21,7 +22,9 @@ const WelcomePage = () => {
             Policy.
           </p>
           <ButtonPrimary>Create Account</ButtonPrimary>
-          <ButtonSecondary> Log in</ButtonSecondary>
+          <ButtonSecondary onClickHandler={() => {
+            navigate("/login")
+          }}> Log in</ButtonSecondary>
           <Link to={""} className=" text-[14px] font-normal text-[#544BF0]">
             Trouble signing in?
           </Link>
