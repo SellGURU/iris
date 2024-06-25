@@ -10,6 +10,7 @@ import {
     selectSex, setErrorThreshold, setPatientID, setSex,
 } from "../../store/PatientInformationStore.js";
 import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 
 export const PatientInformation = () => {
@@ -26,8 +27,12 @@ export const PatientInformation = () => {
     // const patientID = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
 
+    const [isShowTour,] = useLocalStorage("tour")
+    console.log(typeof isShowTour )
+
     const {register,getValues, handleSubmit} = useForm()
     const onSubmitData = (data ,e) => {
+
         const patient = {
             id: data.id,
             date: new Date().toISOString().split('T')[0],
@@ -40,7 +45,11 @@ export const PatientInformation = () => {
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // console.log(sex)
-        navigate("/tour")
+        if (isShowTour) {
+            navigate("/tour")
+        }else {
+            navigate("/faceCamera")
+        }
     }
  
     return (

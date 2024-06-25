@@ -28,8 +28,6 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const FaceMesh = () => {
     const navigate = useNavigate();
-    const [isShowTour,] = useLocalStorage("tour")
-    if (isShowTour) navigate("/tour")
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);
     const dispatch = useDispatch();
