@@ -18,7 +18,7 @@ export const PatienCard = ({ index, patient }) => {
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full gap-8 border-b py-3">
-          <h2 className="text-xl font-bold text-[#1A1919]">Patient Id: {id}</h2>
+          <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
           {/* <div className="flex items-center gap-1 text-[#544BF0] font-medium text-base mr-24 ">
             Show Comments ()
             <img src="/public/arrow-up.svg" alt="" />

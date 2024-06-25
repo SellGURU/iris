@@ -16,7 +16,7 @@ const WelcomePage = () => {
         />
         <div className="flex items-center justify-center flex-col gap-5">
           <p className="text-center text-[#606060] font-normal text-lg w-[609px]">
-            By tapping ‘Create account’ or ‘Sign in’, you agree to our Terms.
+            By tapping ‘Create account’ or ‘Login in’, you agree to our Terms.
             Learn how we process your data in our Privacy Policy and Cookies
             Policy.
           </p>

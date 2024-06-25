@@ -8,11 +8,15 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
 import Auth from "../api/Auth.js";
 import LogOut from "../api/Auth.js";
+import {selectUserName} from "../store/PatientInformationStore.js";
+import {useSelector} from "react-redux";
 
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
     const [showSideBar,setShowSideBar] =useState(false)
     const menuRef = createRef(null)
+    const username = useSelector(selectUserName)
+    console.log(username)
     useModalAutoClose({
         refrence:menuRef,
         close:() => {

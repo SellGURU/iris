@@ -7,6 +7,8 @@ import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import {useState} from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import {useDispatch} from "react-redux";
+import {setUserName} from "../store/PatientInformationStore.js";
 
 const Login = () => {
     // const {register, handleSubmit} = useForm();
@@ -24,6 +26,8 @@ const Login = () => {
         onSubmit:() => {
         }
     })
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const [isPanding, setIsPanding] = useState(false);
     let [, saveIsAccess] = useLocalStorage("token");
@@ -44,6 +48,7 @@ const Login = () => {
                 if (res.data.access_token) {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
+                    dispatch(setUserName("amin"))
                     navigate("/");
                     toast.dismiss()
                 }else {

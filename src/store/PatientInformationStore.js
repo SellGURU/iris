@@ -8,7 +8,8 @@ export const patientInformationSlice = createSlice({
         patientID: "1",
         errorThreshold: "10",
         pdf:'',
-        photo:''
+        photo:'',
+        userName:""
     },
     reducers: {
         setSex: (state, action) => {
@@ -25,7 +26,10 @@ export const patientInformationSlice = createSlice({
         },
         setPdf:(state,action) => {
             state.pdf = action.payload
-        }
+        },
+        setUserName: (state, action) => {
+            state.userName = action.payload;
+        },
     },
 });
 
@@ -35,7 +39,9 @@ export const selectPatientID = (state) => state.patientInformationData.patientID
 export const selectErrorThreshold = (state) => state.patientInformationData.errorThreshold;
 export const selectPdf = (state) => state.patientInformationData.pdf
 export const selectphoto = (state) => state.patientInformationData.photo
+export const selectUserName = (state) => state.patientInformationData.photo
+//
 // Actions
-export const {setSex,setPdf, setPhoto,setPatientID, setErrorThreshold} = patientInformationSlice.actions;
+export const {setSex,setPdf,setUserName, setPhoto,setPatientID, setErrorThreshold} = patientInformationSlice.actions;
 
 export default patientInformationSlice.reducer;

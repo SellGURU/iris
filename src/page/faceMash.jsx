@@ -16,11 +16,20 @@ import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 import {useSelector} from "react-redux";
-import {selectErrorThreshold, selectPatientID, selectSex, setPdf, setPhoto} from "../store/PatientInformationStore.js";
+import {
+    selectErrorThreshold,
+    selectPatientID,
+    selectSex,
+    setPdf,
+    setPhoto
+} from "../store/PatientInformationStore.js";
 import {useDispatch} from "react-redux";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const FaceMesh = () => {
+    const navigate = useNavigate();
+    const [isShowTour,] = useLocalStorage("tour")
+    if (isShowTour) navigate("/tour")
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);
     const dispatch = useDispatch();
@@ -528,7 +537,6 @@ const FaceMesh = () => {
         ctx.lineTo(canvasWidth - 10, y2);
         ctx.stroke();
     };
-    const navigate = useNavigate();
     const [access] = useLocalStorage("token");
 
     const analyzeFacemesh = () => {

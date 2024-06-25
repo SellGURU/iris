@@ -51,6 +51,7 @@ export const route = [
             {
                 path: "facecamera", element:
                     <IsLogin>
+
                         <FaceMesh/>
                     </IsLogin>
             },
