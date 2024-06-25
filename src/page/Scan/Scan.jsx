@@ -32,18 +32,18 @@ export const Scan = () => {
       <div className="flex w-full justify-between">
         <Link to="PatientInformation">
           <ButtonPrimary>
-            <img src="/public/fi_plus.svg" alt="" />
+          <img src="fi_plus.svg" alt="" />
             Add a new record
           </ButtonPrimary>
         </Link>
         <SearchBox placeHolder="Search" />
         <div className="flex gap-8 items-center">
           <div className="flex items-center gap-3">
-            <img src="/public/filter.svg" alt="" />
+            <img src="filter.svg" alt="" />
             Filter
           </div>
           <div className="flex items-center gap-3">
-            <img src="/public/sort.svg" alt="" />
+            <img src="sort.svg" alt="" />
             Sort By Date
           </div>
         </div>

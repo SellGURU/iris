@@ -2,12 +2,19 @@ import { useNavigate } from "react-router-dom"
 import ButtonPrimary from "../../components/button/buttonPrimery"
 import ButtonSecondary from "../../components/button/buttonSecondary"
 import { useSelector } from "react-redux"
-import { selectPdf, selectphoto } from "../../store/PatientInformationStore"
-import { useEffect } from "react"
+import { selectErrorThreshold, selectPatientID, selectPdf, selectSex, selectphoto } from "../../store/PatientInformationStore"
+import { useEffect,useContext } from "react"
+import { PatientContext } from "../../context/context.jsx";
+import useConstructor from "../../utility/useConstructor.jsx"
+
 const FaceScaned = () => {
     const navigate =useNavigate()
+    const { addPatient } = useContext(PatientContext);
     const pdf = useSelector(selectPdf);
     const photo = useSelector(selectphoto)
+    const id = useSelector(selectPatientID)
+    const gender = useSelector(selectSex)
+    const threhold = useSelector(selectErrorThreshold)
     const download = () => {
         const downloadLink = document.createElement("a");
         downloadLink.href = pdf;
@@ -15,7 +22,18 @@ const FaceScaned = () => {
         downloadLink.click();
 
     }
-
+    const addPaintion = () => {
+        const patient = {
+            id: id,
+            date: new Date().toISOString().split('T')[0],
+            sex: gender,
+            errorThreshold: threhold,
+            photo:photo,
+            // pdf:pdf
+        };        
+        addPatient(patient)
+        navigate('/')
+    }
 
     return (
         <>
@@ -47,7 +65,7 @@ const FaceScaned = () => {
                         </div>  
                         <div className="w-full mt-8 flex justify-end">
                             <div onClick={() => {
-                                navigate('/')
+                                addPaintion()
                             }} className="flex cursor-pointer justify-end items-center">Go to Home
                                 <img className="ml-3" src="./arrow-right.svg" alt="" />
                             </div>

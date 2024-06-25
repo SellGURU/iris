@@ -5,11 +5,14 @@ import {Outlet, useNavigate} from "react-router-dom";
 import { createRef, useState } from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {toast} from "react-toastify";
+import Auth from "../api/Auth.js";
+import LogOut from "../api/Auth.js";
 import {selectUserName} from "../store/PatientInformationStore.js";
 import {useSelector} from "react-redux";
 
 const Header = () => {
-    const [, setToken] = useLocalStorage("token");
+    const [token, setToken] = useLocalStorage("token");
     const [showSideBar,setShowSideBar] =useState(false)
     const menuRef = createRef(null)
     const username = useSelector(selectUserName)
@@ -21,6 +24,23 @@ const Header = () => {
         }
     })
     const navigate = useNavigate()
+    const cleanToken=()=>{
+        try {
+            Auth.logOut({
+                "access_token": token
+            }).then((res) => {
+                if (res.data.state===200) {
+                    console.log(res.data)
+                }else {
+                    toast.error(res.data)
+                }
+            })
+        } catch (error) {
+            console.log("error")
+        }
+
+    };
+
     return (
         <div>
             <div
@@ -30,8 +50,8 @@ const Header = () => {
                 }} className="w-10 h-10 cursor-pointer text-[#544BF0]"/>
                 <img src="/image/login/IRIS.svg" alt="logo"/>
                 <div className="flex items-center gap-2">
-                    <img src="/public/dr-profile.svg" alt="" />
-                    <span className="font-medium text-xl text-[#444444]">DR.username</span>
+                    <img src="dr-profile.svg" alt="" />
+                    <span className="font-medium text-xl text-[#444444]">DR.Full Name</span>
                 </div>
             </div>
 
@@ -56,7 +76,7 @@ const Header = () => {
                             </div> */}
 
                             <div onClick={() => {
-                                navigate('/PatientInformation')
+                                // navigate('/PatientInformation')
                                 setShowSideBar(false)
                             }} className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
@@ -68,6 +88,7 @@ const Header = () => {
                             <div className="text-2xl">Help & Support</div>
                             </div>     
                             <div onClick={() => {
+                                cleanToken()
                                 setToken("")
                                 navigate('/login')
                                 setShowSideBar(false)

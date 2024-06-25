@@ -10,13 +10,14 @@ import {
     selectSex, setErrorThreshold, setPatientID, setSex,
 } from "../../store/PatientInformationStore.js";
 import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 
 export const PatientInformation = () => {
     const  navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold,setthrehold] = useState(10)
-    const { addPatient } = useContext(PatientContext);
+    // const { addPatient } = useContext(PatientContext);
     const tabs = [
         {state: "masculine", label: "Male"},
         {state: "female", label: "Female"},
@@ -26,8 +27,12 @@ export const PatientInformation = () => {
     // const patientID = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
 
+    const [isShowTour,] = useLocalStorage("tour")
+    console.log(typeof isShowTour )
+
     const {register,getValues, handleSubmit} = useForm()
     const onSubmitData = (data ,e) => {
+
         const patient = {
             id: data.id,
             date: new Date().toISOString().split('T')[0],
@@ -38,9 +43,13 @@ export const PatientInformation = () => {
         dispatch(setSex(gender))
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(threhold))
-        addPatient(patient);
+        // addPatient(patient);
         // console.log(sex)
-        navigate("/facecamera")
+        if (isShowTour) {
+            navigate("/tour")
+        }else {
+            navigate("/faceCamera")
+        }
     }
  
     return (
@@ -65,8 +74,9 @@ export const PatientInformation = () => {
                     }} type={"range"} min={0} max={100}
                            className={"border-b w-full bg-[#544BF0]"}
                            placeholder={"number"}/>
+
                 </CardPatient>
-                <ButtonPrimary type={"submit"}>save & continue</ButtonPrimary>
+                <ButtonPrimary type={"submit"}>Save & Continue</ButtonPrimary>
             </form>
         </div>
     )

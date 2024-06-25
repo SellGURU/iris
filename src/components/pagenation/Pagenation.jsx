@@ -23,7 +23,7 @@ const Pageination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={handlePreviousPage}
         disabled={currentPage === 1}
       >
-        <img src="/public/arrow-right.svg" className='rotate-180' alt="" />
+        <img src="arrow-right.svg" className='rotate-180' alt="" />
       </button>
       {[...Array(totalPages).keys()].map((page) => (
         <button
@@ -41,7 +41,7 @@ const Pageination = ({ currentPage, totalPages, onPageChange }) => {
        
         disabled={currentPage === totalPages}
       >
-        <img src="/public/arrow-right.svg" alt="" />
+        <img src="arrow-right.svg" alt="" />
       </button>
     </div>
   );

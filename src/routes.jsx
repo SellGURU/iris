@@ -18,12 +18,15 @@ export const route = [
     {path: "/login", element: <Login/>},
     {path: "/login2", element: <Login2/>},
     {
-        path: "/", element: <Header/>, children: [
+        path: "/", element:
+            <Header/>
+
+            , children: [
             {
                 path: "", element:
-                <isLogin>
+                <IsLogin>
                    <Scan/>
-                </isLogin>
+                </IsLogin>
             },
             {
                 path: "faceMashFile", element:
@@ -33,11 +36,17 @@ export const route = [
             },
             {
                 path:'result',
-                element:<FaceScaned></FaceScaned>
+
+                element:<IsLogin>
+
+                    <FaceScaned></FaceScaned>
+                </IsLogin>
             },
             {
                 path: "PatientInformation", element:
+                    <IsLogin>
                     <PatientInformation/>
+                    </IsLogin>
             },
             {
                 path: "facecamera", element:
@@ -48,7 +57,10 @@ export const route = [
             },
             {
                 path: "tour",
-                element: <Tour/>
+
+                element:<IsLogin>
+                    <Tour/>
+                </IsLogin>
             },
             
             

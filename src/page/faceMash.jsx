@@ -28,19 +28,57 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const FaceMesh = () => {
     const navigate = useNavigate();
-    const [isShowTour,] = useLocalStorage("tour")
-    if (isShowTour) navigate("/tour")
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);
     const dispatch = useDispatch();
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
-
+    const [resolvedFile,setResolvedFile] = useState('')
     const tabs = [
         {state: "multi", label: "All poses"},
         {state: "one", label: "One pose"}
     ];
     // let cameraStarted = false;
+    const sendToAnalyze = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST','https://iris.ainexus.com/api/v1/analyze', true);
+        toast.loading("pending ...")
+        xhr.onload = function (e) {
+            // console.log(e)
+            let response = JSON.parse(e.target.responseText);
+            let result = document.getElementById("result")
+            let resultHtmldiv = document.createElement('div');
+            let resultLink = document.createElement('a');
+            resultHtmldiv.appendChild(resultLink);
+            // resultLink.innerHTML = "View Detailed Report";
+            resultLink.href = 'golden_ratios/' + response["request_id"];
+            resultLink.target = "_blank";
+            resultHtmldiv.innerHTML += "&emsp;";
+            let resultHtml = document.createElement('a');
+            resultHtmldiv.appendChild(resultHtml);
+            resultHtml.innerHTML = "Download Report HTML File";
+            resultHtml.href = 'data:text/html;base64,' + response['html_file'];
+            resultHtml.download = 'golden_ratios.html';
+            resultHtmldiv.innerHTML += "<br><br>";
+            dispatch(setPdf('data:text/html;base64,' + response['html_file']))
+            dispatch(setPhoto(resolvedFile))
+            navigate('/result')
+            // result.append(resultHtmldiv);
+            toast.dismiss()
+        }
+        let fileData = new FormData();
+        fileData.append('error_threshold', errorThreshold);
+        fileData.append('gender', sex);
+        fileData.append('frontal_current', resolvedFile.split(',')[1]);
+        xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
+        xhr.send(fileData);
+    }
+    // useEffect(() => {
+    //     if(resolvedFile!= ''){
+    //         console.log(resolvedFile)
+    //         sendToAnalyze()
+    //     }
+    // },[resolvedFile])
     const video2 = useRef("video-cam");
     const out2 = useRef();
     const out3 = useRef();
@@ -831,10 +869,26 @@ const FaceMesh = () => {
                         <IoCameraOutline/>
                         LIVE SCAN
                     </ButtonPrimary>
-                    <ButtonSecondary onClick={() => navigate('/faceMashFile')}>
-                        <LuUploadCloud/>
-                        Upload Picture
-                    </ButtonSecondary>
+                    {status == 'one' ?
+                        <ButtonSecondary onClick={() => {
+                            document.getElementById("upload-file").click()
+                        }} >
+                            <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
+                                var file = e.target.files[0];
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                    // console.log('RESULT', reader.result)
+                                    setResolvedFile(reader.result)
+                                    // setTimeout(() => {
+                                    //     sendToAnalyze()
+                                    // }, 300);
+                                }
+                                reader.readAsDataURL(file);
+                            }} id="upload-file" type="file"></input>
+                            <LuUploadCloud/>
+                            upload picture
+                        </ButtonSecondary>
+                    :undefined}
                 </div>
                 {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
                 <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
