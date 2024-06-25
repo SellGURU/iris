@@ -636,7 +636,7 @@ const FaceMesh = () => {
         if (status === "one") {
             if (globalGreenLandmarks) percent = 100
         } else {
-            if (globalBlueLandmarks) percent += 33
+            if (globalBlueLandmarks) percent += 34
             if (globalRedLandmarks) percent += 33
             if (globalGreenLandmarks) percent += 33
         }
