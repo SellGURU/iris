@@ -62,9 +62,9 @@ const FaceMesh = () => {
             resultHtmldiv.innerHTML += "<br><br>";
             dispatch(setPdf('data:text/html;base64,' + response['html_file']))
             dispatch(setPhoto(resolvedFile))
-            navigate('/result')            
-            // result.append(resultHtmldiv);    
-            toast.dismiss()       
+            navigate('/result')
+            // result.append(resultHtmldiv);
+            toast.dismiss()
         }
         let fileData = new FormData();
         fileData.append('error_threshold', errorThreshold);
@@ -72,7 +72,7 @@ const FaceMesh = () => {
         fileData.append('frontal_current', resolvedFile.split(',')[1]);
         xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
         xhr.send(fileData);
-    }    
+    }
     // useEffect(() => {
     //     if(resolvedFile!= ''){
     //         console.log(resolvedFile)
@@ -674,7 +674,7 @@ const FaceMesh = () => {
         if (status === "one") {
             if (globalGreenLandmarks) percent = 100
         } else {
-            if (globalBlueLandmarks) percent += 33
+            if (globalBlueLandmarks) percent += 34
             if (globalRedLandmarks) percent += 33
             if (globalGreenLandmarks) percent += 33
         }
@@ -873,9 +873,20 @@ const FaceMesh = () => {
                         <ButtonSecondary onClick={() => {
                             navigate('/faceMashFile')
                         }} >
-                      
+                            <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
+                                var file = e.target.files[0];
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                    // console.log('RESULT', reader.result)
+                                    setResolvedFile(reader.result)
+                                    // setTimeout(() => {
+                                    //     sendToAnalyze()
+                                    // }, 300);
+                                }
+                                reader.readAsDataURL(file);
+                            }} id="upload-file" type="file"></input>
                             <LuUploadCloud/>
-                            upload picture
+                            Upload Picture
                         </ButtonSecondary>
                     :undefined}
                 </div>
