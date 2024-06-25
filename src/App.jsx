@@ -4,6 +4,7 @@ import "./App.css";
 import {HashRouter} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 function App() {
     return (
@@ -16,7 +17,8 @@ function App() {
 }
 
 const AppRoutes = () => {
-
+    const [tour,setTour]=useLocalStorage("tour")
+    if (tour===undefined)setTour(true)
     const routes = useRoutes(route);
     return (
 
