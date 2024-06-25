@@ -544,3 +544,15 @@ div#template-edit-btn-div {
     width: 600px;
   }
 }
+
+.arrowIcon-1{
+    mask-size: 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    width: 24px;
+    margin-left: 8px;
+    height: 24px;
+    background-color: rgb(59 130 246 / var(--tw-text-opacity));
+    mask-image: url(arrow-right.svg);
+}

@@ -66,8 +66,9 @@ const FaceScaned = () => {
                         <div className="w-full mt-8 flex justify-end">
                             <div onClick={() => {
                                 addPaintion()
-                            }} className="flex cursor-pointer justify-end items-center">Go to Home
-                                <img className="ml-3" src="./arrow-right.svg" alt="" />
+                            }} className="flex cursor-pointer justify-end text-blue-500 items-center">Go to Home
+                               <div className="arrowIcon-1"></div>
+                                {/* <img style={{}} className="ml-3" src="./arrow-right.svg" alt="" /> */}
                             </div>
 
                         </div>                
