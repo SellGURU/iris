@@ -1,7 +1,14 @@
 import React from 'react'
 import ButtonPrimary from '../../components/button/buttonPrimery'
 import ButtonSecondary from '../../components/button/buttonSecondary'
+import {useLocalStorage} from "@uidotdev/usehooks";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {selectshowTour} from "../../store/PatientInformationStore.js";
 export const StepInstructions = ({step , text,  image , note , onNext , onSkip }) => {
+  const [isShowTour,setIsShowTour] = useLocalStorage("tour")
+
+  const navigate = useNavigate()
   return (
     <div className=" t shadow-xl flex flex-col border  gap-4 p-14 justify-start max-w-[672px] max-h-[1036px] rounded-lg ">
 <h1 className="text-3xl text-center font-medium text-[#2E2E2E]">
@@ -24,7 +31,12 @@ export const StepInstructions = ({step , text,  image , note , onNext , onSkip }
   </ButtonSecondary>
 </div>
 <div className=" self-start flex justify-start items-center gap-1">
-  <input className="" type="checkbox" id="dont-show-again" />
+  <input
+  checked={!isShowTour}
+      onChange={()=>{
+        setIsShowTour(!isShowTour)
+    navigate("/facecamera")
+  }} className="" type="checkbox" id="dont-show-again" />
   <label className="text-sm font-normal" htmlFor="dont-show-again">
     Don’t show again.
   </label>
