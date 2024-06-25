@@ -833,7 +833,7 @@ const FaceMesh = () => {
                     </ButtonPrimary>
                     <ButtonSecondary onClick={() => navigate('/faceMashFile')}>
                         <LuUploadCloud/>
-                        upload picture
+                        Upload Picture
                     </ButtonSecondary>
                 </div>
                 {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
