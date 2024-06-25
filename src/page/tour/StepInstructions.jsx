@@ -3,8 +3,6 @@ import ButtonPrimary from '../../components/button/buttonPrimery'
 import ButtonSecondary from '../../components/button/buttonSecondary'
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {selectshowTour} from "../../store/PatientInformationStore.js";
 export const StepInstructions = ({step , text,  image , note , onNext , onSkip }) => {
   const [isShowTour,setIsShowTour] = useLocalStorage("tour")
 

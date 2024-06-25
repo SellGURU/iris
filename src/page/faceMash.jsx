@@ -20,7 +20,6 @@ import {
     selectErrorThreshold,
     selectPatientID,
     selectSex,
-    selectshowTour,
     setPdf,
     setPhoto
 } from "../store/PatientInformationStore.js";

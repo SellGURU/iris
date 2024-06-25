@@ -5,11 +5,15 @@ import {Outlet, useNavigate} from "react-router-dom";
 import { createRef, useState } from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {selectUserName} from "../store/PatientInformationStore.js";
+import {useSelector} from "react-redux";
 
 const Header = () => {
     const [, setToken] = useLocalStorage("token");
     const [showSideBar,setShowSideBar] =useState(false)
     const menuRef = createRef(null)
+    const username = useSelector(selectUserName)
+    console.log(username)
     useModalAutoClose({
         refrence:menuRef,
         close:() => {
@@ -27,7 +31,7 @@ const Header = () => {
                 <img src="/image/login/IRIS.svg" alt="logo"/>
                 <div className="flex items-center gap-2">
                     <img src="/public/dr-profile.svg" alt="" />
-                    <span className="font-medium text-xl text-[#444444]">DR.Full Name</span>
+                    <span className="font-medium text-xl text-[#444444]">{username}</span>
                 </div>
             </div>
 
