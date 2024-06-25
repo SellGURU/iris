@@ -31,7 +31,7 @@ const Header = () => {
                 <img src="/image/login/IRIS.svg" alt="logo"/>
                 <div className="flex items-center gap-2">
                     <img src="/public/dr-profile.svg" alt="" />
-                    <span className="font-medium text-xl text-[#444444]">{username}</span>
+                    <span className="font-medium text-xl text-[#444444]">DR.username</span>
                 </div>
             </div>
 
