@@ -33,7 +33,6 @@ export const StepInstructions = ({step , text,  image , note , onNext , onSkip }
   checked={!isShowTour}
       onChange={()=>{
         setIsShowTour(!isShowTour)
-    navigate("/facecamera")
   }} className="" type="checkbox" id="dont-show-again" />
   <label className="text-sm font-normal" htmlFor="dont-show-again">
     Don’t show again.
