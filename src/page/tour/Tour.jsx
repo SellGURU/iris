@@ -6,10 +6,12 @@ import {useState} from "react";
 // import tour5 from "image/tour-5.svg";
 import {StepInstructions} from "./StepInstructions";
 import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 export const Tour = () => {
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1);
+     const [isShowTour,setIsShowTour] = useLocalStorage("tour")
     const handleNext = () => {
         if (currentStep < 5) {
             setCurrentStep(currentStep + 1);
@@ -17,6 +19,7 @@ export const Tour = () => {
     };
 
     const handleSkip = () => {
+        setIsShowTour(false)
         navigate("/facecamera");
     };
 
@@ -73,7 +76,10 @@ export const Tour = () => {
                         text="Once the scan is finished, you can download the results as a PDF or share them with others."
                         image={'image/tour-5.svg'}
                         note="Note: You can also perform a new scan, and all records will be saved in your scan history."
-                        onNext={() => navigate("/facecamera")}
+                        onNext={() => {
+                            setIsShowTour(false)
+                            navigate("/facecamera")
+                        }}
                         onSkip={handleSkip}
                     />
                 );

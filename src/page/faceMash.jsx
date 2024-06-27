@@ -871,7 +871,7 @@ const FaceMesh = () => {
                     </ButtonPrimary>
                     {status == 'one' ?
                         <ButtonSecondary onClick={() => {
-                            document.getElementById("upload-file").click()
+                            navigate('/faceMashFile')
                         }} >
                             <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
                                 var file = e.target.files[0];
