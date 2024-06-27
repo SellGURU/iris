@@ -11,22 +11,29 @@ export const Scan = () => {
   console.log(patients)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  let indexOfLastItem = currentPage * itemsPerPage;
+  let indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const [currentItems,setCurrentItems] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
+  useEffect(() => {
+    indexOfLastItem =Math.min( currentPage * itemsPerPage,patients.length);
+    indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+  },[currentPage])
+
+  const [patientList,setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
   const totalPages = Math.ceil(patients.length / itemsPerPage);
   const filterPatientsHandler =(e)=>{
-    const newItems=currentItems.filter((patient)=>{
+    const filteredItem=patientList.filter((patient)=>{
       if (patient.sex.includes(e.target.value)){
         return patient
       }
     })
     // TODO: connected to ui
-    console.log(newItems)
-    // setCurrentItems(newItems)
+    // console.log(filteredItem)
+    // setPatientList(filteredItem)
   }
 
 
@@ -43,7 +50,7 @@ export const Scan = () => {
         <Link to="PatientInformation">
           <ButtonPrimary>
           <img src="fi_plus.svg" alt="" />
-            Add a new recordÍ
+            Add a new record
           </ButtonPrimary>
         </Link>
         <SearchBox changeHandler={filterPatientsHandler} placeHolder="Search" />
@@ -58,7 +65,7 @@ export const Scan = () => {
           </div>
         </div>
       </div>
-      {currentItems.map((patient , i) => (
+      {patientList.map((patient , i) => (
         <PatienCard index={i+1} key={patient.id} patient={patient} />
         ))}
 

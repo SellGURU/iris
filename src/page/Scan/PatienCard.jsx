@@ -80,3 +80,4 @@ export const PatienCard = ({ index, patient }) => {
     </div>
   );
 };
+
