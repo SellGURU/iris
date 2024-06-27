@@ -6,6 +6,7 @@ import {useState} from "react";
 export const IsLogin = ({children}) => {
     const navigate = useNavigate();
     const validToken =checkValidToken()
+    console.log(validToken)
     if (validToken) {
         return (
             <Navigate to={"/login"}/>
@@ -24,7 +25,7 @@ const checkValidToken=()=>{
     xhr.open('POST', 'https://iris.ainexus.com/api/v1/analyze', true);
 
     xhr.onload = function (e) {
-        if (xhr.status ===403) {
+        if (xhr.status ===401) {
             setStatus(xhr.status)
             setIsPanding(false)
         } else {
@@ -46,7 +47,8 @@ const checkValidToken=()=>{
     xhr.send(fileData);
     // TODO: fix the Condition
     if (!isPanding){
-    return status === 403
+        console.log(status)
+    return status === 401
     }
 
 }

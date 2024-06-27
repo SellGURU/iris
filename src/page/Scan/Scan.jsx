@@ -8,6 +8,7 @@ import { PatientContext } from '../../context/context'
 
 export const Scan = () => {
   const { patients } = useContext(PatientContext);
+  console.log(patients)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const handlePageChange = (page) => {
@@ -33,7 +34,7 @@ export const Scan = () => {
         <Link to="PatientInformation">
           <ButtonPrimary>
           <img src="fi_plus.svg" alt="" />
-            Add a new record
+            Add a new recordÍ
           </ButtonPrimary>
         </Link>
         <SearchBox placeHolder="Search" />

@@ -1,0 +1,547 @@
+{
+  "html_file": "",
+  "pose_analysis": [
+    {
+      "baseline_image_analysis": null,
+      "baseFaceDetected": false,
+      "baseFilename": null,
+      "current_image_analysis": {
+        "measurement_groups": [
+          "horizontal",
+          "isolated_measures_of_beauty",
+          "measurements_in_profile",
+          "vertical"
+        ],
+        "measurements": {
+          "horizontal": {
+            "alar_base_of_nose": {
+              "gender": "neutral",
+              "ideal_distance": 1.0,
+              "measured_distance": 34.862,
+              "measurement_id": 6,
+              "percent": 114.051,
+              "problematic": true,
+              "ratio": 1.141,
+              "text": "Alar base of nose / Intercanthal distance"
+            },
+            "apex_of_cheek": {
+              "gender": "masculine",
+              "ideal_distance": 1.618,
+              "measurement_id": 9,
+              "side": {
+                "left": {
+                  "measured_distance": 41.04,
+                  "percent": 83.479,
+                  "problematic": true,
+                  "ratio": 1.343
+                },
+                "right": {
+                  "measured_distance": 45.176,
+                  "percent": 91.843,
+                  "problematic": false,
+                  "ratio": 1.478
+                }
+              },
+              "text": "Apex of cheek / intercanthal distance"
+            },
+            "central_fullness_of_lower_lip": {
+              "gender": "neutral",
+              "ideal_distance": 1.0,
+              "measured_distance": 27.459,
+              "measurement_id": 7,
+              "percent": 89.832,
+              "problematic": true,
+              "ratio": 0.898,
+              "text": "Central fullness of lower lip / intercanthal distance"
+            },
+            "chin_width_at_menton": {
+              "gender": "masculine",
+              "ideal_distance": 1.618,
+              "measured_distance": null,
+              "measurement_id": 8,
+              "percent": 109.705,
+              "problematic": false,
+              "ratio": 1.775,
+              "text": "Chin width at menton / intercanthal distance"
+            },
+            "distance_between_medial_eyebrows": {
+              "gender": "neutral",
+              "ideal_distance": 1.0,
+              "measured_distance": 28.725,
+              "measurement_id": 5,
+              "percent": 93.974,
+              "problematic": false,
+              "ratio": 0.94,
+              "text": "Medial eyebrows distance / intercanthal distance"
+            },
+            "eyebrow_length": {
+              "gender": "masculine",
+              "ideal_distance": 1.618,
+              "measurement_id": 1,
+              "side": {
+                "left": {
+                  "measured_distance": 54.431,
+                  "percent": 110.055,
+                  "problematic": false,
+                  "ratio": 1.781
+                },
+                "right": {
+                  "measured_distance": 55.606,
+                  "percent": 112.432,
+                  "problematic": true,
+                  "ratio": 1.819
+                }
+              },
+              "text": "Eyebrow length / intercanthal distance"
+            },
+            "intercanthal_distance": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measured_distance": 30.567,
+              "measurement_id": 0,
+              "percent": 1.0,
+              "problematic": false,
+              "ratio": 1.0,
+              "text": "Intercanthal distance"
+            },
+            "measurements_list": [
+              "intercanthal_distance",
+              "eyebrow_length",
+              "width_of_cheek_from_ipsilateral_medial_canthus",
+              "width_of_lips_mouth",
+              "width_of_chin_at_pogonion",
+              "distance_between_medial_eyebrows",
+              "alar_base_of_nose",
+              "central_fullness_of_lower_lip",
+              "chin_width_at_menton",
+              "apex_of_cheek"
+            ],
+            "width_of_cheek_from_medial_canthus": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measurement_id": 2,
+              "side": {
+                "left": {
+                  "measured_distance": 49.313,
+                  "percent": 99.707,
+                  "problematic": false,
+                  "ratio": 1.613
+                },
+                "right": {
+                  "measured_distance": 54.869,
+                  "percent": 110.942,
+                  "problematic": false,
+                  "ratio": 1.795
+                }
+              },
+              "text": "Width of cheek from medial canthus / intercanthal distance"
+            },
+            "width_of_chin_at_pogonion": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measured_distance": 47.92,
+              "measurement_id": 4,
+              "percent": 96.892,
+              "problematic": false,
+              "ratio": 1.568,
+              "text": "Width of chin at pogonion / intercanthal distance"
+            },
+            "width_of_lips": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measured_distance": 45.853,
+              "measurement_id": 3,
+              "percent": 92.711,
+              "problematic": false,
+              "ratio": 1.5,
+              "text": "Width of lips / Intercanthal "
+            }
+          },
+          "isolated_measures_of_beauty": {
+            "measurements_list": [
+              "tail_of_eyebrow",
+              "slope_of_eyebrow"
+            ],
+            "slope_of_eyebrow": {
+              "gender": "masculine",
+              "ideal_distance": "0 - 10",
+              "measurement_id": 24,
+              "side": {
+                "left": {
+                  "measured_distance": 14.744,
+                  "percent": 0.0,
+                  "problematic": true,
+                  "ratio": 14.0
+                },
+                "right": {
+                  "measured_distance": 14.5,
+                  "percent": 0.0,
+                  "problematic": true,
+                  "ratio": 14.0
+                }
+              },
+              "text": "Slope of the eyebrow from medial to the peak is 10-20 degrees"
+            },
+            "tail_of_eyebrow": {
+              "gender": "neutral",
+              "ideal_distance": null,
+              "measurement_id": 23,
+              "side": {
+                "left": {
+                  "measured_distance": -3.681,
+                  "percent": -3.681,
+                  "problematic": true,
+                  "ratio": -3.681
+                },
+                "right": {
+                  "measured_distance": -3.681,
+                  "percent": -3.681,
+                  "problematic": true,
+                  "ratio": -3.681
+                }
+              },
+              "text": "Tail of the eyebrow height vs. height of the medial brow"
+            }
+          },
+          "measurements_in_profile": {
+            "forehead_curve": {
+              "gender": "masculine",
+              "ideal_distance": null,
+              "measured_distance": 14.109,
+              "measurement_id": 20,
+              "percent": 100.0,
+              "problematic": false,
+              "ratio": 14.0,
+              "text": "Forehead curve"
+            },
+            "measurements_list": [
+              "forehead_curve",
+              "nasal_tip_from_base_of_columella",
+              "steiners_line"
+            ],
+            "nasal_tip_from_base_of_columella": {
+              "gender": "neutral",
+              "ideal_distance": 0.618,
+              "measured_distance": 20.546,
+              "measurement_id": 21,
+              "percent": 108.764,
+              "problematic": false,
+              "ratio": 0.672,
+              "text": "Nasal tip height from the columella base / intercanthal distance"
+            },
+            "steiners_line": {
+              "gender": "masculine",
+              "ideal_distance": 2.0,
+              "measured_distance": 0.354,
+              "measurement_id": 22,
+              "percent": 117.719,
+              "problematic": true,
+              "ratio": 0.354,
+              "text": "Steiner's line"
+            }
+          },
+          "vertical": {
+            "height_of_forehead": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measurement_id": 10,
+              "side": {
+                "left": {
+                  "measured_distance": 47.265,
+                  "percent": 95.566,
+                  "problematic": false,
+                  "ratio": 1.546
+                },
+                "right": {
+                  "measured_distance": 47.034,
+                  "percent": 95.099,
+                  "problematic": false,
+                  "ratio": 1.539
+                }
+              },
+              "text": "Height of forehead from eyebrow / intercanthal distance"
+            },
+            "intercanthal_to_nasal_tip": {
+              "gender": "neutral",
+              "ideal_distance": 1.0,
+              "measured_distance": 37.586,
+              "measurement_id": 13,
+              "percent": 122.961,
+              "problematic": true,
+              "ratio": 1.23,
+              "text": "Intercanthal line to nose tip / intercanthal distance"
+            },
+            "length_of_nose_from_eyelash_line": {
+              "gender": "masculine",
+              "ideal_distance": 1.618,
+              "measured_distance": 52.181,
+              "measurement_id": 11,
+              "percent": 105.507,
+              "problematic": false,
+              "ratio": 1.707,
+              "text": "Nose length from supratarsal fold / intercanthal distance"
+            },
+            "measurements_list": [
+              "height_of_forehead",
+              "intercanthal_to_nasal_tip",
+              "length_of_nose_from_eyelash_line",
+              "medial_canthus_to_medial_brow",
+              "philtral_columns_width",
+              "philtral_column_to_ipsilateral_commisure",
+              "philtral_column_to_contralateral_commisure",
+              "upper_lip_to_lower_lip_ratio",
+              "vertical_height_of_lips",
+              "upper_lip_to_menton_of_chin"
+            ],
+            "medial_canthus_to_medial_brow": {
+              "gender": "neutral",
+              "ideal_distance": 0.618,
+              "measured_distance": 16.334,
+              "measurement_id": 14,
+              "percent": 86.465,
+              "problematic": true,
+              "ratio": 0.534,
+              "text": "Medial canthus to medial brow / intercanthal distance"
+            },
+            "philtral_column_to_contralateral_commisure": {
+              "gender": "neutral",
+              "ideal_distance": 0.618,
+              "measurement_id": 18,
+              "side": {
+                "left": {
+                  "measured_distance": 31.368,
+                  "percent": 110.697,
+                  "problematic": false,
+                  "ratio": 0.684
+                },
+                "right": {
+                  "measured_distance": 32.587,
+                  "percent": 115.0,
+                  "problematic": true,
+                  "ratio": 0.711
+                }
+              },
+              "text": "Philtral column to contralateral commissure / lips width"
+            },
+            "philtral_column_to_ipsilateral_commisure": {
+              "gender": "neutral",
+              "ideal_distance": 1.618,
+              "measurement_id": 17,
+              "side": {
+                "left": {
+                  "measured_distance": 20.651,
+                  "percent": 91.528,
+                  "problematic": false,
+                  "ratio": 1.481
+                },
+                "right": {
+                  "measured_distance": 19.463,
+                  "percent": 86.263,
+                  "problematic": true,
+                  "ratio": 1.396
+                }
+              },
+              "text": "Philtral column to ipsilateral commisure / philtral columns width"
+            },
+            "philtral_columns_width": {
+              "gender": "neutral",
+              "ideal_distance": 1.0,
+              "measured_distance": 13.945,
+              "measurement_id": 16,
+              "percent": 114.736,
+              "problematic": true,
+              "ratio": 1.147,
+              "text": "Height of lower lip / philtral columns width"
+            },
+            "upper_lip_to_lower_lip_ratio": {
+              "gender": "neutral",
+              "ideal_distance": 0.618,
+              "measured_distance": 10.673,
+              "measurement_id": 19,
+              "percent": 107.945,
+              "problematic": false,
+              "ratio": 0.667,
+              "text": "The height of the upper lip / height of lower lip"
+            },
+            "upper_lip_to_menton_of_chin": {
+              "gender": "masculine",
+              "ideal_distance": 1.618,
+              "measured_distance": 37.669,
+              "measurement_id": 12,
+              "percent": 76.163,
+              "problematic": true,
+              "ratio": 1.232,
+              "text": "Upper lip  to menton of chin / intercanthal distance"
+            },
+            "vertical_height_of_lips": {
+              "gender": "neutral",
+              "ideal_distance": 0.618,
+              "measured_distance": 22.274,
+              "measurement_id": 15,
+              "percent": 117.913,
+              "problematic": true,
+              "ratio": 0.729,
+              "text": "Vertical height of lips / intercanthal distance"
+            }
+          }
+        },
+        "measurements_list": [
+          "intercanthal_distance",
+          "eyebrow_length",
+          "width_of_cheek_from_medial_canthus",
+          "width_of_lips_mouth",
+          "width_of_chin_at_pogonion",
+          "distance_between_medial_eyebrows",
+          "alar_base_of_nose",
+          "central_fullness_of_lower_lip",
+          "chin_width_at_menton",
+          "apex_of_cheek",
+          "height_of_forehead",
+          "length_of_nose_from_eyelash_line",
+          "upper_lip_to_menton_of_chin",
+          "intercanthal_to_nasal_tip",
+          "medial_canthus_to_medial_brow",
+          "vertical_height_of_lips",
+          "philtral_columns_width",
+          "philtral_column_to_ipsilateral_commisure",
+          "philtral_column_to_contralateral_commisure",
+          "upper_lip_to_lower_lip_ratio",
+          "forehead_curve",
+          "nasal_tip_from_base_of_columella",
+          "steiners_line",
+          "tail_of_eyebrow",
+          "slope_of_eyebrow"
+        ],
+        "symmetry": {
+          "alar_base_of_nose": {
+            "side": {
+              "left": {
+                "height": 247.81
+              },
+              "right": {
+                "height": 247.8
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "apex_of_cheek": {
+            "side": {
+              "left": {
+                "height": 229.14
+              },
+              "right": {
+                "height": 229.12
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "chin_border": {
+            "side": {
+              "left": {
+                "height": 323.53
+              },
+              "right": {
+                "height": 323.61
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "eyebrows": {
+            "side": {
+              "left": {
+                "height": 173.0
+              },
+              "right": {
+                "height": 173.0
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "inter_limbal_opening": {
+            "side": {
+              "left": {
+                "height": 46.8
+              },
+              "right": {
+                "height": 42.48
+              }
+            },
+            "offset": 3.0,
+            "symmetry_text": "Right eye is smaller"
+          },
+          "lash_line": {
+            "side": {
+              "left": {
+                "height": 152.0
+              },
+              "right": {
+                "height": 152.0
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "lower_lip_vermillion": {
+            "side": {
+              "left": {
+                "height": 284.8
+              },
+              "right": {
+                "height": 284.29
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "transcommissure_line": {
+            "side": {
+              "left": {
+                "height": 283.0
+              },
+              "right": {
+                "height": 285.0
+              }
+            },
+            "offset": 1.0,
+            "symmetry_text": "Right side is  1mm lower"
+          },
+          "upper_lip_vermillion": {
+            "side": {
+              "left": {
+                "height": 272.59
+              },
+              "right": {
+                "height": 272.54
+              }
+            },
+            "offset": 0.0,
+            "symmetry_text": "Right and Left side aligned"
+          },
+          "overall": {
+            "side": {
+              "left": {
+                "height": 1965.87
+              },
+              "right": {
+                "height": 1967.37
+              }
+            },
+            "offset": 1.0,
+            "symmetry_text": "Right side is  1mm lower"
+          }
+        }
+      },
+      "currFaceDetected": true,
+      "currFilename": "webcam_capture",
+      "error_threshold": 10,
+      "gender": "masculine",
+      "pose_name": "frontal"
+    }
+  ],
+  "request_id": "16d9a227-bc85-4a5a-bfd8-1384ca0f3b5d",
+  "success": true
+}
