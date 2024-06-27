@@ -16,11 +16,20 @@ export const Scan = () => {
   };
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = patients.slice(indexOfFirstItem, indexOfLastItem);
+  const [currentItems,setCurrentItems] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
   const totalPages = Math.ceil(patients.length / itemsPerPage);
-  
+  const filterPatientsHandler =(e)=>{
+    const newItems=currentItems.filter((patient)=>{
+      if (patient.sex.includes(e.target.value)){
+        return patient
+      }
+    })
+    // TODO: connected to ui
+    console.log(newItems)
+    // setCurrentItems(newItems)
+  }
 
-  
+
   return (
     <div className="container  mx-auto flex flex-col sm:px-6 md:px-8 lg:px-10  xl:px-12  gap-5">
       <div className="w-full flex flex-col items-center gap-3 ">
@@ -37,7 +46,7 @@ export const Scan = () => {
             Add a new recordÍ
           </ButtonPrimary>
         </Link>
-        <SearchBox placeHolder="Search" />
+        <SearchBox changeHandler={filterPatientsHandler} placeHolder="Search" />
         <div className="flex gap-8 items-center">
           <div className="flex items-center gap-3">
             <img src="filter.svg" alt="" />
