@@ -8,7 +8,6 @@ import { PatientContext } from '../../context/context'
 
 export const Scan = () => {
   const { patients } = useContext(PatientContext);
-  console.log(patients)
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   let indexOfLastItem = currentPage * itemsPerPage;
@@ -27,13 +26,13 @@ export const Scan = () => {
   const totalPages = Math.ceil(patients.length / itemsPerPage);
   const filterPatientsHandler =(e)=>{
     const filteredItem=patientList.filter((patient)=>{
-      if (patient.sex.includes(e.target.value)){
+      if (patient.id.includes(e.target.value)){
         return patient
       }
     })
     // TODO: connected to ui
     // console.log(filteredItem)
-    // setPatientList(filteredItem)
+    setPatientList(filteredItem)
   }
 
 
