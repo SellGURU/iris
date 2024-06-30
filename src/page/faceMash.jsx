@@ -24,7 +24,7 @@ import {
     setPhoto
 } from "../store/PatientInformationStore.js";
 import {useDispatch} from "react-redux";
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 
 const FaceMesh = () => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const FaceMesh = () => {
     const dispatch = useDispatch();
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
-    const [resolvedFile,setResolvedFile] = useState('')
+    const [resolvedFile, setResolvedFile] = useState('')
     const tabs = [
         {state: "multi", label: "All poses"},
         {state: "one", label: "One pose"}
@@ -41,7 +41,7 @@ const FaceMesh = () => {
     // let cameraStarted = false;
     const sendToAnalyze = () => {
         let xhr = new XMLHttpRequest();
-        xhr.open('POST','https://iris.ainexus.com/api/v1/analyze', true);
+        xhr.open('POST', 'https://iris.ainexus.com/api/v1/analyze', true);
         toast.loading("pending ...")
         xhr.onload = function (e) {
             // console.log(e)
@@ -70,7 +70,7 @@ const FaceMesh = () => {
         fileData.append('error_threshold', errorThreshold);
         fileData.append('gender', sex);
         fileData.append('frontal_current', resolvedFile.split(',')[1]);
-        xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem("token"))
         xhr.send(fileData);
     }
     // useEffect(() => {
@@ -123,7 +123,8 @@ const FaceMesh = () => {
         redLandmarksData,
 
     } = globalData;
-    let canvasCtx,canvasCtx3,canvasWidth3,canvasHeight3,canvasCtx4,canvasCtx5, canvasWidth, canvasHeight, greenCtx, redCtx, blueCtx, tmpcontext = null;
+    let canvasCtx, canvasCtx3, canvasWidth3, canvasHeight3, canvasCtx4, canvasCtx5, canvasWidth, canvasHeight, greenCtx,
+        redCtx, blueCtx, tmpcontext = null;
     let persistent = false;
     useEffect(() => {
         canvasCtx = out2.current.getContext("2d");
@@ -137,7 +138,7 @@ const FaceMesh = () => {
 
         canvasCtx4 = out4.current.getContext("2d");
         canvasCtx5 = out5.current.getContext("2d");
-        
+
         greenCtx = green.current.getContext("2d");
         redCtx = red.current.getContext("2d");
         blueCtx = blue.current.getContext("2d");
@@ -181,22 +182,22 @@ const FaceMesh = () => {
         canvasCtx.clearRect(0, 0, out2.current?.width, out2.current?.height);
         canvasCtx.drawImage(results.image, 0, 0, out2?.current?.width, out2?.current?.height);
 
-        if(!globalGreenLandmarks){
+        if (!globalGreenLandmarks) {
             canvasCtx3.save();
             canvasCtx3.clearRect(0, 0, out3.current?.width, out3.current?.height);
-            canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);        
+            canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);
         }
 
-        if(!globalBlueLandmarks){
+        if (!globalBlueLandmarks) {
             canvasCtx4.save();
             canvasCtx4.clearRect(0, 0, out4.current?.width, out4.current?.height);
-            canvasCtx4.drawImage(results.image, 0, 0, out4?.current?.width, out4?.current?.height);        
+            canvasCtx4.drawImage(results.image, 0, 0, out4?.current?.width, out4?.current?.height);
         }
 
-        if(!globalRedLandmarks){
+        if (!globalRedLandmarks) {
             canvasCtx5.save();
             canvasCtx5.clearRect(0, 0, out5.current?.width, out5.current?.height);
-            canvasCtx5.drawImage(results.image, 0, 0, out5?.current?.width, out5?.current?.height);        
+            canvasCtx5.drawImage(results.image, 0, 0, out5?.current?.width, out5?.current?.height);
         }
 
         greenCtx.clearRect(0, 0, green.current.width, green.current.height);
@@ -489,25 +490,25 @@ const FaceMesh = () => {
 
         return null;
     };
-    const [startTimer,setStarttimer] = useState(false)
-    const [startTimer2,setStarttimer2] = useState(false)
-    const [startTimer3,setStarttimer3] = useState(false)
+    const [startTimer, setStarttimer] = useState(false)
+    const [startTimer2, setStarttimer2] = useState(false)
+    const [startTimer3, setStarttimer3] = useState(false)
     const isPersistent = (pose) => {
-        if(globalData.globalPoseCounter <=3){
+        if (globalData.globalPoseCounter <= 3) {
             setStarttimer(false)
             setStarttimer2(false)
             setStarttimer3(false)
-        }        
-        if(globalData.globalPoseCounter == 4){
-            if(pose =='frontal'){
+        }
+        if (globalData.globalPoseCounter == 4) {
+            if (pose == 'frontal') {
                 setStarttimer(true)
             }
-            if(pose =='left'){
+            if (pose == 'left') {
                 setStarttimer2(true)
-            }   
-            if(pose =='right'){
+            }
+            if (pose == 'right') {
                 setStarttimer3(true)
-            }                      
+            }
         }
         if (pose === globalData.globalPreviousPose) {
             globalData.globalPoseCounter++;
@@ -584,7 +585,7 @@ const FaceMesh = () => {
                 resultHtml.download = 'golden_ratios.html';
                 resultHtmldiv.innerHTML += "<br><br>";
                 result.append(resultHtmldiv);
-                
+
                 dispatch(setPdf('data:text/html;base64,' + response['html_file']))
                 dispatch(setPhoto(globalGreenImages[0]))
                 navigate('/result')
@@ -730,31 +731,31 @@ const FaceMesh = () => {
 
 
                     <div className="relative">
-                        {isCameraStart && startTimer && !globalGreenLandmarks?
+                        {isCameraStart && startTimer && !globalGreenLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
-                                
-                                    <CountdownCircleTimer
-                                        isPlaying
-                                        size={100}
-                                        strokeWidth={6}
-                                        duration={5}
-                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                        colorsTime={[5, 3, 2, 0]}
-                                    >
-                                        {({ remainingTime }) => remainingTime}
-                                    </CountdownCircleTimer>
+
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
                             </div>
-                        :
-                        undefined
-                        }
-                        {
-                            globalGreenLandmarks?
-                            <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
                             :
                             undefined
                         }
+                        {
+                            globalGreenLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
+                                :
+                                undefined
+                        }
                         <canvas
-                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalGreenLandmarks ? "" : "hidden"}`}
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
                             id="output3"
                             ref={out3}
                             width="230px"
@@ -773,33 +774,32 @@ const FaceMesh = () => {
                         <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-
                     <div className="relative">
-                        {isCameraStart && startTimer2 && !globalBlueLandmarks?
+                        {isCameraStart && startTimer2 && !globalBlueLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
-                                
-                                    <CountdownCircleTimer
-                                        isPlaying
-                                        size={100}
-                                        strokeWidth={6}
-                                        duration={5}
-                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                        colorsTime={[5, 3, 2, 0]}
-                                    >
-                                        {({ remainingTime }) => remainingTime}
-                                    </CountdownCircleTimer>
+
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
                             </div>
-                        :
-                        undefined
-                        }
-                        {
-                            globalBlueLandmarks?
-                            <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
                             :
                             undefined
                         }
+                        {
+                            globalBlueLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
+                                :
+                                undefined
+                        }
                         <canvas
-                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalBlueLandmarks ? "" : "hidden"}`}
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
                             id="output4"
                             ref={out4}
                             width="230px"
@@ -807,7 +807,7 @@ const FaceMesh = () => {
                         ></canvas>
 
                         <canvas id="blue" ref={blue} height="130px" width="230px"
-                            className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
+                                className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
                     </div>
 
                     <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
@@ -820,38 +820,39 @@ const FaceMesh = () => {
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
                     <div className="relative">
-                        {isCameraStart && startTimer3 && !globalRedLandmarks?
+                        {isCameraStart && startTimer3 && !globalRedLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
-                                
-                                    <CountdownCircleTimer
-                                        isPlaying
-                                        size={100}
-                                        strokeWidth={6}
-                                        duration={5}
-                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                        colorsTime={[5, 3, 2, 0]}
-                                    >
-                                        {({ remainingTime }) => remainingTime}
-                                    </CountdownCircleTimer>
+
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
                             </div>
-                        :
-                        undefined
-                        }
-                        {
-                            globalRedLandmarks?
-                            <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
                             :
                             undefined
                         }
+                        {
+                            globalRedLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                :
+                                undefined
+                        }
                         <canvas
-                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart &&!globalRedLandmarks ? "" : "hidden"}`}
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
                             id="output5"
                             ref={out5}
                             width="230px"
                             height="130px"
                         ></canvas>
 
-                        <canvas className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`} id="red" ref={red}
+                        <canvas className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`}
+                                id="red" ref={red}
                                 height="130px" width="230px"></canvas>
                     </div>
 
@@ -872,11 +873,11 @@ const FaceMesh = () => {
                     {status == 'one' ?
                         <ButtonSecondary onClick={() => {
                             navigate('/faceMashFile')
-                        }} >
+                        }}>
                             <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
                                 var file = e.target.files[0];
                                 var reader = new FileReader();
-                                reader.onloadend = function() {
+                                reader.onloadend = function () {
                                     // console.log('RESULT', reader.result)
                                     setResolvedFile(reader.result)
                                     // setTimeout(() => {
@@ -888,7 +889,7 @@ const FaceMesh = () => {
                             <LuUploadCloud/>
                             Upload Picture
                         </ButtonSecondary>
-                    :undefined}
+                        : undefined}
                 </div>
                 {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
                 <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
