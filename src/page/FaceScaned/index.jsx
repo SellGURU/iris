@@ -29,8 +29,7 @@ const FaceScaned = () => {
             sex: gender,
             errorThreshold: threhold,
             photo:photo,
-            // pdf:pdf
-        };        
+        };
         addPatient(patient)
         navigate('/')
     }

@@ -11,7 +11,7 @@ import {Tour} from "./page/tour/Tour.jsx";
 import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 import Header from "./layout/header.jsx";
 import {MainPage} from "./page/mainPage.jsx";
-import { Scan } from "./page/Scan/Scan.jsx";
+import {Scan} from "./page/Scan/Scan.jsx";
 import FaceScaned from "./page/FaceScaned/index.jsx";
 
 export const route = [
@@ -21,12 +21,12 @@ export const route = [
         path: "/", element:
             <Header/>
 
-            , children: [
+        , children: [
             {
                 path: "", element:
-                <IsLogin>
-                   <Scan/>
-                </IsLogin>
+                    <IsLogin>
+                        <Scan/>
+                    </IsLogin>
             },
             {
                 path: "faceMashFile", element:
@@ -35,36 +35,33 @@ export const route = [
                     </IsLogin>
             },
             {
-                path:'result',
-
-                element:<IsLogin>
-
-                    <FaceScaned></FaceScaned>
-                </IsLogin>
+                path: 'result',
+                element:
+                    <IsLogin>
+                        <FaceScaned></FaceScaned>
+                    </IsLogin>
             },
             {
                 path: "PatientInformation", element:
                     <IsLogin>
-                    <PatientInformation/>
+                        <PatientInformation/>
                     </IsLogin>
             },
             {
                 path: "facecamera", element:
                     <IsLogin>
-
                         <FaceMesh/>
                     </IsLogin>
             },
             {
                 path: "tour",
-
-                element:<IsLogin>
-                    <Tour/>
-                </IsLogin>
+                element:
+                    <IsLogin>
+                        <Tour/>
+                    </IsLogin>
             },
-            
-            
-          
+
+
         ]
     },
 

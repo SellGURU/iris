@@ -14,6 +14,8 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 
 
 export const PatientInformation = () => {
+    const {addPatient} = useContext(PatientContext);
+
     const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold, setthrehold] = useState(10)
@@ -45,6 +47,15 @@ export const PatientInformation = () => {
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // console.log(sex)
+        // add it to local storage (in context)
+        addPatient({
+            id: data.id,
+            date: new Date().toISOString().split('T')[0],
+            sex: gender,
+            errorThreshold: threhold,
+            photo: "",
+        })
+
         if (isShowTour) {
             navigate("/tour")
         } else {
