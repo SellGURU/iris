@@ -1,7 +1,7 @@
 import {CardPatient} from "./component/card.jsx";
 import {TabsCustume} from "../../components/tabs/tabs.jsx";
-import {useState , useContext} from "react";
-import { PatientContext } from "../../context/context.jsx";
+import {useState, useContext} from "react";
+import {PatientContext} from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,9 +14,9 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 
 
 export const PatientInformation = () => {
-    const  navigate = useNavigate();
+    const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
-    const [threhold,setthrehold] = useState(10)
+    const [threhold, setthrehold] = useState(10)
     // const { addPatient } = useContext(PatientContext);
     const tabs = [
         {state: "masculine", label: "Male"},
@@ -28,10 +28,10 @@ export const PatientInformation = () => {
     // const errorThreshold = useSelector(selectErrorThreshold);
 
     const [isShowTour,] = useLocalStorage("tour")
-    console.log(typeof isShowTour )
+    console.log(typeof isShowTour)
 
-    const {register,getValues, handleSubmit} = useForm()
-    const onSubmitData = (data ,e) => {
+    const {register, getValues, handleSubmit} = useForm()
+    const onSubmitData = (data, e) => {
 
         const patient = {
             id: data.id,
@@ -47,11 +47,13 @@ export const PatientInformation = () => {
         // console.log(sex)
         if (isShowTour) {
             navigate("/tour")
-        }else {
+        } else {
             navigate("/faceCamera")
         }
     }
- 
+    const getRand = () => {
+        return Math.floor(Math.random() * (100000 - 1000)) + 100
+    }
     return (
         <div className={"flex items-center justify-center flex-col gap-5 mt-10"}>
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>
@@ -61,7 +63,8 @@ export const PatientInformation = () => {
             <form className={"flex items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
                 <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Patient ID</h1>
-                    <input {...register("id")} className={"border-b w-full "} placeholder={"number"}/>
+                    <input defaultValue={getRand()} {...register("id")} className={"border-b w-full "}
+                           placeholder={"number"}/>
                 </CardPatient>
                 <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Sex Selector</h1>
