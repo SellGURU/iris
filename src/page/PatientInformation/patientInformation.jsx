@@ -46,6 +46,7 @@ export const PatientInformation = () => {
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // add it to local storage (in context)
+        console.log(gender)
         addPatient({
             id: data.id,
             sex: gender,
