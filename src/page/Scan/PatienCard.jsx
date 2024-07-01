@@ -4,7 +4,7 @@ import ButtonPrimary from "../../components/button/buttonPrimery";
 import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {useDispatch} from "react-redux";
-import {selectErrorThreshold} from "../../store/PatientInformationStore.js";
+import { setErrorThreshold, setPatientID, setSex} from "../../store/PatientInformationStore.js";
 
 export const PatienCard = ({index, patient}) => {
     const {id, date, photo} = patient;
@@ -18,7 +18,10 @@ export const PatienCard = ({index, patient}) => {
         // downloadLink.click();
     }
     const clickHandler = () => {
-        console.log(patient)
+        dispatch(setSex(patient.sex))
+        dispatch(setPatientID(patient.id))
+        dispatch(setErrorThreshold(patient.errorThreshold))
+        navigate("/faceCamera")
     }
     return (
         <div className="flex gap-12 items-center justify-start shadow-lg border px-4 pt-2">
@@ -41,23 +44,30 @@ export const PatienCard = ({index, patient}) => {
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                    <div className="flex justify-between w-full ">
-                        <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
-                        <div>
-                            Date : <span className=" ml-1 font-medium text-[#606060]">{date}</span>{" "}
-                        </div>
+                    {patient.result.map((patientHistory) => {
+                        return (
+                            <div key={""} className="flex justify-between w-full ">
+                                <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
+                                <div>
+                                    Date : <span
+                                    className=" ml-1 font-medium text-[#606060]">{patientHistory.date}</span>{" "}
+                                </div>
 
-                        <div className="flex gap-3 items-center">
-                            <ButtonSecondary>
-                                <img src="fi_share-2.svg" alt=""/>
-                                Share
-                            </ButtonSecondary>
-                            <ButtonPrimary onClickHandler={download}>
-                                <img src="fi_download.svg" alt=""/>
-                                Download PDF
-                            </ButtonPrimary>
-                        </div>
-                    </div>
+                                <div className="flex gap-3 items-center">
+                                    <ButtonSecondary>
+                                        <img src="fi_share-2.svg" alt=""/>
+                                        Share
+                                    </ButtonSecondary>
+                                    <ButtonPrimary onClickHandler={download}>
+                                        <img src="fi_download.svg" alt=""/>
+                                        Download PDF
+                                    </ButtonPrimary>
+                                </div>
+                            </div>
+
+                        )
+                    })}
+
                     {/* <div className="flex justify-between w-full ">
             <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
             <span className="font-medium text-[#606060]">

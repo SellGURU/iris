@@ -30,7 +30,7 @@ const FaceScaned = () => {
             errorThreshold: threhold,
             photo:photo,
         };
-        addPatient(patient)
+        // addPatient(patient)
         navigate('/')
     }
 
