@@ -11,6 +11,7 @@ import {
 } from "../../store/PatientInformationStore.js";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 
 
 export const PatientInformation = () => {
@@ -46,7 +47,7 @@ export const PatientInformation = () => {
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // add it to local storage (in context)
-        addPatient({
+        const pi={
             id: data.id,
             sex: gender,
             errorThreshold: threhold,
@@ -58,7 +59,9 @@ export const PatientInformation = () => {
                 }
             ]
 
-        })
+        }
+        addPatient(pi)
+        updateLocalPatientIHistoty(pi);
 
         if (isShowTour) {
             navigate("/tour")
