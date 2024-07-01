@@ -13,48 +13,51 @@ const patientReducer = (state, action) => {
 export const PatientProvider = ({children}) => {
     const [state, dispatch] = useReducer(patientReducer, initialState);
     const addPatient = (patient) => {
+        console.log("addPatient")
         dispatch({type: "ADD_PATIENT", payload: patient});
     };
-    // useEffect(() => console.log(state), [state]);
     useEffect(() => {
-        console.log(state)
-        const patients = JSON.parse(localStorage.getItem("patients")) || [];
-//         for first run
-if (state.length > 0) {
-    const patientIndex = patients.findIndex(patient => Number(patient.id) === state[state.length - 1].id);
-    if (patientIndex === -1) {
-        // If the patient does not exist, create the new patient
-        const newPatient = {
-            id: state[state.length - 1].id,
-            sex: state[state.length - 1].sex,
-            errorThreshold: state[state.length - 1].errorThreshold
-            ,
-            result: [{
-                date: new Date().toISOString().split('T')[0],
-                photo: "",
-                htmlId: 0
-            }],
-        };
-        if (state[state.length - 1].id) {
-            patients.push(newPatient);
-            localStorage.setItem("patients", JSON.stringify(patients));
-        }
+        console.log("useEffect");
 
-    } else {
-        patients[patientIndex] = {
-            ...patients[patientIndex],
-            result: [
-                ...patients[patientIndex].result,
-                {
-                    date: new Date().toISOString().split('T')[0],
-                    photo: state[state.length - 1].photo,
-                    htmlId: patients[patientIndex].result.length
+        // Fetch the existing patients from localStorage
+        const patients = JSON.parse(localStorage.getItem("patients")) || [];
+
+        if (state.length > 0) {
+            const lastAddedPatient = state[state.length - 1];
+            const patientIndex = patients.findIndex(patient => patient.id === lastAddedPatient.id);
+
+            if (patientIndex === -1) {
+                // If the patient does not exist, create a new patient entry
+                const newPatient = {
+                    id: lastAddedPatient.id,
+                    sex: lastAddedPatient.sex,
+                    errorThreshold: lastAddedPatient.errorThreshold,
+                    result: [{
+                        date: new Date().toISOString().split('T')[0],
+                        photo: "",
+                        htmlId: 0
+                    }],
+                };
+                if (lastAddedPatient.id) {
+                    patients.push(newPatient);
+                    localStorage.setItem("patients", JSON.stringify(patients));
                 }
-            ]
-        };
-        localStorage.setItem("patients", JSON.stringify(patients));
-    }
-}
+            } else {
+                // If the patient exists, update the results
+                patients[patientIndex] = {
+                    ...patients[patientIndex],
+                    result: [
+                        ...patients[patientIndex].result,
+                        {
+                            date: new Date().toISOString().split('T')[0],
+                            photo: lastAddedPatient.photo,
+                            htmlId: patients[patientIndex].result.length
+                        }
+                    ]
+                };
+                localStorage.setItem("patients", JSON.stringify(patients));
+            }
+        }
     }, [state]);
     return (
         <PatientContext.Provider value={{patients: state, addPatient}}>
@@ -62,4 +65,3 @@ if (state.length > 0) {
         </PatientContext.Provider>
     );
 };
-[]
