@@ -670,8 +670,8 @@ const FaceMesh = () => {
         fileData.append("gender", sex);
         fileData.append("frontal_current", globalGreenImages[0].split(",")[1]);
         if (status === "multi") {
-            fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
-            fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
+            // fileData.append("left_side_current", globalBlueImages[0].split(",")[1]);
+            // fileData.append("right_side_current", globalRedImages[0].split(",")[1]);
         } else {
             fileData.append("left_side_current", "");
             fileData.append("right_side_current", "");
