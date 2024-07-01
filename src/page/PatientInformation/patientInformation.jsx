@@ -4,11 +4,8 @@ import {useState, useContext} from "react";
 import {PatientContext} from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    selectErrorThreshold, selectPatientID,
-    selectSex, setErrorThreshold, setPatientID, setSex,
-} from "../../store/PatientInformationStore.js";
+import {useDispatch} from "react-redux";
+import {setErrorThreshold, setPatientID, setSex,} from "../../store/PatientInformationStore.js";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
@@ -35,33 +32,21 @@ export const PatientInformation = () => {
     const {register, getValues, handleSubmit} = useForm()
     const onSubmitData = (data, e) => {
 
-        const patient = {
-            id: data.id,
-            date: new Date().toISOString().split('T')[0],
-            sex: gender,
-            errorThreshold: threhold,
-        };
+
         e.preventDefault()
         dispatch(setSex(gender))
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // add it to local storage (in context)
-        const pi={
+        const patient={
             id: data.id,
             sex: gender,
             errorThreshold: threhold,
-            result:[
-                {
-                    date: new Date().toISOString().split('T')[0],
-                    photo: "",
-                    htmlId: 0
-                }
-            ]
-
+            htmlId:0
         }
-        addPatient(pi)
-        updateLocalPatientIHistoty(pi);
+        addPatient(patient)
+        updateLocalPatientIHistoty(patient);
 
         if (isShowTour) {
             navigate("/tour")

@@ -16,10 +16,6 @@ export const PatientProvider = ({children}) => {
         console.log("addPatient")
         dispatch({type: "ADD_PATIENT", payload: patient});
     };
-    useEffect(() => {
-        console.log("useEffect");
-
-    }, [state]);
     return (
         <PatientContext.Provider value={{patients: state, addPatient}}>
             {children}

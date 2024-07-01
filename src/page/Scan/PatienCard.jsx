@@ -7,10 +7,9 @@ import {useDispatch} from "react-redux";
 import { setErrorThreshold, setPatientID, setSex} from "../../store/PatientInformationStore.js";
 
 export const PatienCard = ({index, patient}) => {
-    const {id, date, photo} = patient;
+    const {id, date, photo,result} = patient;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const download = () => {
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
@@ -44,9 +43,9 @@ export const PatienCard = ({index, patient}) => {
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                    {patient.result.map((patientHistory) => {
+                    {result.map((patientHistory,index) => {
                         return (
-                            <div key={""} className="flex justify-between w-full ">
+                            <div key={index+id}  className="flex justify-between w-full ">
                                 <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
                                 <div>
                                     Date : <span
