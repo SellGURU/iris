@@ -25,10 +25,12 @@ import {
 } from "../store/PatientInformationStore.js";
 import {useDispatch} from "react-redux";
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
+import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
 
 const FaceMesh = () => {
     const navigate = useNavigate();
     const sex = useSelector(selectSex);
+    const id = useSelector(selectPatientID);
     const errorThreshold = useSelector(selectErrorThreshold);
     const dispatch = useDispatch();
     const [isCameraStart, setIsCameraStart] = useState(false);
@@ -62,6 +64,13 @@ const FaceMesh = () => {
             resultHtmldiv.innerHTML += "<br><br>";
             dispatch(setPdf('data:text/html;base64,' + response['html_file']))
             dispatch(setPhoto(resolvedFile))
+            const responce = {
+                id: id,
+                sex: sex,
+                errorThreshold: errorThreshold,
+                htmlId:response["request_id"]
+            }
+            updateLocalPatientIHistoty(responce)
             navigate('/result')
             // result.append(resultHtmldiv);
             toast.dismiss()

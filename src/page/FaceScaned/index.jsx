@@ -6,6 +6,7 @@ import { selectErrorThreshold, selectPatientID, selectPdf, selectSex, selectphot
 import { useEffect,useContext } from "react"
 import { PatientContext } from "../../context/context.jsx";
 import useConstructor from "../../utility/useConstructor.jsx"
+import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 
 const FaceScaned = () => {
     const navigate =useNavigate()
@@ -29,8 +30,10 @@ const FaceScaned = () => {
             sex: gender,
             errorThreshold: threhold,
             photo:photo,
+            htmlId:0
         };
-        // addPatient(patient)
+        updateLocalPatientIHistoty(patient)
+        addPatient(patient)
         navigate('/')
     }
 
