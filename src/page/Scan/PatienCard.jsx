@@ -1,11 +1,16 @@
 import React from "react";
 import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import {useDispatch} from "react-redux";
+import {selectErrorThreshold} from "../../store/PatientInformationStore.js";
 
 export const PatienCard = ({index, patient}) => {
     const {id, date, photo} = patient;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const download = () => {
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
@@ -13,7 +18,7 @@ export const PatienCard = ({index, patient}) => {
         // downloadLink.click();
     }
     const clickHandler = () => {
-
+        console.log(patient)
     }
     return (
         <div className="flex gap-12 items-center justify-start shadow-lg border px-4 pt-2">

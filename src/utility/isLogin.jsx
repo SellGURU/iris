@@ -29,7 +29,7 @@ const checkValidToken = () => {
             setStatus(xhr.status)
             setIsPanding(false)
         } else {
-            console.error('okey', xhr.status);
+            // console.error('okey', xhr.status);
             setIsPanding(false)
 
         }
