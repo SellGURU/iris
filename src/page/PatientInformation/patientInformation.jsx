@@ -30,7 +30,6 @@ export const PatientInformation = () => {
     // const errorThreshold = useSelector(selectErrorThreshold);
 
     const [isShowTour,] = useLocalStorage("tour")
-    console.log(typeof isShowTour)
 
     const {register, getValues, handleSubmit} = useForm()
     const onSubmitData = (data, e) => {
@@ -46,14 +45,19 @@ export const PatientInformation = () => {
         dispatch(setPatientID(data.id))
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
-        // console.log(sex)
         // add it to local storage (in context)
         addPatient({
             id: data.id,
-            date: new Date().toISOString().split('T')[0],
             sex: gender,
             errorThreshold: threhold,
-            photo: "",
+            result:[
+                {
+                    date: new Date().toISOString().split('T')[0],
+                    photo: "",
+                    htmlId: 0
+                }
+            ]
+
         })
 
         if (isShowTour) {
