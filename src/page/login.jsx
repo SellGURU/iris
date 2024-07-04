@@ -76,11 +76,12 @@ const Login = () => {
     return (
 
         <div className={"h-screen "}>
-            <div className={"h-[10vh] flex items-center justify-center"}>
+            <div className={"h-[10vh] flex items-center justify-between px-10"}>
                 <img src={"/image/login/IRIS.svg"} alt="iris"/>
+                <ButtonPrimary>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[90vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img src={"image/Rectangle 34625016.svg"}/>
+                <img src={"image/login-pic.png"}/>
                 <div
                     className="w-fit px-10 py-5 gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
