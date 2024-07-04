@@ -39,11 +39,11 @@ export const PatientInformation = () => {
         dispatch(setErrorThreshold(threhold))
         // addPatient(patient);
         // add it to local storage (in context)
-        const patient={
+        const patient = {
             id: data.id,
             sex: gender,
             errorThreshold: threhold,
-            htmlId:0
+            htmlId: 0
         }
         addPatient(patient)
         updateLocalPatientIHistoty(patient);

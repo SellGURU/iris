@@ -4,27 +4,29 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 import {toast} from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-import {useState} from "react";
-import { useFormik } from 'formik';
+import {useRef, useState} from "react";
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
 import * as res from "autoprefixer";
 
 const Login = () => {
+    const passwordRef = useRef(null);
+
     // const {register, handleSubmit} = useForm();
-    const initialValues ={
-        userName:'',
-        password:''
+    const initialValues = {
+        userName: '',
+        password: ''
     }
-    const validationSchema =Yup.object().shape({
-        userName:Yup.string().required("userName is required"),
-        password:Yup.string().required()
+    const validationSchema = Yup.object().shape({
+        userName: Yup.string().required("userName is required"),
+        password: Yup.string().required()
     })
     const form = useFormik({
-        initialValues:initialValues,
-        validationSchema:validationSchema,
-        onSubmit:() => {
+        initialValues: initialValues,
+        validationSchema: validationSchema,
+        onSubmit: () => {
         }
     })
     const dispatch = useDispatch();
@@ -39,7 +41,7 @@ const Login = () => {
         //   navigate("/");
         // }
 
-    setIsPanding(true)
+        setIsPanding(true)
         try {
             toast.loading('pending ...')
             Auth.login({
@@ -51,13 +53,13 @@ const Login = () => {
                     saveIsAccess(res.data.access_token);
                     dispatch(setUserName("amin"))
                     navigate("/");
-                }else {
+                } else {
                     toast.error(res.data)
                 }
                 console.log("test dissime")
                 toast.dismiss()
 
-            }).catch(()=>{
+            }).catch(() => {
                 console.log("test catch 1")
                 toast.dismiss()
             })
@@ -66,11 +68,16 @@ const Login = () => {
         }
 
     };
+    const handleUsernameKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            passwordRef.current.focus();
+        }
+    };
     return (
 
         <div className={"h-screen "}>
             <div className={"h-[10vh] flex items-center justify-center"}>
-                <img src={"/image/login/IRIS.svg"} alt="iris" />
+                <img src={"/image/login/IRIS.svg"} alt="iris"/>
             </div>
             <div className="w-full h-[90vh] flex items-center text-[#2E2E2E]   justify-center">
                 <img src={"image/Rectangle 34625016.svg"}/>
@@ -80,8 +87,10 @@ const Login = () => {
                 >
                     <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
                     <div className="grid">
-                        <label className="flex mb-2 text-xl font-medium" htmlFor="userName">Username:</label>
+                        <label
+                               className="flex mb-2 text-xl font-medium" htmlFor="userName">Username:</label>
                         <input
+                            onKeyDown={handleUsernameKeyPress}
                             {...form.getFieldProps('userName')}
                             id="userName"
                             className={`w-64 pl-3 py-2 border-b ${form.errors.userName ? 'border border-red-500' : ''}`}
@@ -95,6 +104,7 @@ const Login = () => {
                     <div className="grid">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
                         <input
+                            ref={passwordRef}
                             id="password"
                             className={`w-64 pl-3 py-2 border-b ${form.errors.password ? 'border border-red-500' : ''}`}
                             {...form.getFieldProps('password')}
@@ -110,7 +120,7 @@ const Login = () => {
                     }} disabled={!form.isValid}>LOG IN</ButtonPrimary>
                     <p className="  text-sm font-normal">
                         Don’t have an account?
-                        <Link to="/signup"> Sign up</Link>
+                        <Link to="/"> Sign up</Link>
                     </p>
                 </div>
             </div>
