@@ -76,13 +76,13 @@ const Header = () => {
                             <div className="text-2xl">Balance</div>
                             </div> */}
 
-                            <div onClick={() => {
+                            {/* <div onClick={() => {
                                 // navigate('/PatientInformation')
                                 setShowSideBar(false)
                             }} className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
                             <div className="text-2xl">Setting</div>
-                            </div>
+                            </div> */}
 
                             <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt="" />
