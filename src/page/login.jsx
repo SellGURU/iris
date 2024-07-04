@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
+import * as res from "autoprefixer";
 
 const Login = () => {
     // const {register, handleSubmit} = useForm();
@@ -50,13 +51,18 @@ const Login = () => {
                     saveIsAccess(res.data.access_token);
                     dispatch(setUserName("amin"))
                     navigate("/");
-                    toast.dismiss()
                 }else {
                     toast.error(res.data)
                 }
+                console.log("test dissime")
+                toast.dismiss()
+
+            }).catch(()=>{
+                console.log("test catch 1")
+                toast.dismiss()
             })
         } catch (error) {
-            console.log("error")
+            console.log("error1")
         }
 
     };
