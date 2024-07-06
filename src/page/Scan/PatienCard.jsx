@@ -10,7 +10,7 @@ import {PatientContext} from "../../context/context.jsx";
 export const PatienCard = ({index, patient}) => {
     const {id, date, photo, result} = patient;
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const download = () => {
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;

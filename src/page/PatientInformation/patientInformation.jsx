@@ -22,7 +22,12 @@ export const PatientInformation = () => {
         {state: "masculine", label: "Male"},
         {state: "feminine", label: "Female"},
     ]
-    const dispatch = useDispatch();
+    const {
+        setSex,
+        setPatientID,
+        setErrorThreshold,
+    } = useContext(PatientContext);
+    // const dispatch = useDispatch();
     // const sex = useSelector(selectSex);
     // const patientID = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
@@ -34,9 +39,9 @@ export const PatientInformation = () => {
 
 
         e.preventDefault()
-        dispatch(setSex(gender))
-        dispatch(setPatientID(data.id))
-        dispatch(setErrorThreshold(threhold))
+        setSex(gender)
+        setPatientID(data.id)
+        setErrorThreshold(threhold)
         // addPatient(patient);
         // add it to local storage (in context)
         const patient = {
@@ -47,7 +52,6 @@ export const PatientInformation = () => {
         }
         addPatient(patient)
         updateLocalPatientIHistoty(patient);
-
         if (isShowTour) {
             navigate("/tour")
         } else {
