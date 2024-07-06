@@ -17,8 +17,8 @@ function App() {
 }
 
 const AppRoutes = () => {
-    const [tour,setTour]=useLocalStorage("tour")
-    if (tour===undefined)setTour(true)
+    const [tour, setTour] = useLocalStorage("tour")
+    if (tour === undefined) setTour(true)
     const routes = useRoutes(route);
     return (
 

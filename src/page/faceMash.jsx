@@ -1,7 +1,7 @@
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 
 / eslint-disable no-undef /;
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {useRef} from "react";
 import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
@@ -26,13 +26,21 @@ import {
 import {useDispatch} from "react-redux";
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
+import {PatientContext} from "../context/context.jsx";
 
 const FaceMesh = () => {
     const navigate = useNavigate();
-    const sex = useSelector(selectSex);
-    const id = useSelector(selectPatientID);
-    const errorThreshold = useSelector(selectErrorThreshold);
-    const dispatch = useDispatch();
+    // const sex = useSelector(selectSex);
+    // const id = useSelector(selectPatientID);
+    // const errorThreshold = useSelector(selectErrorThreshold);
+    // const dispatch = useDispatch();
+    const {
+        patientID,
+        sex,
+        errorThreshold,
+        setPdf,
+        setPhoto,
+    } = useContext(PatientContext);
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
     const [resolvedFile, setResolvedFile] = useState('')
@@ -62,10 +70,10 @@ const FaceMesh = () => {
             resultHtml.href = 'data:text/html;base64,' + response['html_file'];
             resultHtml.download = 'golden_ratios.html';
             resultHtmldiv.innerHTML += "<br><br>";
-            dispatch(setPdf('data:text/html;base64,' + response['html_file']))
-            dispatch(setPhoto(resolvedFile))
+            setPdf('data:text/html;base64,' + response['html_file'])
+            setPhoto(resolvedFile)
             const responce = {
-                id: id,
+                id: patientID,
                 sex: sex,
                 errorThreshold: errorThreshold,
                 htmlId:response["request_id"]
@@ -595,8 +603,8 @@ const FaceMesh = () => {
                 resultHtmldiv.innerHTML += "<br><br>";
                 result.append(resultHtmldiv);
 
-                dispatch(setPdf('data:text/html;base64,' + response['html_file']))
-                dispatch(setPhoto(globalGreenImages[0]))
+                setPdf('data:text/html;base64,' + response['html_file'])
+                setPhoto(globalGreenImages[0])
                 navigate('/result')
                 if (e.target.status !== 200) {
                     toast.dismiss()

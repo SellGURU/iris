@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {useDispatch} from "react-redux";
-import { setErrorThreshold, setPatientID, setSex} from "../../store/PatientInformationStore.js";
+import {setErrorThreshold, setPatientID, setSex} from "../../store/PatientInformationStore.js";
+import {PatientContext} from "../../context/context.jsx";
 
 export const PatienCard = ({index, patient}) => {
-    const {id, date, photo,result} = patient;
+    const {id, date, photo, result} = patient;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const download = () => {
@@ -16,10 +17,15 @@ export const PatienCard = ({index, patient}) => {
         // downloadLink.download = 'download.html';
         // downloadLink.click();
     }
+    const {
+        setSex,
+        setPatientID,
+        setErrorThreshold,
+    } = useContext(PatientContext);
     const clickHandler = () => {
-        dispatch(setSex(patient.sex))
-        dispatch(setPatientID(patient.id))
-        dispatch(setErrorThreshold(patient.errorThreshold))
+        setSex(patient.sex)
+        setPatientID(patient.id)
+        setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
     return (
@@ -43,9 +49,9 @@ export const PatienCard = ({index, patient}) => {
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                    {result.map((patientHistory,index) => {
+                    {result.map((patientHistory, index) => {
                         return (
-                            <div key={index+id}  className="flex justify-between w-full ">
+                            <div key={index + id} className="flex justify-between w-full ">
                                 <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
                                 <div>
                                     Date : <span
