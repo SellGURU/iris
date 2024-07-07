@@ -927,7 +927,7 @@ const FaceMesh = () => {
 
                     {status == 'one' ?
                         <ButtonSecondary
-                            ClassName={"bg-[#e8e7f7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
+                            ClassName={"bg-[#E8E7F7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
                             disabled={isCameraStart} onClick={() => {
                             navigate('/faceMashFile')
                         }}>
