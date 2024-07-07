@@ -63,12 +63,12 @@ export const Scan = () => {
             </div>
             <div className="flex w-full justify-between">
                 <Link to="PatientInformation">
-                    <ButtonPrimary>
+                    <ButtonPrimary  className={"h-10 text-[15px]"}>
                         <img src="fi_plus.svg" alt=""/>
-                        Add a new record
+                        Add a New Patient 
                     </ButtonPrimary>
                 </Link>
-                <SearchBox changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                 <div className="flex gap-8 items-center">
                     <div className="flex items-center gap-3">
                         <img src="filter.svg" alt=""/>
@@ -96,7 +96,7 @@ export const Scan = () => {
                     No records found.{" "}
                     <Link to="facecamera">
             <span className="underline text-[#544BF0]">
-              Go to face scanner page.{" "}
+                    Scan your first patient now! {" "}
             </span>
                     </Link>
                 </p>

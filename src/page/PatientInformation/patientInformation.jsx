@@ -71,7 +71,7 @@ export const PatientInformation = () => {
             <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
                 <CardPatient className={"w-[600px]  z-20 h-[88px] border"}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={"w-[200px] text-xl font-medium"}>Patient ID</h1>
+                        <h1 className={"w-[400px] text-xl font-medium"}>Patient ID</h1>
                         <input defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
                             placeholder={"Enter Patient ID"}/>
 
@@ -79,7 +79,7 @@ export const PatientInformation = () => {
                 </CardPatient>
                 <CardPatient className={"w-[600px] h-[118px] border"}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={" text-xl w-[200px] font-medium"}>Facial Esthetic Preference </h1>
+                        <h1 className={" text-xl w-[400px] font-medium"}>Facial Esthetic Preference </h1>
                         <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
 
                     </div>
@@ -93,7 +93,7 @@ export const PatientInformation = () => {
                            placeholder={"number"}/>
 
                 </CardPatient> */}
-                <ButtonPrimary className={"h-[52px] rounded-[12px]"} type={"submit"}>Save & Continue</ButtonPrimary>
+                <ButtonPrimary className={"h-[52px] w-[191px] mt-8 rounded-[12px]"} type={"submit"}>Save & Continue</ButtonPrimary>
             </form>
                     
         </div>
