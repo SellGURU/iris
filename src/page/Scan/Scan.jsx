@@ -90,7 +90,7 @@ export const Scan = () => {
                 );
             })}
 
-            <hr className="h-[1px] bg-gray-700 w-full my-5"/>
+            <hr className="h-[1px] bg-gray-300 w-full my-5"/>
             {patients == 0 ? (
                 <p className="text-center text-[#606060] font-medium">
                     No records found.{" "}
