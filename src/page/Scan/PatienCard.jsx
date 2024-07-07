@@ -10,7 +10,8 @@ export const PatienCard = ({index, patient}) => {
     const navigate = useNavigate();
     // const dispatch = useDispatch();
     console.log(result[0])
-    const download = () => {
+    const download = (id) => {
+        window.open("https://iris.ainexus.com/v1/golden_ratios/"+id)
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
         // downloadLink.download = 'download.html';
@@ -50,7 +51,7 @@ export const PatienCard = ({index, patient}) => {
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
                     {result.map((patientHistory, index) => {
                         return (
-                            <div key={index + id} className="flex justify-between w-full ">
+                            <div key={index + id} className="flex justify-between items-center w-full ">
                                 <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
                                 <div>
                                     Date : <span
@@ -58,11 +59,15 @@ export const PatienCard = ({index, patient}) => {
                                 </div>
 
                                 <div className="flex gap-3 items-center">
-                                    <ButtonSecondary>
+                                    <ButtonSecondary onClick={()=> {
+                                        navigator.share({
+                                            url:'https://iris.ainexus.com/v1/golden_ratios/'+patientHistory.htmlId
+                                        })
+                                    }}  ClassName="h-[45px]">
                                         <img src="fi_share-2.svg" alt=""/>
                                         Share
                                     </ButtonSecondary>
-                                    <ButtonPrimary onClickHandler={download}>
+                                    <ButtonPrimary  ClassName="h-[45px]" onClickHandler={() => download(patientHistory.htmlId)}>
                                         <img src="fi_download.svg" alt=""/>
                                         Download PDF
                                     </ButtonPrimary>

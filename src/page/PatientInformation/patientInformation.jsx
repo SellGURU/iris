@@ -42,15 +42,15 @@ export const PatientInformation = () => {
         setErrorThreshold(threhold)
         // addPatient(patient);
         // add it to local storage (in context)
-        const patient = {
-            id: data.id,
-            sex: gender,
-            errorThreshold: threhold,
-            htmlId: 0,
-            photo: ""
-        }
-        addPatient(patient)
-        updateLocalPatientIHistoty(patient);
+        // const patient = {
+        //     id: data.id,
+        //     sex: gender,
+        //     errorThreshold: threhold,
+        //     htmlId: 0,
+        //     photo: ""
+        // }
+        // addPatient(patient)
+        // updateLocalPatientIHistoty(patient);
         if (isShowTour) {
             navigate("/tour")
         } else {
@@ -79,7 +79,7 @@ export const PatientInformation = () => {
                 </CardPatient>
                 <CardPatient className={"w-[600px] h-[118px] border"}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={" text-xl w-[200px] font-medium"}>Sex Selector</h1>
+                        <h1 className={" text-xl w-[200px] font-medium"}>Facial Esthetic Preference </h1>
                         <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
 
                     </div>

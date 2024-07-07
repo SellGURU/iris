@@ -20,7 +20,9 @@ const FaceScaned = () => {
         patientID,
         sex,
         pdf,
+        fileId,
         errorThreshold,
+        addPatient,
         photo
     } = useContext(PatientContext);
     const download = () => {
@@ -31,6 +33,15 @@ const FaceScaned = () => {
 
     }
     const addPaintion = () => {
+        const patient = {
+            id: patientID,
+            sex: sex,
+            errorThreshold: errorThreshold,
+            htmlId: fileId,
+            photo: photo
+        }
+        addPatient(patient)       
+        updateLocalPatientIHistoty(patient); 
         // const patient = {
         //     id: patientID,
         //     date: new Date().toISOString().split('T')[0],

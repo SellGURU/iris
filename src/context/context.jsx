@@ -6,6 +6,7 @@ const initialState = {
     patientID: "1",
     errorThreshold: "10",
     pdf: '',
+    fileId:'',
     photo: '',
     userName: ""
 };
@@ -28,6 +29,8 @@ const patientReducer = (state, action) => {
             return { ...state, pdf: action.payload };
         case "SET_USER_NAME":
             return { ...state, userName: action.payload };
+        case "SET_FILE":
+            return { ...state, fileId: action.payload };            
         default:
             return state;
     }
@@ -60,6 +63,10 @@ export const PatientProvider = ({ children }) => {
         dispatch({ type: "SET_PDF", payload: pdf });
     }, []);
 
+    const setFile = useCallback((file) => {
+        dispatch({ type: "SET_FILE", payload: file });
+    }, []);
+
     const setUserName = useCallback((userName) => {
         dispatch({ type: "SET_USER_NAME", payload: userName });
     }, []);
@@ -73,6 +80,7 @@ export const PatientProvider = ({ children }) => {
             setPatientID,
             setErrorThreshold,
             setPdf,
+            setFile,
             setUserName
         }}>
             {children}

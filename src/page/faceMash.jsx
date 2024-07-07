@@ -1,7 +1,7 @@
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 
 / eslint-disable no-undef /;
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useReducer} from "react";
 import {useRef} from "react";
 import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
@@ -32,9 +32,11 @@ const FaceMesh = () => {
         sex,
         errorThreshold,
         setPdf,
+        setFile,
         setPhoto,
         photo
     } = useContext(PatientContext);
+    const [,forceUpdate] = useReducer((x) => x+1,1)
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
     const [resolvedFile, setResolvedFile] = useState('')
@@ -600,6 +602,7 @@ const FaceMesh = () => {
 
                 setPdf('data:text/html;base64,' + response['html_file'])
                 setPhoto(globalGreenImages[0])
+                setFile(response['request_id'])
                 navigate('/result')
                 if (e.target.status !== 200) {
                     toast.dismiss()
@@ -695,9 +698,9 @@ const FaceMesh = () => {
     }
     const refreshPic = (picState) => {
         if (picState === "green") {
-
+            
             setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
-
+            forceUpdate()
         }
         if (picState === "red") {
 
