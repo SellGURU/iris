@@ -1,7 +1,7 @@
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 
 / eslint-disable no-undef /;
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useReducer} from "react";
 import {useRef} from "react";
 import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
@@ -34,9 +34,11 @@ const FaceMesh = () => {
         sex,
         errorThreshold,
         setPdf,
+        setFile,
         setPhoto,
         photo
     } = useContext(PatientContext);
+    const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
     const [resolvedFile, setResolvedFile] = useState('')
@@ -145,7 +147,6 @@ const FaceMesh = () => {
         canvasWidth = out2.current.width;
         canvasHeight = out2.current.height;
 
-
         canvasCtx3 = out3.current.getContext("2d");
         canvasWidth3 = out3.current.width;
         canvasHeight3 = out3.current.height;
@@ -201,7 +202,7 @@ const FaceMesh = () => {
             canvasCtx3.clearRect(0, 0, out3.current?.width, out3.current?.height);
             canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);
         }
-        console.log("!globalBlueLandmarks", !globalBlueLandmarks)
+        // console.log("!globalBlueLandmarks", !globalBlueLandmarks)
         if (!globalBlueLandmarks) {
             canvasCtx4.save();
             canvasCtx4.clearRect(0, 0, out4.current?.width, out4.current?.height);
@@ -602,7 +603,7 @@ const FaceMesh = () => {
 
                 setPdf('data:text/html;base64,' + response['html_file'])
                 setPhoto(globalGreenImages[0])
-                console.log("face mash", e.target.status)
+                setFile(response['request_id'])
                 navigate('/result')
                 if (e.target.status !== 200) {
                     // toast.dismiss()
@@ -700,19 +701,21 @@ const FaceMesh = () => {
     }
     const refreshPic = (picState) => {
         if (picState === "green") {
-
-            setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
-
+            // let greenCtx = green.current.getContext("2d");
+            // setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
+            // forceUpdate()
+            // greenCtx.clearRect(0, 0, green.current.width, green.current.height);
+            // greenCtx.save()
         }
         if (picState === "red") {
 
-            setGlobalData((prv) => ({...prv, globalRedLandmarks: null, globalRedImages: []}))
+            // setGlobalData((prv) => ({...prv, globalRedLandmarks: null, globalRedImages: []}))
 
 
         }
         if (picState === "blue") {
-            globalBlueLandmarks = null
-            setGlobalData((prv) => ({...prv, globalBlueLandmarks: null, globalBlueImages: []}))
+            // globalBlueLandmarks = null
+            // setGlobalData((prv) => ({...prv, globalBlueLandmarks: null, globalBlueImages: []}))
         }
 
     }
@@ -774,220 +777,205 @@ const FaceMesh = () => {
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-                            <div className="relative">
-                                {isCameraStart && globalGreenLandmarks ?
-                                    (
-                                        <div onClick={() => refreshPic("green")}
-                                             className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
-                                            <IoRefresh className={"block w-7 h-7  "}/>
-                                        </div>
-                                    ) : ""
-                                }
-                                {isCameraStart && startTimer && !globalGreenLandmarks ?
-                                    <div
-                                        className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
+                    <div className="relative">
+                        {/* {isCameraStart && globalGreenLandmarks ?
+                            (
+                                <div onClick={() => refreshPic("green")}
+                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                </div>
+                            ) : ""
+                        } */}
+                        {isCameraStart && startTimer && !globalGreenLandmarks ?
+                            <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
-                                {
-                                    globalGreenLandmarks ?
-                                        <img className="absolute w-[230px] h-[130px]"
-                                             src={globalGreenImages[0]}></img>
-                                        :
-                                        undefined
-                                }
-                                <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
-                                    id="output3"
-                                    ref={out3}
-                                    width="230px"
-                                    height="130px"
-                                ></canvas>
-
-                                <canvas id="green" ref={green} height="130px" width="230px"
-                                        className={`${isCameraStart ? "opacity-40 relative z-10" : "hidden"}`}></canvas>
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
                             </div>
-                            <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`}
-                                 alt="front pose"/>
-                        </div>
-                        <div
-                            className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            <div className={"w-full p-4"}><h1>2.Left</h1></div>
-                            {globalBlueLandmarks &&
-                                <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                            :
+                            undefined
+                        }
+                        {
+                            globalGreenLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
+                                :
+                                undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
+                            id="output3"
+                            ref={out3}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
+
+                        <canvas id="green" ref={green} height="130px" width="230px"
+                                className={`${isCameraStart ? "opacity-40 relative z-10" : "hidden"}`}></canvas>
+                    </div>
+                    <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
+                </div>
+                <div
+                    className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                    <div className={"w-full p-4"}><h1>2.Left</h1></div>
+                    {globalBlueLandmarks &&
+                        <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
                             <div className="relative">
-                                {isCameraStart && globalBlueLandmarks ?
+                                {/* {isCameraStart && globalBlueLandmarks ?
                                     (
                                         <div onClick={() => refreshPic("blue")}
                                              className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
                                             <IoRefresh className={"block w-7 h-7  "}/>
                                         </div>
                                     ) : ""
-                                }
+                                } */}
                                 {isCameraStart && startTimer2 && !globalBlueLandmarks ?
                                     <div
                                         className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
-                                {
-                                    globalBlueLandmarks ?
-                                        <img className="absolute w-[230px] h-[130px]"
-                                             src={globalBlueImages[0]}></img>
-                                        :
-                                        undefined
-                                }
-                                <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
-                                    id="output4"
-                                    ref={out4}
-                                    width="230px"
-                                    height="130px"
-                                ></canvas>
-
-                                <canvas id="blue" ref={blue} height="130px" width="230px"
-                                        className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
                             </div>
+                            :
+                            undefined
+                        }
+                        {
+                            globalBlueLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
+                                :
+                                undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
+                            id="output4"
+                            ref={out4}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
 
-                            <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`}
-                                 alt="front pose"/>
-
-                        </div>
-                        <div
-                            className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            {globalRedLandmarks &&
-                                <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-                            <div className={"w-full p-4"}><h1>3.Right</h1></div>
-
-                            <div className="relative">
-                                {isCameraStart && globalRedLandmarks ?
-                                    (
-                                        <div onClick={() => refreshPic("red")}
-                                             className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
-                                            <IoRefresh className={"block w-7 h-7  "}/>
-                                        </div>
-                                    ) : ""
-                                }
-                                {isCameraStart && startTimer3 && !globalRedLandmarks ?
-                                    <div
-                                        className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
-
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
-                                {
-                                    globalRedLandmarks ?
-                                        <img className="absolute w-[230px] h-[130px]"
-                                             src={globalRedImages[0]}></img>
-                                        :
-                                        undefined
-                                }
-                                <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
-                                    id="output5"
-                                    ref={out5}
-                                    width="230px"
-                                    height="130px"
-                                ></canvas>
-
-                                <canvas
-                                    className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`}
-                                    id="red" ref={red}
-                                    height="130px" width="230px"></canvas>
-                            </div>
-
-
-                            <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`}
-                                 alt="front pose"/>
-
-                        </div>
+                        <canvas id="blue" ref={blue} height="130px" width="230px"
+                                className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
                     </div>
+
+                    <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
 
                 </div>
-                <div className={"flex items-center justify-center py-10"}>
-                    <div className={"flex items-center justify-center flex-col gap-5 "}>
-                        <div className={"flex items-center justify-center gap-5 w-[660px]"}>
-                            <ButtonPrimary className={"disabled:bg-[#bebebe] !px-8"} disabled={isCameraStart}
-                                           onClick={() => img_source_select()}>
-                                <IoCameraOutline/>
-                                LIVE SCAN
-                            </ButtonPrimary>
+                <div
+                    className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                    {globalRedLandmarks &&
+                        <AiFillCheckSquare className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                    <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
-                            {status == 'one' ?
-                                <ButtonSecondary
-                                    ClassName={"bg-[#E8E7F7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
-                                    disabled={isCameraStart} onClick={() => {
-                                    navigate('/faceMashFile')
-                                }}>
-                                    <input disabled className="w-full invisible top-0 absolute h-full"
-                                           onChange={(e) => {
-                                               var file = e.target.files[0];
-                                               var reader = new FileReader();
-                                               reader.onloadend = function () {
-                                                   // console.log('RESULT', reader.result)
-                                                   setResolvedFile(reader.result)
-                                                   // setTimeout(() => {
-                                                   //     sendToAnalyze()
-                                                   // }, 300);
-                                               }
-                                               reader.readAsDataURL(file);
-                                           }} id="upload-file" type="file"></input>
-                                    <LuUploadCloud/>
-                                    Upload Picture
-                                </ButtonSecondary>
-                                : undefined}
-                        </div>
-                        {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
-                        <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
-                            How to scan face?
-                        </Link>
-                        <div id="result"></div>
+                    <div className="relative">
+                        {/* {isCameraStart && globalRedLandmarks ?
+                            (
+                                <div onClick={() => refreshPic("red")}
+                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                </div>
+                            ) : ""
+                        } */}
+                        {isCameraStart && startTimer3 && !globalRedLandmarks ?
+                            <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
+
+                                <CountdownCircleTimer
+                                    isPlaying
+                                    size={100}
+                                    strokeWidth={6}
+                                    duration={5}
+                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                    colorsTime={[5, 3, 2, 0]}
+                                >
+                                    {({remainingTime}) => remainingTime}
+                                </CountdownCircleTimer>
+                            </div>
+                            :
+                            undefined
+                        }
+                        {
+                            globalRedLandmarks ?
+                                <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                :
+                                undefined
+                        }
+                        <canvas
+                            className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
+                            id="output5"
+                            ref={out5}
+                            width="230px"
+                            height="130px"
+                        ></canvas>
+
+                        <canvas className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`}
+                                id="red" ref={red}
+                                height="130px" width="230px"></canvas>
                     </div>
-                    <div className={"flex items-center justify-center flex-col gap-5 w-[229px]"}></div>
+
+
+                    <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`} alt="front pose"/>
+
                 </div>
             </div>
-        </>
-    )
 
+        </div>
+        <div className={"flex items-center justify-center py-10"}>
+            <div className={"flex items-center justify-center flex-col gap-5 "}>
+                <div className={"flex items-center justify-center gap-5 w-[660px]"}>
+                    <ButtonPrimary className={"disabled:bg-[#bebebe] !px-8"} disabled={isCameraStart}
+                                   onClick={() => img_source_select()}>
+                        <IoCameraOutline/>
+                        LIVE SCAN
+                    </ButtonPrimary>
+
+                    {status == 'one' ?
+                        <ButtonSecondary
+                            ClassName={"bg-[#e8e7f7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
+                            disabled={isCameraStart} onClick={() => {
+                            navigate('/faceMashFile')
+                        }}>
+                            <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
+                                var file = e.target.files[0];
+                                var reader = new FileReader();
+                                reader.onloadend = function () {
+                                    // console.log('RESULT', reader.result)
+                                    setResolvedFile(reader.result)
+                                    // setTimeout(() => {
+                                    //     sendToAnalyze()
+                                    // }, 300);
+                                }
+                                reader.readAsDataURL(file);
+                            }} id="upload-file" type="file"></input>
+                            <LuUploadCloud/>
+                            Upload Picture
+                        </ButtonSecondary>
+                        : undefined}
+                </div>
+                {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
+                <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
+                    How to scan face?
+                </Link>
+                <div id="result"></div>
+            </div>
+            <div className={"flex items-center justify-center flex-col gap-5 w-[229px]"}></div>
+        </div>
+    </>);
 };
 
 export default FaceMesh;

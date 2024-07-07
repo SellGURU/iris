@@ -59,8 +59,9 @@ const Login = () => {
                 console.log("test dissime")
                 toast.dismiss()
 
-            }).catch(() => {
+            }).catch((err) => {
                 console.log("test catch 1")
+                // toast.error(err.message)
                 toast.dismiss()
             })
         } catch (error) {
@@ -92,7 +93,11 @@ const Login = () => {
                         <label
                                className="flex mb-2 text-xl font-medium" htmlFor="userName">E-mail Address:</label>
                         <div className="relative">
-                            <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
+                            {
+                                form.values.userName.length == 0?
+                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
+                                :undefined
+                            }
                             <input
                                 onKeyDown={handleUsernameKeyPress}
                                 {...form.getFieldProps('userName')}
@@ -111,7 +116,11 @@ const Login = () => {
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
                         <div className="relative">
-                            <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
+                            {
+                                form.values.password.length == 0?
+                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
+                                :undefined
+                            }
                             <input
                                 ref={passwordRef}
                                 placeholder="Your Password"
@@ -138,7 +147,7 @@ const Login = () => {
                     </div>
                     <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()
-                    }} disabled={!form.isValid}>LOG IN</ButtonPrimary>
+                    }} disabled={!form.isValid}>Log In</ButtonPrimary>
                     <p className="  text-sm font-normal">
                         Don’t have an account?
                         <Link to="/login"> Sign up</Link>

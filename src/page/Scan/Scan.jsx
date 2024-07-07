@@ -4,11 +4,12 @@ import {SearchBox} from "../../components/searchBox/SearchBox";
 import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
 import {Link} from "react-router-dom";
-
+import {PatientContext} from "../../context/context.jsx";
 export const Scan = () => {
-    // const {patients} = useContext(PatientContext);
+    const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
-
+    console.log(patients)
+    console.log(patients2)
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
@@ -62,12 +63,12 @@ export const Scan = () => {
             </div>
             <div className="flex w-full justify-between">
                 <Link to="PatientInformation">
-                    <ButtonPrimary>
+                    <ButtonPrimary  className={"h-10 text-[15px]"}>
                         <img src="fi_plus.svg" alt=""/>
-                        Add a new record
+                        Add a New Patient 
                     </ButtonPrimary>
                 </Link>
-                <SearchBox changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                 <div className="flex gap-8 items-center">
                     <div className="flex items-center gap-3">
                         <img src="filter.svg" alt=""/>
@@ -89,13 +90,13 @@ export const Scan = () => {
                 );
             })}
 
-            <hr className="h-[1px] bg-gray-700 w-full my-5"/>
+            <hr className="h-[1px] bg-gray-300 w-full my-5"/>
             {patients == 0 ? (
                 <p className="text-center text-[#606060] font-medium">
                     No records found.{" "}
                     <Link to="facecamera">
             <span className="underline text-[#544BF0]">
-              Go to face scanner page.{" "}
+                    Scan your first patient now! {" "}
             </span>
                     </Link>
                 </p>
