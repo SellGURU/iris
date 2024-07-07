@@ -1,10 +1,8 @@
 import React, {useContext} from "react";
 import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
-import {Link, useNavigate} from "react-router-dom";
-import {useLocalStorage} from "@uidotdev/usehooks";
+import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setErrorThreshold, setPatientID, setSex} from "../../store/PatientInformationStore.js";
 import {PatientContext} from "../../context/context.jsx";
 
 export const PatienCard = ({index, patient}) => {

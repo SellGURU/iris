@@ -15,18 +15,11 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
-import {useSelector} from "react-redux";
-import {
-    selectErrorThreshold,
-    selectPatientID,
-    selectSex,
-    setPdf,
-    setPhoto
-} from "../store/PatientInformationStore.js";
-import {useDispatch} from "react-redux";
+
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
 import {PatientContext} from "../context/context.jsx";
+import {IoRefresh} from "react-icons/io5";
 
 const FaceMesh = () => {
     const navigate = useNavigate();
@@ -76,7 +69,7 @@ const FaceMesh = () => {
                 id: patientID,
                 sex: sex,
                 errorThreshold: errorThreshold,
-                htmlId:response["request_id"]
+                htmlId: response["request_id"]
             }
             updateLocalPatientIHistoty(responce)
             navigate('/result')
@@ -204,7 +197,7 @@ const FaceMesh = () => {
             canvasCtx3.clearRect(0, 0, out3.current?.width, out3.current?.height);
             canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);
         }
-
+        console.log("!globalBlueLandmarks", !globalBlueLandmarks)
         if (!globalBlueLandmarks) {
             canvasCtx4.save();
             canvasCtx4.clearRect(0, 0, out4.current?.width, out4.current?.height);
@@ -698,7 +691,24 @@ const FaceMesh = () => {
         }
         return percent
     }
+    const refreshPic = (picState) => {
+        if (picState === "green") {
 
+            setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
+
+        }
+        if (picState === "red") {
+
+            setGlobalData((prv) => ({...prv, globalRedLandmarks: null, globalRedImages: []}))
+
+
+        }
+        if (picState === "blue") {
+            globalBlueLandmarks = null
+            setGlobalData((prv) => ({...prv, globalBlueLandmarks: null, globalBlueImages: []}))
+        }
+
+    }
     return (<>
         <div className={"flex flex-col gap-4 pb-5 pt-10 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
@@ -748,6 +758,14 @@ const FaceMesh = () => {
 
 
                     <div className="relative">
+                        {isCameraStart && globalGreenLandmarks ?
+                            (
+                                <div onClick={() => refreshPic("green")}
+                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                </div>
+                            ) : ""
+                        }
                         {isCameraStart && startTimer && !globalGreenLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
@@ -792,6 +810,14 @@ const FaceMesh = () => {
 
 
                     <div className="relative">
+                        {isCameraStart && globalBlueLandmarks ?
+                            (
+                                <div onClick={() => refreshPic("blue")}
+                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                </div>
+                            ) : ""
+                        }
                         {isCameraStart && startTimer2 && !globalBlueLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
@@ -837,6 +863,14 @@ const FaceMesh = () => {
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
                     <div className="relative">
+                        {isCameraStart && globalRedLandmarks ?
+                            (
+                                <div onClick={() => refreshPic("red")}
+                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                </div>
+                            ) : ""
+                        }
                         {isCameraStart && startTimer3 && !globalRedLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
@@ -883,12 +917,16 @@ const FaceMesh = () => {
         <div className={"flex items-center justify-center py-10"}>
             <div className={"flex items-center justify-center flex-col gap-5 "}>
                 <div className={"flex items-center justify-center gap-5 w-[660px]"}>
-                    <ButtonPrimary onClick={() => img_source_select()}>
+                    <ButtonPrimary className={"disabled:bg-[#bebebe] !px-8"} disabled={isCameraStart}
+                                   onClick={() => img_source_select()}>
                         <IoCameraOutline/>
                         LIVE SCAN
                     </ButtonPrimary>
+
                     {status == 'one' ?
-                        <ButtonSecondary onClick={() => {
+                        <ButtonSecondary
+                            ClassName={"bg-[#e8e7f7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
+                            disabled={isCameraStart} onClick={() => {
                             navigate('/faceMashFile')
                         }}>
                             <input disabled className="w-full invisible top-0 absolute h-full" onChange={(e) => {
