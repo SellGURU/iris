@@ -73,6 +73,7 @@ const Login = () => {
             passwordRef.current.focus();
         }
     };
+    const [HidePass,setHidePass] = useState(false)
     return (
 
         <div className={"h-screen "}>
@@ -87,41 +88,55 @@ const Login = () => {
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
-                    <div className="grid">
+                    <div className="grid w-[330px]">
                         <label
-                               className="flex mb-2 text-xl font-medium" htmlFor="userName">Username:</label>
+                               className="flex mb-2 text-xl font-medium" htmlFor="userName">E-mail Address:</label>
                         <input
                             onKeyDown={handleUsernameKeyPress}
                             {...form.getFieldProps('userName')}
                             id="userName"
-                            className={`w-64 pl-3 py-2 border-b ${form.errors.userName ? 'border border-red-500' : ''}`}
+                            className={`w-full pl-3 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
                             type="text"
+                            placeholder="Your E-mail Address"
                         />
                         {
                             form.errors.userName &&
                             <div className="text-sm mt-2 text-red-500">{form.errors.userName}</div>
                         }
                     </div>
-                    <div className="grid">
+                    <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
-                        <input
-                            ref={passwordRef}
-                            id="password"
-                            className={`w-64 pl-3 py-2 border-b ${form.errors.password ? 'border border-red-500' : ''}`}
-                            {...form.getFieldProps('password')}
-                            type="password"
-                        />
+                        <div className="relative">
+                            <input
+                                ref={passwordRef}
+                                placeholder="Your Password"
+                                id="password"
+                                className={`w-full outline-none pl-3 pr-7 py-2 border-b ${form.errors.password ? 'border-b border-red-500' : ''}`}
+                                {...form.getFieldProps('password')}
+                                type={!HidePass?"password":'text'}
+                            />
+                            <img onClick={() => {
+                                setHidePass(!HidePass)
+                            }} className="absolute cursor-pointer bottom-3 right-1" src={!HidePass?"./eye.svg":'./eye-slash.svg'} />
+
+                        </div>
                         {
                             form.errors.password &&
                             <div className="text-sm mt-2 text-red-500">{form.errors.password}</div>
                         }
                     </div>
-                    <ButtonPrimary onClickHandler={() => {
+                    <div className="w-full justify-between">
+                        <div className="flex justify-start items-center">
+                            <input id="rememberMeBox" type="checkbox" />
+                            <label htmlFor="rememberMeBox" className="ml-2 cursor-pointer text-sm text-[#444444]">Remember me</label>
+                        </div>
+                    </div>
+                    <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()
                     }} disabled={!form.isValid}>LOG IN</ButtonPrimary>
                     <p className="  text-sm font-normal">
                         Don’t have an account?
-                        <Link to="/"> Sign up</Link>
+                        <Link to="/login"> Sign up</Link>
                     </p>
                 </div>
             </div>
