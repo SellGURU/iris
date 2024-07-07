@@ -36,7 +36,7 @@ const FaceMesh = () => {
         setPhoto,
         photo
     } = useContext(PatientContext);
-    const [,forceUpdate] = useReducer((x) => x+1,1)
+    const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
     const [resolvedFile, setResolvedFile] = useState('')
@@ -72,7 +72,7 @@ const FaceMesh = () => {
                 id: patientID,
                 sex: sex,
                 errorThreshold: errorThreshold,
-                photo:photo,
+                photo: photo,
                 htmlId: response["request_id"]
             }
             updateLocalPatientIHistoty(responce)
@@ -144,7 +144,6 @@ const FaceMesh = () => {
         canvasCtx = out2.current.getContext("2d");
         canvasWidth = out2.current.width;
         canvasHeight = out2.current.height;
-
 
         canvasCtx3 = out3.current.getContext("2d");
         canvasWidth3 = out3.current.width;
@@ -716,6 +715,7 @@ const FaceMesh = () => {
         }
 
     }
+
     return (<>
         <div className={"flex flex-col gap-4 pb-5 pt-10 items-center justify-center"}>
             <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
