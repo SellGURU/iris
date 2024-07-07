@@ -6,8 +6,9 @@ export const TabsCustume = ({state, setState, tabs, className = ""}) => {
                     {tabs.map((tab, index) => (
                         <div
                             key={index}
-                            className={`w-full cursor-pointer flex justify-center ${state === tab.state ? "bg-[#544BF0] text-white" : "bg-[#f6f6fb]"} rounded-xl py-2`}>
-                            <div className="flex items-center" onClick={() => setState(tab.state)}>
+                            onClick={() => setState(tab.state)}
+                            className={`w-full flex justify-center ${state === tab.state ? "bg-[#544BF0] text-white" : ""} rounded-[8px] h-full`}>
+                            <div className="flex items-center" >
                                 {tab.label}
                             </div>
                         </div>

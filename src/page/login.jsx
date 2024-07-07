@@ -91,14 +91,18 @@ const Login = () => {
                     <div className="grid w-[330px]">
                         <label
                                className="flex mb-2 text-xl font-medium" htmlFor="userName">E-mail Address:</label>
-                        <input
-                            onKeyDown={handleUsernameKeyPress}
-                            {...form.getFieldProps('userName')}
-                            id="userName"
-                            className={`w-full pl-3 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
-                            type="text"
-                            placeholder="Your E-mail Address"
-                        />
+                        <div className="relative">
+                            <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
+                            <input
+                                onKeyDown={handleUsernameKeyPress}
+                                {...form.getFieldProps('userName')}
+                                id="userName"
+                                className={`w-full pl-7 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
+                                type="text"
+                                placeholder="Your E-mail Address"
+                            />
+
+                        </div>
                         {
                             form.errors.userName &&
                             <div className="text-sm mt-2 text-red-500">{form.errors.userName}</div>
@@ -107,11 +111,12 @@ const Login = () => {
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
                         <div className="relative">
+                            <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
                             <input
                                 ref={passwordRef}
                                 placeholder="Your Password"
                                 id="password"
-                                className={`w-full outline-none pl-3 pr-7 py-2 border-b ${form.errors.password ? 'border-b border-red-500' : ''}`}
+                                className={`w-full outline-none pl-7 pr-7 py-2 border-b ${form.errors.password ? 'border-b border-red-500' : ''}`}
                                 {...form.getFieldProps('password')}
                                 type={!HidePass?"password":'text'}
                             />
