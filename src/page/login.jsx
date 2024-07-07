@@ -20,7 +20,7 @@ const Login = () => {
         password: ''
     }
     const validationSchema = Yup.object().shape({
-        userName: Yup.string().email().required("userName is required"),
+        userName: Yup.string().required("userName is required"),
         password: Yup.string().required()
     })
     const form = useFormik({
