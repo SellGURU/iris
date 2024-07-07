@@ -33,6 +33,7 @@ const FaceMesh = () => {
         errorThreshold,
         setPdf,
         setPhoto,
+        photo
     } = useContext(PatientContext);
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("one")
@@ -69,6 +70,7 @@ const FaceMesh = () => {
                 id: patientID,
                 sex: sex,
                 errorThreshold: errorThreshold,
+                photo:photo,
                 htmlId: response["request_id"]
             }
             updateLocalPatientIHistoty(responce)

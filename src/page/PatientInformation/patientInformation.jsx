@@ -46,7 +46,8 @@ export const PatientInformation = () => {
             id: data.id,
             sex: gender,
             errorThreshold: threhold,
-            htmlId: 0
+            htmlId: 0,
+            photo: ""
         }
         addPatient(patient)
         updateLocalPatientIHistoty(patient);
