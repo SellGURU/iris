@@ -13,6 +13,7 @@ import Header from "./layout/header.jsx";
 import {MainPage} from "./page/mainPage.jsx";
 import {Scan} from "./page/Scan/Scan.jsx";
 import FaceScaned from "./page/FaceScaned/index.jsx";
+import {LoadingReports} from "./page/loadingReports.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -40,6 +41,13 @@ export const route = [
                         <FaceScaned></FaceScaned>
                     </IsLogin>
             },
+            // {
+            //     path: 'loadingreport',
+            //     element:
+            //         <IsLogin>
+            //             <LoadingReports></LoadingReports>
+            //         </IsLogin>
+            // },
             {
                 path: "PatientInformation", element:
                     <IsLogin>
