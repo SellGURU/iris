@@ -9,6 +9,7 @@ export const PatienCard = ({index, patient}) => {
     const {id, date, photo, result} = patient;
     const navigate = useNavigate();
     // const dispatch = useDispatch();
+    console.log(result[0])
     const download = () => {
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
@@ -30,7 +31,7 @@ export const PatienCard = ({index, patient}) => {
         <div className="flex gap-12 items-center justify-start shadow-lg border px-4 pt-2">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                <img className="mt-3 w-[90px]" src={photo} alt=""/>
+                <img className="mt-3 w-[90px]" src={result.length > 1 && result[1].photo} alt=""/>
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full gap-8 border-b py-3">
