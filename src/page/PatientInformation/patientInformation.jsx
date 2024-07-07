@@ -4,8 +4,6 @@ import {useState, useContext} from "react";
 import {PatientContext} from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
-import {useDispatch} from "react-redux";
-import {setErrorThreshold, setPatientID, setSex,} from "../../store/PatientInformationStore.js";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
@@ -19,8 +17,8 @@ export const PatientInformation = () => {
     const [threhold, setthrehold] = useState(10)
     // const { addPatient } = useContext(PatientContext);
     const tabs = [
-        {state: "masculine", label: "Male"},
-        {state: "feminine", label: "Female"},
+        {state: "masculine", label: "Masculine"},
+        {state: "feminine", label: "Feminine"},
     ]
     const {
         setSex,
@@ -62,22 +60,30 @@ export const PatientInformation = () => {
         return Math.floor(Math.random() * (100000 - 1000)) + 100
     }
     return (
-        <div className={"flex items-center justify-center flex-col gap-5 mt-10"}>
+        <>
+        {/* <img className="w-full fixed z-10 left-0 top-32" src="./Vector.svg" alt="" />    */}
+        <div className={"flex  z-30 items-center justify-center flex-col gap-5 mt-10"}>
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>
             <p className={"w-[660px] text-xl font-normal text-center"}>Lorem Ipsum is simply dummy text of the printing
                 and
                 typesetting industry. Lorem Ipsum has been t</p>
-            <form className={"flex items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
-                <CardPatient className={"w-[272px] h-[118px] border"}>
-                    <h1 className={" text-xl font-medium"}>Patient ID</h1>
-                    <input defaultValue={getRand()} {...register("id")} className={"border-b w-full "}
-                           placeholder={"number"}/>
+            <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
+                <CardPatient className={"w-[600px]  z-20 h-[88px] border"}>
+                    <div className="flex w-full justify-between items-center">
+                        <h1 className={"w-[200px] text-xl font-medium"}>Patient ID</h1>
+                        <input defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
+                            placeholder={"Enter Patient ID"}/>
+
+                    </div>
                 </CardPatient>
-                <CardPatient className={"w-[272px] h-[118px] border"}>
-                    <h1 className={" text-xl font-medium"}>Sex Selector</h1>
-                    <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+                <CardPatient className={"w-[600px] h-[118px] border"}>
+                    <div className="flex w-full justify-between items-center">
+                        <h1 className={" text-xl w-[200px] font-medium"}>Sex Selector</h1>
+                        <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+
+                    </div>
                 </CardPatient>
-                <CardPatient className={"w-[272px] h-[118px] border"}>
+                {/* <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>
                     <input value={threhold} onChange={(e) => {
                         setthrehold(e.target.value)
@@ -85,9 +91,12 @@ export const PatientInformation = () => {
                            className={"border-b w-full bg-[#544BF0]"}
                            placeholder={"number"}/>
 
-                </CardPatient>
-                <ButtonPrimary type={"submit"}>Save & Continue</ButtonPrimary>
+                </CardPatient> */}
+                <ButtonPrimary className={"h-[52px] rounded-[12px]"} type={"submit"}>Save & Continue</ButtonPrimary>
             </form>
+                    
         </div>
+         
+        </>
     )
 }
