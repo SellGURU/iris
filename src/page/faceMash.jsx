@@ -201,7 +201,7 @@ const FaceMesh = () => {
             canvasCtx3.clearRect(0, 0, out3.current?.width, out3.current?.height);
             canvasCtx3.drawImage(results.image, 0, 0, out3?.current?.width, out3?.current?.height);
         }
-        console.log("!globalBlueLandmarks", !globalBlueLandmarks)
+        // console.log("!globalBlueLandmarks", !globalBlueLandmarks)
         if (!globalBlueLandmarks) {
             canvasCtx4.save();
             canvasCtx4.clearRect(0, 0, out4.current?.width, out4.current?.height);
@@ -698,19 +698,21 @@ const FaceMesh = () => {
     }
     const refreshPic = (picState) => {
         if (picState === "green") {
-            
-            setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
-            forceUpdate()
+            // let greenCtx = green.current.getContext("2d");
+            // setGlobalData((prv) => ({...prv, globalGreenLandmarks: null, globalGreenImages: []}))
+            // forceUpdate()
+            // greenCtx.clearRect(0, 0, green.current.width, green.current.height);
+            // greenCtx.save()
         }
         if (picState === "red") {
 
-            setGlobalData((prv) => ({...prv, globalRedLandmarks: null, globalRedImages: []}))
+            // setGlobalData((prv) => ({...prv, globalRedLandmarks: null, globalRedImages: []}))
 
 
         }
         if (picState === "blue") {
-            globalBlueLandmarks = null
-            setGlobalData((prv) => ({...prv, globalBlueLandmarks: null, globalBlueImages: []}))
+            // globalBlueLandmarks = null
+            // setGlobalData((prv) => ({...prv, globalBlueLandmarks: null, globalBlueImages: []}))
         }
 
     }
@@ -763,14 +765,14 @@ const FaceMesh = () => {
 
 
                     <div className="relative">
-                        {isCameraStart && globalGreenLandmarks ?
+                        {/* {isCameraStart && globalGreenLandmarks ?
                             (
                                 <div onClick={() => refreshPic("green")}
                                      className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
                                     <IoRefresh className={"block w-7 h-7  "}/>
                                 </div>
                             ) : ""
-                        }
+                        } */}
                         {isCameraStart && startTimer && !globalGreenLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
@@ -815,14 +817,14 @@ const FaceMesh = () => {
 
 
                     <div className="relative">
-                        {isCameraStart && globalBlueLandmarks ?
+                        {/* {isCameraStart && globalBlueLandmarks ?
                             (
                                 <div onClick={() => refreshPic("blue")}
                                      className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
                                     <IoRefresh className={"block w-7 h-7  "}/>
                                 </div>
                             ) : ""
-                        }
+                        } */}
                         {isCameraStart && startTimer2 && !globalBlueLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
@@ -868,14 +870,14 @@ const FaceMesh = () => {
                     <div className={"w-full p-4"}><h1>3.Right</h1></div>
 
                     <div className="relative">
-                        {isCameraStart && globalRedLandmarks ?
+                        {/* {isCameraStart && globalRedLandmarks ?
                             (
                                 <div onClick={() => refreshPic("red")}
                                      className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
                                     <IoRefresh className={"block w-7 h-7  "}/>
                                 </div>
                             ) : ""
-                        }
+                        } */}
                         {isCameraStart && startTimer3 && !globalRedLandmarks ?
                             <div className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
