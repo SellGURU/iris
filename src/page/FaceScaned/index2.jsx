@@ -44,7 +44,7 @@ const Result2 =() => {
         // updateLocalPatientIHistoty(patient)
         navigate('/')
     }
-
+    const date = new Date();
     return (
         <>
             <div className="w-full">
@@ -57,8 +57,8 @@ const Result2 =() => {
                 <div className="w-full justify-between px-12 flex mt-[46px] items-center">
                    <div className="flex justify-start items-center">
                         <div className="text-[#444444] text-[18px] mr-[230px]">Patient ID: {patientID}</div>
-                        <div className="text-[#7E7E7E] text-[16px] mr-8">Date: 12 April 2024</div>
-                        <div className="text-[#7E7E7E] text-[16px]">Time: 14:40</div>
+                        <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
+                        <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
                    </div>
                    <div className="flex justify-end items-center">
                         <button onClick={() => {
@@ -76,7 +76,7 @@ const Result2 =() => {
 
                    </div>
                 </div>
-                <div className="w-full" >
+                <div className="w-full px-11 mt-8" >
 
                     <iframe className="h-[9000px]" src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     </div>                    
