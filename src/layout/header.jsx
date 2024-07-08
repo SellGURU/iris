@@ -46,7 +46,7 @@ const Header = () => {
         <div>
             <div
                 className=" sticky top-0 left-0 mb-5 shadow-md h-[10vh] z-50  w-full bg-white flex items-center justify-between px-5">
-                <IoMenu  onClick={() => {
+                <IoMenu onClick={() => {
                     setShowSideBar(true)
                 }} className="w-10 h-10 cursor-pointer text-[#544BF0]"/>
                 <img className="ml-[120px]" src="/image/login/IRIS.svg" alt="logo"/>
@@ -68,7 +68,7 @@ const Header = () => {
                             <div onClick={() => {
                                 navigate('/')
                                 setShowSideBar(false)
-                            }} className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
+                            }} className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/>
                                 <div className="text-2xl">Home</div>
                             </div>
@@ -86,7 +86,7 @@ const Header = () => {
                             <div className="text-2xl">Setting</div>
                             </div> */}
 
-                            <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
+                            <div className="flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
                                 <div className="text-2xl">Help & Support</div>
                             </div>
