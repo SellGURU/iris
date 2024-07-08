@@ -46,7 +46,7 @@ const Header = () => {
         <div>
             <div
                 className=" sticky top-0 left-0 mb-5 shadow-md h-[10vh] z-50  w-full bg-white flex items-center justify-between px-5">
-                <IoMenu onClick={() => {
+                <IoMenu  onClick={() => {
                     setShowSideBar(true)
                 }} className="w-10 h-10 cursor-pointer text-[#544BF0]"/>
                 <img className="ml-[120px]" src="/image/login/IRIS.svg" alt="logo"/>

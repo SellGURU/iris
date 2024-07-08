@@ -62,7 +62,7 @@ export const Scan = () => {
                 </p>
             </div>
             <div className="flex w-full justify-between">
-                <Link to="PatientInformation">
+                <Link className={"cursor-pointer"} to="PatientInformation">
                     <ButtonPrimary  className={"h-10 text-[15px]"}>
                         <img src="fi_plus.svg" alt=""/>
                         Add a New Patient 
@@ -70,11 +70,11 @@ export const Scan = () => {
                 </Link>
                 <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                 <div className="flex gap-8 items-center">
-                    <div className="flex items-center gap-3">
+                    <div  className="flex items-center gap-3 cursor-pointer">
                         <img src="filter.svg" alt=""/>
                         Filter
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 cursor-pointer">
                         <img src="sort.svg" alt=""/>
                         Sort By Date
                     </div>

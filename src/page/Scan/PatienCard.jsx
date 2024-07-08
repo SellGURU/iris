@@ -4,6 +4,7 @@ import ButtonPrimary from "../../components/button/buttonPrimery";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {PatientContext} from "../../context/context.jsx";
+import {RWebShare} from "react-web-share";
 
 export const PatienCard = ({index, patient}) => {
     const {id, date, photo, result} = patient;
@@ -11,7 +12,7 @@ export const PatienCard = ({index, patient}) => {
     // const dispatch = useDispatch();
     console.log(result[0])
     const download = (id) => {
-        window.open("https://iris.ainexus.com/v1/golden_ratios/"+id)
+        window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
         // downloadLink.download = 'download.html';
@@ -32,7 +33,8 @@ export const PatienCard = ({index, patient}) => {
         <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border  p-[32px]">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                <img className="mt-3 w-[73px] rounded-[8px] h-[56px]" src={result[0].photo.length > 0 && result[0].photo} alt=""/>
+                <img className="mt-3 w-[73px] rounded-[8px] h-[56px]"
+                     src={result[0].photo.length > 0 && result[0].photo} alt=""/>
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
@@ -45,9 +47,10 @@ export const PatienCard = ({index, patient}) => {
                             <img src="fi_plus-blue.svg" alt=""/>
                             New Scan
                         </div> */}
-                        <button onClick={clickHandler} className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
+                        <button onClick={clickHandler}
+                                className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
                             <img className="mr-2" src="camera.svg" alt=""/>
-                            New Scan                            
+                            New Scan
                         </button>
                         {/*</Link>*/}
                     </div>
@@ -57,25 +60,42 @@ export const PatienCard = ({index, patient}) => {
                         return (
                             <div key={index + id} className="flex justify-between items-center w-full ">
                                 <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
-                                <div className="text-[#7E7E7E] font-medium"> 
+                                <div className="text-[#7E7E7E] font-medium">
                                     Date : <span
                                     className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
                                 </div>
 
                                 <div className="flex gap-3 items-center">
-                                    <div onClick={()=> {
-                                        navigator.share({
-                                            url:'https://iris.ainexus.com/v1/golden_ratios/'+patientHistory.htmlId
-                                        })
-                                    }}  className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                        <img src="./share.svg" alt="" />
+                                    <RWebShare data={{
+                                        text: "iris",
+                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
+                                        title: "iris",
+                                    }}>
+                                        <div
+                                            onClick={() => {
+                                                if (navigator.share) {
+                                                    navigator.share({
+                                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                    })
+                                                        .then(() => console.log('Successful share'))
+                                                        .catch((error) => console.log('Error sharing', error));
+                                                } else {
+                                                    console.log('Web Share API is not supported in this browser.');
+                                                }
+                                            }}
+                                            className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
+                                        >
+                                            <img src="./share.svg" alt="Share"/>
+                                        </div>
+                                    </RWebShare>
+                                    <div onClick={() => download(patientHistory.htmlId)}
+                                         className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                        <img src="./download.svg" alt=""/>
                                     </div>
-                                    <div  onClick={() => download(patientHistory.htmlId)}  className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                        <img src="./download.svg" alt="" />
-                                    </div>           
-                                    <div onClick={() => download(patientHistory.htmlId)} className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                    <div onClick={() => download(patientHistory.htmlId)}
+                                         className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
                                         View Reports
-                                    </div>                                                                  
+                                    </div>
                                     {/* <ButtonSecondary onClick={()=> {
                                         navigator.share({
                                             url:'https://iris.ainexus.com/v1/golden_ratios/'+patientHistory.htmlId
