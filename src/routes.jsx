@@ -12,7 +12,7 @@ import {PatientInformation} from "./page/PatientInformation/patientInformation.j
 import Header from "./layout/header.jsx";
 import {MainPage} from "./page/mainPage.jsx";
 import {Scan} from "./page/Scan/Scan.jsx";
-import FaceScaned from "./page/FaceScaned/index.jsx";
+import FaceScaned from "./page/FaceScaned/index2.jsx";
 import {LoadingReports} from "./page/loadingReports.jsx";
 
 export const route = [

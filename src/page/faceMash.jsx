@@ -37,7 +37,8 @@ const FaceMesh = () => {
         setPdf,
         setFile,
         setPhoto,
-        photo
+        photo,
+        addPatient
     } = useContext(PatientContext);
     const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
@@ -606,6 +607,15 @@ const FaceMesh = () => {
                 setPdf('data:text/html;base64,' + response['html_file'])
                 setPhoto(globalGreenImages[0])
                 setFile(response['request_id'])
+                const patient = {
+                    id: patientID,
+                    sex: sex,
+                    errorThreshold: errorThreshold,
+                    htmlId: response['request_id'],
+                    photo: globalGreenImages[0]
+                }
+                addPatient(patient)       
+                updateLocalPatientIHistoty(patient);                 
                 navigate('/result')
                 if (e.target.status !== 200) {
                     // toast.dismiss()
