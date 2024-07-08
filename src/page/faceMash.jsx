@@ -23,6 +23,7 @@ import {IoRefresh} from "react-icons/io5";
 import {LoadingReports} from "./loadingReports.jsx";
 
 const FaceMesh = () => {
+    const [isShowFaceGuide,setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
     const navigate = useNavigate();
     // const sex = useSelector(selectSex);
@@ -265,6 +266,7 @@ const FaceMesh = () => {
                 const greenImageData = tmpCanvasRef.current.toDataURL("image/png");
 
                 globalGreenImages.unshift(greenImageData);
+
                 globalGreens.unshift(greenImageData);
 
                 if (globalGreenImages.length > 5) globalGreenImages.pop();
@@ -805,7 +807,7 @@ const FaceMesh = () => {
                                     undefined
                                 }
                                 {
-                                    globalGreenLandmarks ?
+                                    globalGreenLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
                                         :
                                         undefined
@@ -817,9 +819,12 @@ const FaceMesh = () => {
                                     width="230px"
                                     height="130px"
                                 ></canvas>
-
+                                {isShowFaceGuide &&
+                                    <img className={"absolute top-0 rounded-md z-30 w-[230px] h-[130px]"}
+                                         src={globalGreenImages[1]}/>
+                                }
                                 <canvas id="green" ref={green} height="130px" width="230px"
-                                        className={`${isCameraStart ? "opacity-40 relative z-10" : "hidden"}`}></canvas>
+                                        className={`${isCameraStart ? "opacity-40 relative z-10 " : "hidden"}`}></canvas>
                             </div>
                             <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="front pose"/>
@@ -860,7 +865,7 @@ const FaceMesh = () => {
                                     undefined
                                 }
                                 {
-                                    globalBlueLandmarks ?
+                                    globalBlueLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
                                         :
                                         undefined
@@ -872,7 +877,10 @@ const FaceMesh = () => {
                                     width="230px"
                                     height="130px"
                                 ></canvas>
-
+                                {isShowFaceGuide &&
+                                    <img className={"absolute top-0 rounded-md z-30 w-[230px] h-[130px]"}
+                                         src={globalBlueImages[1]}/>
+                                }
                                 <canvas id="blue" ref={blue} height="130px" width="230px"
                                         className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
                             </div>
@@ -916,7 +924,7 @@ const FaceMesh = () => {
                                     undefined
                                 }
                                 {
-                                    globalRedLandmarks ?
+                                    globalRedLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
                                         :
                                         undefined
@@ -934,16 +942,19 @@ const FaceMesh = () => {
                                     id="red" ref={red}
                                     height="130px" width="230px"></canvas>
                             </div>
-
+                            {isShowFaceGuide &&
+                                <img className="absolute top-0 z-50 w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                            }
 
                             <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="front pose"/>
 
                         </div>
+
                     </div>
 
                 </div>
-                <div className={"flex items-center justify-center py-10"}>
+                <div className={"flex items-start justify-center py-10"}>
                     <div className={"flex items-center justify-center flex-col gap-5 "}>
                         <div className={"flex items-center justify-center gap-5 w-[660px]"}>
                             <ButtonPrimary className={"disabled:bg-[#bebebe] !px-8"} disabled={isCameraStart}
@@ -954,7 +965,7 @@ const FaceMesh = () => {
 
                             {status == 'one' ?
                                 <ButtonSecondary
-                                    ClassName={"bg-[#e8e7f7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
+                                    ClassName={"!bg-[#E8E7F7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
                                     disabled={isCameraStart} onClick={() => {
                                     navigate('/faceMashFile')
                                 }}>
@@ -975,6 +986,7 @@ const FaceMesh = () => {
                                     Upload Image
                                 </ButtonSecondary>
                                 : undefined}
+
                         </div>
                         {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
                         <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
@@ -982,8 +994,19 @@ const FaceMesh = () => {
                         </Link>
                         <div id="result"></div>
                     </div>
-                    <div className={"flex items-center justify-center flex-col gap-5 w-[229px]"}></div>
+                    <div className={"flex items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
+                        <div onClick={()=>setIsShowFaceGuide((!isShowFaceGuide))} className="flex items-center">
+                            <input  checked={isShowFaceGuide} id="disabled-checked-checkbox" type="checkbox" value=""
+                                   className="w-4 h-4 text-blue-600 focus:!bg-blue-700 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 "/>
+                            <label htmlFor="disabled-checked-checkbox"
+                                   className="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">
+                                show face guide
+                            </label>
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
         </>
     )
