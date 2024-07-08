@@ -972,7 +972,7 @@ const FaceMesh = () => {
                                                reader.readAsDataURL(file);
                                            }} id="upload-file" type="file"></input>
                                     <LuUploadCloud/>
-                                    Upload Picture
+                                    Upload Image
                                 </ButtonSecondary>
                                 : undefined}
                         </div>

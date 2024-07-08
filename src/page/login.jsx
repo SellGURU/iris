@@ -74,6 +74,11 @@ const Login = () => {
             passwordRef.current.focus();
         }
     };
+    const handleKeyPressSubmitData=(event)=>{
+        if (event.key === 'Enter') {
+            onSubmit()
+        }
+    }
     const [HidePass,setHidePass] = useState(false)
     return (
 
@@ -99,6 +104,7 @@ const Login = () => {
                                 :undefined
                             }
                             <input
+
                                 onKeyDown={handleUsernameKeyPress}
                                 {...form.getFieldProps('userName')}
                                 id="userName"
@@ -121,7 +127,9 @@ const Login = () => {
                                     <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
                                 :undefined
                             }
+
                             <input
+                                onKeyDown={handleKeyPressSubmitData}
                                 ref={passwordRef}
                                 placeholder="Your Password"
                                 id="password"
