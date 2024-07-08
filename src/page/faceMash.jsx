@@ -46,7 +46,7 @@ const FaceMesh = () => {
     const [resolvedFile, setResolvedFile] = useState('')
     const tabs = [
         {state: "multi", label: "All poses"},
-        {state: "one", label: "One pose"}
+        {state: "one", label: "Single pose"}
     ];
     // let cameraStarted = false;
     const sendToAnalyze = () => {
