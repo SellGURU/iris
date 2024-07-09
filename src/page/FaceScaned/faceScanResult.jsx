@@ -41,16 +41,7 @@ const FaceScanResult =() => {
         }
         addPatient(patient)
         console.log("result")
-        updateLocalPatientIHistoty(patient); 
-        // const patient = {
-        //     id: patientID,
-        //     date: new Date().toISOString().split('T')[0],
-        //     sex: sex,
-        //     errorThreshold: errorThreshold,
-        //     photo: photo,
-        //     htmlId: 0
-        // };
-        // updateLocalPatientIHistoty(patient)
+        updateLocalPatientIHistoty(patient);
         navigate('/')
     }
     const date = new Date();

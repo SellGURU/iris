@@ -6,15 +6,16 @@ import {useDispatch} from "react-redux";
 import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {ButtonDefault} from "../../components/button/buttonDefault.jsx";
+import {useForm} from "react-hook-form";
 
 export const PatienCard = ({index, patient}) => {
 
-    const {id, date, photo, result} = patient;
+    const {id, date, photo, result,comment} = patient;
 
-    const [isShowComment,setIsShowComment] = useState(false);
+    const [isShowComment, setIsShowComment] = useState(false);
+    const [isShowAddComment, setIsShowAddComment] = useState(false);
     const navigate = useNavigate();
     // const dispatch = useDispatch();
-    console.log(result[0])
     const download = (id) => {
         window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
         // const downloadLink = document.createElement("a");
@@ -33,68 +34,79 @@ export const PatienCard = ({index, patient}) => {
         setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
+    const {register, handleSubmit} = useForm()
+    const formHandler = (data) => {
+        if(data.addComment.length>0){
+
+        }else {
+            setIsShowAddComment(false)
+        }
+    }
     return (
-            <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border  p-[32px]">
-                <div className="flex items-start self-start gap-5 ">
-                    {index}
-                    <img className="mt-3 w-[73px] rounded-[8px] h-[56px]"
-                         src={result[0].photo.length > 0 && result[0].photo} alt=""/>
-                </div>
-                <div className="w-full flex flex-col items-start  justify-center ">
-                    <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
-                        <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
+        <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border  p-[32px]">
+            <div className="flex items-start self-start gap-5 ">
+                {index}
+                <img className="mt-3 w-[73px] rounded-[8px] h-[56px]"
+                     src={result[0].photo.length > 0 && result[0].photo} alt=""/>
+            </div>
+            <div className="w-full flex flex-col items-start  justify-center ">
+                <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
+                    <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
-                        <div className="flex gap-4 items-center justify-between">
-                            <div onClick={()=>setIsShowComment(!isShowComment)} className={" cursor-pointer text-base font-normal underline text-[#544BF0] "}>Show comments (0)</div>
-                            <button onClick={clickHandler}
-                                    className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
-                                <img className="mr-2" src="camera.svg" alt=""/>
-                                New Scan
-                            </button>
+                    <div className="flex gap-4 items-center justify-between">
+                        <div onClick={() => setIsShowComment(!isShowComment)}
+                             className={" cursor-pointer text-base font-normal underline text-[#544BF0] "}>Show comments
+                            (0)
                         </div>
+                        <button onClick={clickHandler}
+                                className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
+                            <img className="mr-2" src="camera.svg" alt=""/>
+                            New Scan
+                        </button>
                     </div>
-                    <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
+                </div>
+                <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
                     {result.map((patientHistory, index) => {
-                            return (
-                                <div key={index + id} className="flex justify-between items-center w-full ">
-                                    <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
-                                    <div className="text-[#7E7E7E] font-medium">
-                                        Date : <span
-                                        className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
-                                    </div>
+                        return (
+                            <div key={index + id} className="flex justify-between items-center w-full ">
+                                <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                <div className="text-[#7E7E7E] font-medium">
+                                    Date : <span
+                                    className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
+                                </div>
 
-                                    <div className="flex gap-3 items-center">
-                                        <RWebShare data={{
-                                            text: "iris",
-                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
-                                            title: "iris",
-                                        }}>
-                                            <div
-                                                onClick={() => {
-                                                    if (navigator.share) {
-                                                        navigator.share({
-                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
-                                                        })
-                                                            .then(() => console.log('Successful share'))
-                                                            .catch((error) => console.log('Error sharing', error));
-                                                    } else {
-                                                        console.log('Web Share API is not supported in this browser.');
-                                                    }
-                                                }}
-                                                className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
-                                            >
-                                                <img src="./share.svg" alt="Share"/>
-                                            </div>
-                                        </RWebShare>
-                                        <div onClick={() => download(patientHistory.htmlId)}
-                                             className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                            <img src="./download.svg" alt=""/>
+                                <div className="flex gap-3 items-center">
+                                    <RWebShare data={{
+                                        text: "iris",
+                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
+                                        title: "iris",
+                                    }}>
+                                        <div
+                                            onClick={() => {
+                                                if (navigator.share) {
+                                                    navigator.share({
+                                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                    })
+                                                        .then(() => console.log('Successful share'))
+                                                        .catch((error) => console.log('Error sharing', error));
+                                                } else {
+                                                    console.log('Web Share API is not supported in this browser.');
+                                                }
+                                            }}
+                                            className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
+                                        >
+                                            <img src="./share.svg" alt="Share"/>
                                         </div>
-                                        <div onClick={() => download(patientHistory.htmlId)}
-                                             className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                            View Reports
-                                        </div>
-                                        {/* <ButtonSecondary onClick={()=> {
+                                    </RWebShare>
+                                    <div onClick={() => download(patientHistory.htmlId)}
+                                         className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                        <img src="./download.svg" alt=""/>
+                                    </div>
+                                    <div onClick={() => download(patientHistory.htmlId)}
+                                         className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                        View Reports
+                                    </div>
+                                    {/* <ButtonSecondary onClick={()=> {
                                         navigator.share({
                                             url:'https://iris.ainexus.com/v1/golden_ratios/'+patientHistory.htmlId
                                         })
@@ -106,46 +118,55 @@ export const PatienCard = ({index, patient}) => {
                                         <img src="fi_download.svg" alt=""/>
                                         Download PDF
                                     </ButtonPrimary> */}
-                                    </div>
                                 </div>
+                            </div>
 
-                            )
-                        })}
+                        )
+                    })}
+                </div>
+                {isShowComment &&
+                    <>
 
-                        {/* <div className="flex justify-between w-full ">
-            <h2 className="font-bold text-xl text-[#1a1919]">ScanHistory Analysis</h2>
-            <span className="font-medium text-[#606060]">
-              Date: 12 April 2024{" "}
-            </span>
-            <div className="flex gap-3 items-center">
-              <ButtonSecondary>
-                <img src="/public/fi_share-2.svg" alt="" />
-                Share
-              </ButtonSecondary>
-              <ButtonPrimary>
-                <img src="/public/fi_download.svg" alt="" />
-                Download PDF
-              </ButtonPrimary>
-            </div>
-          </div> */}
-                    </div>
-                    {isShowComment &&
-                    <div className={"w-full border-t pt-5 flex items-center gap-5 justify-between"}>
-                        <div>Comments:</div>
-                        <div>
-                            <div className={"flex gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                <h1>12 April 2024 </h1>
-                                <p className={"w-4/6"}>Lorem Ipsum is simply dummy text of the printing typesetting text of the printin and typesetting industr Lorem Ipsum is simply dummy text of the printing typesetting text of the printin and typesetti Lorem Ipsum is simply dummy text of the printing.</p>
+                        <div className={"w-full border-t pt-5 flex items-center gap-5 justify-between"}>
+                            <div>Comments:</div>
+                            <div>
+                                {comment.map((comment, index) => {
+                                    return (
+                                        <div key={index}
+                                            className={"flex gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
+                                            <h1>12 April 2024 </h1>
+                                            <p className={"w-4/6"}>Lorem Ipsum is simply dummy text of the printing
+                                                typesetting text of the printin and typesetting industr Lorem Ipsum is
+                                                simply dummy text of the printing typesetting text of the printin and
+                                                typesetti Lorem Ipsum is simply dummy text of the printing.</p>
+                                        </div>
+                                    )
+                                })}
+                                {comment.length<=0&& (<div className={" text-center"}>No comment found.</div>)}
+                            < /div>
+                            <div className={" h-full w-1/6 flex items-center justify-end"}>
+                                <button disabled={isShowAddComment}
+                                        onClick={() => setIsShowAddComment(!isShowAddComment)}
+                                        className={" disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
+                                    add comment
+                                </button>
                             </div>
                         </div>
-                        <div className={" h-full w-1/3 flex items-center justify-end"}>
-                            <div className={"text-base font-normal underline text-[#544BF0] h-full"}>add comment</div>
-                        </div>
-                    </div>
-                    }
-                </div>
+                        {isShowAddComment && <form onSubmit={handleSubmit(formHandler)} className={"w-full "}>
+                            <div className={"w-full flex items-center justify-center"}>
+                                <div className={" p-5 w-4/6 flex items-start gap-5 justify-center"}>
+                                    <input {...register("addComment")} className={"h-20 w-full  p-2"}/>
+                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-2"}>Add
+                                        Comment</ButtonPrimary>
+                                </div>
+                            </div>
+                        </form>}
+                    </>
 
+                }
             </div>
+
+        </div>
     );
-    };
+};
 
