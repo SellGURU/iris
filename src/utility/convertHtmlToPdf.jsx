@@ -1,51 +1,32 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import {useRef, useState} from "react";
-export const ConvertHtmlToPdf = () => {
 
-        const [htmlUrl, setHtmlUrl] = useState('');
-        const iframeRef = useRef(null);
+export const convertHtmlToPdf = async (htmlUrl, fileName = 'download.pdf') => {
+    try {
+        const response = await fetch(htmlUrl);
+        const htmlContent = await response.text();
 
-        const handleDownload = async () => {
-            const iframe = iframeRef.current;
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        // Create a temporary div to hold the HTML content
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        document.body.appendChild(tempDiv);
 
-            // Wait for the iframe to load completely
-            iframe.onload = async () => {
-                // Use html2canvas to capture the iframe content
-                const canvas = await html2canvas(iframeDocument.body);
-                const imgData = canvas.toDataURL('image/png');
+        // Use html2canvas to capture the content of the temporary div
+        const canvas = await html2canvas(tempDiv);
+        const imgData = canvas.toDataURL('image/png');
 
-                // Create PDF with jsPDF
-                const pdf = new jsPDF();
-                const imgProps = pdf.getImageProperties(imgData);
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        // Create PDF with jsPDF
+        const pdf = new jsPDF();
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save('download.pdf');
-            };
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(fileName);
 
-            iframe.src = htmlUrl;
-        };
-
-        return (
-            <div>
-                <input
-                    type="text"
-                    placeholder="Enter HTML URL"
-                    value={htmlUrl}
-                    onChange={(e) => setHtmlUrl(e.target.value)}
-                    className="border p-2 mb-4"
-                />
-                <button onClick={handleDownload} className="bg-blue-600 text-white p-2">
-                    Download PDF
-                </button>
-                <iframe
-                    ref={iframeRef}
-                    style={{ display: 'none' }}
-                    title="HTML Content"
-                ></iframe>
-            </div>
-        );
-}
+        // Clean up the temporary div
+        document.body.removeChild(tempDiv);
+    } catch (error) {
+        console.error('Error converting HTML to PDF:', error);
+    }
+};
