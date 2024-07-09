@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import {Link, useNavigate} from "react-router-dom";
@@ -7,9 +7,11 @@ import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {ButtonDefault} from "../../components/button/buttonDefault.jsx";
 
-export const
-    PatienCard = ({index, patient}) => {
+export const PatienCard = ({index, patient}) => {
+
     const {id, date, photo, result} = patient;
+
+    const [isShowComment,setIsShowComment] = useState(false);
     const navigate = useNavigate();
     // const dispatch = useDispatch();
     console.log(result[0])
@@ -42,23 +44,17 @@ export const
                     <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
                         <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
-                        <div className="flex gap-4 items-center">
-                            {/* <div className="font-medium text-[#606060]">Last ScanHistory: {date}</div> */}
-                            {/*<Link to="facecamera">*/}
-                            {/* <div onClick={clickHandler} className="flex items-center gap-1  text-[#544BF0]">
-                            <img src="fi_plus-blue.svg" alt=""/>
-                            New ScanHistory
-                        </div> */}
+                        <div className="flex gap-4 items-center justify-between">
+                            <div onClick={()=>setIsShowComment(!isShowComment)} className={" cursor-pointer text-base font-normal underline text-[#544BF0] "}>Show comments (0)</div>
                             <button onClick={clickHandler}
                                     className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
                                 <img className="mr-2" src="camera.svg" alt=""/>
                                 New Scan
                             </button>
-                            {/*</Link>*/}
                         </div>
                     </div>
                     <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                        {result.map((patientHistory, index) => {
+                    {result.map((patientHistory, index) => {
                             return (
                                 <div key={index + id} className="flex justify-between items-center w-full ">
                                     <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
@@ -133,7 +129,7 @@ export const
             </div>
           </div> */}
                     </div>
-
+                    {isShowComment &&
                     <div className={"w-full border-t pt-5 flex items-center gap-5 justify-between"}>
                         <div>Comments:</div>
                         <div>
@@ -146,6 +142,7 @@ export const
                             <div className={"text-base font-normal underline text-[#544BF0] h-full"}>add comment</div>
                         </div>
                     </div>
+                    }
                 </div>
 
             </div>
