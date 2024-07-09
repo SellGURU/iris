@@ -1,17 +1,9 @@
 import {useNavigate} from "react-router-dom"
 import ButtonPrimary from "../../components/button/buttonPrimery"
 import ButtonSecondary from "../../components/button/buttonSecondary"
-import {useSelector} from "react-redux"
-import {
-    selectErrorThreshold,
-    selectPatientID,
-    selectPdf,
-    selectSex,
-    selectphoto
-} from "../../store/PatientInformationStore"
-import {useEffect, useContext} from "react"
+
+import { useContext} from "react"
 import {PatientContext} from "../../context/context.jsx";
-import useConstructor from "../../utility/useConstructor.jsx"
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 
 const FaceScaned = () => {
@@ -41,16 +33,7 @@ const FaceScaned = () => {
             photo: photo
         }
         addPatient(patient)       
-        updateLocalPatientIHistoty(patient); 
-        // const patient = {
-        //     id: patientID,
-        //     date: new Date().toISOString().split('T')[0],
-        //     sex: sex,
-        //     errorThreshold: errorThreshold,
-        //     photo: photo,
-        //     htmlId: 0
-        // };
-        // updateLocalPatientIHistoty(patient)
+        updateLocalPatientIHistoty(patient);
         navigate('/')
     }
 

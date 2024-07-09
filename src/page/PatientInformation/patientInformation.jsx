@@ -10,12 +10,12 @@ import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHisto
 
 
 export const PatientInformation = () => {
-    const {addPatient} = useContext(PatientContext);
 
     const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold, setthrehold] = useState(10)
-    // const { addPatient } = useContext(PatientContext);
+
+    //tabs to switch the gender
     const tabs = [
         {state: "masculine", label: "Masculine"},
         {state: "feminine", label: "Feminine"},
@@ -25,16 +25,14 @@ export const PatientInformation = () => {
         setPatientID,
         setErrorThreshold,
     } = useContext(PatientContext);
-    // const dispatch = useDispatch();
-    // const sex = useSelector(selectSex);
-    // const patientID = useSelector(selectPatientID);
-    // const errorThreshold = useSelector(selectErrorThreshold);
 
+    // is show tour false did not load the show tour and redirect to face mash
     const [isShowTour,] = useLocalStorage("tour")
 
     const {register, getValues, handleSubmit} = useForm()
-    const onSubmitData = (data, e) => {
 
+    // submit the data to start the face mash
+    const onSubmitData = (data, e) => {
 
         e.preventDefault()
         setSex(gender)

@@ -1,9 +1,12 @@
+// The Tour component provides a step-by-step guide for users to follow during the face scan process.
+// It uses useNavigate from react-router-dom to navigate between routes and useLocalStorage from @uidotdev/usehooks to manage the visibility state of the tour.
+// The component maintains the current step using the useState hook and updates it as the user progresses through the tour.
+// The handleNext function increments the current step, while the handleSkip function hides the tour and navigates to the face camera page.
+// The getStepContent function returns the content for each step of the tour based on the current step number, including instructions, images, and notes.
+// The component renders the content of the current step inside a centered container, providing users with visual and textual instructions to complete the face scan.
+
+
 import {useState} from "react";
-// import tour1 from "image/tour-1.svg";
-// import tour2 from "image/tour-2.svg";
-// import tour3 from "image/tour-3.svg";
-// import tour4 from "image/tour-4.svg";
-// import tour5 from "image/tour-5.svg";
 import {StepInstructions} from "./StepInstructions";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";

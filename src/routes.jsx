@@ -1,6 +1,5 @@
 import FaceMesh from "./page/faceMash";
 import Login from "./page/login";
-import Login2 from "./page/Login2";
 import UploadFaceMash from "./page/UploadFaceMash";
 import SignUp from "./page/signup";
 import GetCode from "./page/signup/getCode";
@@ -10,14 +9,11 @@ import {IsLogin} from "./utility/isLogin.jsx";
 import {Tour} from "./page/tour/Tour.jsx";
 import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 import Header from "./layout/header.jsx";
-import {MainPage} from "./page/mainPage.jsx";
-import {Scan} from "./page/Scan/Scan.jsx";
-import FaceScaned from "./page/FaceScaned/index2.jsx";
-import {LoadingReports} from "./page/loadingReports.jsx";
+import {ScanHistory} from "./page/ScanHistory/ScanHistory.jsx";
+import FaceScaned from "./page/FaceScaned/faceScanResult.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
-    {path: "/login2", element: <Login2/>},
     {
         path: "/", element:
             <Header/>
@@ -25,7 +21,7 @@ export const route = [
             {
                 path: "", element:
                     <IsLogin>
-                        <Scan/>
+                        <ScanHistory/>
                     </IsLogin>
             },
             {
@@ -41,13 +37,6 @@ export const route = [
                         <FaceScaned></FaceScaned>
                     </IsLogin>
             },
-            // {
-            //     path: 'loadingreport',
-            //     element:
-            //         <IsLogin>
-            //             <LoadingReports></LoadingReports>
-            //         </IsLogin>
-            // },
             {
                 path: "PatientInformation", element:
                     <IsLogin>

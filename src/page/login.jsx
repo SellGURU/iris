@@ -63,10 +63,13 @@ const Login = () => {
                 console.log("test catch 1")
                 // toast.error(err.message)
                 toast.dismiss()
+                toast.error(err.message)
+
             })
         } catch (error) {
             console.log("error1")
         }
+        toast.dismiss()
 
     };
     const handleUsernameKeyPress = (event) => {

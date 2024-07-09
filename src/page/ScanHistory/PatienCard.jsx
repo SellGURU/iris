@@ -41,11 +41,11 @@ export const PatienCard = ({index, patient}) => {
                     <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
                     <div className="flex gap-4 items-center">
-                        {/* <div className="font-medium text-[#606060]">Last Scan: {date}</div> */}
+                        {/* <div className="font-medium text-[#606060]">Last ScanHistory: {date}</div> */}
                         {/*<Link to="facecamera">*/}
                         {/* <div onClick={clickHandler} className="flex items-center gap-1  text-[#544BF0]">
                             <img src="fi_plus-blue.svg" alt=""/>
-                            New Scan
+                            New ScanHistory
                         </div> */}
                         <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
@@ -115,7 +115,7 @@ export const PatienCard = ({index, patient}) => {
                     })}
 
                     {/* <div className="flex justify-between w-full ">
-            <h2 className="font-bold text-xl text-[#1a1919]">Scan Analysis</h2>
+            <h2 className="font-bold text-xl text-[#1a1919]">ScanHistory Analysis</h2>
             <span className="font-medium text-[#606060]">
               Date: 12 April 2024{" "}
             </span>

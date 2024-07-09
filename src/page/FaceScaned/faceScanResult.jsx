@@ -1,11 +1,19 @@
-import {useNavigate} from "react-router-dom"
-import ButtonPrimary from "../../components/button/buttonPrimery"
-import ButtonSecondary from "../../components/button/buttonSecondary"
+// The FaceScanResult component displays the results of a face scan and provides options to download or share the report.
+// It uses the useNavigate hook from react-router-dom to programmatically navigate between routes.
+// The component accesses the patient context to retrieve necessary data like patientID, sex, pdf link, fileId, errorThreshold, addPatient function, and photo.
+// The download function creates an anchor element to download the PDF report.
+// The addPagination function constructs a patient object with the current context values, adds the patient to the context, updates the local storage history, and navigates back to the home page.
+// The component renders a header, a description, and buttons for sharing and downloading the report.
+// It also displays the current date and time along with the patient ID.
+// An iframe is used to embed and display the face scan report using the fileId.
 
+import {useNavigate} from "react-router-dom"
 import { useContext} from "react"
 import {PatientContext} from "../../context/context.jsx";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
-const Result2 =() => {
+import {RWebShare} from "react-web-share";
+
+const FaceScanResult =() => {
     const navigate = useNavigate()
     const {
         patientID,
@@ -61,22 +69,30 @@ const Result2 =() => {
                         <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
                    </div>
                    <div className="flex justify-end items-center">
-                        <button onClick={() => {
-                            navigator.share({
-                                url:'https://iris.ainexus.com/v1/golden_ratios/'+fileId
-                            })                            
-                        }} className="w-[122px] text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#E8E7F7] flex justify-center items-center">
-                            <img className="mr-2" src="share2.svg" alt="" />
-                            Share
-                        </button>
-                        <button onClick={download} className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
-                            <img className="mr-2" src="download2.svg" alt="" />
-                            Download
-                        </button>    
+                       <RWebShare data={{
+                           text: "iris",
+                           url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId,
+                           title: "iris",
+                       }}>
+                           <button onClick={() => {
+                               navigator.share({
+                                   url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
+                               })
+                           }}
+                                   className="w-[122px] text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#E8E7F7] flex justify-center items-center">
+                               <img className="mr-2" src="share2.svg" alt=""/>
+                               Share
+                           </button>
+                       </RWebShare>
+                       <button onClick={download}
+                               className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
+                           <img className="mr-2" src="download2.svg" alt=""/>
+                           Download
+                       </button>
 
                    </div>
                 </div>
-                <div className="w-full px-11 mt-8" >
+                <div className="w-full px-11 mt-8">
 
                     <iframe className="h-[9000px]" src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     </div>                    
@@ -85,4 +101,4 @@ const Result2 =() => {
     )
 }
 
-export default Result2
+export default FaceScanResult

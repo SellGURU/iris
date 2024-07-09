@@ -5,11 +5,10 @@ import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
 import {Link} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
-export const Scan = () => {
+export const ScanHistory = () => {
     const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
-    console.log(patients)
-    console.log(patients2)
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
@@ -109,6 +108,9 @@ export const Scan = () => {
                     />
                 </div>
             )}
+            {patients != 0 ? (<h1 className={"text-[16px] font-normal"}>Show <span
+                    className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.</h1>
+            ):""}
         </div>
     );
 };

@@ -1,3 +1,11 @@
+// The UploadFaceMash component allows users to upload a facial image, send it for analysis, and download the resulting report.
+// It uses useState to manage local states such as resolvedFile for the uploaded image, resp for the analysis response, and access for the token from local storage.
+// useSelector is used to access the sex and errorThreshold values from the Redux store.
+// The download function creates an anchor element to download the analysis report as an HTML file and resets the resolvedFile and resp states.
+// The sendToAnalyze function sends the uploaded image and additional data to the server for analysis via an XMLHttpRequest, displays a loading toast during the request, and processes the server response to provide download links for the report.
+// The component renders an upload section where users can select an image, an ANALYZE button to initiate the analysis, and a Download File button to download the analysis report once available.
+// It uses a file input element to allow users to upload an image, and a FileReader to read the file as a data URL for display.
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 // import Analytics from "../api/analytics"
