@@ -11,6 +11,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
             id: patientInformation.id,
             sex: patientInformation.sex,
             errorThreshold: patientInformation.errorThreshold,
+            comment:[],
             result: [{
                 date: new Date().toISOString().split('T')[0],
                 photo: patientInformation.photo,

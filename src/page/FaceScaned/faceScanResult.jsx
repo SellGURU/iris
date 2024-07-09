@@ -39,7 +39,8 @@ const FaceScanResult =() => {
             htmlId: fileId,
             photo: photo
         }
-        addPatient(patient)       
+        addPatient(patient)
+        console.log("result")
         updateLocalPatientIHistoty(patient); 
         // const patient = {
         //     id: patientID,

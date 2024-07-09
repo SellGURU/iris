@@ -77,9 +77,11 @@ const FaceMesh = () => {
                 sex: sex,
                 errorThreshold: errorThreshold,
                 photo: photo,
-                htmlId: response["request_id"]
+                htmlId: response["request_id"],
+                comment:[],
             }
             updateLocalPatientIHistoty(responce)
+            console.log("face mash")
             navigate('/result')
             // result.append(resultHtmldiv);
             toast.dismiss()
