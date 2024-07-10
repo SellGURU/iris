@@ -5,8 +5,6 @@ import {HashRouter} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import {useLocalStorage} from "@uidotdev/usehooks";
-import {updateLocalPatientIHistoty} from "./utility/updateLocalPatientIHistoty.js";
-import {initialState} from "./context/context.jsx";
 
 function App() {
     return (
@@ -32,6 +30,8 @@ const AppRoutes = () => {
     );
 };
 export default App;
+
+// check the version of user to update the localstorage
 const getVersion = () => {
     const [version, setVersion] = useLocalStorage("version")
     if (version === undefined) {

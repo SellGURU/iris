@@ -50,7 +50,6 @@ const checkValidToken = () => {
         // TODO: fix the Condition
         if (!isPanding) {
             // console.log(status)
-            console.log(isPanding)
             return (status == 401 || status == 403 );
         }
     }catch (e){
