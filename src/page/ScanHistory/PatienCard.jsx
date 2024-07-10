@@ -1,11 +1,8 @@
 import React, {useContext, useState} from "react";
-import ButtonSecondary from "../../components/button/buttonSecondary";
 import ButtonPrimary from "../../components/button/buttonPrimery";
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
-import {ButtonDefault} from "../../components/button/buttonDefault.jsx";
 import {useForm} from "react-hook-form";
 
 export const PatienCard = ({index, patient}) => {

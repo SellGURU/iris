@@ -6,7 +6,7 @@ export default {
             boxShadow: {
                 '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
                 '10xl': [
-                    '30px 0px 40px rgba(0, 0, 0, 0.25)'
+                    '0px 0px 17px 5px rgba(0, 0, 0, 0.1)'
                 ]
             }
         },

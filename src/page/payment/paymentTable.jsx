@@ -9,6 +9,7 @@ import {
 import {useState} from "react";
 import {fakeData} from "./fakeData.js";
 import {columns} from "./paymentColumns.jsx";
+import Pagination from "./Pagination.jsx";
 
 export const PaymentTable = () => {
 
@@ -27,14 +28,14 @@ export const PaymentTable = () => {
         getSortedRowModel: getSortedRowModel(),
         initialState: {
             pagination: {
-                pageSize: 6, //custom default page size
+                pageSize: 5, //custom default page size
             }
         }
     });
     return (
-        <div>
+        <div className={"!mt-10"}>
             <table
-                className={"w-5/6 drop-shadow-2xl shadow-10xl rounded-xl"}
+                className={"w-full drop-shadow-2xl shadow-10xl rounded-xl"}
             >
                 <thead className="">
                 {table.getHeaderGroups().map((headerGroup) => {
@@ -42,18 +43,18 @@ export const PaymentTable = () => {
                         <tr key={headerGroup.id} className={"text-nowrap"}>
                             {headerGroup.headers.map((header) => {
                                 return (
-                                    <th className={"pt-5  w-fit border"}
+                                    <th className={"pt-16"}
                                     >
                                         <div className={"flex items-center justify-center text-[#2E2E2E] font-medium text-base"}>
 
                                             <>{header.column.columnDef.header}</>
                                             {header.column.getCanSort() && (
-                                                <h1>hi</h1>
+                                                <h1> 🔼</h1>
                                             )}
                                             {
                                                 // {
                                                 //     asc: " 🔼",
-                                                //     desc: " 🔽 ",
+                                                //     desc: " 🔼",
                                                 // }[header.column.getIsSorted()]
                                             }
                                         </div>
@@ -82,6 +83,8 @@ export const PaymentTable = () => {
                 )}
                 </tbody>
             </table>
+            <Pagination table={table}/>
+
         </div>
     )
 }

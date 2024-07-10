@@ -1,4 +1,3 @@
-import {useForm} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
@@ -9,7 +8,6 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
-import * as res from "autoprefixer";
 
 const Login = () => {
     const passwordRef = useRef(null);
