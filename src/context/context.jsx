@@ -5,19 +5,20 @@
 // The PatientProvider component uses useReducer to manage the state and provides a set of callback functions to dispatch actions, allowing components to update the state in a controlled manner.
 // The provider makes the state and dispatch functions available to its children components, enabling them to access and update the patient data as needed.
 
-import React, { createContext, useReducer, useContext, useCallback } from "react";
+import React, {createContext, useReducer, useContext, useCallback} from "react";
 
 // every time go to face mash  ,we store the data in store and fetch it when send request
-const initialState = {
+export const initialState = {
     patients: JSON.parse(localStorage.getItem("patients")) || [],
     sex: "masculine",
     patientID: "1",
     errorThreshold: "10",
     pdf: '',
-    fileId:'',
+    fileId: '',
     photo: '',
     userName: "",
-    loadingResult: false
+    loadingResult: false,
+    version: 1
 };
 
 export const PatientContext = createContext(initialState);
@@ -29,60 +30,60 @@ const patientReducer = (state, action) => {
         case "SET_LOADING_RESULT":
             return {...state, patients: [...state.loadingResult, action.payload]};
         case "SET_SEX":
-            return { ...state, sex: action.payload };
+            return {...state, sex: action.payload};
         case "SET_PHOTO":
-            return { ...state, photo: action.payload };
+            return {...state, photo: action.payload};
         case "SET_PATIENT_ID":
-            return { ...state, patientID: action.payload };
+            return {...state, patientID: action.payload};
         case "SET_ERROR_THRESHOLD":
-            return { ...state, errorThreshold: action.payload };
+            return {...state, errorThreshold: action.payload};
         case "SET_PDF":
-            return { ...state, pdf: action.payload };
+            return {...state, pdf: action.payload};
         case "SET_USER_NAME":
-            return { ...state, userName: action.payload };
+            return {...state, userName: action.payload};
         case "SET_FILE":
-            return { ...state, fileId: action.payload };
+            return {...state, fileId: action.payload};
         default:
             return state;
     }
 };
 
-export const PatientProvider = ({ children }) => {
+export const PatientProvider = ({children}) => {
     const [state, dispatch] = useReducer(patientReducer, initialState);
 
     const addPatient = useCallback((patient) => {
-        dispatch({ type: "ADD_PATIENT", payload: patient });
+        dispatch({type: "ADD_PATIENT", payload: patient});
     }, []);
     const setLoadingResult = useCallback((loadingResult) => {
         dispatch({type: "SET_LOADING_RESULT", payload: loadingResult});
     }, []);
 
     const setSex = useCallback((sex) => {
-        dispatch({ type: "SET_SEX", payload: sex });
+        dispatch({type: "SET_SEX", payload: sex});
     }, []);
 
     const setPhoto = useCallback((photo) => {
-        dispatch({ type: "SET_PHOTO", payload: photo });
+        dispatch({type: "SET_PHOTO", payload: photo});
     }, []);
 
     const setPatientID = useCallback((patientID) => {
-        dispatch({ type: "SET_PATIENT_ID", payload: patientID });
+        dispatch({type: "SET_PATIENT_ID", payload: patientID});
     }, []);
 
     const setErrorThreshold = useCallback((errorThreshold) => {
-        dispatch({ type: "SET_ERROR_THRESHOLD", payload: errorThreshold });
+        dispatch({type: "SET_ERROR_THRESHOLD", payload: errorThreshold});
     }, []);
 
     const setPdf = useCallback((pdf) => {
-        dispatch({ type: "SET_PDF", payload: pdf });
+        dispatch({type: "SET_PDF", payload: pdf});
     }, []);
 
     const setFile = useCallback((file) => {
-        dispatch({ type: "SET_FILE", payload: file });
+        dispatch({type: "SET_FILE", payload: file});
     }, []);
 
     const setUserName = useCallback((userName) => {
-        dispatch({ type: "SET_USER_NAME", payload: userName });
+        dispatch({type: "SET_USER_NAME", payload: userName});
     }, []);
 
     return (

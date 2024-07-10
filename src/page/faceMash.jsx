@@ -23,7 +23,7 @@ import {IoRefresh} from "react-icons/io5";
 import {LoadingReports} from "./loadingReports.jsx";
 
 const FaceMesh = () => {
-    const [isShowFaceGuide,setIsShowFaceGuide] = useState(false);
+    const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
     const navigate = useNavigate();
     // const sex = useSelector(selectSex);
@@ -78,7 +78,7 @@ const FaceMesh = () => {
                 errorThreshold: errorThreshold,
                 photo: photo,
                 htmlId: response["request_id"],
-                comment:[],
+                comment: [],
             }
             updateLocalPatientIHistoty(responce)
             console.log("face mash")
@@ -616,8 +616,8 @@ const FaceMesh = () => {
                     htmlId: response['request_id'],
                     photo: globalGreenImages[0]
                 }
-                addPatient(patient)       
-                updateLocalPatientIHistoty(patient);                 
+                addPatient(patient)
+                updateLocalPatientIHistoty(patient);
                 navigate('/result')
                 if (e.target.status !== 200) {
                     // toast.dismiss()
@@ -986,11 +986,7 @@ const FaceMesh = () => {
                                                var file = e.target.files[0];
                                                var reader = new FileReader();
                                                reader.onloadend = function () {
-                                                   // console.log('RESULT', reader.result)
                                                    setResolvedFile(reader.result)
-                                                   // setTimeout(() => {
-                                                   //     sendToAnalyze()
-                                                   // }, 300);
                                                }
                                                reader.readAsDataURL(file);
                                            }} id="upload-file" type="file"></input>
@@ -1007,8 +1003,8 @@ const FaceMesh = () => {
                         <div id="result"></div>
                     </div>
                     <div className={"flex items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
-                        <div onClick={()=>setIsShowFaceGuide((!isShowFaceGuide))} className="flex items-center">
-                            <input  checked={isShowFaceGuide} id="disabled-checked-checkbox" type="checkbox" value=""
+                        <div onClick={() => setIsShowFaceGuide((!isShowFaceGuide))} className="flex items-center">
+                            <input checked={isShowFaceGuide} id="disabled-checked-checkbox" type="checkbox" value=""
                                    className="w-4 h-4 text-blue-600 focus:!bg-blue-700 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 "/>
                             <label htmlFor="disabled-checked-checkbox"
                                    className="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">
