@@ -11,6 +11,7 @@ import {PatientInformation} from "./page/PatientInformation/patientInformation.j
 import Header from "./layout/header.jsx";
 import {ScanHistory} from "./page/ScanHistory/ScanHistory.jsx";
 import FaceScaned from "./page/FaceScaned/faceScanResult.jsx";
+import {PaymentHistory} from "./page/payment/paymentHistory.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -28,6 +29,11 @@ export const route = [
                 path: "faceMashFile", element:
                     <IsLogin>
                         <UploadFaceMash/>
+                    </IsLogin>
+            }, {
+                path: "payment", element:
+                    <IsLogin>
+                        <PaymentHistory/>
                     </IsLogin>
             },
             {
