@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
@@ -7,11 +7,17 @@ import {useForm} from "react-hook-form";
 
 export const PatienCard = ({index, patient}) => {
 
-    const {id, date, photo, result,comment} = patient;
+    const {id, date, photo, result} = patient;
 
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
+    const [comment, setComment] = useState([]);
     const navigate = useNavigate();
+    const updateComment=() => {
+        let patients= JSON.parse(localStorage.getItem("patients"))
+        let patientIndex = patients.findIndex(patient => patient.id === id);
+        setComment(patients[patientIndex].comment);
+    }
     // const dispatch = useDispatch();
     const download = (id) => {
         window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
@@ -35,11 +41,11 @@ export const PatienCard = ({index, patient}) => {
     const formHandler = (data) => {
         if(data.addComment.length>0){
             const patients= JSON.parse(localStorage.getItem("patients"))
-            console.log(patients)
             const patientIndex = patients.findIndex(patient => patient.id === id);
 
             patients[patientIndex].comment.push(data.addComment)
             localStorage.setItem("patients", JSON.stringify(patients));
+            updateComment()
             setIsShowAddComment(false)
         }else {
             setIsShowAddComment(false)
