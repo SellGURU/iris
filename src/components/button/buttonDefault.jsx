@@ -2,7 +2,7 @@ export const ButtonDefault = ({onClickHandler,ClassName,children,props}) => {
     return (
         <button
             onClick={onClickHandler}
-            className = {"text-white  font-medium text-xl flex items-center justify-center gap-3 bg-[#544BF0] rounded-xl px-5 py-3 disabled:bg-[#999999] " + ClassName}
+            className = {" font-medium text-[14px] text-[#544BF0] flex items-center justify-center gap-3 bg-[#F5F5F5] rounded-md px-2.5 py-1 disabled:bg-[#999999] " + ClassName}
             {...props}
         >
             {children}

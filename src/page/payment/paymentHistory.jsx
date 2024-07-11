@@ -1,6 +1,10 @@
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {PaymentTable} from "./paymentTable.jsx";
 import {PaymentCard} from "./paymentCard.jsx";
+import {ButtonDefault} from "../../components/button/buttonDefault.jsx";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+
 
 export const PaymentHistory = () => {
     return (
@@ -10,17 +14,60 @@ export const PaymentHistory = () => {
             <div>
                 <div>
                     <div className={"flex  gap-10 items-center justify-center"}>
-                        <div className={"w-[660px] h-[302px] border rounded-md "}>
+                        <div className={"w-[660px] h-[302px] border  rounded-md "}>
                             <div
-                                className={"bg-[#F5F5F5] text-2xl font-medium px-3 py-2 rounded-md flex items-center justify-between"}>
-                                <h1>Current Package Summary</h1>
-                                <ButtonPrimary>Upgrade</ButtonPrimary>
+                                className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
+                                <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
+                                <ButtonPrimary className={"text-[14px]"}>Upgrade</ButtonPrimary>
+
+                            </div>
+                            <div className={"space-y-10 flex-col px-6 py-4"}>
+                                <div className={"flex items-center justify-between "}>
+                                    <div>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
+                                        <p className={"text-xl font-medium"}>No available package</p>
+                                    </div>
+                                    <div>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cycle</h1>
+                                        <p className={"text-xl font-medium"}>Yearly</p>
+                                    </div>
+                                    <div>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cost</h1>
+                                        <p className={"text-xl font-medium"}>No Records</p>
+                                    </div>
+                                </div>
+                                <div className={"space-y-5"}>
+                                    <h1 className={"font-normal text-base text-[#7E7E7E]"}>Usage</h1>
+                                    <p className={"text-lg font-normal text-[#444444]"}>0 Bundle</p>
+                                </div>
+                                <div className={"h-[20px] bg-[#E1E1E1]"}></div>
                             </div>
                         </div>
                         <div className={"w-[660px] h-[302px] border rounded-md "}>
                             <div
-                                className={"bg-[#F5F5F5] text-2xl font-medium px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1>Payment Method</h1>
+                                className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
+                                <h1 className={" text-2xl font-medium"}>Payment Method</h1>
+                            </div>
+                            <div className={"flex items-center justify-between py-4 px-3 h-[134px] border border-[#E1E1E1] rounded-md mx-7 my-5"}>
+                                <div className={"h-full flex items-center justify-center"}>
+                                    <img src={"/image10.svg"}/>
+                                </div>
+                                <div className={"h-full text-left w-2/3 space-y-2 pl-3"}>
+                                    <h1 className={"text-xl font-medium"}>Master Card **** **** **** 4002</h1>
+                                    <p className={"text-[#7E7E7E] font-normal text-base"}>Expiry on 20/2024</p>
+                                    <div className={"text-[#7E7E7E] font-normal text-base flex items-center justify-start gap-1"}>
+                                        <MdOutlineMailOutline className={"w-5 h-5"}/>
+                                        <p>billing@example.mmm</p>
+                                    </div>
+                                </div>
+                                <div className={" h-full"}>
+                                    <ButtonDefault>Change</ButtonDefault>
+                                </div>
+                            </div>
+                            <div className={ "px-9 py-4"}>
+                                <div className={"font-medium text-xl flex items-center gap-2 justify-start"}>Turn on autopay
+                                <span><IoIosArrowDown className={"w-5 h-5"}/></span>
+                                </div>
                             </div>
                         </div>
                     </div>

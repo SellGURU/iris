@@ -1,13 +1,13 @@
 export const fakeData = [
     {
-        InvoiceID: 1,
+        InvoiceID: "#1",
         BillingDate: "2023-01-01",
         Package: "John Doe",
         status: "Stable",
         Amount: "60kg",
     },
     {
-        InvoiceID: 2,
+        InvoiceID: "#2",
         BillingDate: "2023-01-01",
         Package: "John Doe",
         status: "Stable",
@@ -15,7 +15,7 @@ export const fakeData = [
 
     },
     {
-        InvoiceID: 3,
+        InvoiceID: "#3",
         BillingDate: "2023-01-01",
         Package: "John Doe",
         status: "Stable",

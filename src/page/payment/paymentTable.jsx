@@ -10,6 +10,7 @@ import {useState} from "react";
 import {fakeData} from "./fakeData.js";
 import {columns} from "./paymentColumns.jsx";
 import Pagination from "./Pagination.jsx";
+import { IoIosArrowDown } from "react-icons/io";
 
 export const PaymentTable = () => {
 
@@ -43,13 +44,13 @@ export const PaymentTable = () => {
                         <tr key={headerGroup.id} className={"text-nowrap"}>
                             {headerGroup.headers.map((header) => {
                                 return (
-                                    <th className={"pt-16"}
+                                    <th className={"pt-16 "}
                                     >
-                                        <div className={"flex items-center justify-center text-[#2E2E2E] font-medium text-base"}>
+                                        <div className={"flex w-full  pl-4 items-center justify-start text-[#2E2E2E] font-medium text-base"}>
 
                                             <>{header.column.columnDef.header}</>
                                             {header.column.getCanSort() && (
-                                                <h1> 🔼</h1>
+                                                <IoIosArrowDown onClick={header.column.getToggleSortingHandler()}/>
                                             )}
                                             {
                                                 // {
@@ -71,7 +72,7 @@ export const PaymentTable = () => {
                             <tr className="space-y-10 mt-10 ">
                                 {row.getVisibleCells().map((cell) => {
                                         return (
-                                            <td className={"text-center !py-10 text-[#7E7E7E] font-normal text-base"}>
+                                            <td className={"text-left pl-5 !py-10 text-[#7E7E7E] font-normal text-base"}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </td>
                                         )
