@@ -37,7 +37,9 @@ const getVersion = () => {
     if (version === undefined) {
         setVersion(1)
     }
-    if (version !== 1) {
+    if (version !== 1.1) {
         localStorage.removeItem("patients")
+        setVersion(1.1)
+
     }
 }

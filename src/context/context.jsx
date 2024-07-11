@@ -11,6 +11,7 @@ import React, {createContext, useReducer, useContext, useCallback} from "react";
 export const initialState = {
     patients: JSON.parse(localStorage.getItem("patients")) || [],
     sex: "masculine",
+    comment:[],
     patientID: "1",
     errorThreshold: "10",
     pdf: '',

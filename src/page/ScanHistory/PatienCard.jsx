@@ -34,7 +34,7 @@ export const PatienCard = ({index, patient}) => {
     const {register, handleSubmit} = useForm()
     const formHandler = (data) => {
         if(data.addComment.length>0){
-
+                localStorage.getItem()
         }else {
             setIsShowAddComment(false)
         }
@@ -153,8 +153,9 @@ export const PatienCard = ({index, patient}) => {
                             <div className={"w-full flex items-center justify-center"}>
                                 <div className={" p-5 w-4/6 flex items-start gap-5 justify-center"}>
                                     <input {...register("addComment")} className={"h-20 w-full  p-2"}/>
-                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-2"}>Add
-                                        Comment</ButtonPrimary>
+                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-2"}>
+                                        Add Comment
+                                    </ButtonPrimary>
                                 </div>
                             </div>
                         </form>}
