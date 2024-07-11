@@ -34,7 +34,13 @@ export const PatienCard = ({index, patient}) => {
     const {register, handleSubmit} = useForm()
     const formHandler = (data) => {
         if(data.addComment.length>0){
-                localStorage.getItem()
+            const patients= JSON.parse(localStorage.getItem("patients"))
+            console.log(patients)
+            const patientIndex = patients.findIndex(patient => patient.id === id);
+
+            patients[patientIndex].comment.push(data.addComment)
+            localStorage.setItem("patients", JSON.stringify(patients));
+            setIsShowAddComment(false)
         }else {
             setIsShowAddComment(false)
         }
@@ -53,7 +59,7 @@ export const PatienCard = ({index, patient}) => {
                     <div className="flex gap-4 items-center justify-between">
                         <div onClick={() => setIsShowComment(!isShowComment)}
                              className={" cursor-pointer text-base font-normal underline text-[#544BF0] "}>Show comments
-                            (0)
+                            ({comment.length})
                         </div>
                         <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
@@ -124,35 +130,32 @@ export const PatienCard = ({index, patient}) => {
                 {isShowComment &&
                     <>
 
-                        <div className={"w-full border-t pt-5 flex items-center gap-5 justify-between"}>
+                        <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
                             <div>Comments:</div>
-                            <div>
+                            <div className={"w-5/6"}>
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}
-                                            className={"flex gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                            <h1>12 April 2024 </h1>
-                                            <p className={"w-4/6"}>Lorem Ipsum is simply dummy text of the printing
-                                                typesetting text of the printin and typesetting industr Lorem Ipsum is
-                                                simply dummy text of the printing typesetting text of the printin and
-                                                typesetti Lorem Ipsum is simply dummy text of the printing.</p>
+                                            className={"flex  gap-3 items-center justify-start w-fit text-[#7E7E7E] pb-3"}>
+                                            <h1 className={"text-nowrap"}>12 April 2024 </h1>
+                                            <p className={"w-4/6"}>{comment}</p>
                                         </div>
                                     )
                                 })}
-                                {comment.length<=0&& (<div className={" text-center"}>No comment found.</div>)}
+                                {comment.length<=0&&!isShowAddComment (<div className={" text-center"}>No comment found.</div>)}
                             < /div>
                             <div className={" h-full w-1/6 flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
-                                        className={" disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
-                                    add comment
+                                        className={ "text-nowrap disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
+                                    Add Comment
                                 </button>
                             </div>
                         </div>
                         {isShowAddComment && <form onSubmit={handleSubmit(formHandler)} className={"w-full "}>
                             <div className={"w-full flex items-center justify-center"}>
                                 <div className={" p-5 w-4/6 flex items-start gap-5 justify-center"}>
-                                    <input {...register("addComment")} className={"h-20 w-full  p-2"}/>
+                                    <input {...register("addComment")} placeholder={"Your comment ..."} className={"h-20 w-full  p-2"}/>
                                     <ButtonPrimary type={"submit"} className={"!text-xs !px-2"}>
                                         Add Comment
                                     </ButtonPrimary>

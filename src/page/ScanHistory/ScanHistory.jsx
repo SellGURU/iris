@@ -8,7 +8,7 @@ import {PatientContext} from "../../context/context.jsx";
 export const ScanHistory = () => {
     const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
-
+    console.log(patients)
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
