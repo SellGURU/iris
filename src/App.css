@@ -556,3 +556,8 @@ div#template-edit-btn-div {
     background-color: rgb(59 130 246 / var(--tw-text-opacity));
     mask-image: url(arrow-right.svg);
 }
+
+.border-none-focus:focus{
+  border: none !important;
+  outline: none !important;
+}

@@ -115,18 +115,7 @@ export const PatienCard = ({index, patient}) => {
                                          className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
                                         View Reports
                                     </div>
-                                    {/* <ButtonSecondary onClick={()=> {
-                                        navigator.share({
-                                            url:'https://iris.ainexus.com/v1/golden_ratios/'+patientHistory.htmlId
-                                        })
-                                    }}  ClassName="h-[45px]">
-                                        <img src="fi_share-2.svg" alt=""/>
-                                        Share
-                                    </ButtonSecondary>
-                                    <ButtonPrimary  ClassName="h-[45px]" onClickHandler={() => download(patientHistory.htmlId)}>
-                                        <img src="fi_download.svg" alt=""/>
-                                        Download PDF
-                                    </ButtonPrimary> */}
+
                                 </div>
                             </div>
 
@@ -160,9 +149,9 @@ export const PatienCard = ({index, patient}) => {
                         </div>
                         {isShowAddComment && <form onSubmit={handleSubmit(formHandler)} className={"w-full "}>
                             <div className={"w-full flex items-center justify-center"}>
-                                <div className={" p-5 w-4/6 flex items-start gap-5 justify-center"}>
-                                    <input {...register("addComment")} placeholder={"Your comment ..."} className={"h-20 w-full  p-2"}/>
-                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-2"}>
+                                <div className={" px-5 pt-5 w-4/6 flex items-end gap-5 justify-end border-b pb-2"}>
+                                    <input {...register("addComment")} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-4 !py-2.5"}>
                                         Add Comment
                                     </ButtonPrimary>
                                 </div>
