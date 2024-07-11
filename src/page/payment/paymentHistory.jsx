@@ -4,7 +4,7 @@ import {PaymentCard} from "./paymentCard.jsx";
 
 export const PaymentHistory = () => {
     return (
-        <div className={"flex gap-5 items-center justify-center gap-2 flex-col"}>
+        <div className={"flex gap-5 items-center justify-center gap-2 px-16 flex-col"}>
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div>
