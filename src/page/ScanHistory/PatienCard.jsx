@@ -142,7 +142,7 @@ export const PatienCard = ({index, patient}) => {
                                         </div>
                                     )
                                 })}
-                                {comment.length<=0&&!isShowAddComment (<div className={" text-center"}>No comment found.</div>)}
+                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center"}>No comment found.</div>)}
                             < /div>
                             <div className={" h-full w-1/6 flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
