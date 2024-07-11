@@ -7,11 +7,11 @@ import {useForm} from "react-hook-form";
 
 export const PatienCard = ({index, patient}) => {
 
-    const {id, date, photo, result} = patient;
+    const {id, date, photo, result,comment:initComment} = patient;
 
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
-    const [comment, setComment] = useState([]);
+    const [comment, setComment] = useState(initComment);
     const navigate = useNavigate();
     const updateComment=() => {
         let patients= JSON.parse(localStorage.getItem("patients"))
@@ -45,8 +45,8 @@ export const PatienCard = ({index, patient}) => {
 
             patients[patientIndex].comment.push(data.addComment)
             localStorage.setItem("patients", JSON.stringify(patients));
-            updateComment()
             setIsShowAddComment(false)
+            updateComment()
         }else {
             setIsShowAddComment(false)
         }
