@@ -87,6 +87,10 @@ const Header = () => {
                             </div> */}
 
                             <div className="flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
+                                <img className="mr-2 w-6 h-6" src={'./balance.png'} alt=""/>
+                                <div className="text-2xl">Balance</div>
+                            </div>
+                            <div className="flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
                                 <div className="text-2xl">Help & Support</div>
                             </div>
@@ -110,7 +114,7 @@ const Header = () => {
                     <div className="w-full h-[300vh] top-0 bg-[#000000CC] absolute z-50"></div>
                 </>
                 :
-                undefined
+                ""
             }
         </div>
     );
