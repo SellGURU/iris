@@ -8,13 +8,13 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export const PaymentHistory = () => {
     return (
-        <div className={"flex gap-5 items-center justify-center gap-2 px-16 flex-col"}>
+        <div className={"flex gap-5 items-center justify-center px-16 flex-col"}>
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
-            <div>
+            <div className={"w-full"}>
                 <div>
-                    <div className={"flex  gap-10 items-center justify-between"}>
-                        <div className={"w-[660px] h-[302px] border  rounded-md "}>
+                    <div className={"flex w-full  gap-10 items-center justify-between"}>
+                        <div className={" w-full h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
@@ -42,7 +42,7 @@ export const PaymentHistory = () => {
                                 <div className={"h-[20px] bg-[#E1E1E1]"}></div>
                             </div>
                         </div>
-                        <div className={"w-[660px] h-[302px] border rounded-md "}>
+                        <div className={" w-full h-[302px] border rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={" text-2xl font-medium"}>Payment Method</h1>
@@ -78,7 +78,7 @@ export const PaymentHistory = () => {
                     </div>
                     <div className={"mt-32"}>
                         <h1 className={"text-2xl font-medium "}>Update Your Subscription Today (Instant Access)</h1>
-                        <div className={"flex items-center pt-10 justify-center gap-4"}>
+                        <div className={"flex items-center pt-10 justify-between gap-4"}>
                             <PaymentCard packageId={"1"} bundle={"Individual Scans"} price={"10"}/>
                             <PaymentCard packageId={"2"} bundle={"50 Scan Bundle"} price={"8"}/>
                             <PaymentCard packageId={"3"} bundle={"100 Scan Bundle"} price={"6"}/>

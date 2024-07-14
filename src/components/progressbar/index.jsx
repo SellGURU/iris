@@ -1,7 +1,26 @@
-export const ProgressbarCustom = ({Percent = "0",className}) => {
+export const ProgressbarCustom = ({percent,className}) => {
+
     return (
-        <div className={"w-5/6 bg-white rounded-full h-5  text-white "+className}>
-            <div className="bg-blue-600 h-full rounded-full text-right flex items-center py-2 justify-end pr-1 text-white " style={{width:`${Percent}%`}}>{Percent}%</div>
+        <div style={{background:"rgba(255, 255, 255, 0.5)"}} className={"w-5/6 absolute bottom-6 gap-10 bg-[] p-3 rounded-md h-auto flex justify-between items-center "}>
+            <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
+                <div
+                    className={`${percent.front?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
+                    1.Front
+                </div>
+            </div>
+            <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
+                <div
+                    className={`${percent.left?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
+                    2.Left
+                </div>
+            </div>
+            <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
+                <div
+                    className={`${percent.right?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
+                    3.Right
+                </div>
+            </div>
         </div>
+
     )
 }

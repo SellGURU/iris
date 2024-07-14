@@ -703,16 +703,20 @@ const FaceMesh = () => {
 
     }
     const calculatePercent = () => {
-        let percent = 0
-        if (status === "one") {
-            if (globalGreenLandmarks) percent = 100
-        } else {
-            if (globalBlueLandmarks) percent += 34
-            if (globalRedLandmarks) percent += 33
-            if (globalGreenLandmarks) percent += 33
+
+
+        let percent = {
+            left: false,
+            right: false,
+            front: false,
         }
+        if (globalBlueLandmarks) percent.left = true
+        if (globalRedLandmarks) percent.right = true
+        if (globalGreenLandmarks) percent.front = true
         return percent
+
     }
+
     const refreshPic = (picState) => {
         if (picState === "green") {
             // let greenCtx = green.current.getContext("2d");
@@ -777,9 +781,10 @@ const FaceMesh = () => {
                                 width="660px"
                                 height="550px"
                             ></canvas>
-                            {isCameraStart &&
-                                <ProgressbarCustom Percent={calculatePercent()}
-                                                   className={"absolute w-5/6 bottom-6"}/>}
+                            {/*{isCameraStart && status !== "one" &&*/}
+                            <ProgressbarCustom percent={calculatePercent()}
+                            />
+                            {/*}*/}
                         </div>
                     </div>
                     <div className="flex items-center justify-start h-[550px] flex-col gap-4">
@@ -969,7 +974,8 @@ const FaceMesh = () => {
                 <div className={"flex items-start justify-center py-10"}>
                     <div className={"flex items-center justify-center flex-col gap-5 "}>
                         <div className={"flex items-center justify-center gap-5 w-[660px]"}>
-                            <ButtonPrimary className={"disabled:bg-[#bebebe] !px-8"} disabled={isCameraStart}
+                            <ButtonPrimary className={"disabled:bg-[#bebebe] !text-xl !px-8 !py-3 rounded-xl"}
+                                           disabled={isCameraStart}
                                            onClick={() => img_source_select()}>
                                 <IoCameraOutline/>
                                 LIVE SCAN
@@ -977,7 +983,7 @@ const FaceMesh = () => {
 
                             {status == 'one' ?
                                 <ButtonSecondary
-                                    ClassName={"!bg-[#E8E7F7] !text-[#544BF0] border-none py-3 disabled:bg-gray-200 disabled:!text-gray-400"}
+                                    ClassName={"!bg-[#E8E7F7] !text-[#544BF0] border-none !py-3 !text-xl disabled:bg-gray-200 disabled:!text-gray-400"}
                                     disabled={isCameraStart} onClick={() => {
                                     navigate('/faceMashFile')
                                 }}>
