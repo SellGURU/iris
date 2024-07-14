@@ -1,7 +1,7 @@
 import {IoMenu} from "react-icons/io5";
 import ButtonPrimary from "../components/button/buttonPrimery";
 import {AiOutlineUser} from "react-icons/ai";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {createRef, useState} from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
@@ -16,7 +16,7 @@ const Header = () => {
     const [showSideBar, setShowSideBar] = useState(false)
     const menuRef = createRef(null)
     const username = useSelector(selectUserName)
-    console.log(username)
+
     useModalAutoClose({
         refrence: menuRef,
         close: () => {
@@ -41,6 +41,9 @@ const Header = () => {
         }
 
     };
+    const isActiveRoute = (props) => {
+        console.log(props)
+    }
 
     return (
         <div>
@@ -68,9 +71,10 @@ const Header = () => {
                             <div onClick={() => {
                                 navigate('/')
                                 setShowSideBar(false)
-                            }} className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
+                            }}
+                                 className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black">
                                 <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/>
-                                <div className="text-2xl">Home</div>
+                                <div className="text-2xl font-normal ">Home</div>
                             </div>
 
                             {/* <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
@@ -85,12 +89,16 @@ const Header = () => {
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
                             <div className="text-2xl">Setting</div>
                             </div> */}
+                            <NavLink to={"/payment"}>
+                                <div onClick={() => setShowSideBar(false)}
+                                     className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
+                                    <img className="mr-2 w-6 h-6" src={'./balance.png'} alt=""/>
+                                    <div className="text-2xl font-normal">Balance</div>
+                                </div>
+                            </NavLink>
 
-                            <div className="flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
-                                <img className="mr-2 w-6 h-6" src={'./balance.png'} alt=""/>
-                                <div className="text-2xl">Balance</div>
-                            </div>
-                            <div className="flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
+                            <div
+                                className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
                                 <div className="text-2xl">Help & Support</div>
                             </div>
