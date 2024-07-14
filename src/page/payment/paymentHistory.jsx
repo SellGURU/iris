@@ -13,16 +13,15 @@ export const PaymentHistory = () => {
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div>
                 <div>
-                    <div className={"flex  gap-10 items-center justify-center"}>
+                    <div className={"flex  gap-10 items-center justify-between"}>
                         <div className={"w-[660px] h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
                                 <ButtonPrimary className={"text-[14px]"}>Upgrade</ButtonPrimary>
-
                             </div>
                             <div className={"space-y-10 flex-col px-6 py-4"}>
-                                <div className={"flex items-center justify-between "}>
+                                <div className={"flex items-center justify-between  "}>
                                     <div>
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
                                         <p className={"text-xl font-medium"}>No available package</p>
