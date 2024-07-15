@@ -780,9 +780,72 @@ const FaceMesh = () => {
                                 width="660px"
                                 height="550px"
                             ></canvas>
+                            {isCameraStart && startTimer3 && !globalRedLandmarks ?
+                                <div
+                                    className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
+                                    <div style={{background: "rgba(255, 255, 255, 0.5)"}}
+                                         className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
+                                        <h1>The left side of your face is being scanned. Please hold still.</h1>
+                                        <CountdownCircleTimer
+                                            isPlaying
+                                            size={50}
+                                            strokeWidth={6}
+                                            duration={5}
+                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                            colorsTime={[5, 3, 2, 0]}
+                                        >
+                                            {({remainingTime}) => remainingTime}
+                                        </CountdownCircleTimer>
+                                    </div>
+                                </div>
+                                :
+                                undefined
+                            }
+                            {isCameraStart && startTimer2 && !globalBlueLandmarks ?
+                                <div
+                                    className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
+                                    <div style={{background: "rgba(255, 255, 255, 0.5)"}}
+                                         className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
+                                        <h1>The right side of your face is being scanned. Please hold still.</h1>
+                                        <CountdownCircleTimer
+                                            isPlaying
+                                            size={50}
+                                            strokeWidth={6}
+                                            duration={5}
+                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                            colorsTime={[5, 3, 2, 0]}
+                                        >
+                                        {({remainingTime}) => remainingTime}
+                                        </CountdownCircleTimer>
+                                    </div>
+                                </div>
+                                :
+                                undefined
+                            }
+                            {isCameraStart && startTimer && !globalGreenLandmarks ?
+                                <div
+                                    className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
+                                    <div style={{background: "rgba(255, 255, 255, 0.5)"}}
+                                         className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
+                                        <h1>The front side of your face is being scanned. Please hold still.</h1>
+                                        <CountdownCircleTimer
+                                            isPlaying
+                                            size={50}
+                                            strokeWidth={6}
+                                            duration={5}
+                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                            colorsTime={[5, 3, 2, 0]}
+                                        >
+                                            {({remainingTime}) => remainingTime}
+                                    </CountdownCircleTimer>
+                                </div>
+                            </div>
+                                :
+                                undefined
+                            }
                             {isCameraStart && status !== "one" &&
-                            <ProgressbarCustom percent={calculatePercent()}
-                            />
+                                <ProgressbarCustom percent={calculatePercent()}
+                                />
                             }
                         </div>
                     </div>
@@ -804,24 +867,7 @@ const FaceMesh = () => {
                                 </div>
                             ) : ""
                         } */}
-                                {isCameraStart && startTimer && !globalGreenLandmarks ?
-                                    <div
-                                        className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
                                 {
                                     globalGreenLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
@@ -862,24 +908,7 @@ const FaceMesh = () => {
                                         </div>
                                     ) : ""
                                 } */}
-                                {isCameraStart && startTimer2 && !globalBlueLandmarks ?
-                                    <div
-                                        className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
                                 {
                                     globalBlueLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
@@ -921,24 +950,7 @@ const FaceMesh = () => {
                                 </div>
                             ) : ""
                         } */}
-                                {isCameraStart && startTimer3 && !globalRedLandmarks ?
-                                    <div
-                                        className=" absolute z-40 flex top-0 left-0 w-full justify-center items-center">
 
-                                        <CountdownCircleTimer
-                                            isPlaying
-                                            size={100}
-                                            strokeWidth={6}
-                                            duration={5}
-                                            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                            colorsTime={[5, 3, 2, 0]}
-                                        >
-                                            {({remainingTime}) => remainingTime}
-                                        </CountdownCircleTimer>
-                                    </div>
-                                    :
-                                    undefined
-                                }
                                 {
                                     globalRedLandmarks && !isShowFaceGuide ?
                                         <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
