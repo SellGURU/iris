@@ -704,7 +704,6 @@ const FaceMesh = () => {
     }
     const calculatePercent = () => {
 
-
         let percent = {
             left: false,
             right: false,
@@ -781,10 +780,10 @@ const FaceMesh = () => {
                                 width="660px"
                                 height="550px"
                             ></canvas>
-                            {/*{isCameraStart && status !== "one" &&*/}
+                            {isCameraStart && status !== "one" &&
                             <ProgressbarCustom percent={calculatePercent()}
                             />
-                            {/*}*/}
+                            }
                         </div>
                     </div>
                     <div className="flex items-center justify-start h-[550px] flex-col gap-4">

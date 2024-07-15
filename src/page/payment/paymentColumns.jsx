@@ -47,7 +47,7 @@ export const columns = [
     },
     {
         accessorKey: "more",
-        header: (<div className={"w-full text-center"}>salam</div>),
+        header: (<div className={"w-full text-center"}>More</div>),
         enableColumnFilter: true,
         filterFn: "includesString",
         enableSorting: false,
