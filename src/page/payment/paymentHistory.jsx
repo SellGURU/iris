@@ -8,12 +8,12 @@ import { IoIosArrowDown } from "react-icons/io";
 
 export const PaymentHistory = () => {
     return (
-        <div className={"flex gap-5 items-center justify-center px-16 flex-col"}>
+        <div className={"flex gap-5 items-center justify-center px-16 md:px-2 flex-col"}>
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div className={"w-full"}>
                 <div>
-                    <div className={"flex w-full  gap-10 items-center justify-between"}>
+                    <div className={"flex w-full flex-col md:flex-row  gap-10 items-center justify-between"}>
                         <div className={" w-full h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
@@ -78,7 +78,7 @@ export const PaymentHistory = () => {
                     </div>
                     <div className={"mt-32"}>
                         <h1 className={"text-2xl font-medium "}>Update Your Subscription Today (Instant Access)</h1>
-                        <div className={"flex items-center pt-10 justify-between gap-4"}>
+                        <div className={"flex flex-col md:flex-row items-center pt-10 justify-between gap-4"}>
                             <PaymentCard packageId={"1"} bundle={"Individual Scans"} price={"10"}/>
                             <PaymentCard packageId={"2"} bundle={"50 Scan Bundle"} price={"8"}/>
                             <PaymentCard packageId={"3"} bundle={"100 Scan Bundle"} price={"6"}/>
