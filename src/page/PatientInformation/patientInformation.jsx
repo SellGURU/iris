@@ -63,11 +63,11 @@ export const PatientInformation = () => {
         <img className="w-full fixed z-0 left-0 top-32" src="./Vector.svg" alt="" />
         <div className={"flex relative z-30 items-center justify-center flex-col gap-5 mt-10"}>
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>
-            <p className={"w-[660px] text-xl font-normal text-center"}>Lorem Ipsum is simply dummy text of the printing
+            <p className={"w-[450px] md:w-[660px] text-xl font-normal text-center"}>Lorem Ipsum is simply dummy text of the printing
                 and
                 typesetting industry. Lorem Ipsum has been t</p>
             <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
-                <CardPatient className={"w-[600px] bg-white z-20 h-[88px] border"}>
+                <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white z-20 h-[88px] border"}>
                     <div className="flex w-full justify-between items-center">
                         <h1 className={"w-[400px] text-xl font-medium"}>Patient ID</h1>
                         <input defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
@@ -75,7 +75,7 @@ export const PatientInformation = () => {
 
                     </div>
                 </CardPatient>
-                <CardPatient className={"w-[600px] bg-white h-[118px] border"}>
+                <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white h-[118px] border"}>
                     <div className="flex w-full justify-between items-center">
                         <h1 className={" text-xl w-[400px] font-medium"}>Facial Esthetic Preference </h1>
                         <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>

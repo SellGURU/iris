@@ -852,7 +852,7 @@ const FaceMesh = () => {
                     <div className="flex items-center justify-start h-[550px] flex-col gap-4">
                         <div
                             className="all-poses-auto relative flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
-                            <div className={"w-full p-4"}><h1>1.Front</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>1.Front</h1></div>
                             {globalGreenLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -875,7 +875,7 @@ const FaceMesh = () => {
                                         undefined
                                 }
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer?'visible':'invisible'}   ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
                                     id="output3"
                                     ref={out3}
                                     width="230px"
@@ -896,12 +896,12 @@ const FaceMesh = () => {
                                     undefined
                                 }
                             </div>
-                            <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`}
+                            <img src={"/image/front.svg"} className={`${startTimer ||globalGreenLandmarks? "hidden" : "absolute top-10"}`}
                                  alt="front pose"/>
                         </div>
                         <div
                             className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            <div className={"w-full p-4"}><h1>2.Left</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>2.Left</h1></div>
                             {globalBlueLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -922,9 +922,9 @@ const FaceMesh = () => {
                                         <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
                                         :
                                         undefined
-                                }
+                                }                         
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer2?'visible':'invisible'}  ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
                                     id="output4"
                                     ref={out4}
                                     width="230px"
@@ -934,6 +934,7 @@ const FaceMesh = () => {
                                     <img className={"absolute top-0 rounded-md z-30 w-[230px] h-[130px]"}
                                          src={globalBlueImages[1]}/>
                                 }
+
                                 <canvas id="blue" ref={blue} height="130px" width="230px"
                                         className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
                                 {
@@ -946,7 +947,7 @@ const FaceMesh = () => {
                                 }                            
                             </div>
 
-                            <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`}
+                            <img src={"/image/left.svg"} className={`${startTimer2 || globalBlueLandmarks? "hidden" : " absolute top-10"} `}
                                  alt="front pose"/>
 
                         </div>
@@ -955,7 +956,7 @@ const FaceMesh = () => {
                             {globalRedLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-                            <div className={"w-full p-4"}><h1>3.Right</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>3.Right</h1></div>
 
                             <div className="relative">
                                 {/* {isCameraStart && globalRedLandmarks ?
@@ -974,7 +975,7 @@ const FaceMesh = () => {
                                         undefined
                                 }
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer3?'visible':'invisible'}  ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
                                     id="output5"
                                     ref={out5}
                                     width="230px"
@@ -998,7 +999,7 @@ const FaceMesh = () => {
                                 <img className="absolute top-0 z-50 w-[230px] h-[130px]" src={globalRedImages[0]}></img>
                             }
 
-                            <img src={"/image/right.svg"} className={`${isCameraStart ? "hidden" : ""}`}
+                            <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
                                  alt="front pose"/>
 
                         </div>
