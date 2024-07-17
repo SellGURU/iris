@@ -42,7 +42,7 @@ const FaceMesh = () => {
     } = useContext(PatientContext);
     const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
-    const [status, setStatus] = useState("one")
+    const [status, setStatus] = useState("multi")
     const [resolvedFile, setResolvedFile] = useState('')
     const tabs = [
         {state: "multi", label: "All poses"},
@@ -887,6 +887,14 @@ const FaceMesh = () => {
                                 }
                                 <canvas id="green" ref={green} height="130px" width="230px"
                                         className={`${isCameraStart ? "opacity-40 relative z-10 " : "hidden"}`}></canvas>
+                                {
+                                    isCameraStart && startTimer && !globalGreenLandmarks ?
+                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                        </div>
+                                    :
+                                    undefined
+                                }
                             </div>
                             <img src={"/image/front.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="front pose"/>
@@ -928,6 +936,14 @@ const FaceMesh = () => {
                                 }
                                 <canvas id="blue" ref={blue} height="130px" width="230px"
                                         className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
+                                {
+                                    isCameraStart && startTimer2 && !globalBlueLandmarks ?
+                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                        </div>
+                                    :
+                                    undefined
+                                }                            
                             </div>
 
                             <img src={"/image/left.svg"} className={`${isCameraStart ? "hidden" : ""}`}
@@ -969,6 +985,14 @@ const FaceMesh = () => {
                                     className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`}
                                     id="red" ref={red}
                                     height="130px" width="230px"></canvas>
+                                {
+                                    isCameraStart && startTimer3 && !globalRedLandmarks ?
+                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                        </div>
+                                    :
+                                    undefined
+                                }                                       
                             </div>
                             {isShowFaceGuide &&
                                 <img className="absolute top-0 z-50 w-[230px] h-[130px]" src={globalRedImages[0]}></img>
@@ -1019,7 +1043,7 @@ const FaceMesh = () => {
                         </Link>
                         <div id="result"></div>
                     </div>
-                    <div className={"flex items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
+                    <div className={"flex invisible items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
                         <div onClick={() => setIsShowFaceGuide((!isShowFaceGuide))} className="flex items-center">
                             <input checked={isShowFaceGuide} id="disabled-checked-checkbox" type="checkbox" value=""
                                    className="w-4 h-4 text-blue-600 focus:!bg-blue-700 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 "/>
