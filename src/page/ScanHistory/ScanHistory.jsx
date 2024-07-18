@@ -5,6 +5,7 @@ import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
 import {Link} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
+import { Button } from "symphony-ui";
 export const ScanHistory = () => {
     const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
@@ -60,10 +61,14 @@ export const ScanHistory = () => {
             </div>
             <div className="flex w-full justify-between">
                 <Link className={"cursor-pointer"} to="PatientInformation">
-                    <ButtonPrimary  className={"h-10 text-[15px]"}>
+                    {/* <ButtonPrimary  className={"h-10 text-[15px]"}>
                         <img src="fi_plus.svg" alt=""/>
                         Add a New Patient 
-                    </ButtonPrimary>
+                    </ButtonPrimary> */}
+                    <Button theme="iris">
+                        <img className="mr-1" src="fi_plus.svg" alt=""/>
+                        Add a New Patient                         
+                    </Button>
                 </Link>
                 <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                 <div className="flex gap-8 items-center">

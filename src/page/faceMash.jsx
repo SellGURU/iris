@@ -21,6 +21,7 @@ import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.
 import {PatientContext} from "../context/context.jsx";
 import {IoRefresh} from "react-icons/io5";
 import {LoadingReports} from "./loadingReports.jsx";
+import { Button } from "symphony-ui";
 
 const FaceMesh = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
@@ -1010,12 +1011,17 @@ const FaceMesh = () => {
                 <div className={"flex items-start justify-center py-10"}>
                     <div className={"flex items-center justify-center flex-col gap-5 "}>
                         <div className={"flex items-center justify-center gap-5 w-[660px]"}>
-                            <ButtonPrimary className={"disabled:bg-[#bebebe] !text-xl !px-8 !py-3 rounded-xl"}
+                            {/* <ButtonPrimary className={"disabled:bg-[#bebebe] !text-xl !px-8 !py-3 rounded-xl"}
                                            disabled={isCameraStart}
                                            onClick={() => img_source_select()}>
                                 <IoCameraOutline/>
                                 LIVE SCAN
-                            </ButtonPrimary>
+                            </ButtonPrimary> */}
+
+                            <Button disabled={isCameraStart} onClick={() => img_source_select()} theme="iris-large">
+                                <IoCameraOutline size={'24px'} className="mr-2"/>
+                                LIVE SCAN                                
+                            </Button>
 
                             {status == 'one' ?
                                 <ButtonSecondary

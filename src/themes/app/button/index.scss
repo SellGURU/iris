@@ -1,0 +1,23 @@
+
+.iris-Button-container {
+  @apply text-[#FDFCFF] justify-between items-center flex disabled:cursor-not-allowed  py-[10px] h-[40px] px-[14px] bg-primary-color leading-[19.36px] text-[16px] font-[500]  rounded-[8px]  #{!important};
+}
+.iris-Button-container:hover ,.iris-small-Button-container:hover,.iris-large-Button-container:hover{
+  @apply bg-[#46429B] #{!important}
+}
+.iris-Button-container:active,.iris-small-Button-container:active,.iris-large-Button-container:active {
+  @apply bg-[#221E60] #{!important}
+}
+.iris-Button-container-disabled ,.iris-small-Button-container-disabled ,.iris-large-Button-container-disabled {
+  @apply bg-[#7E7E7E] #{!important};
+}
+
+
+.iris-small-Button-container {
+  @apply text-[#FDFCFF] justify-between items-center flex disabled:cursor-not-allowed  h-[32px] py-[7px] px-[10px] bg-primary-color leading-[19.36px] text-[14px] font-[500]  rounded-[6px]  #{!important};
+}
+
+.iris-large-Button-container {
+  @apply text-[#FDFCFF] justify-between items-center flex disabled:cursor-not-allowed h-[52px]  py-[12px] px-[24px] bg-primary-color leading-[19.36px] text-[20px] font-[500]  rounded-[12px]  #{!important};
+}
+

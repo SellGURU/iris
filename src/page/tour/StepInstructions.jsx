@@ -3,6 +3,7 @@ import ButtonPrimary from '../../components/button/buttonPrimery'
 import ButtonSecondary from '../../components/button/buttonSecondary'
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {useNavigate} from "react-router-dom";
+import { Button } from 'symphony-ui';
 
 export const StepInstructions = ({step, text, image, note, onNext, onSkip}) => {
     const [isShowTour, setIsShowTour] = useLocalStorage("tour")
@@ -25,8 +26,16 @@ export const StepInstructions = ({step, text, image, note, onNext, onSkip}) => {
                 {note}
             </p>
             <div className="flex flex-col items-center justify-center gap-5">
-                <ButtonPrimary onClickHandler={onNext}
-                               className={'w-[200px]'}>{step == 5 ? 'Get Started' : 'Next'}</ButtonPrimary>
+                <Button theme='iris-large' onClick={() => {
+                    onNext()
+                }}>
+                    <div className='w-[172px]'>
+                        {step == 5? 'Get Started':'Next'}
+
+                    </div>
+                </Button>
+                {/* <ButtonPrimary onClickHandler={onNext}
+                               className={'w-[200px]'}>{step == 5 ? 'Get Started' : 'Next'}</ButtonPrimary> */}
                 {step != 5 && (
                     <ButtonSecondary onClickHandler={onSkip} ClassName="border-none text-sm">
                         Skip the tour <img width={24} src={"/public/arrow-right.svg"} alt=""/>

@@ -7,7 +7,7 @@ import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
-
+import { Button } from "symphony-ui";
 
 export const PatientInformation = () => {
 
@@ -91,7 +91,13 @@ export const PatientInformation = () => {
                            placeholder={"number"}/>
 
                 </CardPatient> */}
-                <ButtonPrimary className={"h-[52px] w-[191px] mt-8 rounded-[12px]"} type={"submit"}>Save & Continue</ButtonPrimary>
+                <div className="mt-8">
+                    <Button type="submit" theme="iris-large">
+                        Save & Continue
+                    </Button>
+
+                </div>
+                {/* <ButtonPrimary className={"h-[52px] w-[191px] mt-8 rounded-[12px]"} type={"submit"}>Save & Continue</ButtonPrimary> */}
             </form>
                     
         </div>

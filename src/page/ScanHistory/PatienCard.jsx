@@ -5,6 +5,7 @@ import { useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
+import { Button } from "symphony-ui";
 
 export const PatienCard = ({index, patient}) => {
 
@@ -71,11 +72,15 @@ export const PatienCard = ({index, patient}) => {
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div>
-                        <button onClick={clickHandler}
+                        {/* <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan
-                        </button>
+                        </button> */}
+                        <Button  onClick={clickHandler} theme="iris">
+                            <img className="mr-2" src="camera.svg" alt=""/>
+                            New Scan                            
+                        </Button>
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
@@ -173,11 +178,19 @@ export const PatienCard = ({index, patient}) => {
                                     <input value={textComment} onChange={(el) => {
                                         setTextComment(el.target.value)
                                     }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
-                                    <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                    {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
                                         formHandler()                                       
                                     }} className={"!text-xs !px-4 !py-2.5"}>
                                         Add Comment
-                                    </ButtonPrimary>
+                                    </ButtonPrimary> */}
+                                    <div className="w-full flex justify-end">
+                                        <Button disabled={textComment.length == 0} onClick={() => {
+                                            formHandler()
+                                        }} theme="iris-small">
+                                            Add Comment
+                                        </Button>
+
+                                    </div>
                                 </div>
                             </div>
                         </form>}
