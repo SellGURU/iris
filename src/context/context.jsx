@@ -6,10 +6,12 @@
 // The provider makes the state and dispatch functions available to its children components, enabling them to access and update the patient data as needed.
 
 import React, {createContext, useReducer, useContext, useCallback} from "react";
+import PackageManager from "../model/PackageManager";
 
 // every time go to face mash  ,we store the data in store and fetch it when send request
 export const initialState = {
     patients: JSON.parse(localStorage.getItem("patients")) || [],
+    package:new PackageManager(),
     sex: "masculine",
     comment:[],
     patientID: "1",

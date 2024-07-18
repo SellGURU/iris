@@ -1,8 +1,8 @@
 const Pagination = ({table,}) => {
     const countPage = table.getPageCount()
     return (
-        <div className="flex items-center justify-start w-full pt-10 ">
-            <h1 className={"block"}>Show 5 rows per page.</h1>
+        <div className="flex items-center justify-start px-4 w-full pt-4 ">
+            <h1 className={"block text-[#7E7E7E] "}>Show 5 rows per page.</h1>
 
             <ul className="flex items-center w-2/3 h-full pl-24  justify-center p-0 text-base  ">
                 <li>

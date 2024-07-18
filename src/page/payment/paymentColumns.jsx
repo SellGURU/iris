@@ -1,5 +1,17 @@
 import {IoMdMore} from "react-icons/io";
 
+const resolveStatusColor =(status) => {
+    if(status == 'Paid'){
+        return 'bg-[#E1FFDC] text-[#07A104]'
+    }
+    if(status == 'Rejected'){
+        return 'bg-[#FFE6EE] text-[#FF001F]'
+    }
+    if(status == 'Pending'){
+        return 'bg-[#FFF5DC] text-[#F9A80C]'
+    }    
+}
+
 export const columns = [
     {
         accessorKey: "InvoiceID",
@@ -37,8 +49,8 @@ export const columns = [
         cell: ({row}) => {
             console.log(row.original)
             return (
-                <div className={" flex items-center w-2/6 py-2 justify-start "}>
-                    <div className={"bg-[#E1FFDC]  w-full h-10 flex items-center justify-center  rounded-2xl text-[#07A104]"}>
+                <div className={" flex items-center w-3/6 py-2 justify-start "}>
+                    <div className={` shadow-none overflow-hidden w-full h-10 flex items-center justify-center  rounded-[8px] ${resolveStatusColor(row.original.status)}`}>
                         {row.original.status}
                     </div>
                 </div>
@@ -56,7 +68,7 @@ export const columns = [
             console.log(row.original)
             return (
                 <div className={" flex items-center justify-center"}>
-                    <IoMdMore className={"w-5 h-5"}/>
+                    <img src="./more.svg" alt="" />
                 </div>
             )
         }

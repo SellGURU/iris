@@ -1,73 +1,37 @@
 export const fakeData = [
     {
-        InvoiceID: "#1",
+        InvoiceID: "#23456",
         BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
+        Package: "package 01",
+        status: "Paid",
+        Amount: "$5000",
     },
     {
-        InvoiceID: "#2",
+        InvoiceID: "#23456",
         BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
+        Package: "package 01",
+        status: "Paid",
+        Amount: "$5000",
     },
     {
-        InvoiceID: "#3",
+        InvoiceID: "#23456",
         BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
+        Package: "package 01",
+        status: "Paid",
+        Amount: "$5000",
+    },        
+    {
+        InvoiceID: "#23457",
+        BillingDate: "2023-01-02",
+        Package: "package 02",
+        status: "Rejected",
+        Amount: "$5000",
     },
     {
-        InvoiceID: 4,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
-    {
-        InvoiceID: 5,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
-    {
-        InvoiceID: 6,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
-    {
-        InvoiceID: 7,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
-    {
-        InvoiceID: 8,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
-    {
-        InvoiceID: 9,
-        BillingDate: "2023-01-01",
-        Package: "John Doe",
-        status: "Stable",
-        Amount: "60kg",
-
-    },
+        InvoiceID: "#23457",
+        BillingDate: "2023-01-02",
+        Package: "package 02",
+        status: "Pending",
+        Amount: "$5000",
+    },    
 ];
