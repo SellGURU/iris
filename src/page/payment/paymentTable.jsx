@@ -56,7 +56,7 @@ export const PaymentTable = () => {
                                     return (
                                         <th key={index} className={"pt-8 "}
                                         >
-                                            <div className={"flex w-full opacity-70  pl-4 items-center justify-start text-[#2E2E2E] font-medium text-base"}>
+                                            <div className={"flex w-full opacity-70  pl-4 items-center justify-center text-[#2E2E2E] font-medium text-base"}>
 
                                                 <>{header.column.columnDef.header}</>
                                                 {header.column.getCanSort() && (
@@ -83,7 +83,7 @@ export const PaymentTable = () => {
                                 <tr key={index} className="space-y-10 mt-10 ">
                                     {row.getVisibleCells().map((cell,index) => {
                                             return (
-                                                <td key={index} className={"text-left pl-5 !py-10 text-[#7E7E7E] font-normal text-base"}>
+                                                <td key={index} className={"text-center pl-5 !py-10 text-[#7E7E7E] font-normal text-base"}>
                                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                 </td>
                                             )

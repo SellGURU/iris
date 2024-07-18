@@ -49,30 +49,30 @@ export const columns = [
         cell: ({row}) => {
             console.log(row.original)
             return (
-                <div className={" flex items-center w-3/6 py-2 justify-start "}>
-                    <div className={` shadow-none overflow-hidden w-full h-10 flex items-center justify-center  rounded-[8px] ${resolveStatusColor(row.original.status)}`}>
+                <div className={" flex items-center  py-2 justify-center "}>
+                    <div className={` shadow-none overflow-hidden w-[60%] h-10 flex items-center justify-center  rounded-[8px] ${resolveStatusColor(row.original.status)}`}>
                         {row.original.status}
                     </div>
                 </div>
             )
         }
     },
-    {
-        accessorKey: "more",
-        header: (<div className={"w-full text-center"}>More</div>),
-        enableColumnFilter: true,
-        filterFn: "includesString",
-        enableSorting: false,
+    // {
+    //     accessorKey: "more",
+    //     header: (<div className={"w-full text-center"}>More</div>),
+    //     enableColumnFilter: true,
+    //     filterFn: "includesString",
+    //     enableSorting: false,
 
-        cell: ({row}) => {
-            console.log(row.original)
-            return (
-                <div className={" flex items-center justify-center"}>
-                    <img src="./more.svg" alt="" />
-                </div>
-            )
-        }
-    },
+    //     cell: ({row}) => {
+    //         console.log(row.original)
+    //         return (
+    //             <div className={" flex items-center justify-center"}>
+    //                 <img src="./more.svg" alt="" />
+    //             </div>
+    //         )
+    //     }
+    // },
 ];
 
 

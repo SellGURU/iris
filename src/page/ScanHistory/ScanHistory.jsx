@@ -54,9 +54,8 @@ export const ScanHistory = () => {
         <div className="container  mx-auto flex flex-col sm:px-6 md:px-8 lg:px-10  xl:px-12  gap-5">
             <div className="w-full flex flex-col items-center gap-3 ">
                 <h1 className="text-4xl font-semibold text-[#1A1919] ">Scan History</h1>
-                <p className="text-lg font-normal text-[#606060] max-w-xl text-center">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been t
+                <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
+                    Scan history records past scanned documents, showing details like date, categorization, download options, and patient scan comparisons for easy reference and retrieval.
                 </p>
             </div>
             <div className="flex w-full justify-between">
@@ -108,9 +107,9 @@ export const ScanHistory = () => {
                     />
                 </div>
             )}
-            {patients != 0 ? (<h1 className={"text-[16px] font-normal"}>Show <span
+            {/* {patients != 0 ? (<h1 className={"text-[16px] font-normal"}>Show <span
                     className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.</h1>
-            ):""}
+            ):""} */}
         </div>
     );
 };

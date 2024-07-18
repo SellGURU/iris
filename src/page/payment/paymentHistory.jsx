@@ -20,26 +20,26 @@ export const PaymentHistory = () => {
         new Package({
             name:'package 01',
             cycle:'Yearly',
-            cost:5,
+            cost:10,
             useage:0,
-            bundle:1000            
+            bundle:-1            
         }),
         new Package({
-            name:'package 01',
+            name:'package 02',
             cycle:'Yearly',
-            cost:5,
+            cost:8,
             useage:0,
-            bundle:1000            
+            bundle:50            
         }),
         new Package({
-            name:'package 01',
+            name:'package 03',
             cycle:'Yearly',
-            cost:5,
+            cost:6,
             useage:0,
-            bundle:1000            
+            bundle:100            
         }),
         new Package({
-            name:'package 01',
+            name:'package 04',
             cycle:'Yearly',
             cost:5,
             useage:0,
@@ -54,7 +54,7 @@ export const PaymentHistory = () => {
             <div className={"w-full"}>
                 <div>
                     <div className={"flex w-full flex-col md:flex-row  gap-10 items-start justify-between"}>
-                        <div className={" w-full h-[302px] border  rounded-md "}>
+                        <div className={" w-full relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
@@ -77,11 +77,13 @@ export const PaymentHistory = () => {
                                         <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().useage}</p>
                                     </div>
                                 </div>
-                                <div className={"space-y-0"}>
-                                    <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
-                                    <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
+                                <div className="absolute bottom-4 w-full">
+                                    <div className={"space-y-0"}>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
+                                        <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
+                                    </div>
+                                    <div className={"h-[20px] w-[93%] mt-[8px] bg-[#E1E1E1]"}></div>
                                 </div>
-                                <div className={"h-[20px] bg-[#E1E1E1]"}></div>
                             </div>
                         </div>
                         <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '} border rounded-md `}>
@@ -101,7 +103,7 @@ export const PaymentHistory = () => {
                                         <p>billing@example.mmm</p>
                                     </div>
                                 </div>
-                                <div className={" h-full"}>
+                                <div className={" h-full invisible"}>
                                     <ButtonDefault>Change</ButtonDefault>
                                 </div>
                             </div>

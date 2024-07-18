@@ -82,7 +82,7 @@ const Login = () => {
         <div className={" "}>
             <div className={"h-[100px]  flex items-center justify-between px-10"}>
                 <img className={" w-auto h-auto h-h"} src={"/image/login/IRIS.svg"} alt="iris"/>
-                <ButtonPrimary>Account</ButtonPrimary>
+                <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
                 <img className={"hidden md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
