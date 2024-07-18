@@ -54,6 +54,26 @@
   @apply w-4 h-4 bg-[#544BF0];
 }
 
+.downloadIcon-purple{
+  mask-image: url(/download.svg);
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  cursor: pointer;
+  @apply w-4 h-4 bg-[#544BF0];
+}
+
+.shareIcon-purple{
+  mask-image: url(/share.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-4 h-4 bg-[#544BF0];
+}
+
 .arowDownIcon-purple[data-mode='true']{
   @apply rotate-180
 }

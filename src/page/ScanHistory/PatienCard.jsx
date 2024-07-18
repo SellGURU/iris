@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useContext, useEffect, useState} from "react";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { useNavigate} from "react-router-dom";
@@ -13,6 +14,7 @@ export const PatienCard = ({index, patient}) => {
     const [isShowAddComment, setIsShowAddComment] = useState(false);
     const [comment, setComment] = useState(initComment);
     const navigate = useNavigate();
+    const [isShowMore,setIsShowMore] = useState(false)
     const updateComment=() => {
         let patients= JSON.parse(localStorage.getItem("patients"))
         let patientIndex = patients.findIndex(patient => patient.id === id);
@@ -64,7 +66,7 @@ export const PatienCard = ({index, patient}) => {
 
                     <div className="flex gap-4 items-center justify-between">
                         <div onClick={() => setIsShowComment(!isShowComment)}
-                             className={" cursor-pointer text-base select-none flex justify-center items-center font-normal underline text-[#544BF0] "}>Show comments
+                             className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div>
@@ -78,50 +80,66 @@ export const PatienCard = ({index, patient}) => {
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
                     {result.map((patientHistory, index) => {
                         return (
-                            <div key={index + id} className="flex justify-between items-center w-full ">
-                                <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
-                                <div className="text-[#7E7E7E] font-medium">
-                                    Date : <span
-                                    className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
-                                </div>
+                            <>
+                                {index < 2 || isShowMore?
+                                <div key={index + id} className="flex justify-between items-center w-full ">
+                                    <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                    <div className="text-[#7E7E7E] font-medium">
+                                        Date : <span
+                                        className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
+                                    </div>
 
-                                <div className="flex gap-3 items-center">
-                                    <RWebShare data={{
-                                        text: "iris",
-                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
-                                        title: "iris",
-                                    }}>
-                                        <div
-                                            onClick={() => {
-                                                if (navigator.share) {
-                                                    navigator.share({
-                                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
-                                                    })
-                                                        .then(() => console.log('Successful share'))
-                                                        .catch((error) => console.log('Error sharing', error));
-                                                } else {
-                                                    console.log('Web Share API is not supported in this browser.');
-                                                }
-                                            }}
-                                            className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
-                                        >
-                                            <img src="./share.svg" alt="Share"/>
+                                    <div className="flex gap-3 items-center">
+                                        <RWebShare data={{
+                                            text: "iris",
+                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
+                                            title: "iris",
+                                        }}>
+                                            <div
+                                                onClick={() => {
+                                                    if (navigator.share) {
+                                                        navigator.share({
+                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                        })
+                                                            .then(() => console.log('Successful share'))
+                                                            .catch((error) => console.log('Error sharing', error));
+                                                    } else {
+                                                        console.log('Web Share API is not supported in this browser.');
+                                                    }
+                                                }}
+                                                className="bg-[#F9F9FB] cursor-pointer  border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
+                                            >
+                                                <div className="shareIcon-purple"></div>
+                                            </div>
+                                        </RWebShare>
+                                        <div onClick={() => download(patientHistory.htmlId)}
+                                            className="bg-[#F9F9FB] cursor-pointer border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                            <div className="downloadIcon-purple"></div>
                                         </div>
-                                    </RWebShare>
-                                    <div onClick={() => download(patientHistory.htmlId)}
-                                         className="bg-[#F9F9FB] cursor-pointer w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                        <img src="./download.svg" alt=""/>
-                                    </div>
-                                    <div onClick={() => download(patientHistory.htmlId)}
-                                         className="bg-[#E8E7F7] cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                        View Reports
-                                    </div>
+                                        <div onClick={() => download(patientHistory.htmlId)}
+                                            className="bg-[#F9F9FB] border border-[#544BF0]   cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
+                                            View Reports
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                                :
+                                undefined
+                                }
+                            </>
 
                         )
                     })}
+                    {
+                        result.length> 2 &&
+                        <div className="flex justify-center items-center">
+                            <div onClick={() => {
+                                setIsShowMore(!isShowMore)
+                            }} className="text-[#544BF0] flex justify-center items-center cursor-pointer font-medium text-center mt-4">{isShowMore?'See Less':'See More'}<span><div data-mode={!isShowMore?'true':'false'} className="arowDownIcon-purple ml-1"></div></span></div>
+
+                        </div>
+
+                    }
                 </div>
                 {isShowComment &&
                     <>
@@ -138,7 +156,7 @@ export const PatienCard = ({index, patient}) => {
                                         </div>
                                     )
                                 })}
-                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center"}>No comment found.</div>)}
+                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[#7E7E7E]"}>No comment found.</div>)}
                             < /div>
                             <div className={" h-full w-1/6 flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}

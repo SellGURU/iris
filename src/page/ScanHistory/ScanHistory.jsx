@@ -13,7 +13,6 @@ export const ScanHistory = () => {
     const itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
     let indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
