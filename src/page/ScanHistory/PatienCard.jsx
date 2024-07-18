@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form";
 export const PatienCard = ({index, patient}) => {
 
     const {id, date, photo, result,comment:initComment} = patient;
-
+    const [textComment,setTextComment] = useState('')
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
     const [comment, setComment] = useState(initComment);
@@ -39,16 +39,17 @@ export const PatienCard = ({index, patient}) => {
         setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
-    const {register, handleSubmit} = useForm()
-    const formHandler = (data) => {
-        if(data.addComment.length>0){
+    const {register, handleSubmit,formState: { errors }} = useForm()
+    const formHandler = () => {
+        if(textComment.length>0){
             const patients= JSON.parse(localStorage.getItem("patients"))
             const patientIndex = patients.findIndex(patient => patient.id === id);
 
-            patients[patientIndex].comment.push(data.addComment)
+            patients[patientIndex].comment.push(textComment)
             localStorage.setItem("patients", JSON.stringify(patients));
             setIsShowAddComment(false)
             updateComment()
+            setTextComment("")
         }else {
             setIsShowAddComment(false)
         }
@@ -150,14 +151,14 @@ export const PatienCard = ({index, patient}) => {
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}
-                                            className={"flex  gap-3 items-center justify-start w-fit text-[#7E7E7E] pb-3"}>
+                                            className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
                                             <h1 className={"text-nowrap"}>12 April 2024 </h1>
                                             <p className={"w-4/6"}>{comment}</p>
                                         </div>
                                     )
                                 })}
                                 {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[#7E7E7E]"}>No comment found.</div>)}
-                            < /div>
+                            </div>
                             <div className={" h-full w-1/6 flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
@@ -166,11 +167,15 @@ export const PatienCard = ({index, patient}) => {
                                 </button>
                             </div>
                         </div>
-                        {isShowAddComment && <form onSubmit={handleSubmit(formHandler)} className={"w-full "}>
+                        {isShowAddComment && <form  className={"w-full "}>
                             <div className={"w-full flex items-center justify-center"}>
                                 <div className={" px-5 pt-5 w-4/6 flex items-end gap-5 justify-end border-b pb-2"}>
-                                    <input {...register("addComment")} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
-                                    <ButtonPrimary type={"submit"} className={"!text-xs !px-4 !py-2.5"}>
+                                    <input value={textComment} onChange={(el) => {
+                                        setTextComment(el.target.value)
+                                    }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                    <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                        formHandler()                                       
+                                    }} className={"!text-xs !px-4 !py-2.5"}>
                                         Add Comment
                                     </ButtonPrimary>
                                 </div>
