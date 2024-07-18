@@ -86,7 +86,7 @@ const FaceScanResult =() => {
                 </div>
                 <div className="w-full px-11 mt-8">
 
-                    <iframe className="h-[9000px]" src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    <iframe className="h-[9000px] w-full" src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     </div>                    
             </div>
         </>            
