@@ -64,8 +64,9 @@ export const PatienCard = ({index, patient}) => {
 
                     <div className="flex gap-4 items-center justify-between">
                         <div onClick={() => setIsShowComment(!isShowComment)}
-                             className={" cursor-pointer text-base font-normal underline text-[#544BF0] "}>Show comments
+                             className={" cursor-pointer text-base select-none flex justify-center items-center font-normal underline text-[#544BF0] "}>Show comments
                             ({comment.length})
+                            <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div>
                         <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">

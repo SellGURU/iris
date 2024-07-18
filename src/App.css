@@ -44,3 +44,16 @@
   animation:takePhoto forwards  ;
   animation-duration: 6s;
 }
+
+.arowDownIcon-purple{
+  mask-image: url(/arrow-down.svg);
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-4 h-4 bg-[#544BF0];
+}
+
+.arowDownIcon-purple[data-mode='true']{
+  @apply rotate-180
+}
