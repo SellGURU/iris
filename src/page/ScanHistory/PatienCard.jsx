@@ -84,10 +84,10 @@ export const PatienCard = ({index, patient}) => {
                             <>
                                 {index < 2 || isShowMore?
                                 <div key={index + id} className="flex justify-between items-center w-full ">
-                                    <h2 className="font-medium text-[16px] text-[#2E2E2E]">Scan reports</h2>
-                                    <div className="text-[#7E7E7E] font-medium">
+                                    <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                    <div className="text-[#7E7E7E] font-normal">
                                         Date : <span
-                                        className=" ml-1 font-medium tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
+                                        className=" ml-1 font-normal tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
