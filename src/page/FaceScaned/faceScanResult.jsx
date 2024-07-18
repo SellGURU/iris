@@ -48,7 +48,7 @@ const FaceScanResult =() => {
     return (
         <>
             <div className="w-full">
-                <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed: View Reports</div>
+                <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
                 <div className="flex justify-center">
                     <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">
                         Here is the preview of your report. Use the top-right buttons to download the PDF or share the document. To remove the report or return to the home page, use the buttons at the bottom.
@@ -71,23 +71,32 @@ const FaceScanResult =() => {
                                    url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
                                })
                            }}
-                                   className="w-[122px] text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#E8E7F7] flex justify-center items-center">
+                                   className="w-[122px] border border-[#544BF0]  text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#544BF00A] flex justify-center items-center">
                                <img className="mr-2" src="share2.svg" alt=""/>
                                Share
                            </button>
                        </RWebShare>
                        <button onClick={download}
                                className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
-                           <img className="mr-2" src="download2.svg" alt=""/>
-                           Download
+                           <img className="mr-2" src="print.svg" alt=""/>
+                           Print Report
                        </button>
 
                    </div>
                 </div>
                 <div className="w-full px-11 mt-8">
 
-                    <iframe className="h-[9000px] w-full" src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
-                    </div>                    
+                    <iframe className="h-[9000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    <div className="w-full flex mt-[48px] justify-end">
+                       <button onClick={() => {
+                        navigate('/')
+                       }}
+                               className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
+                           Go to Home
+                           <div className="ml-2 arrow-right-white" />
+                       </button>
+                    </div>
+                </div>                    
             </div>
         </>            
     )

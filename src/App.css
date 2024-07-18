@@ -74,6 +74,16 @@
   @apply w-4 h-4 bg-[#544BF0];
 }
 
+.arrow-right-white{
+  mask-image: url(/arrow-right.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-6 h-6 bg-white;
+}
+
 .arowDownIcon-purple[data-mode='true']{
   @apply rotate-180
 }
