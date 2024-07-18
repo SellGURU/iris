@@ -15,13 +15,13 @@ const resolveStatusColor =(status) => {
 export const columns = [
     {
         accessorKey: "InvoiceID",
-        header: "InvoiceID",
+        header: "Invoice ID",
     },
     {
         accessorKey: "Package",
         header: "Package",
 
-        enableSorting: false,
+        enableSorting: true,
         enableColumnFilter: true,
         // filterFn: (row, columnId, filterStatuses) => {
         //     if (filterStatuses.length === 0) return true;
@@ -31,12 +31,12 @@ export const columns = [
     },
     {
         accessorKey: "BillingDate",
-        header: "BillingDate",
+        header: "Billing Date",
     },
 
     {
         accessorKey: "Amount",
-        enableSorting: false,
+        enableSorting: true,
 
         header: "Amount",
     },

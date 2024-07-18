@@ -89,7 +89,7 @@ export const ScanHistory = () => {
 
 
             <hr className="h-[1px] bg-gray-300 w-full my-5"/>
-            {patients == 0 ? (
+            {patientList == 0 ? (
                 <p className="text-center text-[#606060] font-medium">
                     No records found.{" "}
                     <Link to="/PatientInformation">

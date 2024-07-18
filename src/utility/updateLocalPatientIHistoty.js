@@ -4,7 +4,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
     // const patientInformation = state[state.length - 1];
     const patientIndex = patients.findIndex(patient => patient.id === patientInformation.id);
-
+    const date = new Date();
     if (patientIndex === -1) {
         // If the patient does not exist, create a new patient entry
         const newPatient = {
@@ -13,7 +13,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
             errorThreshold: patientInformation.errorThreshold,
             comment:[],
             result: [{
-                date: new Date().toISOString().split('T')[0],
+                date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
                 photo: patientInformation.photo,
                 htmlId: patientInformation.htmlId
             }],

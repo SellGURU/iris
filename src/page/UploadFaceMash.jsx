@@ -110,9 +110,9 @@ const UploadFaceMash = () => {
             </div>
             <div className="w-full flex mt-5 justify-center">
                 {  resp== ''?
-                <button onClick={sendToAnalyze} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 text-white">ANALYZE</button>    
+                <button onClick={sendToAnalyze} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 rounded-[8px] text-white">ANALYZE</button>    
             :
-                <button onClick={download} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 text-white">Download File</button>    
+                <button onClick={download} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 rounded-[8px] text-white">Download File</button>    
             }
             </div>
             {/* <input onChange={(e) => {
