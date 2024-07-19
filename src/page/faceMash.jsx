@@ -1024,23 +1024,29 @@ const FaceMesh = () => {
                             </Button>
 
                             {status == 'one' ?
-                                <ButtonSecondary
-                                    ClassName={"!bg-[#E8E7F7] !text-[#544BF0] border-none !py-3 !text-xl disabled:bg-gray-200 disabled:!text-gray-400"}
-                                    disabled={isCameraStart} onClick={() => {
+                                // <ButtonSecondary
+                                //     ClassName={"!bg-[#E8E7F7] !text-[#544BF0] border-none !py-3 !text-xl disabled:bg-gray-200 disabled:!text-gray-400"}
+                                //     disabled={isCameraStart} onClick={() => {
+                                //     navigate('/faceMashFile')
+                                // }}>
+                                //     <input disabled className="w-full invisible top-0 absolute h-full"
+                                //            onChange={(e) => {
+                                //                var file = e.target.files[0];
+                                //                var reader = new FileReader();
+                                //                reader.onloadend = function () {
+                                //                    setResolvedFile(reader.result)
+                                //                }
+                                //                reader.readAsDataURL(file);
+                                //            }} id="upload-file" type="file"></input>
+                                //     <LuUploadCloud/>
+                                //     Upload Image
+                                // </ButtonSecondary>
+                                <Button onClick={() => {
                                     navigate('/faceMashFile')
-                                }}>
-                                    <input disabled className="w-full invisible top-0 absolute h-full"
-                                           onChange={(e) => {
-                                               var file = e.target.files[0];
-                                               var reader = new FileReader();
-                                               reader.onloadend = function () {
-                                                   setResolvedFile(reader.result)
-                                               }
-                                               reader.readAsDataURL(file);
-                                           }} id="upload-file" type="file"></input>
-                                    <LuUploadCloud/>
+                                }} disabled={isCameraStart}  theme="iris-secondary-large"> 
+                                    <LuUploadCloud className="mr-2"/>
                                     Upload Image
-                                </ButtonSecondary>
+                                </Button>
                                 : undefined}
 
                         </div>

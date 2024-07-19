@@ -67,11 +67,16 @@ export const PatienCard = ({index, patient}) => {
                     <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
                     <div className="flex gap-4 items-center justify-between">
-                        <div onClick={() => setIsShowComment(!isShowComment)}
+                        {/* <div onClick={() => setIsShowComment(!isShowComment)}
                              className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
-                        </div>
+                        </div> */}
+                        <Button theme="iris-tertiary" onClick={() => setIsShowComment(!isShowComment)}>
+                            Show comments
+                            ({comment.length})
+                            <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
+                        </Button>
                         {/* <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
                             <img className="mr-2" src="camera.svg" alt=""/>
