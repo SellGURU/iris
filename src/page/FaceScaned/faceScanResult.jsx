@@ -12,6 +12,7 @@ import { useContext} from "react"
 import {PatientContext} from "../../context/context.jsx";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import {RWebShare} from "react-web-share";
+import { Button } from "symphony-ui";
 
 const FaceScanResult =() => {
     const navigate = useNavigate()
@@ -60,13 +61,13 @@ const FaceScanResult =() => {
                         <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
                         <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
                    </div>
-                   <div className="flex justify-end items-center">
+                   <div className="flex justify-end gap-4 items-center">
                        <RWebShare data={{
                            text: "iris",
                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId,
                            title: "iris",
                        }}>
-                           <button onClick={() => {
+                           {/* <button onClick={() => {
                                navigator.share({
                                    url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
                                })
@@ -74,13 +75,25 @@ const FaceScanResult =() => {
                                    className="w-[122px] border border-[#544BF0]  text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#544BF00A] flex justify-center items-center">
                                <img className="mr-2" src="share2.svg" alt=""/>
                                Share
-                           </button>
+                           </button> */}
+                           <Button  onClick={() => {
+                               navigator.share({
+                                   url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
+                               })                            
+                           }} theme='iris-secondary-large'>
+                               <img className="mr-2" src="share2.svg" alt=""/>
+                               Share                            
+                           </Button>
                        </RWebShare>
-                       <button onClick={download}
+                       <Button onClick={download} theme="iris-large">
+                           <img className="mr-2" src="print.svg" alt=""/>
+                           Print Report
+                       </Button>
+                       {/* <button onClick={download}
                                className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
                            <img className="mr-2" src="print.svg" alt=""/>
                            Print Report
-                       </button>
+                       </button> */}
 
                    </div>
                 </div>
@@ -88,13 +101,19 @@ const FaceScanResult =() => {
 
                     <iframe className="h-[9000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     <div className="w-full flex mt-[48px] justify-end">
-                       <button onClick={() => {
+                       {/* <button onClick={() => {
                         navigate('/')
                        }}
                                className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
                            Go to Home
                            <div className="ml-2 arrow-right-white" />
-                       </button>
+                       </button> */}
+                       <Button theme="iris-large" onClick={() => {
+                        navigate('/')
+                       }}>
+                           Go to Home
+                           <div className="ml-2 arrow-right-white" />
+                       </Button>
                     </div>
                 </div>                    
             </div>

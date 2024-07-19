@@ -101,7 +101,7 @@ export const PatienCard = ({index, patient}) => {
                                             url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
                                             title: "iris",
                                         }}>
-                                            <div
+                                            {/* <div
                                                 onClick={() => {
                                                     if (navigator.share) {
                                                         navigator.share({
@@ -116,16 +116,36 @@ export const PatienCard = ({index, patient}) => {
                                                 className="bg-[#F9F9FB] cursor-pointer  border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
                                             >
                                                 <div className="shareIcon-purple"></div>
-                                            </div>
+                                            </div> */}
+                                            <Button 
+                                                onClick={() => {
+                                                    if (navigator.share) {
+                                                        navigator.share({
+                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                        })
+                                                            .then(() => console.log('Successful share'))
+                                                            .catch((error) => console.log('Error sharing', error));
+                                                    } else {
+                                                        console.log('Web Share API is not supported in this browser.');
+                                                    }
+                                                }} theme="iris-secondary-small">
+                                                <div className="shareIcon-purple"></div>
+                                            </Button>
                                         </RWebShare>
-                                        <div onClick={() => download(patientHistory.htmlId)}
+                                        {/* <div onClick={() => download(patientHistory.htmlId)}
                                             className="bg-[#F9F9FB] cursor-pointer border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
                                             <div className="downloadIcon-purple"></div>
-                                        </div>
-                                        <div onClick={() => download(patientHistory.htmlId)}
+                                        </div> */}
+                                        <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
+                                            <div className="downloadIcon-purple"></div>
+                                        </Button>
+                                        <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
+                                            View Reports
+                                        </Button>
+                                        {/* <div onClick={() => download(patientHistory.htmlId)}
                                             className="bg-[#F9F9FB] border border-[#544BF0]   cursor-pointer text-[14px] text-[#544BF0] w-[107px] h-[32px] flex justify-center items-center rounded-[6px]">
                                             View Reports
-                                        </div>
+                                        </div> */}
 
                                     </div>
                                 </div>

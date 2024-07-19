@@ -8,6 +8,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
+import { Button } from "symphony-ui";
 
 const Login = () => {
     const passwordRef = useRef(null);
@@ -152,9 +153,16 @@ const Login = () => {
                                 me</label>
                         </div>
                     </div>
-                    <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
+                    <Button onClick={() => {
                         onSubmit()
-                    }} disabled={!form.isValid}>Log In</ButtonPrimary>
+                    }} theme="iris-large" disabled={!form.isValid}>
+                        <div className="flex justify-center w-full">
+                            Log In
+                        </div>
+                    </Button>
+                    {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
+                        onSubmit()
+                    }} disabled={!form.isValid}>Log In</ButtonPrimary> */}
                     <p className="  text-sm font-normal">
                         Don’t have an account?
                         <Link to="/login"> Sign up</Link>

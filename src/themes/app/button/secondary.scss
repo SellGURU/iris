@@ -1,0 +1,23 @@
+
+.iris-secondary-Button-container {
+  @apply text-[#544BF0] justify-between items-center flex disabled:cursor-not-allowed border border-[#544BF0]  py-[10px] h-[40px] px-[14px] bg-[#544BF00A] leading-[19.36px] text-[16px] font-[500]  rounded-[8px]  #{!important};
+}
+.iris-secondary-Button-container:hover ,.iris-secondary-small-Button-container:hover,.iris-secondary-large-Button-container:hover{
+  @apply bg-[#D7DAEF] #{!important}
+}
+.iris-secondary-Button-container:active,.iris-secondary-small-Button-container:active,.iris-secondary-large-Button-container:active {
+  @apply bg-[#C4C9E8] #{!important}
+}
+.iris-secondary-Button-container-disabled ,.iris-secondary-small-Button-container-disabled ,.iris-secondary-large-Button-container-disabled:disabled {
+  @apply bg-[#F5F5FC] opacity-50 text-[#7E7E7E] border border-[#7E7E7E] #{!important};
+}
+
+
+.iris-secondary-small-Button-container {
+  @apply text-[#544BF0] justify-between items-center flex disabled:cursor-not-allowed  h-[32px] py-[7px] px-[10px] border border-[#544BF0]  bg-[#544BF00A] leading-[19.36px] text-[14px] font-[500]  rounded-[6px]  #{!important};
+}
+
+.iris-secondary-large-Button-container {
+  @apply text-[#544BF0] justify-between items-center flex disabled:cursor-not-allowed h-[52px]  py-[12px] px-[24px] border border-[#544BF0]  bg-[#544BF00A] leading-[19.36px] text-[20px] font-[500]  rounded-[12px]  #{!important};
+}
+

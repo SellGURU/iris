@@ -8,7 +8,7 @@
 .iris-Button-container:active,.iris-small-Button-container:active,.iris-large-Button-container:active {
   @apply bg-[#221E60] #{!important}
 }
-.iris-Button-container-disabled ,.iris-small-Button-container-disabled ,.iris-large-Button-container-disabled {
+.iris-Button-container-disabled ,.iris-small-Button-container-disabled ,.iris-large-Button-container-disabled:disabled {
   @apply bg-[#7E7E7E] #{!important};
 }
 
