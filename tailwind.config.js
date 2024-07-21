@@ -17,7 +17,38 @@ export default {
                 "placeholder-color": "#92A7C1",
 
                 "input-color": "#F5F7FA",
-            },            
+            },      
+            animation: {
+                'vote': 'vote 1s ease-in-out ',
+                'zooming': 'zooming 1s ease-in-out ',
+                'comeFromLeft': 'comeFromLeft 1s ease-in-out ',
+            },
+            keyframes: {
+                vote: {
+                    '0%': {
+                        transform: 'translateY(-300px)'
+                    },
+                    '100%': {
+                        transform: 'translateY(0px)'
+                    },
+                },
+                zooming: {
+                    '0%': {
+                        transform: 'scale(0,0)'
+                    },
+                    '100%': {
+                        transform: 'scale(1,1)'
+                    },
+                } ,
+                comeFromLeft: {
+                    '0%': {
+                        transform: 'translate(500px,0px)'
+                    },
+                    '100%': {
+                        transform: 'translate(0px,0px)'
+                    },
+                }                                
+            }                  
         },
     },
     plugins: [],

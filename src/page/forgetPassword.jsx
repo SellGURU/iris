@@ -9,16 +9,17 @@ import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
+import VerificationInput from "react-verification-input";
 
 const Forget = () => {
     const passwordRef = useRef(null);
-
+    const [step,setStep] = useState(0)
     // const {register, handleSubmit} = useForm();
     const initialValues = {
-        userName: '',
+        email: '',
     }
     const validationSchema = Yup.object().shape({
-        userName: Yup.string().required("userName is required"),
+        email: Yup.string().required('This E-mail Address is reguired').email('This E-mail Address is not Valid.'),
     })
     const form = useFormik({
         initialValues: initialValues,
@@ -85,8 +86,9 @@ const Forget = () => {
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
                 <img className={"hidden md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                {step == 0 ?
                 <div
-                    className="w-fit px-10 py-5 gap-5  flex flex-col"
+                    className="w-fit animate-comeFromLeft px-10 py-5 gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-2"}>Forgot Password</h1>
@@ -118,6 +120,7 @@ const Forget = () => {
                     </div> 
                     <Button onClick={() => {
                         // onSubmit()
+                        setStep(1)
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
                             Send a Code
@@ -130,7 +133,28 @@ const Forget = () => {
                         Don’t have an account?
                         <Link to="/register" className="text-primary-color"> Sign up</Link>
                     </p>
+                </div> 
+                :
+                <div className="w-fit px-10 py-5 gap-5  flex flex-col">
+                    <h1 className={" font-medium text-2xl "}>Forgot Password</h1>
+                    <div className="text-[#444444] flex items-center text-[14px] mb-[8px] w-[330px]">We sent a code to <span className="font-medium ml-1"> info@gmail.com</span> <span className="ml-4 flex items-center cursor-pointer"><img src="./icons/edit-2.svg" alt="" /> <span className="text-primary-color ml-2 ">Edit</span></span></div>
+                    <div className="text-[#444444] flex items-center text-[14px] mb-[16px] w-[330px]">The code expires in <span className=" font-medium ml-1">05 : 00</span></div>
+                    <div>
+                        <h1 className={" font-medium text-2xl pb-2"}>Enter the Code:</h1>
+                        <VerificationInput 
+                        length={4}
+                        classNames={{
+                            container: "container",
+                            character: "character ",
+                            characterInactive: "character--inactive ",
+                            characterSelected: "character--selected border-none outline-none",
+                            characterFilled: "character--filled text-[25px] ",
+                        }}
+                        ></VerificationInput>
+                    </div>
                 </div>
+                }
+
             </div>
 
         </div>

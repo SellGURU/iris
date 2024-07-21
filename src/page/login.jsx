@@ -86,9 +86,9 @@ const Login = () => {
                 <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img className={"hidden md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                <img className={"hidden md:block  h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
                 <div
-                    className="w-fit px-10 py-5 gap-5  flex flex-col"
+                    className="w-fit px-10 py-5  animate-vote   gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
@@ -146,12 +146,15 @@ const Login = () => {
                             <div className="text-sm mt-2 text-red-500">{form.errors.password}</div>
                         }
                     </div>
-                    <div className="w-full justify-between">
+                    <div className="w-full flex items-center justify-between">
                         <div className="flex justify-start items-center">
                             <input id="rememberMeBox" type="checkbox"/>
                             <label htmlFor="rememberMeBox" className="ml-2 cursor-pointer text-sm text-[#444444]">Remember
                                 me</label>
                         </div>
+                        <p className="  text-sm font-normal">
+                            <Link to="/forgetpass" className="text-primary-color">Forgot Password?</Link>
+                        </p>                        
                     </div>
                     <Button onClick={() => {
                         onSubmit()
