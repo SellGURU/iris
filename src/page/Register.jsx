@@ -10,17 +10,21 @@ import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 
-const Login = () => {
+const Register = () => {
     const passwordRef = useRef(null);
 
     // const {register, handleSubmit} = useForm();
     const initialValues = {
-        userName: '',
-        password: ''
+        fullName:'',
+        email: '',
+        password: '',
+        accept:false
     }
     const validationSchema = Yup.object().shape({
-        userName: Yup.string().required("userName is required"),
-        password: Yup.string().required()
+        fullName: Yup.string().required("This Full Name is required"),
+        email:Yup.string().email("This E-mail Address is not Valid.").required("This E-mail Address is required."),
+        password: Yup.string().required().min(8).matches(/[a-zA-Z]/, 'The password should contain letters and numbers.'),
+        accept:Yup.boolean().isTrue()
     })
     const form = useFormik({
         initialValues: initialValues,
@@ -91,10 +95,10 @@ const Login = () => {
                     className="w-fit px-10 py-5 gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
-                    <h1 className={" font-medium text-2xl pb-10"}>Welcome Back</h1>
+                    <h1 className={" font-medium text-2xl pb-10"}>Welcome To IRIS</h1>
                     <div className="grid w-[330px]">
                         <label
-                            className="flex mb-2 text-xl font-medium" htmlFor="userName">E-mail Address:</label>
+                            className="flex mb-2 text-xl font-medium" htmlFor="fullName">Full Name:</label>
                         <div className="relative">
                             {/* {
                                 form.values.userName.length == 0?
@@ -104,8 +108,34 @@ const Login = () => {
                             <input
 
                                 onKeyDown={handleUsernameKeyPress}
-                                {...form.getFieldProps('userName')}
-                                id="userName"
+                                {...form.getFieldProps('fullName')}
+                                id="fullName"
+                                className={`w-full pl-5 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
+                                type="text"
+                                placeholder="Your Name"
+                            />
+
+                        </div>
+                        {
+                            form.errors.fullName &&
+                            <div className="text-sm mt-2 text-red-500">{form.errors.fullName}</div>
+                        }
+                    </div>
+
+                    <div className="grid w-[330px]">
+                        <label
+                            className="flex mb-2 text-xl font-medium" htmlFor="email">E-mail Address:</label>
+                        <div className="relative">
+                            {/* {
+                                form.values.userName.length == 0?
+                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
+                                :undefined
+                            } */}
+                            <input
+
+                                onKeyDown={handleUsernameKeyPress}
+                                {...form.getFieldProps('email')}
+                                id="email"
                                 className={`w-full pl-5 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
                                 type="text"
                                 placeholder="Your E-mail Address"
@@ -113,10 +143,10 @@ const Login = () => {
 
                         </div>
                         {
-                            form.errors.userName &&
-                            <div className="text-sm mt-2 text-red-500">{form.errors.userName}</div>
+                            form.errors.email &&
+                            <div className="text-sm mt-2 text-red-500">{form.errors.email}</div>
                         }
-                    </div>
+                    </div>                    
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
                         <div className="relative">
@@ -148,25 +178,21 @@ const Login = () => {
                     </div>
                     <div className="w-full justify-between">
                         <div className="flex justify-start items-center">
-                            <input id="rememberMeBox" type="checkbox"/>
-                            <label htmlFor="rememberMeBox" className="ml-2 cursor-pointer text-sm text-[#444444]">Remember
-                                me</label>
+                            <input {...form.getFieldProps('accept')} id="accept" type="checkbox"/>
+                            <label htmlFor="accept" className="ml-2 cursor-pointer text-sm text-[#444444]">By Signing up I agree With Terms & Conditions</label>
                         </div>
                     </div>
                     <Button onClick={() => {
-                        onSubmit()
+                        // onSubmit()
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
-                            Log In
+                           Sign Up
                         </div>
                     </Button>
-                    {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
-                        onSubmit()
-                    }} disabled={!form.isValid}>Log In</ButtonPrimary> */}
-                    <p className="  text-sm font-normal">
-                        Don’t have an account?
-                        <Link to="/register" className="text-primary-color"> Sign up</Link>
-                    </p>
+
+                    <div className="text-primary-color mt-[-4px] text-[14px] flex w-full justify-end">
+                       <Link to="/login">Already have an account?</Link>
+                    </div>
                 </div>
             </div>
 
@@ -174,4 +200,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
