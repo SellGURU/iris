@@ -1008,7 +1008,7 @@ const FaceMesh = () => {
                     </div>
 
                 </div>
-                <div className={"flex items-start justify-center py-10"}>
+                <div className={"flex items-start justify-center py-6"}>
                     <div className={"flex items-center justify-center flex-col gap-5 "}>
                         <div className={"flex items-center justify-center gap-5 w-[660px]"}>
                             {/* <ButtonPrimary className={"disabled:bg-[#bebebe] !text-xl !px-8 !py-3 rounded-xl"}
@@ -1020,7 +1020,7 @@ const FaceMesh = () => {
 
                             <Button disabled={isCameraStart} onClick={() => img_source_select()} theme="iris-large">
                                 <IoCameraOutline size={'24px'} className="mr-2"/>
-                                LIVE SCAN                                
+                                Start Scan                            
                             </Button>
 
                             {status == 'one' ?

@@ -67,7 +67,7 @@ export const ScanHistory = () => {
                     </ButtonPrimary> */}
                     <Button theme="iris">
                         <img className="mr-1" src="fi_plus.svg" alt=""/>
-                        Add a New Patient                         
+                        Take a Scan                       
                     </Button>
                 </Link>
                 <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
