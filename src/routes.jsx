@@ -1,5 +1,6 @@
 import FaceMesh from "./page/faceMash";
 import Login from "./page/login";
+import Forget from './page/forgetPassword.jsx'
 import Register from "./page/Register";
 import UploadFaceMash from "./page/UploadFaceMash";
 import SignUp from "./page/signup";
@@ -17,6 +18,7 @@ import {PaymentHistory} from "./page/payment/paymentHistory.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/register", element: <Register/>},
+    {path: "/forgetPass", element: <Forget/>},
     {
         path: "/", element:
             <Header/>
