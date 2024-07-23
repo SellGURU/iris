@@ -87,3 +87,62 @@
 .arowDownIcon-purple[data-mode='true']{
   @apply rotate-180
 }
+
+.profile-icon {
+  mask-image: url(/icons/user.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;  
+  @apply mr-2 w-6 h-6  bg-[#2E2E2E]
+}
+
+.notification-icon {
+  mask-image: url(/icons/notification.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;  
+  @apply mr-2 w-6 h-6  bg-[#2E2E2E]
+}
+
+.Bill-icon {
+  mask-image: url(/icons/cards.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;  
+  @apply mr-2 w-6 h-6  bg-[#2E2E2E]
+}
+.Bill-icon {
+  mask-image: url(/icons/cards.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;  
+  @apply mr-2 w-6 h-6  bg-[#2E2E2E]
+}
+
+.trash-icon {
+  mask-image: url(/icons/trash.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;  
+  @apply mr-2 w-6 h-6  bg-[#2E2E2E]
+}
+
+
+.activeIcon {
+  @apply bg-primary-color 
+}
+
+
+.activeText {
+  @apply text-primary-color !important
+}

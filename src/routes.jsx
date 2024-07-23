@@ -14,6 +14,7 @@ import Header from "./layout/header.jsx";
 import {ScanHistory} from "./page/ScanHistory/ScanHistory.jsx";
 import FaceScaned from "./page/FaceScaned/faceScanResult.jsx";
 import {PaymentHistory} from "./page/payment/paymentHistory.jsx";
+import Account from "./page/account/index.jsx";
 
 export const route = [
     {path: "/login", element: <Login/>},
@@ -29,6 +30,12 @@ export const route = [
                         <ScanHistory/>
                     </IsLogin>
             },
+            {
+                path: "/account", element:
+                    <IsLogin>
+                        <Account/>
+                    </IsLogin>
+            },            
             {
                 path: "faceMashFile", element:
                     <IsLogin>
