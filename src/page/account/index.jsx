@@ -9,7 +9,7 @@ const Account = () => {
                  <div className="text-[#606060] text-[18px] max-w-[860px] text-center">Welcome to your account page! Here, you can access and edit your user information. Keep your details up-to-date to ensure the best experience with our services.</div>
 
                 <div className="w-full flex gap-6 justify-between">
-                    <div className="max-w-[318px] w-[318px]">
+                    <div className="max-w-[330px] w-[330px]">
                         <MenuBox></MenuBox>
 
                     </div>
