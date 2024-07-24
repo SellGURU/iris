@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Button } from "symphony-ui";
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 
 export const PaymentCard = ({pak,onselect}) => {
@@ -19,7 +20,8 @@ export const PaymentCard = ({pak,onselect}) => {
                 <div
                     className={"rounded-b-md px-4 -mx-3 -mb-2 text-wrap bg-[#F5F5F5] py-6 gap-3 flex items-center justify-center flex-col text-center"}>
                     <p className={"text-wrap w-5/6"}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                    <ButtonPrimary className={"cursor-not-allowed"}>Get It Now</ButtonPrimary>
+                    {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
+                    <Button onClick={() =>{onselect()}} theme="iris-small">Get It Now</Button>
                 </div>
             </div>
         </>

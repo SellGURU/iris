@@ -1,11 +1,12 @@
 import {useState, useContext, useEffect} from "react";
-import ButtonPrimary from "../../components/button/buttonPrimery";
+
 import {SearchBox} from "../../components/searchBox/SearchBox";
 import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
 import { Button } from "symphony-ui";
+
 export const ScanHistory = () => {
     const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
@@ -17,7 +18,7 @@ export const ScanHistory = () => {
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-
+    
     useEffect(() => {
 
         const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
@@ -32,7 +33,7 @@ export const ScanHistory = () => {
 
         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
     }, [currentPage]);
-
+    const navigate = useNavigate()
     const [patientList, setPatientList] = useState(
         patients.slice(indexOfFirstItem, indexOfLastItem)
     );
@@ -52,6 +53,7 @@ export const ScanHistory = () => {
     };
 
     return (
+        <>
         <div className="container  mx-auto flex flex-col sm:px-6 md:px-8 lg:px-10  xl:px-12  gap-5">
             <div className="w-full flex flex-col items-center gap-3 ">
                 <h1 className="text-4xl font-semibold text-[#1A1919] ">Scan History</h1>
@@ -112,9 +114,14 @@ export const ScanHistory = () => {
                     />
                 </div>
             )}
+
+            
             {/* {patients != 0 ? (<h1 className={"text-[16px] font-normal"}>Show <span
                     className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.</h1>
             ):""} */}
         </div>
+                  
+        </>
+        
     );
 };

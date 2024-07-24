@@ -12,11 +12,15 @@ class Package {
     }
 
     isActive() {
-        return this.information.bundle > this.information.useage
+        if(this.information){
+            return this.information.bundle > this.information.useage
+        }else {
+            return false
+        }
     }
 
     isExist() {
-        return this.information.name != ''
+        return this.information!= undefined
     }
 
     getInformation() {

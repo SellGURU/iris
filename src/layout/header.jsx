@@ -10,13 +10,14 @@ import Auth from "../api/Auth.js";
 import LogOut from "../api/Auth.js";
 import {selectUserName} from "../store/PatientInformationStore.js";
 import {useSelector} from "react-redux";
+import { subscribe } from "../utility/event.js";
 
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
     const [showSideBar, setShowSideBar] = useState(false)
     const menuRef = createRef(null)
     const username = useSelector(selectUserName)
-
+    const [showModal,setSHowModal] = useState(false)
     useModalAutoClose({
         refrence: menuRef,
         close: () => {
@@ -44,9 +45,18 @@ const Header = () => {
     const isActiveRoute = (props) => {
         console.log(props)
     }
-
+    subscribe("openModal",() => {
+        setSHowModal(true)
+        document.getElementById('root').style.overflow = 'hidden'
+        document.getElementById('root').style.height = '100vh'
+    })
+    subscribe("closeModal",() => {
+        setSHowModal(false)
+        document.getElementById('root').style.overflow = 'visible'
+        document.getElementById('root').style.height = 'auto'
+    })    
     return (
-        <div>
+        <div className="">
             <div
                 className=" sticky top-0 left-0 mb-5 shadow-md h-[10vh] z-50  w-full bg-white flex items-center justify-between px-5">
                 <IoMenu onClick={() => {
@@ -123,6 +133,9 @@ const Header = () => {
                 </>
                 :
                 ""
+            }
+            {showModal &&
+                <div className="w-full top-0 absolute left-0 h-screen opacity-60 z-[50] bg-black"></div>             
             }
         </div>
     );

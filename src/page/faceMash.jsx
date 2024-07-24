@@ -1,5 +1,4 @@
-import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-
+import Servise from "./modal/service.jsx";
 / eslint-disable no-undef /;
 import {useContext, useEffect, useReducer} from "react";
 import {useRef} from "react";
@@ -7,7 +6,7 @@ import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-import ButtonSecondary from "../components/button/buttonSecondary.jsx";
+import { publish } from "../utility/event.js";
 import {IoCameraOutline} from "react-icons/io5";
 import {LuUploadCloud} from "react-icons/lu";
 import {TabsCustume} from "../components/tabs/tabs.jsx";
@@ -26,11 +25,13 @@ import { Button } from "symphony-ui";
 const FaceMesh = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
+    const [showService,setShowService] = useState(false)
     const navigate = useNavigate();
     // const sex = useSelector(selectSex);
     // const id = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
     // const dispatch = useDispatch();
+    const appContext = useContext(PatientContext)
     const {
         patientID,
         sex,
@@ -41,6 +42,19 @@ const FaceMesh = () => {
         photo,
         addPatient
     } = useContext(PatientContext);
+    const [serviceMode,setServiceMode] = useState('empty')
+    useEffect(() => {
+        if(!appContext.package.getPackage().isExist()){
+            setShowService(true)
+            publish('openModal')
+            setServiceMode('empty')
+        }else 
+        if(!appContext.package.getPackage().isActive()){
+            setShowService(true)
+            publish('openModal')
+            setServiceMode('ziroBundle')
+        }
+    })
     const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("multi")
@@ -590,6 +604,7 @@ const FaceMesh = () => {
 
             if (this.readyState === 4) {
                 console.log("Response received from server");
+                appContext.package.usePackage()
                 let response = JSON.parse(e.target.responseText);
                 let result = document.getElementById("result")
                 let resultHtmldiv = document.createElement('div');
@@ -1018,7 +1033,10 @@ const FaceMesh = () => {
                                 LIVE SCAN
                             </ButtonPrimary> */}
 
-                            <Button disabled={isCameraStart} onClick={() => img_source_select()} theme="iris-large">
+                            <Button disabled={isCameraStart} onClick={() => {
+                                img_source_select()
+                                
+                                }} theme="iris-large">
                                 <IoCameraOutline size={'24px'} className="mr-2"/>
                                 Start Scan                            
                             </Button>
@@ -1070,6 +1088,19 @@ const FaceMesh = () => {
                 </div>
 
             </div>
+            {showService &&
+                <div className="w-full top-0 absolute z-[60] flex justify-center items-center h-full">
+                    <Servise mode={serviceMode} backAction={() => {
+                        setShowService(false)
+                        navigate('/')
+                        publish('closeModal')
+                    }} renewAction={() => {
+                        publish('closeModal')
+                        navigate('/payment')
+                    }}></Servise>
+
+                </div>
+            }            
         </>
     )
 };

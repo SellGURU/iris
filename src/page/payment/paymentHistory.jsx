@@ -22,7 +22,7 @@ export const PaymentHistory = () => {
             cycle:'Yearly',
             cost:10,
             useage:0,
-            bundle:-1            
+            bundle:5            
         }),
         new Package({
             name:'package 02',
@@ -74,15 +74,23 @@ export const PaymentHistory = () => {
                                     </div>
                                     <div>
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cost</h1>
-                                        <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().useage}</p>
+                                        <p className={"text-xl font-medium"}>{'$'+appContext.package.getPackage().getInformation().cost}</p>
                                     </div>
                                 </div>
                                 <div className="absolute bottom-4 w-full">
                                     <div className={"space-y-0"}>
-                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
-                                        <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
+                                        {/* <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1> */}
+                                        {appContext.package.getPackage().getInformation().useage == 0?
+                                            <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
+                                        :
+                                            <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().useage} out of {appContext.package.getPackage().getInformation().bundle} scans used</p>
+                                        }
                                     </div>
-                                    <div className={"h-[20px] w-[93%] mt-[8px] bg-[#E1E1E1]"}></div>
+                                    <div className={`h-[20px] relative w-[93%] mt-[8px] bg-[#E1E1E1] `}>
+                                        <div className={`absolute  h-[20px] bg-[#544BF0] `} style={{
+                                            width:appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100+'%'
+                                        }}></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
