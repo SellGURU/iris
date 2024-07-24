@@ -2,7 +2,7 @@ import {IoMenu} from "react-icons/io5";
 import ButtonPrimary from "../components/button/buttonPrimery";
 import {AiOutlineUser} from "react-icons/ai";
 import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
-import {createRef, useRef, useState} from "react";
+import {createRef, useContext, useRef, useState} from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
@@ -11,11 +11,13 @@ import LogOut from "../api/Auth.js";
 import {selectUserName} from "../store/PatientInformationStore.js";
 import {useSelector} from "react-redux";
 import { subscribe } from "../utility/event.js";
-
+import { Button } from "symphony-ui";
+import {PatientContext} from '../context/context.jsx'
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
     const [showSideBar, setShowSideBar] = useState(false)
     const menuRef = createRef(null)
+    const Appcontext = useContext(PatientContext)
     const username = useSelector(selectUserName)
     const [showModal,setSHowModal] = useState(false)
     const [menu,setMenu] = useState('')
@@ -71,12 +73,23 @@ const Header = () => {
                 <IoMenu onClick={() => {
                     setShowSideBar(true)
                 }} className="w-10 h-10 cursor-pointer text-[#544BF0]"/>
-                <img className="ml-[120px]" src="/image/login/IRIS.svg" alt="logo"/>
-                <div onClick={() => {
-                    setSowModalBox(!showModalBox)
-                }} className="flex cursor-pointer items-center gap-2">
-                    <img src="dr-profile.svg" alt=""/>
-                    <span className="font-medium text-xl text-[#444444]">DR.Full Name</span>
+                <img className="ml-[300px]" src="/image/login/IRIS.svg" alt="logo"/>
+                <div className="flex gap-6 justify-end">
+                    {
+                        Appcontext.package.getPackage().isExist()?
+                            <Button disabled theme="iris-tertiary-large">{Appcontext.package.getPackage().getInformation().useage} Scans Used</Button>
+                        :
+                            <Button onClick={() => {
+                                navigate('/payment')
+                            }} theme="iris-large">Top Up Now</Button>
+                    }
+
+                    <div onClick={() => {
+                        setSowModalBox(!showModalBox)
+                    }} className="flex cursor-pointer items-center gap-2">
+                        <img src="dr-profile.svg" alt=""/>
+                        <span className="font-medium text-xl text-[#444444]">DR.Full Name</span>
+                    </div>
                 </div>
             </div>
 

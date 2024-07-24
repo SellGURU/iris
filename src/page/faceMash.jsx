@@ -59,6 +59,7 @@ const FaceMesh = () => {
     const [isCameraStart, setIsCameraStart] = useState(false);
     const [status, setStatus] = useState("multi")
     const [resolvedFile, setResolvedFile] = useState('')
+    const [iscomplete,setIscomplete] = useState(false)
     const tabs = [
         {state: "multi", label: "All poses"},
         {state: "one", label: "Single pose"}
@@ -346,7 +347,8 @@ const FaceMesh = () => {
                     );
                     console.log("finish")
                     globalData.IsglobalDataSend = true;
-                    analyzeFacemesh();
+                    setIscomplete(true)
+                    // analyzeFacemesh();
                     globalFinished = true;
                 }
             } else {
@@ -364,7 +366,8 @@ const FaceMesh = () => {
                     );
                     console.log("finish")
                     globalData.IsglobalDataSend = true;
-                    analyzeFacemesh();
+                    // analyzeFacemesh();
+                    setIscomplete(true)
                     globalFinished = true;
                 }
             }
@@ -1032,14 +1035,25 @@ const FaceMesh = () => {
                                 <IoCameraOutline/>
                                 LIVE SCAN
                             </ButtonPrimary> */}
+                            {
+                                iscomplete?
+                                    <Button onClick={() => {
+                                        analyzeFacemesh()
+                                        
+                                        }} theme="iris-large">
+                                        <IoCameraOutline size={'24px'} className="mr-2"/>
+                                        Print or Save                         
+                                    </Button>                                
+                                :
+                                <Button disabled={isCameraStart} onClick={() => {
+                                    img_source_select()
+                                    
+                                    }} theme="iris-large">
+                                    <IoCameraOutline size={'24px'} className="mr-2"/>
+                                    Start Scan                            
+                                </Button>
 
-                            <Button disabled={isCameraStart} onClick={() => {
-                                img_source_select()
-                                
-                                }} theme="iris-large">
-                                <IoCameraOutline size={'24px'} className="mr-2"/>
-                                Start Scan                            
-                            </Button>
+                            }
 
                             {status == 'one' ?
                                 // <ButtonSecondary
