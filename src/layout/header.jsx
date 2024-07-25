@@ -87,8 +87,8 @@ const Header = () => {
                     <div onClick={() => {
                         setSowModalBox(!showModalBox)
                     }} className="flex cursor-pointer items-center gap-2">
-                        <img src="dr-profile.svg" alt=""/>
-                        <span className="font-medium text-xl text-[#444444]">DR.Full Name</span>
+                        <img className="w-14 h-14 rounded-full object-cover" src={Appcontext.user.information.Personal.photo} alt=""/>
+                        <span className="font-medium text-xl text-[#444444]">{Appcontext.user.information.Personal.FirstName} {Appcontext.user.information.Personal.LastName}</span>
                     </div>
                 </div>
             </div>

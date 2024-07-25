@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import MenuBox from "../../components/menuBox"
 import { Button, TextField } from "symphony-ui"
+import { PatientContext } from "../../context/context"
+import { useContext } from "react"
 
 const AccountInfo = () => {
+    const appcontext = useContext(PatientContext)
+    const user = appcontext.user
     const navigate = useNavigate()
     return (
         <>
@@ -17,11 +21,11 @@ const AccountInfo = () => {
                     </div> */}
                     <div className="w-full">
                         <div className="flex w-full justify-start items-center gap-4">
-                            <img className="w-[180px] ml-[88px] h-[180px] rounded-full"  src="./dr-profile.svg" alt="" />
+                            <img className="w-[180px] ml-[88px] h-[180px] object-cover rounded-full"  src={user.information.Personal.photo} alt="" />
                             <div>
-                                <div className="text-[24px] font-bold mb-4">Sahar Rajabi</div>
-                                <div className="text-[#444444]">Dermatologist</div>
-                                <div className="text-[#444444]">Tehran, Iran</div>
+                                <div className="text-[24px] font-bold mb-4">{user.information.Personal.FirstName} {user.information.Personal.LastName}</div>
+                                <div className="text-[#444444]">{user.information.Personal.Occupation}</div>
+                                <div className="text-[#444444]">{user.information.Address.Country}, {user.information.Address.City}</div>
                             </div>
                             {/* <Button theme="iris">
                                 <div className="flex justify-between items-center">
@@ -54,22 +58,22 @@ const AccountInfo = () => {
                             <div className="grid grid-cols-2 gap-10 mt-10">
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">First Name:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">Sahar Rajabi</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.FirstName}</div>
                                 </div>
 
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Last Name:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">Sahar Rajabi</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.LastName}</div>
                                 </div>
 
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Role:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">User / Admin</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.Role}</div>
                                 </div>
 
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Occupation:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">Dermatologist</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.Occupation}</div>
                                 </div>                                
                             </div>
                         </div>
@@ -89,12 +93,12 @@ const AccountInfo = () => {
                             <div className="grid grid-cols-2 gap-10 mt-10">
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">E-mail Address:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">sahar.rajabi@gmail.com</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.EmailAddress}</div>
                                 </div>
 
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Phone:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">0919-11223344</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.PhoneNumber}</div>
                                 </div>
 
                             </div>
@@ -135,19 +139,19 @@ const AccountInfo = () => {
                             <div className="grid grid-cols-2 gap-10 mt-10">
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Country:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">Iran</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Address.Country}</div>
                                 </div>
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">City:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">Tehran</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Address.City}</div>
                                 </div>
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Postal Code:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">1122334455</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Address.Postalcode}</div>
                                 </div>
                                 <div>
                                     <div className="text-[20px] font-medium text-[#2E2E2E]">Tax ID:</div>
-                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">AS123456789</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Address.TaxId}</div>
                                 </div>                                                                                                
                             </div>
                         </div>

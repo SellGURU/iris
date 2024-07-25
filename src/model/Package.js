@@ -8,7 +8,7 @@ class Package {
         bundle:0
     }
     constructor(info){
-        this,this.information = info
+        this.information = info
     }
 
     isActive() {

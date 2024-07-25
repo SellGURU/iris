@@ -7,11 +7,13 @@
 
 import React, {createContext, useReducer, useContext, useCallback} from "react";
 import PackageManager from "../model/PackageManager";
+import User from '../model/User';
 
 // every time go to face mash  ,we store the data in store and fetch it when send request
 export const initialState = {
     patients: JSON.parse(localStorage.getItem("patients")) || [],
     package:new PackageManager(),
+    user:new User(),
     sex: "masculine",
     comment:[],
     patientID: "1",

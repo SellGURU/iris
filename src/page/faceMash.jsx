@@ -1041,7 +1041,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh()
                                         
                                         }} theme="iris-large">
-                                        <IoCameraOutline size={'24px'} className="mr-2"/>
+                                        <img className="mr-2" src="./icons/print.svg"></img>
                                         Print or Save                         
                                     </Button>                                
                                 :
