@@ -28,7 +28,7 @@ export const PatientInformation = () => {
 
     // is show tour false did not load the show tour and redirect to face mash
     const [isShowTour,] = useLocalStorage("tour")
-
+    const [showMore,setShowMore] = useState(false)
     const {register, getValues, handleSubmit} = useForm()
 
     // submit the data to start the face mash
@@ -63,24 +63,28 @@ export const PatientInformation = () => {
         <img className="w-full fixed z-0 left-0 top-32" src="./Vector.svg" alt="" />
         <div className={"flex relative z-30 items-center justify-center flex-col gap-5 mt-10"}>
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>
-            <p className={"w-[450px] md:w-[660px] text-xl font-normal text-center"}>Lorem Ipsum is simply dummy text of the printing
-                and
-                typesetting industry. Lorem Ipsum has been t</p>
+            <p className={"w-[450px] md:w-[720px] text-xl font-normal text-center"}>The patient ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
             <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
                 <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white z-20 h-[88px] border"}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={"w-[400px] text-xl font-medium"}>Patient ID</h1>
+                        <h1 className={"w-[500px] text-xl font-medium"}>Patient ID</h1>
                         <input defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
                             placeholder={"Enter Patient ID"}/>
 
                     </div>
                 </CardPatient>
-                <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white h-[118px] border"}>
+                <CardPatient className={`w-[450px] md:w-[600px] xl:w-[730px] bg-white  border ${showMore?'h-[138px]':'h-[118px]'}`}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={" text-xl w-[400px] font-medium"}>Facial Esthetic Preference </h1>
+                        <div onClick={() => {setShowMore(!showMore)}} className="flex cursor-pointer justify-start items-center w-[500px]">
+                            <h1 className={" text-xl  font-medium"}>Facial Esthetic Preference </h1>
+                            <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} />
+                        </div>
                         <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
 
                     </div>
+                    {showMore &&
+                        <div className="text-[#444444]">Choose the sex of the subject in the image.</div>
+                    }
                 </CardPatient>
                 {/* <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>
