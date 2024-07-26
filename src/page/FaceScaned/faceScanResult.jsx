@@ -8,7 +8,7 @@
 // An iframe is used to embed and display the face scan report using the fileId.
 
 import {useNavigate} from "react-router-dom"
-import { useContext} from "react"
+import { useContext,useState} from "react"
 import {PatientContext} from "../../context/context.jsx";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import {RWebShare} from "react-web-share";
@@ -32,6 +32,9 @@ const FaceScanResult =() => {
         downloadLink.click();
 
     }
+     const [comment, setComment] = useState();
+    const [textComment,setTextComment] = useState('')    
+    const [isShowAddComment, setIsShowAddComment] = useState(false);    
     const addPaintion = () => {
         const patient = {
             id: patientID,
@@ -45,6 +48,25 @@ const FaceScanResult =() => {
         updateLocalPatientIHistoty(patient);
         navigate('/')
     }
+    const updateComment=() => {
+        let patients= JSON.parse(localStorage.getItem("patients"))
+        let patientIndex = patients.findIndex(patient => patient.id === patientID);
+        setComment(patients[patientIndex].comment);
+    }    
+    const formHandler = () => {
+        if(textComment.length>0){
+            const patients= JSON.parse(localStorage.getItem("patients"))
+            const patientIndex = patients.findIndex(patient => patient.id === patientID);
+
+            patients[patientIndex].comment.push(textComment)
+            localStorage.setItem("patients", JSON.stringify(patients));
+            setIsShowAddComment(false)
+            updateComment()
+            setTextComment("")
+        }else {
+            setIsShowAddComment(false)
+        }
+    }    
     const date = new Date();
     return (
         <>
@@ -62,6 +84,12 @@ const FaceScanResult =() => {
                         <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
                    </div>
                    <div className="flex justify-end gap-4 items-center">
+                        <Button onClick={() => {
+                            setIsShowAddComment(true)
+                        }} theme="iris-tertiary-large">
+                            <img className="mr-2" src={'./fi_plus-blue.svg'} />
+                            Add Comment
+                        </Button>                    
                        <RWebShare data={{
                            text: "iris",
                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId,
@@ -76,6 +104,7 @@ const FaceScanResult =() => {
                                <img className="mr-2" src="share2.svg" alt=""/>
                                Share
                            </button> */}
+
                            <Button  onClick={() => {
                                navigator.share({
                                    url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
@@ -97,6 +126,30 @@ const FaceScanResult =() => {
 
                    </div>
                 </div>
+                {isShowAddComment &&
+                    <div>
+                        <div className={"w-full px-12 flex items-center justify-center"}>
+                            <div className={" px-5 pt-5 w-full flex items-end gap-5 justify-end border-b pb-2"}>
+                                <input value={textComment} onChange={(el) => {
+                                    setTextComment(el.target.value)
+                                }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                    formHandler()                                       
+                                }} className={"!text-xs !px-4 !py-2.5"}>
+                                    Add Comment
+                                </ButtonPrimary> */}
+                                <div className="w-full flex justify-end">
+                                    <Button disabled={textComment.length == 0} onClick={() => {
+                                        formHandler()
+                                    }} theme="iris-small">
+                                        Add Comment
+                                    </Button>
+
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                }
                 <div className="w-full px-11 mt-8">
 
                     <iframe className="h-[9000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
