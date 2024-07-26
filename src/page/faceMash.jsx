@@ -21,11 +21,13 @@ import {PatientContext} from "../context/context.jsx";
 import {IoRefresh} from "react-icons/io5";
 import {LoadingReports} from "./loadingReports.jsx";
 import { Button } from "symphony-ui";
+import Permision from "./modal/Permision.jsx";
 
 const FaceMesh = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
     const [showService,setShowService] = useState(false)
+    const [showPermision,setShowPermision] = useState(false)
     const navigate = useNavigate();
     // const sex = useSelector(selectSex);
     // const id = useSelector(selectPatientID);
@@ -423,6 +425,7 @@ const FaceMesh = () => {
     faceMesh.onResults(onResultsFaceMesh);
 
     const img_source_select = () => {
+
         setIsCameraStart(true)
         const constraints = {
             video: {
@@ -866,6 +869,20 @@ const FaceMesh = () => {
                                 <ProgressbarCustom percent={calculatePercent()}
                                 />
                             }
+                            {status == 'one' && globalGreenLandmarks &&
+                                <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
+                                    <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
+                                        <h1>The front side of your face scanned successfully.</h1>
+                                    </div>
+                                </div>
+                            }
+                            {status == 'multi' && globalGreenLandmarks && globalBlueLandmarks && globalRedLandmarks &&
+                                <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
+                                    <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
+                                        <h1>All poses of your face scanned successfully.</h1>
+                                    </div>
+                                </div>
+                            }                            
                         </div>
                     </div>
                     <div className="flex items-center justify-start h-[550px] flex-col gap-4">
@@ -901,7 +918,7 @@ const FaceMesh = () => {
                                     height="130px"
                                 ></canvas>
                                 {isShowFaceGuide &&
-                                    <img className={"absolute top-0 rounded-md z-30 w-[230px] h-[130px]"}
+                                    <img className={"absolute  top-0 rounded-md z-30 w-[230px] h-[130px]"}
                                          src={globalGreenImages[1]}/>
                                 }
                                 <canvas id="green" ref={green} height="130px" width="230px"
@@ -1046,8 +1063,9 @@ const FaceMesh = () => {
                                     </Button>                                
                                 :
                                 <Button disabled={isCameraStart} onClick={() => {
-                                    img_source_select()
-                                    
+                                    // img_source_select()
+                                    publish('openModal')
+                                    setShowPermision(true)
                                     }} theme="iris-large">
                                     <IoCameraOutline size={'24px'} className="mr-2"/>
                                     Start Scan                            
@@ -1114,7 +1132,23 @@ const FaceMesh = () => {
                     }}></Servise>
 
                 </div>
-            }            
+            }      
+            {
+                showPermision &&
+                    <div className="w-full top-0 fixed z-[60] flex justify-center items-center h-full">
+                        <Permision onAllow={() => {
+                            img_source_select()
+                            setShowPermision(false)
+                            publish('closeModal')
+                        }}
+                        onDeny={() => {
+                            setShowPermision(false)
+                            publish('closeModal')                            
+                        }}
+                        ></Permision>
+                    </div>      
+
+            }
         </>
     )
 };

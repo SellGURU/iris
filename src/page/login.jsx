@@ -146,7 +146,7 @@ const Login = () => {
                             <div className="text-sm mt-2 text-red-500">{form.errors.password}</div>
                         }
                     </div>
-                    <div className="w-full flex items-center justify-between">
+                    <div className="w-full mb-6 flex items-center justify-between">
                         <div className="flex justify-start items-center">
                             <input id="rememberMeBox" type="checkbox"/>
                             <label htmlFor="rememberMeBox" className="ml-2 cursor-pointer text-sm text-[#444444]">Remember
