@@ -922,7 +922,7 @@ const FaceMesh = () => {
                                          src={globalGreenImages[1]}/>
                                 }
                                 <canvas id="green" ref={green} height="130px" width="230px"
-                                        className={`${isCameraStart ? "opacity-40 relative z-10 " : "hidden"}`}></canvas>
+                                        className={`${isCameraStart ? "opacity-40 invisible relative z-10 " : "hidden"}`}></canvas>
                                 {
                                     isCameraStart && startTimer && !globalGreenLandmarks ?
                                         <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
@@ -972,7 +972,7 @@ const FaceMesh = () => {
                                 }
 
                                 <canvas id="blue" ref={blue} height="130px" width="230px"
-                                        className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  `}></canvas>
+                                        className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  `}></canvas>
                                 {
                                     isCameraStart && startTimer2 && !globalBlueLandmarks ?
                                         <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
@@ -1019,7 +1019,7 @@ const FaceMesh = () => {
                                 ></canvas>
 
                                 <canvas
-                                    className={` ${isCameraStart ? "opacity-40 relative z-10" : "hidden"}  border-10`}
+                                    className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  border-10`}
                                     id="red" ref={red}
                                     height="130px" width="230px"></canvas>
                                 {
@@ -1054,13 +1054,48 @@ const FaceMesh = () => {
                             </ButtonPrimary> */}
                             {
                                 iscomplete?
+                                    <>
                                     <Button onClick={() => {
                                         analyzeFacemesh()
                                         
                                         }} theme="iris-large">
                                         <img className="mr-2" src="./icons/print.svg"></img>
                                         Print or Save                         
-                                    </Button>                                
+                                    </Button>         
+                                    <Button onClick={() => {
+                                        setIsCameraStart(false)
+                                        setGlobalData({
+                                            globalGreenLandmarks: null,
+                                            globalBlueLandmarks: null,
+                                            globalRedLandmarks: null,
+                                            globalGreenImages: [],
+                                            globalBlueImages: [],
+                                            globalRedImages: [],
+                                            globalGreens: [],
+                                            globalBlues: [],
+                                            globalReds: [],
+                                            globalDataNotSent: false,
+                                            globalFinished: false,
+                                            greenLandmarksData: null,
+                                            blueLandmarksData: null,
+                                            redLandmarksData: null,
+                                            globalPreviousPose: 0,
+                                            IsglobalDataSend: false
+                                        })           
+                                        setStarttimer(false) 
+                                        setStarttimer2(false)
+                                        setStarttimer3(false)
+                                        setIscomplete(false)                            
+                                        // setTimeout(() => {
+                                        //     img_source_select()
+                                        // }, 1000);
+                                    }} theme="iris-secondary-large">
+                                        <div className="flex justify-center items-center w-[150px]">
+                                            <img className="mr-2" src="./icons/redo.svg" alt="" />
+                                            Rescan
+                                        </div>
+                                    </Button>                                                           
+                                    </>
                                 :
                                 <Button disabled={isCameraStart} onClick={() => {
                                     // img_source_select()
@@ -1091,12 +1126,64 @@ const FaceMesh = () => {
                                 //     <LuUploadCloud/>
                                 //     Upload Image
                                 // </ButtonSecondary>
-                                <Button onClick={() => {
-                                    navigate('/faceMashFile')
-                                }} disabled={isCameraStart}  theme="iris-secondary-large"> 
-                                    <LuUploadCloud className="mr-2"/>
-                                    Upload Image
-                                </Button>
+                                <>
+                                {iscomplete ?
+                                <>
+                                    {/* <Button onClick={() => {
+                                        setIsCameraStart(false)
+                                        setGlobalData({
+                                            globalGreenLandmarks: null,
+                                            globalBlueLandmarks: null,
+                                            globalRedLandmarks: null,
+                                            globalGreenImages: [],
+                                            globalBlueImages: [],
+                                            globalRedImages: [],
+                                            globalGreens: [],
+                                            globalBlues: [],
+                                            globalReds: [],
+                                            globalDataNotSent: false,
+                                            globalFinished: false,
+                                            greenLandmarksData: null,
+                                            blueLandmarksData: null,
+                                            redLandmarksData: null,
+                                            globalPreviousPose: 0,
+                                            IsglobalDataSend: false
+                                        })           
+                                        setStarttimer(false) 
+                                        setIscomplete(false)                            
+                                        // setTimeout(() => {
+                                        //     img_source_select()
+                                        // }, 1000);
+                                    }} theme="iris-secondary-large">
+                                        <div className="flex justify-center items-center w-[150px]">
+                                            <img className="mr-2" src="./icons/redo.svg" alt="" />
+                                            Rescan
+                                        </div>
+                                    </Button> */}
+                                </>
+                                :
+                                <>
+                                    <input accept=".png" className="w-full invisible top-0 absolute h-full"
+                                            onChange={(e) => {
+                                                var file = e.target.files[0];
+                                                var reader = new FileReader();
+                                                reader.onloadend = function () {
+                                                    setResolvedFile(reader.result)
+                                                    setGlobalData({...globalData,globalGreenImages:[reader.result]})
+                                                }
+                                                reader.readAsDataURL(file);
+                                            }} id="upload-file" type="file"></input>                                
+                                        <Button onClick={() => {
+                                            navigate('/faceMashFile')
+                                            // document.getElementById("upload-file").click()
+                                        }} disabled={isCameraStart}  theme="iris-secondary-large"> 
+                                            <LuUploadCloud className="mr-2"/>
+                                            Upload Image
+                                        </Button>
+                                </>
+                                }
+                                </>
+
                                 : undefined}
 
                         </div>
