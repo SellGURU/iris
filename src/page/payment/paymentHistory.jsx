@@ -99,6 +99,7 @@ export const PaymentHistory = () => {
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={" text-2xl font-medium"}>Payment Method</h1>
                             </div>
+
                             <div className={"flex items-center justify-between py-4 px-3 h-[134px] border border-[#E1E1E1] rounded-md mx-7 my-5"}>
                                 <div className={"h-full flex items-center justify-center"}>
                                     <img src={"/image10.svg"}/>

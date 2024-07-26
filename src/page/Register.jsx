@@ -90,7 +90,36 @@ const Register = () => {
                 <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img className={"hidden  md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                <div className="relative overflow-hidden">
+                    <img className={"hidden  md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                    <div className="absolute flex justify-center items-center top-0 w-[100%] h-[100%]">
+                        <div className="rounded-[16px]   w-[80%] h-[90%]" style={{backdropFilter:'blur(6px)'}}>
+                            
+                        </div>
+                    </div>
+                    <div className="absolute flex justify-center items-center top-0 w-[100%] h-[100%]">
+                        <div className="rounded-[16px]   w-[80%] h-[90%]" >
+                            <div className="text-[20px] font-medium text-white">
+                                A Revolutionary Face Mapping Tool For New and Experienced Aestheticians
+
+                            </div>
+
+                            <div className="text-[18px] mt-6 text-white">
+                                1.Improves consistency of results, enhance efficiency and provides a competitive edge
+                            </div>
+
+                            <div className="text-[18px] mt-6 text-white">
+                                2.AI technology encodes the expertise of world-renowned plastic surgeon Dr. Arthur Swift.
+                            </div>  
+                            <div className="text-[18px] mt-6 text-white">
+                                3.Analyzes facial measurements and provides guidance for the use of injectable beauty products
+                            </div>     
+                            <div className="text-[14px] mt-6 text-white">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor                            
+                            </div>                                                    
+                        </div>
+                    </div>
+                </div>
                 <div
                     className="w-fit px-10 py-5 animate-comeFromLeft gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
