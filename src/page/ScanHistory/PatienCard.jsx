@@ -5,7 +5,7 @@ import { useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
-import { Button } from "symphony-ui";
+import { Button, Checkbox } from "symphony-ui";
 
 export const PatienCard = ({index, patient}) => {
 
@@ -66,7 +66,7 @@ export const PatienCard = ({index, patient}) => {
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
                     <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
-                    <div className="flex gap-4 items-center justify-between">
+                    <div className="flex gap-2 items-center justify-between">
                         {/* <div onClick={() => setIsShowComment(!isShowComment)}
                              className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
                             ({comment.length})
@@ -82,6 +82,12 @@ export const PatienCard = ({index, patient}) => {
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan
                         </button> */}
+                        <Button onClick={() => {
+                            navigate('/compare/'+id)
+                        }} theme="iris-secondary">
+                            <img src="./icons/shapes.svg" className="mr-2" alt="" />
+                            Compare
+                        </Button>
                         <Button  onClick={clickHandler} theme="iris">
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan                            
@@ -94,7 +100,10 @@ export const PatienCard = ({index, patient}) => {
                             <>
                                 {index < 2 || isShowMore?
                                 <div key={index + id} className="flex justify-between items-center w-full ">
-                                    <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                    <div className="flex justify-start gap-1 items-center">
+                                        <Checkbox  label="" onChange={() => {}}></Checkbox>
+                                        <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                    </div>
                                     <div className="text-[#7E7E7E] font-normal">
                                         Date : <span
                                         className=" ml-1 font-normal tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}

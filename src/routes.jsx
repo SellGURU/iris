@@ -16,7 +16,7 @@ import FaceScaned from "./page/FaceScaned/faceScanResult.jsx";
 import {PaymentHistory} from "./page/payment/paymentHistory.jsx";
 import Account from "./page/account/edit.jsx";
 import AccountInfo from "./page/account/index.jsx";
-
+import Compare from "./page/compare/index.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/register", element: <Register/>},
@@ -61,6 +61,13 @@ export const route = [
                         <FaceScaned></FaceScaned>
                     </IsLogin>
             },
+            {
+                path: 'compare/:id',
+                element:
+                    <IsLogin>
+                        <Compare></Compare>
+                    </IsLogin>
+            },            
             {
                 path: "PatientInformation", element:
                     <IsLogin>
