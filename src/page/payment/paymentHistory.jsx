@@ -87,8 +87,8 @@ export const PaymentHistory = () => {
                                         }
                                     </div>
                                     <div className={`h-[20px] relative w-[93%] mt-[8px] bg-[#E1E1E1] `}>
-                                        <div className={`absolute  h-[20px] bg-[#544BF0] `} style={{
-                                            width:appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100+'%'
+                                        <div className={`absolute  h-[20px] ${appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100>=90?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
+                                            width:100 - appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100+'%'
                                         }}></div>
                                     </div>
                                 </div>

@@ -175,6 +175,7 @@ const Header = () => {
 
                     <div onClick={() => {
                         setMenu('Change Paassword')
+                        navigate('/edit/?step=password')
                     }}
                         className={`flex cursor-pointer justify-start items-center mb-5 py-3 ${menu == 'Notifications'?'border-[#544BF0] border-b-2':'border-[#2E2E2E] border-b'}  text-black`}>
                         {/* <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/> */}

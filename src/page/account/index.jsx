@@ -21,7 +21,15 @@ const AccountInfo = () => {
                     </div> */}
                     <div className="w-full">
                         <div className="flex w-full justify-start items-center gap-4">
-                            <img className="w-[180px] ml-[88px] h-[180px] object-cover rounded-full"  src={user.information.Personal.photo} alt="" />
+                            <div className="relative">
+                                <img className="w-[180px] ml-[88px] h-[180px] object-cover rounded-full"  src={user.information.Personal.photo} alt="" />
+                                <div onClick={() => {
+                                    navigate('/edit')
+                                }} className="absolute cursor-pointer right-4 flex justify-center items-center bottom-[-4px] w-[68px] h-[32px] bg-white rounded-[6px]">
+                                    <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
+                                    <div className="text-primary-color text-[14px] font-medium">Edit</div>
+                                </div>
+                            </div>
                             <div>
                                 <div className="text-[24px] font-bold mb-4">{user.information.Personal.FirstName} {user.information.Personal.LastName}</div>
                                 <div className="text-[#444444]">{user.information.Personal.Occupation}</div>

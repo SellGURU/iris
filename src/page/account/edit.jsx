@@ -1,9 +1,10 @@
 import { useFormik } from "formik"
 import MenuBox from "../../components/menuBox"
 import { Button, TextField } from "symphony-ui"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { PatientContext } from "../../context/context"
 import { toast } from "react-toastify"
+import { useSearchParams } from "react-router-dom"
 
 const Account = () => {
     const appcontext = useContext(PatientContext)
@@ -48,6 +49,16 @@ const Account = () => {
         onSubmit:() =>{}
     })      
     const [currentImage,setCurrentImage] = useState(appcontext.user.information.Personal.photo)  
+    const [searchParams] = useSearchParams();
+    useEffect(() => {
+        if(searchParams.get('step') == 'password'){
+            document.getElementById("passwordSection").scrollIntoView({
+                behavior:'smooth',
+                block:'center',
+                inline:'center'
+            })
+        }
+    })
     return (
         <>
             <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
@@ -149,7 +160,7 @@ const Account = () => {
 
                         <div className="w-full h-[1px] mt-10 bg-[#00000033]"></div>
 
-                        <div>
+                        <div id="passwordSection">
                             <div className="w-full flex mt-10 justify-between items-center">
                                 <h1 className={"text-[24px] font-medium"}>Password:</h1>
                                 <Button theme="iris">
