@@ -1,9 +1,7 @@
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {PaymentTable} from "./paymentTable.jsx";
 import {PaymentCard} from "./paymentCard.jsx";
-import {ButtonDefault} from "../../components/button/buttonDefault.jsx";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
+import PaymentMethod from "./paymentMethod.jsx";
 import {PatientContext} from '../../context/context.jsx'
 import { useContext, useState } from "react";
 import Package from "../../model/Package.js";
@@ -100,22 +98,7 @@ export const PaymentHistory = () => {
                                 <h1 className={" text-2xl font-medium"}>Payment Method</h1>
                             </div>
 
-                            <div className={"flex items-center justify-between py-4 px-3 h-[134px] border border-[#E1E1E1] rounded-md mx-7 my-5"}>
-                                <div className={"h-full flex items-center justify-center"}>
-                                    <img src={"/image10.svg"}/>
-                                </div>
-                                <div className={"h-full text-left w-2/3 space-y-2 pl-3"}>
-                                    <h1 className={"text-xl font-medium"}>Master Card **** **** **** 4002</h1>
-                                    <p className={"text-[#7E7E7E] font-normal text-base"}>Expiry on 20/2024</p>
-                                    <div className={"text-[#7E7E7E] font-normal text-base flex items-center justify-start gap-1"}>
-                                        <MdOutlineMailOutline className={"w-5 h-5"}/>
-                                        <p>billing@example.mmm</p>
-                                    </div>
-                                </div>
-                                <div className={" h-full invisible"}>
-                                    <ButtonDefault>Change</ButtonDefault>
-                                </div>
-                            </div>
+                            <PaymentMethod></PaymentMethod>                
                             <div className={ "px-6 flex items-center justify-between py-4"}>
                                 <div onClick={() => {
                                     setSHowMoreAutoPlay(!showMoreautoPlay)

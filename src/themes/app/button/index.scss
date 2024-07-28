@@ -9,7 +9,7 @@
   @apply bg-[#221E60] #{!important}
 }
 .iris-Button-container-disabled:disabled ,.iris-small-Button-container-disabled:disabled ,.iris-large-Button-container-disabled:disabled {
-  @apply bg-[#7E7E7E] #{!important};
+  @apply bg-[#7E7E7E] opacity-50 #{!important};
 }
 
 
