@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
+import Select from "../components/select/index.jsx";
 
 const Register = () => {
     const passwordRef = useRef(null);
@@ -154,6 +155,9 @@ const Register = () => {
                             <div className="text-sm mt-2 text-red-500">{form.errors.email}</div>
                         }
                     </div>  
+                    <div className="grid w-[330px]">
+                        <Select placeHolder={'Your Practice Name'} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                    </div>
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Create a Password:</label>
                         <div className="relative">
