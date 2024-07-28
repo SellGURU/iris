@@ -18,13 +18,15 @@ const Register = () => {
         fullName:'',
         email: '',
         password: '',
+        confirm:'',
         accept:false
     }
     const validationSchema = Yup.object().shape({
         fullName: Yup.string().required("This Full Name is required"),
         email:Yup.string().email("This E-mail Address is not Valid.").required("This E-mail Address is required."),
         password: Yup.string().required().min(8).matches(/[a-zA-Z]/, 'The password should contain letters and numbers.'),
-        accept:Yup.boolean().isTrue()
+        accept:Yup.boolean().isTrue(),
+        confirm:Yup.string().required().min(8).matches(/[a-zA-Z]/, 'The password should contain letters and numbers.')
     })
     const form = useFormik({
         initialValues: initialValues,
@@ -82,6 +84,7 @@ const Register = () => {
         }
     }
     const [HidePass, setHidePass] = useState(false)
+    const [HidePass2, setHidePass2] = useState(false)
     return (
 
         <div className={" "}>
@@ -125,31 +128,6 @@ const Register = () => {
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-10"}>Welcome To IRIS</h1>
-                    <div className="grid w-[330px]">
-                        <label
-                            className="flex mb-2 text-xl font-medium" htmlFor="fullName">Full Name:</label>
-                        <div className="relative">
-                            {/* {
-                                form.values.userName.length == 0?
-                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
-                                :undefined
-                            } */}
-                            <input
-
-                                onKeyDown={handleUsernameKeyPress}
-                                {...form.getFieldProps('fullName')}
-                                id="fullName"
-                                className={`w-full pl-5 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
-                                type="text"
-                                placeholder="Your Name"
-                            />
-
-                        </div>
-                        {
-                            form.errors.fullName &&
-                            <div className="text-sm mt-2 text-red-500">{form.errors.fullName}</div>
-                        }
-                    </div>
 
                     <div className="grid w-[330px]">
                         <label
@@ -175,15 +153,10 @@ const Register = () => {
                             form.errors.email &&
                             <div className="text-sm mt-2 text-red-500">{form.errors.email}</div>
                         }
-                    </div>                    
+                    </div>  
                     <div className="grid relative w-[330px]">
-                        <label className="flex mb-2 text-xl font-medium" htmlFor="password">Password:</label>
+                        <label className="flex mb-2 text-xl font-medium" htmlFor="password">Create a Password:</label>
                         <div className="relative">
-                            {/* {
-                                form.values.password.length == 0?
-                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
-                                :undefined
-                            } */}
 
                             <input
                                 onKeyDown={handleKeyPressSubmitData}
@@ -201,19 +174,48 @@ const Register = () => {
 
                         </div>
                         {
-                            form.errors.password &&
+                            form.errors.password && form.touched.password &&
                             <div className="text-sm mt-2 text-red-500">{form.errors.password}</div>
+                        }
+                    </div>                                      
+                    <div className="grid relative w-[330px]">
+                        <label className="flex mb-2 text-xl font-medium" htmlFor="password">Repeat the Password:</label>
+                        <div className="relative">
+                            {/* {
+                                form.values.password.length == 0?
+                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
+                                :undefined
+                            } */}
+
+                            <input
+                                onKeyDown={handleKeyPressSubmitData}
+                                ref={passwordRef}
+                                placeholder="Your Password"
+                                id="password"
+                                className={`w-full outline-none pl-5 pr-7 py-2 border-b ${form.errors.confirm ? 'border-b border-red-500' : ''}`}
+                                {...form.getFieldProps('confirm')}
+                                type={!HidePass2 ? "password" : 'text'}
+                            />
+                            <img onClick={() => {
+                                setHidePass2(!HidePass2)
+                            }} className="absolute cursor-pointer bottom-3 right-1"
+                                 src={!HidePass2 ? "./eye.svg" : './eye-slash.svg'}/>
+
+                        </div>
+                        {
+                            form.errors.confirm && form.touched.confirm &&
+                            <div className="text-sm mt-2 text-red-500">{form.errors.confirm}</div>
                         }
                     </div>
                     <div className="w-full justify-between">
                         <div className="flex justify-start items-center">
                             <input {...form.getFieldProps('accept')} id="accept" type="checkbox"/>
-                            <label htmlFor="accept" className="ml-2 cursor-pointer text-sm text-[#444444]">By Signing up I agree With Terms & Conditions</label>
+                            <label htmlFor="accept" className="ml-2 cursor-pointer text-sm text-[#444444]">By Signing up I agree With <span className="text-primary-color"> Terms & Conditions</span></label>
                         </div>
                     </div>
                     <Button onClick={() => {
                         // onSubmit()
-                    }} theme="iris-large" disabled={!form.isValid}>
+                    }} theme="iris-large" disabled={true}>
                         <div className="flex justify-center w-full">
                            Sign Up
                         </div>
