@@ -5,14 +5,33 @@
 // The sendToAnalyze function sends the uploaded image and additional data to the server for analysis via an XMLHttpRequest, displays a loading toast during the request, and processes the server response to provide download links for the report.
 // The component renders an upload section where users can select an image, an ANALYZE button to initiate the analysis, and a Download File button to download the analysis report once available.
 // It uses a file input element to allow users to upload an image, and a FileReader to read the file as a data URL for display.
-
-import { useState } from "react";
+import {TabsCustume} from "../components/tabs/tabs.jsx";
+import { useEffect, useState,useContext } from "react";
+import {LoadingReports} from "./loadingReports.jsx";
 import { toast } from "react-toastify";
 // import Analytics from "../api/analytics"
+import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {useLocalStorage} from "@uidotdev/usehooks";
+import { Button } from "symphony-ui";
+import {PatientContext} from '../context/context.jsx'
+
 import { selectSex,selectErrorThreshold } from "../store/PatientInformationStore";
 const UploadFaceMash = () => {
+    const tabs = [
+        {state: "multi", label: "All poses"},
+        {state: "one", label: "Single pose"}
+    ];
+    const {
+        patientID,
+        setPdf,
+        setFile,
+        setPhoto,
+        addPatient
+    } = useContext(PatientContext);    
+    const navigate = useNavigate();
+    const [status, setStatus] = useState("one")    
     const [resolvedFile,setResolvedFile] = useState('')
     const sex = useSelector(selectSex);
     const errorThreshold = useSelector(selectErrorThreshold);    
@@ -40,7 +59,7 @@ const UploadFaceMash = () => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST','https://iris.ainexus.com/api/v1/analyze', true);
         toast.loading("pending ...")
-        
+        setIsLoadingResult(true)
         xhr.onload = function (e) {
             // console.log(e)
             
@@ -58,6 +77,19 @@ const UploadFaceMash = () => {
             resultHtml.innerHTML = "Download Report HTML File";
             resultHtml.href = 'data:text/html;base64,' + response['html_file'];
             setResp('data:text/html;base64,' + response['html_file'])
+            setPdf('data:text/html;base64,' + response['html_file'])
+            setPhoto(resolvedFile)
+            setFile(response['request_id'])
+            const patient = {
+                id: patientID,
+                sex: sex,
+                errorThreshold: errorThreshold,
+                htmlId: response['request_id'],
+                photo: resolvedFile
+            }
+            addPatient(patient)
+            updateLocalPatientIHistoty(patient);
+            navigate('/result')            
             resultHtml.download = 'golden_ratios.html';
             resultHtmldiv.innerHTML += "<br><br>";
             // result.append(resultHtmldiv);    
@@ -74,59 +106,76 @@ const UploadFaceMash = () => {
         // xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
         xhr.send(fileData);
     }
+    const [showAnimate,setShowAniamte] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            if(resolvedFile == ''){
+                setShowAniamte(true)
+            }
+        }, 3000);
+        if(resolvedFile != ''){
+            setShowAniamte(false)
+        }        
+    })
+    const [isLoadingResult, setIsLoadingResult] = useState(false);
     return (
         <>
-            <div className="flex justify-center w-full">
-                {/* <h3>single file</h3> */}
-                <div
-                    className="upload upload-start0 demo-card-square mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--4-col block mdl-grid">
-                    <div className="mdl-card__title mdl-card--expand">
-                        <h6>Current Image</h6>
+            <div className={`${!isLoadingResult && "hidden"}`}><LoadingReports/></div>        
+            <div className={`${isLoadingResult && "hidden"}`}>
+                    <div
+                        className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
+                        <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
+                        <p className={"text-lg text-center w-[660px] text-[#444444] font-normal"}>Ensure your image is less than 2MB in JPEG or PNG format. Use a plain, light background, and make sure the image is clear and recent (within 6 months). Your face must be fully visible with no glasses, hats, or headgear, and hair should not cover your face. Only single pose and front-facing images are accepted.</p>
+
+
+                        <TabsCustume disable tabs={tabs} setState={setStatus} state={status}/>
                     </div>
-                    <div className="mdl-card__title" id="currImage0">
-                        <img className="upload-placeholder" src={resolvedFile== ''?"/image/upload-placeholder.png":resolvedFile} id="image-picked0" width="512"
-                            height="512" />
-                    </div>
-                    <div className="mdl-card__supporting-text" id="curr-upload-text0">
-                        Upload an image of your face here (frontal view)
-                    </div>
-                    <div className="mdl-card__actions mdl-card--border">
-                        <form role="form"  method="POST" id="upload-form0">
-                            <div className="form-group">
-                                <input id="upload-file0" onChange={(e) => {
+
+                    <div className="flex justify-center w-full">
+                        <div className="w-[660px] overflow-hidden h-[554px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
+                            {
+                                resolvedFile?
+                                    <img className="object-cover object-center" src={resolvedFile} alt="" />    
+                                :
+                                    <img src={"/image/cameraPluse.svg"} alt="camera"/>
+                            }
+                        </div>
+
+                        <div onClick={() => {
+                            document.getElementById('fileUploader').click()
+                            // setShowAniamte(false)
+                        }} className={`w-[229px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-primary-color h-[174px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
+                            <div className="text-primary-color absolute top-2 left-2">1.Front</div>
+                            <input onChange={(e) => {
                                     var file = e.target.files[0];
                                     var reader = new FileReader();
-                                    reader.onloadend = function() {
-                                        // console.log('RESULT', reader.result)
+                                    reader.onloadend = function () {
                                         setResolvedFile(reader.result)
                                     }
                                     reader.readAsDataURL(file);
-                            }} type="file" accept="image/*"  />
-                            </div>
-                            <div id="file-list-display0"></div>
-                        </form>
+                            }} accept="image/png, image/jpeg" type="file" id="fileUploader" className="invisible absolute bottom-0" />
+                            <img className="object-cover" src={resolvedFile} alt="" />
+                        </div>
                     </div>
-                </div>
+                    
+                    <div className="flex justify-center w-full">
+                        {
+                            resolvedFile!= '' &&
+                            <div className={"flex items-center  justify-center gap-5 w-[660px] mt-4"}>
+                                    <Button onClick={() => {
+                                        // analyzeFacemesh()
+                                        sendToAnalyze()
+                                        }} theme="iris-large">
+                                        <img className="mr-2" src="./icons/print.svg"></img>
+                                        Print or Save                         
+                                    </Button>                  
+                            </div>      
+                        }
+                        <div className="w-[229px]"></div>          
+                    </div>
+        
+
             </div>
-            <div className="w-full flex mt-5 justify-center">
-                {  resp== ''?
-                <button onClick={sendToAnalyze} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 rounded-[8px] text-white">ANALYZE</button>    
-            :
-                <button onClick={download} disabled={resolvedFile ==''?true:false} className="w-[150px] h-10 bg-blue-600 rounded-[8px] text-white">Download File</button>    
-            }
-            </div>
-            {/* <input onChange={(e) => {
-                var file = e.target.files[0];
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                    // console.log('RESULT', reader.result)
-                    setResolvedFile(reader.result)
-                }
-                reader.readAsDataURL(file);
-            }} id="upload-file" type="file"></input>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={() =>sendToAnalyze()}>send</button>
-            <div id="result"></div> */}
-            <div  id="result"></div>
         </>
     )
 }

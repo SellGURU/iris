@@ -129,7 +129,7 @@ const Register = () => {
                     className="w-fit px-10 py-5 animate-comeFromLeft gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
-                    <h1 className={" font-medium text-2xl pb-10"}>Welcome To IRIS</h1>
+                    <h1 className={" font-medium text-2xl pb-10"}>Welcome to IRIS</h1>
 
                     <div className="grid w-[330px]">
                         <label
