@@ -115,10 +115,11 @@ const Forget = () => {
                     </div> 
                     <Button onClick={() => {
                         // onSubmit()
-                        setStep(1)
-                    }} theme="iris-large" disabled={!form.isValid}>
+                        // setStep(2)
+                        toast.info("Link send successfully")
+                    }} theme="iris-large" disabled={!form.isValid || !form.touched.email}>
                         <div className="flex justify-center w-full">
-                            Send a Code
+                            Send Link
                         </div>
                     </Button>
                     {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
