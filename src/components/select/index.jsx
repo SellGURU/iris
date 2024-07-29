@@ -26,7 +26,12 @@ const Select = ({label,options,placeHolder,onchange,value}) => {
                 :
                     <div className="text-[14px] select-none text-[#7E7E7E] pl-3">{placeHolder}</div>
                 }
-                <img src="./arrow-down.svg" alt="" />
+                {
+                    showOptions?
+                        <img src="./arrow-down.svg" alt="" />
+                    :
+                        <img className="rotate-180" src="./arrow-down.svg" alt="" />
+                }
             </div>
             <div className="w-full h-[1px] border-b border-[#E1E1E1] mt-1"></div>
             {showOptions &&

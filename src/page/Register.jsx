@@ -217,7 +217,7 @@ const Register = () => {
                     <div className="w-full justify-between">
                         <div className="flex justify-start items-center">
                             <input {...form.getFieldProps('accept')} id="accept" type="checkbox"/>
-                            <label htmlFor="accept" className="ml-2 cursor-pointer text-sm text-[#444444]">By Signing up I agree With <span className="text-primary-color"> Terms & Conditions</span></label>
+                            <label htmlFor="accept" className="ml-2 cursor-pointer text-sm text-[#444444]">By signing up, I agree with <span className="text-primary-color">Terms & Conditions</span></label>
                         </div>
                     </div>
                     <Button onClick={() => {
