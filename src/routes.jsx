@@ -17,10 +17,18 @@ import {PaymentHistory} from "./page/payment/paymentHistory.jsx";
 import Account from "./page/account/edit.jsx";
 import AccountInfo from "./page/account/index.jsx";
 import Compare from "./page/compare/index.jsx";
+import ChangePassword from "./page/ChangePassword.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/register", element: <Register/>},
     {path: "/forgetPass", element: <Forget/>},
+    {
+        path: 'changePassword',
+        element:
+            <IsLogin>
+                <ChangePassword></ChangePassword>
+            </IsLogin>
+    },      
     {
         path: "/", element:
             <Header/>
@@ -61,6 +69,7 @@ export const route = [
                         <FaceScaned></FaceScaned>
                     </IsLogin>
             },
+          
             {
                 path: 'compare/:id',
                 element:
