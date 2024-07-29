@@ -2,7 +2,7 @@
 import { useRef, useState } from "react"
 import useModalAutoClose from '../../hooks/useModalAutoClose'
 
-const Select = ({label,options,placeHolder}) => {
+const Select = ({label,options,placeHolder,onchange,value}) => {
     const [showOptions,setShowOptions] = useState(false)
     const modalRef = useRef(null)
     useModalAutoClose({
@@ -11,7 +11,10 @@ const Select = ({label,options,placeHolder}) => {
         },
         refrence:modalRef
     })
-    const [value,setValue] = useState('')
+    // const [value,setValue] = useState('')
+    // useEffect(() => {
+    //     onchange(value)
+    // },[value])
     return (
         <div className="relative">
             <label className="flex mb-2 text-xl font-medium" htmlFor={label}>{label}</label>        
@@ -19,7 +22,7 @@ const Select = ({label,options,placeHolder}) => {
                 setShowOptions(!showOptions)
             }} className="flex justify-between select-none  cursor-pointer mt-3 w-full">
                 {value!= ''?
-                    <div className="text-[16px] select-none text-[#2E2E2E] pl-3">{placeHolder}</div>
+                    <div className="text-[16px] select-none text-[#2E2E2E] pl-3">{value}</div>
                 :
                     <div className="text-[14px] select-none text-[#7E7E7E] pl-3">{placeHolder}</div>
                 }
@@ -32,7 +35,7 @@ const Select = ({label,options,placeHolder}) => {
                         return (
                             <>
                             <div onClick={() => {
-                                setValue(op)
+                                onchange(op)
                                 setShowOptions(false)
                             }} className={` ${index == options.length -1? 'border-none':'border-b'}  border-[#00000033] py-2 text-[#2E2E2E] cursor-pointer`}>
                                {op}

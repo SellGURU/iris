@@ -53,7 +53,7 @@ const Compare =() => {
                     </div>
                 </div>
                 <div className="w-full px-11 mt-8">
-                    <PatienCard index={1} patient={getPatients()}></PatienCard>
+                    <PatienCard isCompare index={1} patient={getPatients()}></PatienCard>
                 </div>
                 <div className="w-full px-11 mt-8">
                     {getPatients().result.map(res => {

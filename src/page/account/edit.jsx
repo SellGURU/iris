@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { PatientContext } from "../../context/context"
 import { toast } from "react-toastify"
 import { useSearchParams } from "react-router-dom"
+import Select from "../../components/select"
 
 const Account = () => {
     const appcontext = useContext(PatientContext)
@@ -19,7 +20,7 @@ const Account = () => {
     })
     const AccountFormik = useFormik({
         initialValues:{
-            Username:appcontext.user.information.Account.Username,
+            PracticeName:appcontext.user.information.Account.PracticeName,
             PhoneNumber:appcontext.user.information.Account.PhoneNumber,
             Email:appcontext.user.information.Account.EmailAddress
         },
@@ -136,10 +137,10 @@ const Account = () => {
 
                         <div>
                             <div className="w-full flex mt-10 justify-between items-center">
-                                <h1 className={"text-[24px] font-medium"}>Account information:</h1>
+                                <h1 className={"text-[24px] font-medium"}>Login Information:</h1>
                                 <Button onClick={() => {
                                     appcontext.user.updateCustomInformation('account',{
-                                        Username:AccountFormik.values.Username,
+                                        PracticeName:AccountFormik.values.PracticeName,
                                         PhoneNumber:AccountFormik.values.PhoneNumber,
                                         EmailAddress:AccountFormik.values.Email
                                     })
@@ -152,9 +153,14 @@ const Account = () => {
                                 </Button>                                
                             </div>
                             <div className="grid grid-cols-2 gap-10 mt-10">
-                                <TextField {...AccountFormik.getFieldProps('Username')} theme="iris" label="Username:" placeholder="Your Username"  inValid={false} name="Username" type="text" />
-                                <TextField {...AccountFormik.getFieldProps('PhoneNumber')} theme="iris" label="Phone Number:" placeholder="Your Phone Number"  inValid={false} name="PhoneNumber" type="text" />     
+                                {/* <TextField {...AccountFormik.getFieldProps('Username')} theme="iris" label="Username:" placeholder="Your Username"  inValid={false} name="Username" type="text" /> */}
                                 <TextField {...AccountFormik.getFieldProps('Email')} theme="iris" label="E-mail Address:" placeholder="Your E-mail Address"  inValid={false} name="Email" type="text" />  
+                                <TextField {...AccountFormik.getFieldProps('PhoneNumber')} theme="iris" label="Phone Number:" placeholder="Your Phone Number"  inValid={false} name="PhoneNumber" type="text" />     
+                                <div className="grid w-[330px]">
+                                    <Select onchange={(value) => {
+                                        AccountFormik.setFieldValue("PracticeName",value)
+                                    }} placeHolder={'Your Practice Name'} value={AccountFormik.values.PracticeName} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                                </div>                            
                             </div>
                         </div>
 

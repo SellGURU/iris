@@ -20,7 +20,8 @@ const Register = () => {
         email: '',
         password: '',
         confirm:'',
-        accept:false
+        accept:false,
+        PracticeName:''
     }
     const validationSchema = Yup.object().shape({
         fullName: Yup.string().required("This Full Name is required"),
@@ -156,7 +157,9 @@ const Register = () => {
                         }
                     </div>  
                     <div className="grid w-[330px]">
-                        <Select placeHolder={'Your Practice Name'} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                        <Select value={form.values.PracticeName} onchange={(value) => {
+                            form.setFieldValue("PracticeName",value)
+                        }} placeHolder={'Your Practice Name'} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
                     </div>
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Create a Password:</label>

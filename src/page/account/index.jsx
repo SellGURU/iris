@@ -109,6 +109,11 @@ const AccountInfo = () => {
                                     <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.PhoneNumber}</div>
                                 </div>
 
+                                <div>
+                                    <div className="text-[20px] font-medium text-[#2E2E2E]">Practice Name:</div>
+                                    <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.PracticeName}</div>
+                                </div>
+
                             </div>
                         </div>
 

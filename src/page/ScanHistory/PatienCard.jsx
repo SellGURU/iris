@@ -7,7 +7,7 @@ import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 
-export const PatienCard = ({index, patient}) => {
+export const PatienCard = ({index, patient,isCompare}) => {
 
     const {id, date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
@@ -82,12 +82,21 @@ export const PatienCard = ({index, patient}) => {
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan
                         </button> */}
+                        {isCompare?
+                        <Button onClick={() => {
+                            navigate('/')
+                        }} theme="iris-secondary">
+                            <img src="./icons/close.svg" className="mr-2" alt="" />
+                            Cancel
+                        </Button>                        
+                        :
                         <Button onClick={() => {
                             navigate('/compare/'+id)
                         }} theme="iris-secondary">
                             <img src="./icons/shapes.svg" className="mr-2" alt="" />
                             Compare
                         </Button>
+                        }
                         <Button  onClick={clickHandler} theme="iris">
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan                            
@@ -185,8 +194,8 @@ export const PatienCard = ({index, patient}) => {
                     <>
 
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
-                            <div>Comments:</div>
-                            <div className={"w-5/6"}>
+                            <div className="">Comments:</div>
+                            <div className={"w-full ml-[200px]"}>
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}

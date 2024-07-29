@@ -932,8 +932,8 @@ const FaceMesh = () => {
                                     undefined
                                 }
                             </div>
-                            <img src={"/image/front.svg"} className={`${startTimer ||globalGreenLandmarks? "hidden" : "absolute top-10"}`}
-                                 alt="front pose"/>
+                            {/* <img src={"/image/front.svg"} className={`${startTimer ||globalGreenLandmarks? "hidden" : "absolute top-10"}`}
+                                 alt="front pose"/> */}
                         </div>
                         <div
                             className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
@@ -983,8 +983,8 @@ const FaceMesh = () => {
                                 }                            
                             </div>
 
-                            <img src={"/image/left.svg"} className={`${startTimer2 || globalBlueLandmarks? "hidden" : " absolute top-10"} `}
-                                 alt="front pose"/>
+                            {/* <img src={"/image/left.svg"} className={`${startTimer2 || globalBlueLandmarks? "hidden" : " absolute top-10"} `}
+                                 alt="front pose"/> */}
 
                         </div>
                         <div
@@ -1035,8 +1035,8 @@ const FaceMesh = () => {
                                 <img className="absolute top-0 z-50 w-[230px] h-[130px]" src={globalRedImages[0]}></img>
                             }
 
-                            <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
-                                 alt="front pose"/>
+                            {/* <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
+                                 alt="front pose"/> */}
 
                         </div>
 

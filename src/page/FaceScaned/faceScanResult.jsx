@@ -71,6 +71,9 @@ const FaceScanResult =() => {
     return (
         <>
             <div className="w-full">
+                <div onClick={() => {
+                    navigate('/')
+                }} className="text-primary-color text-[14px] cursor-pointer px-12 my-10">{`Home > Face Scanner > View Report`}</div>
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
                 <div className="flex justify-center">
                     <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">
@@ -152,7 +155,7 @@ const FaceScanResult =() => {
                 }
                 <div className="w-full px-11 mt-8">
 
-                    <iframe className="h-[9000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    <iframe className="h-[3000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     <div className="w-full flex mt-[48px] justify-end">
                        {/* <button onClick={() => {
                         navigate('/')
