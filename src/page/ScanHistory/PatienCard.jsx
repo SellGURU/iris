@@ -7,7 +7,7 @@ import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 
-export const PatienCard = ({index, patient,isCompare}) => {
+export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
 
     const {id, date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
@@ -40,6 +40,7 @@ export const PatienCard = ({index, patient,isCompare}) => {
         setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
+    const [accepted,setAccepted] = useState([])
     const {register, handleSubmit,formState: { errors }} = useForm()
     const formHandler = () => {
         if(textComment.length>0){
@@ -110,8 +111,34 @@ export const PatienCard = ({index, patient,isCompare}) => {
                                 {index < 2 || isShowMore?
                                 <div key={index + id} className="flex justify-between items-center w-full ">
                                     <div className="flex justify-start gap-1 items-center">
-                                        <Checkbox  label="" onChange={() => {}}></Checkbox>
-                                        <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                        {isCompare &&
+                                            <Checkbox id={id}  checked={accepted.includes(patientHistory.htmlId)} onChange={() => {
+                                                if(!accepted.includes(patientHistory.htmlId)){
+                                                    setAccepted([...accepted,patientHistory.htmlId])
+                                                    onaccepted([...accepted,patientHistory.htmlId])
+                                                }else{
+                                                    const array = accepted
+                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    array.splice(index, 1)
+                                                    setAccepted(array)
+                                                    onaccepted(array)
+                                                }
+                                            }}></Checkbox>
+                                        }
+                                        <label onClick={() => {
+                                            if(!accepted.includes(patientHistory.htmlId)){
+                                                setAccepted([...accepted,patientHistory.htmlId])
+                                                onaccepted([...accepted,patientHistory.htmlId])
+                                            }else{
+                                                const array = accepted
+                                                const index = accepted.indexOf(patientHistory.htmlId);
+                                                array.splice(index, 1)
+                                                setAccepted(array)
+                                                onaccepted(array)
+                                            }                                            
+                                        }} htmlFor={id}>
+                                            <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                        </label>
                                     </div>
                                     <div className="text-[#7E7E7E] font-normal">
                                         Date : <span
@@ -195,7 +222,7 @@ export const PatienCard = ({index, patient,isCompare}) => {
 
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
                             <div className="">Comments:</div>
-                            <div className={"w-full ml-[200px]"}>
+                            <div className={`w-full ${comment.length > 0? 'ml-[200px]':''} `}>
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}
@@ -211,7 +238,7 @@ export const PatienCard = ({index, patient,isCompare}) => {
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
                                         className={ "text-nowrap disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
-                                    Add Comment
+                                    save
                                 </button>
                             </div>
                         </div>

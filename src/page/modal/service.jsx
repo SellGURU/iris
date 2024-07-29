@@ -6,7 +6,7 @@ const Servise = ({backAction,renewAction,mode}) => {
         <>
             <div className="max-w-[796px] overflow-hidden relative w-full rounded-[8px] bg-white h-[472px]">
                 <img className="absolute bottom-0 " src="./image/Rectangle.svg" alt="" />
-                <div className="flex justify-center mt-[90px]">
+                <div className="flex justify-center mt-[70px]">
                     <img className="w-[120px]" src="./image/login/IRIS.svg" alt="" />
                 </div>
                 <div className="text-primary-color flex justify-center mt-6 text-[24px]">Thank you for using our services.</div>

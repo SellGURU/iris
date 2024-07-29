@@ -24,7 +24,7 @@ const Select = ({label,options,placeHolder,onchange,value}) => {
                 {value!= ''?
                     <div className="text-[16px] select-none text-[#2E2E2E] pl-3">{value}</div>
                 :
-                    <div className="text-[14px] select-none text-[#7E7E7E] pl-3">{placeHolder}</div>
+                    <div className="text-[16px] select-none text-[#7E7E7E] pl-3">{placeHolder}</div>
                 }
                 {
                     showOptions?

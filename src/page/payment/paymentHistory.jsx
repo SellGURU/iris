@@ -16,28 +16,28 @@ export const PaymentHistory = () => {
     const navigate = useNavigate()
     const packages = [
         new Package({
-            name:'package 01',
+            name:'Package 01',
             cycle:'Yearly',
             cost:10,
             useage:0,
             bundle:5            
         }),
         new Package({
-            name:'package 02',
+            name:'Package 02',
             cycle:'Yearly',
             cost:8,
             useage:0,
             bundle:50            
         }),
         new Package({
-            name:'package 03',
+            name:'Package 03',
             cycle:'Yearly',
             cost:6,
             useage:0,
             bundle:100            
         }),
         new Package({
-            name:'package 04',
+            name:'Package 04',
             cycle:'Yearly',
             cost:5,
             useage:0,
@@ -102,7 +102,7 @@ export const PaymentHistory = () => {
                             <div className={ "px-6 flex items-center justify-between py-4"}>
                                 <div onClick={() => {
                                     setSHowMoreAutoPlay(!showMoreautoPlay)
-                                }} className={"font-medium cursor-pointer text-xl flex items-center gap-2 justify-start"}>Turn on autopay
+                                }} className={"font-medium cursor-pointer text-xl flex items-center gap-2 justify-start"}>Turn on Autopay
                                 <span><img className={`${!showMoreautoPlay&& 'rotate-180'}`} src="./arrow-down.svg" alt="" /></span>
                                 </div>
                                 <Switch />

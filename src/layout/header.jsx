@@ -136,7 +136,7 @@ const Header = () => {
                                 <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
                                 <div className="text-2xl">Help & Support</div>
                             </div>
-                            <div
+                            {/* <div
                                 className="text-[#544BF0] flex justify-center items-center text-[20px] cursor-pointer text-center mt-[64px]">
                                 <img onClick={() => {
                                     cleanToken()
@@ -150,7 +150,7 @@ const Header = () => {
                                     navigate('/login')
                                     setShowSideBar(false)
                                 }}>Logout</h1>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="w-full h-[300vh] top-0 bg-[#000000CC] absolute z-50"></div>

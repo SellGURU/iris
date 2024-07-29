@@ -807,12 +807,12 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The left side of your face is being scanned. Please hold still.</h1>
+                                        <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
                                             strokeWidth={6}
-                                            duration={5}
+                                            duration={3}
                                             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                                             colorsTime={[5, 3, 2, 0]}
                                         >
@@ -828,12 +828,12 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The right side of your face is being scanned. Please hold still.</h1>
+                                        <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
                                             strokeWidth={6}
-                                            duration={5}
+                                            duration={3}
                                             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                                             colorsTime={[5, 3, 2, 0]}
                                         >
@@ -849,12 +849,12 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The front side of your face is being scanned. Please hold still.</h1>
+                                        <h1>The front side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
                                             strokeWidth={6}
-                                            duration={5}
+                                            duration={3}
                                             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                                             colorsTime={[5, 3, 2, 0]}
                                         >

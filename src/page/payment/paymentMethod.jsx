@@ -31,7 +31,7 @@ const PaymentMethod = () => {
                <div className="w-full flex justify-between items-start">
                     <div>
                         <div>
-                            <div className="text-[#2E2E2E] text-[20px] font-medium">Choose Payment method:</div>
+                            <div className="text-[#2E2E2E] text-[20px] font-medium">Choose Payment Method:</div>
                             <div className="flex cursor-pointer justify-between items-center w-[330px] mt-3 pl-3 text-[#7E7E7E]">
                                 <div className="text-[14px]">Credit Card</div>
                                 <img className="rotate-180" src="./arrow-down.svg" alt="" />
@@ -40,7 +40,7 @@ const PaymentMethod = () => {
                         </div>
                     </div>
                     <div>
-                        <Button theme="iris-small" disabled>Save</Button>
+                        <Button theme="iris-small" disabled>Edit</Button>
                     </div>
                </div>
                </>

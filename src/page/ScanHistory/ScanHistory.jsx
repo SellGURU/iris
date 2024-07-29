@@ -62,16 +62,19 @@ export const ScanHistory = () => {
                 </p>
             </div>
             <div className="flex w-full justify-between">
-                <Link className={"cursor-pointer"} to="PatientInformation">
-                    {/* <ButtonPrimary  className={"h-10 text-[15px]"}>
-                        <img src="fi_plus.svg" alt=""/>
-                        Add a New Patient 
-                    </ButtonPrimary> */}
-                    <Button theme="iris">
-                        <img className="mr-1" src="fi_plus.svg" alt=""/>
-                        Take a Scan                       
-                    </Button>
-                </Link>
+                <div className="w-[220px]">
+                    {/* <Link className={"cursor-pointer w-auto"} to="PatientInformation"> */}
+                        {/* <ButtonPrimary  className={"h-10 text-[15px]"}>
+                            <img src="fi_plus.svg" alt=""/>
+                            Add a New Patient 
+                        </ButtonPrimary> */}
+                        <Button onClick={() => {navigate('/PatientInformation')}} theme="iris">
+                            <img className="mr-1" src="fi_plus.svg" alt=""/>
+                            Take a Scan                       
+                        </Button>
+                    {/* </Link> */}
+
+                </div>
                 <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                 <div className="flex gap-8 items-center">
                     <div  className="flex items-center gap-3 cursor-pointer">

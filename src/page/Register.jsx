@@ -103,25 +103,27 @@ const Register = () => {
                         </div>
                     </div>
                     <div className="absolute flex justify-center items-center top-0 w-[100%] h-[100%]">
-                        <div className="rounded-[16px]   w-[80%] h-[90%]" >
+                        <div className="rounded-[16px]   w-[80%] h-[70%] px-2" >
                             <div className="text-[20px] font-medium text-white">
-                                A Revolutionary Face Mapping Tool For New and Experienced Aestheticians
+                                A Revolutionary Face Mapping Tool for New and Experienced Aestheticians
 
                             </div>
+
+                            <div className="text-[18px] mt-6 text-white">
+                                3.Analyzes facial measurements and provides guidance for the use of injectable beauty products
+                            </div>     
+
+                            <div className="text-[18px] mt-6 text-white">
+                                2.AI technology encodes the expertise of world-renowned plastic surgeon Dr. Arthur Swift.
+                            </div>  
 
                             <div className="text-[18px] mt-6 text-white">
                                 1.Improves consistency of results, enhance efficiency and provides a competitive edge
                             </div>
 
-                            <div className="text-[18px] mt-6 text-white">
-                                2.AI technology encodes the expertise of world-renowned plastic surgeon Dr. Arthur Swift.
-                            </div>  
-                            <div className="text-[18px] mt-6 text-white">
-                                3.Analyzes facial measurements and provides guidance for the use of injectable beauty products
-                            </div>     
-                            <div className="text-[14px] mt-6 text-white">
+                            {/* <div className="text-[14px] mt-6 text-white">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor                            
-                            </div>                                                    
+                            </div>                                                     */}
                         </div>
                     </div>
                 </div>
@@ -159,7 +161,7 @@ const Register = () => {
                     <div className="grid w-[330px]">
                         <Select value={form.values.PracticeName} onchange={(value) => {
                             form.setFieldValue("PracticeName",value)
-                        }} placeHolder={'Your Practice Name'} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                        }} placeHolder={'Your Practice Name'} label={'Practice Name:'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
                     </div>
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Create a Password:</label>
@@ -224,7 +226,7 @@ const Register = () => {
                         // onSubmit()
                     }} theme="iris-large" disabled={true}>
                         <div className="flex justify-center w-full">
-                           Sign Up
+                           sign up
                         </div>
                     </Button>
 

@@ -10,7 +10,7 @@ export const PaymentCard = ({pak,onselect}) => {
                 className={"rounded-2xl relative overflow-hidden px-3 py-2 gap-3 shadow-10xl flex items-center justify-center flex-col border-2  w-fit min-w-[303px]"}>
                 <div className="absolute top-0 left-0 w-[184px] flex justify-center items-center text-white text-[18px] bg-[#544BF0] h-[30px]">Promotional Pricing</div>
                 <h2 className={"text-lg text-[#444444] font-medium mt-16"}>{pak.information.name}</h2>
-                <h1 className={"text-3xl font-medium text-[#544BF0]"}>${pak.information.cost} per scan</h1>
+                <h1 className={"text-3xl font-medium text-[#544BF0]"}>${pak.information.cost} per Scan</h1>
                 <div className={"flex items-center justify-center gap-4 flex-col"}>
                     <h1 className={"border-b pb-1 font-medium text-xl w-full text-center mt-8"}>{pak.information.bundle == -1?'Individual Scans':pak.information.bundle+' Scan Bundle'}</h1>
                     <p className={"text-xl font-normal text-[#444444]"}>Feature information </p>

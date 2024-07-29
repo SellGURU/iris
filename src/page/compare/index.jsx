@@ -43,6 +43,7 @@ const Compare =() => {
         console.log(patients.filter(el =>el.id == id)[0])
        return patients.filter(el =>el.id == id)[0]
     }
+    const [results,setResults] = useState([])
     return (
         <>
             <div className="w-full">
@@ -53,10 +54,12 @@ const Compare =() => {
                     </div>
                 </div>
                 <div className="w-full px-11 mt-8">
-                    <PatienCard isCompare index={1} patient={getPatients()}></PatienCard>
+                    <PatienCard onaccepted={(el) => {
+                        setResults(el)
+                    }} isCompare index={1} patient={getPatients()}></PatienCard>
                 </div>
                 <div className="w-full px-11 mt-8">
-                    {getPatients().result.map(res => {
+                    {results.map(res => {
                         return (
                             <>
                                 <iframe className="h-[350px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+res.htmlId}></iframe>
