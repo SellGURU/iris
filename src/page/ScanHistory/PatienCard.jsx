@@ -144,9 +144,9 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                             <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
                                         </label>
                                     </div>
-                                    <div className="text-[#7E7E7E] font-normal">
+                                    <div className="text-[#7E7E7E] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-normal tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
+                                        className=" ml-1 font-[300] tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
@@ -238,7 +238,7 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                     return (
                                         <div key={index}
                                             className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                            <h1 className={"text-nowrap"}>12 April 2024 </h1>
+                                            <h1 className={"text-nowrap font-[300]"}>12 April 2024 </h1>
                                             <p className={"w-4/6"}>{comment}</p>
                                         </div>
                                     )
