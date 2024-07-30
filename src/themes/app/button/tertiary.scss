@@ -23,6 +23,14 @@
 
 
 
-.iris-tertiary-Button-container:hover ,.iris-tertiary-small-Button-container:hover,.iris-tertiary-large-Button-container:hover .pelusicon{
+.iris-tertiary-large-Button-container:hover .tirtryIconHover{
+  @apply bg-[#6C7593] 
+}
+
+.iris-tertiary-small-Button-container:hover .tirtryIconHover{
+  @apply bg-[#6C7593]
+}
+
+.iris-tertiary-Button-container:hover .tirtryIconHover{
   @apply bg-[#6C7593]
 }

@@ -124,7 +124,7 @@ const FaceScanResult =() => {
                         <Button onClick={() => {
                             setIsShowAddComment(true)
                         }} theme="iris-tertiary-large">
-                            <div  className="pelusicon bg-primary-color"/>
+                            <div  className="pelusicon tirtryIconHover bg-primary-color"/>
                             {/* <img className="mr-2" src={'./fi_plus-blue.svg'} /> */}
                             Add Comment
                         </Button>                    

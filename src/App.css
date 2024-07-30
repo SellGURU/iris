@@ -94,6 +94,16 @@
   @apply w-6 h-6 mr-2 bg-inherit;
 }
 
+.editIcon{
+  mask-image: url(/icons/Icon-left.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-4 h-4 mr-2 bg-inherit;
+}
+
 .logoutIcon{
   mask-image: url(./logout.svg);
   mask-size: 100%;

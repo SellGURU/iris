@@ -139,16 +139,20 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                                             }}></Checkbox>
                                         }
                                         <label onClick={() => {
-                                            if(!accepted.includes(patientHistory.htmlId)){
-                                                setAccepted([...accepted,patientHistory.htmlId])
-                                                onaccepted([...accepted,patientHistory.htmlId])
-                                            }else{
-                                                const array = accepted
-                                                const index = accepted.indexOf(patientHistory.htmlId);
-                                                array.splice(index, 1)
-                                                setAccepted(array)
-                                                onaccepted(array)
-                                            }                                            
+                                                 if(!accepted.includes(patientHistory.htmlId)){
+                                                    const array = accepted
+                                                    if(accepted.length >= 3){
+                                                        array.shift()
+                                                    }
+                                                    setAccepted([...array,patientHistory.htmlId])
+                                                    onaccepted([...array,patientHistory.htmlId])
+                                                }else{
+                                                    const array = accepted
+                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    array.splice(index, 1)
+                                                    setAccepted(array)
+                                                    onaccepted(array)
+                                                }                                       
                                         }} htmlFor={id}>
                                             <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
                                         </label>

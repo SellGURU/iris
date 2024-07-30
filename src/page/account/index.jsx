@@ -345,7 +345,8 @@ const AccountInfo = () => {
                                     <h1 className={"text-[24px] font-medium"}>Address:</h1>
                                     <Button onClick={() => setEditPanel("address")} theme="iris-tertiary-small">
                                         <div className="flex  cursor-pointer justify-between items-center">
-                                            <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
+                                            {/* <img className="mr-2" src="./icons/Icon-left.svg" alt="" /> */}
+                                            <div className="editIcon tirtryIconHover bg-primary-color"></div>
                                             <div className="cursor-pointer">Edit</div>
                                         </div>
                                     </Button>                            
