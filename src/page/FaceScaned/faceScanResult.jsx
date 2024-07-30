@@ -180,7 +180,11 @@ const FaceScanResult =() => {
                                     <Button disabled={textComment.length == 0} onClick={() => {
                                         formHandler()
                                     }} theme="iris-small">
-                                        Add Comment
+                                        {textComment.length>0?
+                                        'Save'
+                                        :
+                                        'Add Comment'
+                                        }
                                     </Button>
 
                                 </div>

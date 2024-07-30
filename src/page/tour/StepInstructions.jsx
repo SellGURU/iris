@@ -52,7 +52,7 @@ export const StepInstructions = ({
             </div>
           </Button>
         </div>
-        <div className=" self-start flex justify-start items-center gap-1  ">
+        <div className=" self-start invisible flex justify-start items-center gap-1  ">
           <input
             checked={!isShowTour}
             onChange={() => {
