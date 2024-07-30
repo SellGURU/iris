@@ -65,7 +65,7 @@ const UploadFaceMash = () => {
         setIsLoadingResult(true)
         xhr.onload = function (e) {
             // console.log(e)
-            
+            appContext.package.usePackage()
             let response = JSON.parse(e.target.responseText);
             let result = document.getElementById("result")
             let resultHtmldiv = document.createElement('div');
@@ -83,7 +83,7 @@ const UploadFaceMash = () => {
             setPdf('data:text/html;base64,' + response['html_file'])
             setPhoto(resolvedFile)
             setFile(response['request_id'])
-            appContext.package.usePackage()
+            
             const patient = {
                 id: patientID,
                 sex: sex,
