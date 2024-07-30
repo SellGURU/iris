@@ -107,8 +107,8 @@ const Header = () => {
                                 setShowSideBar(false)
                             }}
                                  className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black">
-                                <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/>
-                                <div className="text-2xl font-normal ">Home</div>
+                                <img className="mr-2 cursor-pointer w-6 h-6" src={'./home-2.svg'} alt=""/>
+                                <div className="text-2xl cursor-pointer font-normal ">Home</div>
                             </div>
 
                             {/* <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
@@ -126,15 +126,15 @@ const Header = () => {
                             <NavLink to={"/payment"}>
                                 <div onClick={() => setShowSideBar(false)}
                                      className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
-                                    <img className="mr-2 w-6 h-6" src={'./balance.png'} alt=""/>
-                                    <div className="text-2xl font-normal">Balance</div>
+                                    <img className="mr-2 cursor-pointer w-6 h-6" src={'./balance.png'} alt=""/>
+                                    <div className="text-2xl cursor-pointer font-normal">Balance</div>
                                 </div>
                             </NavLink>
 
                             <div
                                 className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
-                                <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
-                                <div className="text-2xl">Help & Support</div>
+                                <img className="mr-2 cursor-pointer w-6 h-6" src={'./info-circle.svg'} alt=""/>
+                                <div className="text-2xl cursor-pointer">Help & Support</div>
                             </div>
                             {/* <div
                                 className="text-[#544BF0] flex justify-center items-center text-[20px] cursor-pointer text-center mt-[64px]">
