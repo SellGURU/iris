@@ -265,7 +265,7 @@ const Register = () => {
                 className="ml-2 cursor-pointer text-sm text-[#444444]"
               >
                 By signing up, I agree with{" "}
-                <span className="text-primary-color">Terms & Conditions</span>
+                <span className="text-primary-color">Terms & Conditions.</span>
               </label>
             </div>
           </div>
