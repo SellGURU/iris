@@ -22,7 +22,7 @@ export const PaymentHistory = () => {
             cycle:'Yearly',
             cost:10,
             useage:0,
-            bundle:5 ,
+            bundle:1 ,
             discount:'0',
             options:[
                 "1 Scan",

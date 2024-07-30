@@ -8,7 +8,11 @@ import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 
 export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
-
+    const {
+        setPdf,
+        setFile,
+        setPhoto,
+    } = useContext(PatientContext);
     const {id, date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
     const [isShowComment, setIsShowComment] = useState(false);
@@ -189,7 +193,13 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                         <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
                                             <div className="downloadIcon-purple"></div>
                                         </Button>
-                                        <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
+                                        <Button onClick={() => {
+                                            setPdf('data:text/html;base64,' + patientHistory.htmlId)
+                                            setPhoto(result[0].photo)
+                                            setFile(patientHistory.htmlId)                             
+                                            navigate('/result')
+
+                                            }} theme="iris-secondary-small">
                                             View Reports
                                         </Button>
                                         {/* <div onClick={() => download(patientHistory.htmlId)}

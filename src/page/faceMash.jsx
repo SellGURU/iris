@@ -818,7 +818,7 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
+                                        <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
@@ -839,7 +839,7 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
+                                        <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
@@ -890,7 +890,7 @@ const FaceMesh = () => {
                             {status == 'multi' && globalGreenLandmarks && globalBlueLandmarks && globalRedLandmarks &&
                                 <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
-                                        <h1>All poses of your face scanned successfully.</h1>
+                                        <h1>All poses of your face  were scanned successfully</h1>
                                     </div>
                                 </div>
                             }                            
