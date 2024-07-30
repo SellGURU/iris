@@ -883,7 +883,7 @@ const FaceMesh = () => {
                             {status == 'one' && globalGreenLandmarks &&
                                 <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
-                                        <h1>The front side of your face scanned successfully.</h1>
+                                        <h1>All poses of your face  were scanned successfully</h1>
                                     </div>
                                 </div>
                             }
