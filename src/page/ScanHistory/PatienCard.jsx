@@ -110,6 +110,7 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
                     {result.map((patientHistory, index) => {
+                        const myDate = new Date(patientHistory.date);
                         return (
                             <>
                                 {index < 2 || isShowMore?
@@ -146,7 +147,7 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                     </div>
                                     <div className="text-[#7E7E7E] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-[300] tex-[16px] text-[#7E7E7E]">{patientHistory.date}</span>{" "}
+                                        className=" ml-1 font-[300] tex-[16px] text-[#7E7E7E]">{myDate.getDate()+"   "+myDate.toLocaleString('default', { month: 'long' })+"   "+myDate.getFullYear()}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
