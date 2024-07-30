@@ -7,12 +7,13 @@ import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 
-export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
+export const PatienCard = ({index, patient,onaccepted}) => {
     const {
         setPdf,
         setFile,
         setPhoto,
     } = useContext(PatientContext);
+    const [isCompare,setIsCompare] = useState(false)
     const {id, date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
     const [isShowComment, setIsShowComment] = useState(false);
@@ -89,14 +90,17 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                         </button> */}
                         {isCompare?
                         <Button onClick={() => {
-                            navigate('/')
+                            setAccepted([])
+                            onaccepted([])
+                            setIsCompare(false)
                         }} theme="iris-secondary">
                             <img src="./icons/close.svg" className="mr-2" alt="" />
                             Cancel
                         </Button>                        
                         :
                         <Button onClick={() => {
-                            navigate('/compare/'+id)
+                            // navigate('/compare/'+id)
+                            setIsCompare(true)
                         }} theme="iris-secondary">
                             <img src="./icons/shapes.svg" className="mr-2" alt="" />
                             Compare
@@ -119,8 +123,12 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                         {isCompare &&
                                             <Checkbox id={id}  checked={accepted.includes(patientHistory.htmlId)} onChange={() => {
                                                 if(!accepted.includes(patientHistory.htmlId)){
-                                                    setAccepted([...accepted,patientHistory.htmlId])
-                                                    onaccepted([...accepted,patientHistory.htmlId])
+                                                    const array = accepted
+                                                    if(accepted.length >= 3){
+                                                        array.shift()
+                                                    }
+                                                    setAccepted([...array,patientHistory.htmlId])
+                                                    onaccepted([...array,patientHistory.htmlId])
                                                 }else{
                                                     const array = accepted
                                                     const index = accepted.indexOf(patientHistory.htmlId);

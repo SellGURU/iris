@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import {useState, useContext, useEffect} from "react";
 
 import {SearchBox} from "../../components/searchBox/SearchBox";
@@ -88,12 +89,22 @@ export const ScanHistory = () => {
                 </div>
             </div>
             {patientList.map((patient, i) => {
+                const [results,setResults] = useState([])
                 return (
-                    <PatienCard
-                        index={i + 1}
-                        key={Number(patient.id)}
-                        patient={patient}
-                    />
+                    <>
+                        <PatienCard
+                            index={i + 1}
+                            key={Number(patient.id)}
+                            patient={patient}
+                            onaccepted={(e) => {setResults(e)}}
+                        />
+                        <div className="w-full mt-0">
+                            {results.map((el) => {
+                                return (
+                                    <iframe className="h-[350px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+el}></iframe>                           
+                                )
+                        })}</div>
+                    </>
                 );
             })}
 
