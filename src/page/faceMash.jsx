@@ -818,7 +818,7 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
+                                        <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
@@ -839,7 +839,7 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
+                                        <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
@@ -948,7 +948,7 @@ const FaceMesh = () => {
                         </div>
                         <div
                             className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            <div className={"w-full absolute top-1 p-4"}><h1>2.Left</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>2.right</h1></div>
                             {globalBlueLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -1003,7 +1003,7 @@ const FaceMesh = () => {
                             {globalRedLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-                            <div className={"w-full absolute top-1 p-4"}><h1>3.Right</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>3.Left</h1></div>
 
                             <div className="relative">
                                 {/* {isCameraStart && globalRedLandmarks ?
