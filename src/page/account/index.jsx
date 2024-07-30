@@ -307,7 +307,7 @@ const AccountInfo = () => {
                                         <div className="grid w-[330px]">
                                             <Select onchange={(value) => {
                                                 AccountFormik.setFieldValue("PracticeName",value)
-                                            }} placeHolder={'Your Practice Name'} value={AccountFormik.values.PracticeName} label={'Practice Name'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                                            }} placeHolder={'Your Practice Name'} value={AccountFormik.values.PracticeName} label={'Practice Name'} options={['Sample Name 1','Sample Name 2']}></Select>
                                         </div>                            
                                     </div>
                                 </div>

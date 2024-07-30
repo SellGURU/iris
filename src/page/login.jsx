@@ -186,7 +186,7 @@ const Login = () => {
             theme="iris-large"
             disabled={!form.isValid}
           >
-            <div className="flex justify-center w-full">log in</div>
+            <div className="flex justify-center w-full">Log in</div>
           </Button>
           {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()
@@ -195,7 +195,7 @@ const Login = () => {
             Don’t have an account?
             <Link to="/register" className="text-primary-color">
               {" "}
-              sign up
+              Sign up
             </Link>
           </p>
         </div>

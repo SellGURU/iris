@@ -52,8 +52,10 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
         {label}
       </label>
       <div   className="flex justify-between select-none  cursor-pointer mt-3 w-full">
-
-        <div
+        <input placeholder={placeHolder} value={value} onChange={(e) => {
+          onchange(e.target.value)
+        }}  type="text" className="w-full outline-none pl-5 pr-7 py-2  "/>
+        {/* <div
         onClick={() => setShowOptions(true)}
           className="w-full flex justify-between items-center"
         >
@@ -61,7 +63,7 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
             {value || placeHolder}
           </div>
           
-        </div>
+        </div> */}
          <img
          onClick={handleArrowClick}
               className={`transition-transform ${!showOptions ? "rotate-180" : ""}`}
@@ -77,9 +79,9 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
           style={{ boxShadow: "0px 0px 12px 0px #00000026" }}
         >
           <div>
-            <input type="text" onChange={(e) => {
+            {/* <input type="text" onChange={(e) => {
               onchange(e.target.value)
-            }} className="border-b w-full border-[#00000033] py-2 text-[#2E2E2E] cursor-pointer outline-none text-[16px]" placeholder="Enter New One" />
+            }} className="border-b w-full border-[#00000033] py-2 text-[#2E2E2E] cursor-pointer outline-none text-[16px]" placeholder="Enter New One" /> */}
           </div>
           {filteredOptions.map((op, index) => {
             return (

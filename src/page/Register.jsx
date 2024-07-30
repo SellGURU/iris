@@ -277,7 +277,7 @@ const Register = () => {
             theme="iris-large"
             
           >
-            <div className="flex justify-center w-full">sign up</div>
+            <div className="flex justify-center w-full">Sign up</div>
           </Button>
 
           <div className="text-primary-color mt-[-4px] text-[14px] flex w-full justify-end">
