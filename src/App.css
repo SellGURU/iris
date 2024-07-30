@@ -84,6 +84,16 @@
   @apply w-6 h-6 bg-white;
 }
 
+.pelusicon{
+  mask-image: url(/fi_plus-blue.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-6 h-6 mr-2 bg-inherit;
+}
+
 .arowDownIcon-purple[data-mode='true']{
   @apply rotate-0
 }
