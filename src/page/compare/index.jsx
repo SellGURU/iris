@@ -62,7 +62,7 @@ const Compare =() => {
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Compare Patient Reports</div>
                 <div className="flex justify-center">
                     <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been t
+                        {`Analyze and compare patient progress with precision.IRIS's advanced face mapping technology allows you to visualize improvements over time, providing a clear evaluation of treatment effectiveness and patient outcomes`}
                     </div>
                 </div>
                 <div className="w-full px-11 mt-8">
