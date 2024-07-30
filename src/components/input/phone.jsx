@@ -642,7 +642,7 @@ const PhoneInput = () => {
           <input
             type="phone"
             id="phone-input"
-            className="block p-2.5 w-full z-20 text-sm text-gray-900 "
+            className="block fill-none p-2.5 w-full z-20 text-sm text-gray-900 "
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="123-456-7890"
             required

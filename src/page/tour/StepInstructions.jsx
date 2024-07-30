@@ -17,28 +17,19 @@ export const StepInstructions = ({
 
   const navigate = useNavigate();
   return (
-    <div className="  shadow-xl flex flex-col items-center  border  gap-2 py-[14px] px-10 justify-start max-w-[672px]  rounded-lg ">
+    <div className="  shadow-xl flex flex-col items-center  border  gap-2 py-5 px-10 justify-start max-w-[672px]  rounded-lg ">
       <h1 className="text-[22px] text-center font-medium text-[#2E2E2E]">
         How Face Scanner Works
       </h1>
-      <div className="flex flex-col w-full items-center justify-center gap-5 ">
-        <div className="max-w-[430px] self-start     ">
+      <div className="flex flex-col w-full items-center justify-center gap-5 px-5">
+        <div className="  self-start     ">
           <h3 className=" font-bold text-sm inline text-[#2E2E2E]"> { step == 4 ? 'Final Step : ' :  `Step ${step}:`}</h3>
           <p className="text-[#444444] inline leading-[16px] text-sm     font-normal  ">{text}</p>
         </div>
-        <img className={`object-contain h-[341px]  -mt-4`} src={image} alt="" />
-        <div className=" text-[#444444] max-w-[420px] text-sm  self-start    -mt-2  ">{note}</div>
-        <div className="flex flex-col items-center justify-center gap-2">
-          <Button
-            theme="iris-large"
-            onClick={() => {
-              onNext();
-            }}
-          >
-            <div className="w-[172px]">
-              {step == 4 ? "Get Started" : "Next"}
-            </div>
-          </Button>
+        <img className={`object-contain `} src={image} alt="" />
+        <div className=" text-[#444444]  text-sm       ">{note}</div>
+        <div className="flex  items-center justify-center gap-2">
+        
           {/* <ButtonPrimary onClickHandler={onNext}
                                className={'w-[200px]'}>{step == 5 ? 'Get Started' : 'Next'}</ButtonPrimary> */}
           {step != 4 && (
@@ -47,9 +38,19 @@ export const StepInstructions = ({
               ClassName="border-none text-sm"
             >
               Skip the tour{" "}
-              <img width={24} src={"/public/arrow-right.svg"} alt="" />
+              
             </ButtonSecondary>
           )}
+            <Button
+            theme="iris"
+            onClick={() => {
+              onNext();
+            }}
+          >
+            <div className="w-[172px]">
+              {step == 4 ? "Get Started" : "Next"}
+            </div>
+          </Button>
         </div>
         <div className=" self-start flex justify-start items-center gap-1  ">
           <input
