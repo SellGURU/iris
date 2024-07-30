@@ -16,13 +16,16 @@ import { useSelector } from "react-redux";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import { Button } from "symphony-ui";
 import {PatientContext} from '../context/context.jsx'
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 import { selectSex,selectErrorThreshold } from "../store/PatientInformationStore";
 const UploadFaceMash = () => {
     const tabs = [
         {state: "multi", label: "All poses"},
         {state: "one", label: "Single pose"}
     ];
+    const appContext = useContext(PatientContext)
     const {
         patientID,
         setPdf,
@@ -58,7 +61,7 @@ const UploadFaceMash = () => {
         // })
         let xhr = new XMLHttpRequest();
         xhr.open('POST','https://iris.ainexus.com/api/v1/analyze', true);
-        toast.loading("pending ...")
+        // toast.loading("pending ...")
         setIsLoadingResult(true)
         xhr.onload = function (e) {
             // console.log(e)
@@ -80,6 +83,7 @@ const UploadFaceMash = () => {
             setPdf('data:text/html;base64,' + response['html_file'])
             setPhoto(resolvedFile)
             setFile(response['request_id'])
+            appContext.package.usePackage()
             const patient = {
                 id: patientID,
                 sex: sex,
@@ -107,16 +111,16 @@ const UploadFaceMash = () => {
         xhr.send(fileData);
     }
     const [showAnimate,setShowAniamte] = useState(false)
-    useEffect(() => {
-        setTimeout(() => {
-            if(resolvedFile == ''){
-                setShowAniamte(true)
-            }
-        }, 3000);
-        if(resolvedFile != ''){
-            setShowAniamte(false)
-        }        
-    })
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         if(resolvedFile == ''){
+    //             setShowAniamte(true)
+    //         }
+    //     }, 3000);
+    //     if(resolvedFile != ''){
+    //         setShowAniamte(false)
+    //     }        
+    // })
     const [isLoadingResult, setIsLoadingResult] = useState(false);
     return (
         <>
@@ -124,36 +128,49 @@ const UploadFaceMash = () => {
             <div className={`${isLoadingResult && "hidden"}`}>
                     <div
                         className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
+                        <div className="px-12 w-full flex justify-start">
+                            <Breadcrumbs aria-label="breadcrumb">
+                                <Link underline="hover"  className="text-primary-color" href="/">
+                                    Home
+                                </Link>
+                                <Typography className="text-primary-color" >Face Scanner</Typography>
+                            </Breadcrumbs>                
+
+                        </div>                         
                         <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
-                        <p className={"text-lg text-center w-[660px] text-[#444444] font-normal"}>Ensure your image is less than 2MB in JPEG or PNG format. Use a plain, light background, and make sure the image is clear and recent (within 6 months). Your face must be fully visible with no glasses, hats, or headgear, and hair should not cover your face. Only single pose and front-facing images are accepted.</p>
+                        <p className={"text-lg text-center w-full px-24 text-[#444444] font-normal"}>Ensure your image is less than 2MB in JPEG or PNG format. Use a plain, light background, and make sure the image is clear and recent (within 6 months). Your face must be fully visible with no glasses, hats, or headgear, and hair should not cover your face. Only single pose and front-facing images are accepted.</p>
 
 
                         <TabsCustume disable tabs={tabs} setState={setStatus} state={status}/>
                     </div>
 
                     <div className="flex justify-center w-full">
-                        <div className="w-[660px] overflow-hidden h-[554px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
-                            {
-                                resolvedFile?
-                                    <img className="object-cover object-center" src={resolvedFile} alt="" />    
-                                :
-                                    <img src={"/image/cameraPluse.svg"} alt="camera"/>
-                            }
-                        </div>
-
                         <div onClick={() => {
                             document.getElementById('fileUploader').click()
-                            // setShowAniamte(false)
-                        }} className={`w-[229px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-primary-color h-[174px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
-                            <div className="text-primary-color absolute top-2 left-2">1.Front</div>
-                            <input onChange={(e) => {
+                        }} className="w-[660px]  relative overflow-hidden h-[554px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
+                                <div className="grid grid-cols-1 ">
+                                    <div className="flex self-center justify-center">
+                                        <img className="w-[108px]  " src={"/image/cameraPluse.svg"} alt="camera"/>
+
+                                    </div>
+                                    <div className="text-[#7E7E7E]">Drag & drop image here or <span className="text-primary-color cursor-pointer">Choose</span> </div>
+                                    <input onChange={(e) => {
                                     var file = e.target.files[0];
                                     var reader = new FileReader();
                                     reader.onloadend = function () {
                                         setResolvedFile(reader.result)
                                     }
                                     reader.readAsDataURL(file);
-                            }} accept="image/png, image/jpeg" type="file" id="fileUploader" className="invisible absolute bottom-0" />
+                            }} accept="image/png, image/jpeg" type="file" id="fileUploader" className="invisible w-full h-full absolute bottom-0" />                                
+                                </div>
+                        </div>
+
+                        <div onClick={() => {
+                            document.getElementById('fileUploader').click()
+                            // setShowAniamte(false)
+                        }} className={`w-[229px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-none h-[174px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
+                            <div className="text-[#444444] absolute top-2 left-2">1.Front</div>
+
                             <img className="object-cover" src={resolvedFile} alt="" />
                         </div>
                     </div>
