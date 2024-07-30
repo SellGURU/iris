@@ -180,7 +180,7 @@ const AccountInfo = () => {
                             <>
                                 <div>
                                     <div className="w-full flex mt-10 justify-between items-center">
-                                        <h1 className={"text-[24px] font-medium"}>Personal information:</h1>
+                                        <h1 className={"text-[24px] font-medium"}>Personal Information:</h1>
                                         <Button onClick={() => setEditPanel("personal")} theme="iris-tertiary-small">
                                             <div className="flex cursor-pointer justify-between items-center">
                                                 <img className="mr-2" src="./icons/Icon-left.svg" alt="" />

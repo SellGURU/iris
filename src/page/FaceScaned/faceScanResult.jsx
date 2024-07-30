@@ -29,11 +29,25 @@ const FaceScanResult =() => {
         photo
     } = useContext(PatientContext);
     const download = () => {
-        const downloadLink = document.createElement("a");
-        downloadLink.href = pdf;
-        downloadLink.download = 'download.html';
-        downloadLink.click();
+        // const downloadLink = document.createElement("a");
+        // downloadLink.href = pdf;
+        // downloadLink.download = 'download.html';
+        // downloadLink.click();
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+        // console.log(document.getElementById('reported'))
+        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h1>' + document.title  + '</h1>');
+        mywindow.document.write(document.getElementById('reported').innerHTML);
+        mywindow.document.write('</body></html>');
 
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
     }
      const [comment, setComment] = useState();
     const [textComment,setTextComment] = useState('')    
@@ -175,7 +189,7 @@ const FaceScanResult =() => {
                 }
                 <div className="w-full px-11 mt-8">
 
-                    <iframe className="h-[3000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    <iframe id="reported" className="h-[3000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
                     <div className="w-full flex mt-[48px] justify-end">
                        {/* <button onClick={() => {
                         navigate('/')
