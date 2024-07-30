@@ -14,7 +14,9 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link2 from '@mui/material/Link';
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
 import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
 import {PatientContext} from "../context/context.jsx";
@@ -765,6 +767,15 @@ const FaceMesh = () => {
 
                 <div
                     className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
+                    <div className="px-12 mt-[-20px] w-full flex justify-start">
+                        <Breadcrumbs aria-label="breadcrumb">
+                            <Link2 underline="hover"  className="text-primary-color" href="/">
+                                Home
+                            </Link2>
+                            <Typography className="text-primary-color" >Face Scanner</Typography>
+                        </Breadcrumbs>                
+
+                    </div>                          
                     <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
                     <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right,
                         and

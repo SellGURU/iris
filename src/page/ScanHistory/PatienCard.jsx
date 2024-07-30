@@ -238,7 +238,7 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
                                         className={ "text-nowrap disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
-                                    save
+                                    Add Comment
                                 </button>
                             </div>
                         </div>
@@ -257,7 +257,7 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                                         <Button disabled={textComment.length == 0} onClick={() => {
                                             formHandler()
                                         }} theme="iris-small">
-                                            Add Comment
+                                            Save
                                         </Button>
 
                                     </div>

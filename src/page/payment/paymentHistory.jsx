@@ -8,7 +8,9 @@ import Package from "../../model/Package.js";
 import { useNavigate } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
@@ -47,6 +49,15 @@ export const PaymentHistory = () => {
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
+            <div className="px-0 w-full flex justify-start">
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link underline="hover"  className="text-primary-color" href="/">
+                        Home
+                    </Link>
+                    <Typography className="text-primary-color" >Payment History</Typography>
+                </Breadcrumbs>                
+
+            </div>      
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div className={"w-full"}>

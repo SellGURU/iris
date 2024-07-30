@@ -3,6 +3,9 @@ import MenuBox from "../../components/menuBox"
 import { Button, TextField } from "symphony-ui"
 import { PatientContext } from "../../context/context"
 import { useContext } from "react"
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 const AccountInfo = () => {
     const appcontext = useContext(PatientContext)
@@ -11,6 +14,15 @@ const AccountInfo = () => {
     return (
         <>
             <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
+                <div className="px-0 w-full flex justify-start">
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link underline="hover"  className="text-primary-color" href="/">
+                            Home
+                        </Link>
+                        <Typography className="text-primary-color" >My Account</Typography>
+                    </Breadcrumbs>                
+
+                </div>                  
                  <h1 className={"text-3xl font-medium"}>My Account</h1>
                  <div className="text-[#606060] text-[18px] max-w-[860px] text-center">Welcome to your account page! Here, you can access and edit your user information. Keep your details up-to-date to ensure the best experience with our services.</div>
 
