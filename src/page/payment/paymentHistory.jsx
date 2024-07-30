@@ -26,7 +26,7 @@ export const PaymentHistory = () => {
             discount:'0',
             options:[
                 "1 Scan",
-                "use within 12 months",
+                "Use Within 12 Months",
                 ""
             ]           
         }),
@@ -41,7 +41,7 @@ export const PaymentHistory = () => {
             options:[
                 "$8 per scan",
                 "50 Scan Bundle",
-                "use within 12 months"
+                "Use Within 12 Months"
             ]
         }),
         new Package({
@@ -55,7 +55,7 @@ export const PaymentHistory = () => {
             options:[
                 "$6 per scan",
                 "100 Scan Bundle",
-                "use within 12 months"
+                "Use Within 12 Months"
             ]                      
         }),
         new Package({
@@ -69,7 +69,7 @@ export const PaymentHistory = () => {
             options:[
                 "$5 per scan",
                 "1000 Scan Bundle",
-                "use within 12 months"
+                "Use Within 12 Months"
             ]              
         })                              
     ]

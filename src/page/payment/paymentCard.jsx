@@ -41,7 +41,7 @@ export const PaymentCard = ({pak,onselect}) => {
                     className={"rounded-b-md  w-full -mx-3 -mb-2 text-wrap bg-[#F5F5F5] py-6 gap-3 flex items-center justify-center flex-col text-center"}>
                     <p className={"text-wrap text-[18px] text-[#444444] w-full"}>Promotional Pricing</p>
                     {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
-                    <Button onClick={() =>{onselect()}} theme="iris">Get It Now</Button>
+                    <Button onClick={() =>{onselect()}} theme="iris">Get it now</Button>
                 </div>
             </div>
         </>
