@@ -166,3 +166,6 @@
 .activeText {
   @apply text-primary-color !important
 }
+input {
+@apply fill-transparent
+}

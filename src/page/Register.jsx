@@ -127,7 +127,7 @@ const Register = () => {
 
                   <div className="text-[18px] mt-6 text-white">
                     2.AI technology encodes the expertise of world-renowned
-                    plastic surgeon Dr. Arthur Swift.{" "}
+                    plastic surgeon <br /> Dr. Arthur Swift.{" "}
                   </div>
 
                   <div className="text-[18px] mt-6 text-white">
@@ -182,9 +182,9 @@ const Register = () => {
               onchange={(value) => {
                 form.setFieldValue("PracticeName", value);
               }}
-              placeHolder={"Your Name"}
+              placeHolder={"Your Practice Name"}
               label={"Practice Name:"}
-              options={["Enter New One", "Sample Name 1", "Sample Name 2"]}
+              options={["Enter New One", "Sample Name 1", "Sample Name 2" , "sample Name 3"]}
             ></Select>
           </div>
           <div className="grid relative w-[330px]">
@@ -270,11 +270,12 @@ const Register = () => {
             </div>
           </div>
           <Button
+          disabled={!form.values.accept}
             onClick={() => {
               // onSubmit()
             }}
             theme="iris-large"
-            disabled={true}
+            
           >
             <div className="flex justify-center w-full">sign up</div>
           </Button>
