@@ -104,7 +104,7 @@ const FaceScanResult =() => {
                         >
                             Face Scanner
                         </Link>
-                        <Typography className="text-primary-color" >Breadcrumbs</Typography>
+                        <Typography className="text-primary-color" >View Report</Typography>
                     </Breadcrumbs>                
 
                </div>
