@@ -32,9 +32,9 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="1"
-                        text="  Click on 'LIVE SCAN' to open your camera and capture a selfie, or use the 'Upload Picture' button next to it to choose a photo from your gallery."
+                        text=" Click 'Start Scan' to open your camera and capture a well-lit and clear selfie, or use 'Upload Image' to select a recent, centered photo from your gallery."
                         image={'image/tour-1.svg'}
-                        note="Note: Please remove glasses, ensure your face is clear of hair, and maintain good lighting for the best results."
+                        note="Note: Remove glasses, ensure the subject's face is clear of hair, use a neutral background, and maintain good lighting for optimal results."
                         onNext={handleNext}
                         onSkip={handleSkip}
                     />
@@ -43,9 +43,9 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="2"
-                        text=" Keep your head directly in front of the camera and allow the scanner to scan your face following the guide grid."
+                        text="  Position the subject's head in the frame and instruct them to slightly move their face until the mesh goes green. "
                         image={'image/tour-2.svg'}
-                        note="Note: The scan may take approximately 5 seconds."
+                        note="Note: The scan may take approximately 3 seconds. Maintain position and hold still for each side of the scan. If you only want to scan the front side of the subject's face, select the 'Single pose' button above the camera area. "
                         onNext={handleNext}
                         onSkip={handleSkip}
                     />
@@ -54,9 +54,9 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="3"
-                        text="Repeat the process for the left and right sides of your face. The scanner will capture each side and indicate completion with a checkmark on the right sidebar."
+                        text="Repeat the process for the left and right sides of the subject's face. The scanner will capture each side and indicate completion with a checkmark on the right sidebar."
                         image={'image/tour-3.svg'}
-                        note="Note: If you only want to scan the front side of your face, select the One Pose button above the camera area."
+                        note="Note: To rescan any side, press the rescan button and remove the scan of that side to start again."
                         onNext={handleNext}
                         onSkip={handleSkip}
                     />
@@ -65,19 +65,8 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="4"
-                        text="The next step will start automatically after the first scan is completed. Simply follow the grid and hold your position for 5 seconds to scan other sides of your face."
+                        text="Once all poses are completed successfully, press the 'Print or Save' button to begin processing and preparing the report."
                         image={'image/tour-4.svg'}
-                        note="Note: If you are in the wrong position and the scanner cannot recognize you properly, the box will turn red and an error will appear at the bottom. Adjust your position to align with the grid, and the scanner will start scanning your next position."
-                        onNext={handleNext}
-                        onSkip={handleSkip}
-                    />
-                );
-            case 5:
-                return (
-                    <StepInstructions
-                        step="5"
-                        text="Once the scan is finished, you can download the results as a PDF or share them with others."
-                        image={'image/tour-5.svg'}
                         note="Note: You can also perform a new scan, and all records will be saved in your scan history."
                         onNext={() => {
                             setIsShowTour(false)
@@ -86,13 +75,27 @@ export const Tour = () => {
                         onSkip={handleSkip}
                     />
                 );
+            // case 5:
+            //     return (
+            //         <StepInstructions
+            //             step="5"
+            //             text="Once the scan is finished, you can download the results as a PDF or share them with others."
+            //             image={'image/tour-5.svg'}
+            //             note="Note: You can also perform a new scan, and all records will be saved in your scan history."
+            //             onNext={() => {
+            //                 setIsShowTour(false)
+            //                 navigate("/facecamera")
+            //             }}
+            //             onSkip={handleSkip}
+            //         />
+            //     );
             default:
                 return null;
         }
     };
 
     return (
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full ">
             {getStepContent(currentStep)}
         </div>
     );

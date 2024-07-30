@@ -1,6 +1,6 @@
 
 .iris-Button-container {
-  @apply text-[#FDFCFF] justify-between items-center flex disabled:cursor-not-allowed  py-[10px] h-[40px] px-[14px] bg-primary-color leading-[19.36px] text-[16px] font-[500]  rounded-[8px]  #{!important};
+  @apply text-[#FDFCFF] justify-between items-center flex disabled:cursor-not-allowed  py-[10px] h-[30px] px-[14px] bg-primary-color leading-[19.36px] text-[16px] font-[500]  rounded-[8px]  #{!important};
 }
 .iris-Button-container:hover ,.iris-small-Button-container:hover,.iris-large-Button-container:hover{
   @apply bg-[#46429B] #{!important}

@@ -102,7 +102,7 @@ const Register = () => {
                             
                         </div>
                     </div>
-                    <div className="absolute flex justify-center items-center top-0 w-[100%] h-[100%]">
+                    <div className="absolute flex justify-center items-start pt-8 top-0 w-[100%] h-[100%]">
                         <div className="rounded-[16px]   w-[80%] h-[70%] px-2" >
                             <div className="text-[20px] font-medium text-white">
                                 A Revolutionary Face Mapping Tool for New and Experienced Aestheticians
@@ -161,7 +161,7 @@ const Register = () => {
                     <div className="grid w-[330px]">
                         <Select value={form.values.PracticeName} onchange={(value) => {
                             form.setFieldValue("PracticeName",value)
-                        }} placeHolder={'Your Practice Name'} label={'Practice Name:'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
+                        }} placeHolder={'Your Name'} label={'Practice Name:'} options={['Enter New One','Sample Name 1','Sample Name 2']}></Select>
                     </div>
                     <div className="grid relative w-[330px]">
                         <label className="flex mb-2 text-xl font-medium" htmlFor="password">Create a Password:</label>
