@@ -8,7 +8,9 @@ import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import { Button } from "symphony-ui";
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 export const PatientInformation = () => {
 
     const navigate = useNavigate();
@@ -62,6 +64,15 @@ export const PatientInformation = () => {
         <>
         <img className="w-full fixed z-0 left-0 top-32" src="./Vector.svg" alt="" />
         <div className={"flex relative z-30 items-center justify-center flex-col gap-5 mt-10"}>
+                <div className="px-12 mt-[-10px] w-full flex justify-start">
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link underline="hover"  className="text-primary-color" href="/">
+                            Home
+                        </Link>
+                        <Typography className="text-primary-color" >Patient Information</Typography>
+                    </Breadcrumbs>                
+
+                </div>              
             <h1 className={"text-3xl font-medium"}>Patient Information</h1>
             <p className={"w-[450px] md:w-[720px] text-xl font-normal text-center"}>The patient ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
             <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>

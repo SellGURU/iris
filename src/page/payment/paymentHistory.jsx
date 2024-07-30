@@ -8,7 +8,9 @@ import Package from "../../model/Package.js";
 import { useNavigate } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
@@ -16,37 +18,76 @@ export const PaymentHistory = () => {
     const navigate = useNavigate()
     const packages = [
         new Package({
-            name:'Package 01',
+            name:'Individual',
             cycle:'Yearly',
             cost:10,
             useage:0,
-            bundle:5            
+            bundle:5 ,
+            discount:'0',
+            options:[
+                "1 Scan",
+                "Use Within 12 Months",
+                ""
+            ]           
         }),
         new Package({
-            name:'Package 02',
+            name:'Essential',
             cycle:'Yearly',
-            cost:8,
+            cost:375,
             useage:0,
-            bundle:50            
+            bundle:50,
+            discount:'25' ,
+            oldCost:'500',
+            options:[
+                "$8 Per Scan",
+                "50 Scan Bundle",
+                "Use Within 12 Months"
+            ]
         }),
         new Package({
-            name:'Package 03',
+            name:'Pro',
             cycle:'Yearly',
-            cost:6,
+            cost:600,
             useage:0,
-            bundle:100            
+            bundle:100,
+            discount:'40',
+            oldCost:'1000',
+            options:[
+                "$6 Per Scan",
+                "100 Scan Bundle",
+                "Use Within 12 Months"
+            ]                      
         }),
         new Package({
-            name:'Package 04',
+            name:'Unlimited',
             cycle:'Yearly',
-            cost:5,
+            cost:5000,
             useage:0,
-            bundle:1000            
+            bundle:1000,
+            discount:'50',
+            oldCost:'10000',
+            options:[
+                "$5 Per Scan",
+                "1000 Scan Bundle",
+                "Use Within 12 Months"
+            ]              
         })                              
     ]
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
+            <div className="px-0  w-full flex justify-start">
+                <Breadcrumbs aria-label="breadcrumb">
+                    <Link underline="hover"  className="text-primary-color" href="/">
+                        Home
+                    </Link>
+                    <Link underline="hover"  className="text-primary-color" href="/#/faceCamera">
+                        Face Scanner
+                    </Link>                    
+                    <Typography className="text-primary-color" >Payment</Typography>
+                </Breadcrumbs>                
+
+            </div>      
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div className={"w-full"}>
@@ -81,7 +122,7 @@ export const PaymentHistory = () => {
                                         {appContext.package.getPackage().getInformation().useage == 0?
                                             <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
                                         :
-                                            <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().useage} out of {appContext.package.getPackage().getInformation().bundle} scans used</p>
+                                            <p className={`text-lg ${appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100>=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getInformation().bundle - appContext.package.getPackage().getInformation().useage} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
                                         }
                                     </div>
                                     <div className={`h-[20px] relative w-[93%] mt-[8px] rounded-[8px] bg-[#E1E1E1] `}>

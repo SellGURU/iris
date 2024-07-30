@@ -14,6 +14,9 @@ import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHisto
 import {RWebShare} from "react-web-share";
 import { Button } from "symphony-ui";
 import { PatienCard } from "../ScanHistory/PatienCard.jsx";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 const Compare =() => {
     const navigate = useNavigate()
@@ -47,6 +50,15 @@ const Compare =() => {
     return (
         <>
             <div className="w-full">
+                <div className="px-12 w-full flex justify-start">
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link underline="hover"  className="text-primary-color" href="/">
+                            Home
+                        </Link>
+                        <Typography className="text-primary-color" >Compare</Typography>
+                    </Breadcrumbs>                
+
+                </div>                    
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Compare Patient Reports</div>
                 <div className="flex justify-center">
                     <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">

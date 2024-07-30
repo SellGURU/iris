@@ -7,22 +7,41 @@ export const PaymentCard = ({pak,onselect}) => {
     return (
         <>
             <div
-                className={"rounded-2xl relative overflow-hidden px-3 py-2 gap-3 shadow-10xl flex items-center justify-center flex-col border-2  w-fit min-w-[303px]"}>
-                <div className="absolute top-0 left-0 w-[184px] flex justify-center items-center text-white text-[18px] bg-[#544BF0] h-[30px]">Promotional Pricing</div>
-                <h2 className={"text-lg text-[#444444] font-medium mt-16"}>{pak.information.name}</h2>
-                <h1 className={"text-3xl font-medium text-[#544BF0]"}>${pak.information.cost} per Scan</h1>
+                className={"rounded-2xl min-h-[474px] relative overflow-hidden  py-2 gap-3 shadow-10xl flex items-center justify-center flex-col border-2  w-fit min-w-[303px]"}>
+                {
+                    pak.information.discount!='0'?
+                        <div className={`absolute top-0 left-0 w-[142px] flex justify-center items-center  rounded-br-[16px]  z-10 text-[18px] ${pak.information.name == 'Pro'?' bg-white text-primary-color ':' bg-[#544BF0] text-white'}  h-[40px]`}>{pak.information.discount}% Discount</div>
+                    :undefined
+                }
+                {
+                    pak.information.name == 'Pro'?
+                        <img className="absolute top-0" src="./icons/Oval6.svg" />
+                    :undefined
+                }
+                <h2 className={`text-[20px] ${pak.information.name == 'Pro'?' text-white':'text-[#2E2E2E]'} relative z-10  font-medium mt-12 `}>{pak.information.name}</h2>
+                <h1 className={"text-[28px] my-10 font-medium text-[#544BF0]"}>{pak.information.discount!= '0'?
+                    <>
+                     <span className="text-[#CBC9C9] line-through">${pak.information.oldCost }</span>
+                        <span className="text-[#CBC9C9] "> / </span>
+                    </>
+                    :undefined}  ${pak.information.cost}</h1>
                 <div className={"flex items-center justify-center gap-4 flex-col"}>
-                    <h1 className={"border-b pb-1 font-medium text-xl w-full text-center mt-8"}>{pak.information.bundle == -1?'Individual Scans':pak.information.bundle+' Scan Bundle'}</h1>
-                    <p className={"text-xl font-normal text-[#444444]"}>Feature information </p>
-                    <p className={"text-xl font-normal text-[#444444]"}>Feature information </p>
-                    <p className={"text-xl font-normal text-[#444444]"}>Feature information </p>
+                    {/* <h1 className={"border-b pb-1 font-medium text-xl w-full text-center mt-8"}>{pak.information.bundle == -1?'Individual Scans':pak.information.bundle+' Scan Bundle'}</h1> */}
+                    {
+                        pak.information.options.map((el,index) => {
+                            return(
+                                <p key={index} className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                            )
+                        })
+                    }
+                    {/* <p className={"text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center text-[#444444]"}> <span><img src="./icons/tick.svg" alt="" /></span>use within 12 months</p> */}
                     {/* <p className={"text-xl font-normal text-[#444444]"}>Feature information </p> */}
                 </div>
                 <div
-                    className={"rounded-b-md px-4 -mx-3 -mb-2 text-wrap bg-[#F5F5F5] py-6 gap-3 flex items-center justify-center flex-col text-center"}>
-                    <p className={"text-wrap w-5/6"}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                    className={"rounded-b-md  w-full -mx-3 -mb-2 text-wrap bg-[#F5F5F5] py-6 gap-3 flex items-center justify-center flex-col text-center"}>
+                    <p className={"text-wrap text-[18px] text-[#444444] w-full"}>Promotional Pricing</p>
                     {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
-                    <Button onClick={() =>{onselect()}} theme="iris">Get It Now</Button>
+                    <Button onClick={() =>{onselect()}} theme="iris">Get it now</Button>
                 </div>
             </div>
         </>

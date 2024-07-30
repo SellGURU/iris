@@ -13,6 +13,9 @@ import {PatientContext} from "../../context/context.jsx";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import {RWebShare} from "react-web-share";
 import { Button } from "symphony-ui";
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 const FaceScanResult =() => {
     const navigate = useNavigate()
@@ -71,9 +74,26 @@ const FaceScanResult =() => {
     return (
         <>
             <div className="w-full">
-                <div onClick={() => {
+                {/* <div onClick={() => {
                     navigate('/')
-                }} className="text-primary-color text-[14px] cursor-pointer px-12 my-10">{`Home > Face Scanner > View Report`}</div>
+                }} className="text-primary-color text-[14px] cursor-pointer px-12 my-10">{`Home > Face Scanner > View Report`}</div> */}
+               <div className="px-12">
+                    <Breadcrumbs aria-label="breadcrumb">
+                        <Link underline="hover"  className="text-primary-color" href="/">
+                            Home
+                        </Link>
+                        <Link
+                            underline="hover"
+                            href="/#/facecamera"
+                            
+                            className="text-primary-color" 
+                        >
+                            Face Scanner
+                        </Link>
+                        <Typography className="text-primary-color" >Breadcrumbs</Typography>
+                    </Breadcrumbs>                
+
+               </div>
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
                 <div className="flex justify-center">
                     <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">
