@@ -164,7 +164,8 @@ const Header = () => {
             {showModalBox?
                 <div ref={userModalRef} className="w-[266px] fixed rounded-[8px] py-5 px-6 top-20 right-5 z-50 bg-white h-[243px] " style={{boxShadow:'0px 0px 12px 0px #00000026'}}>
                     <div onClick={() => {
-                        setMenu('profile')
+                        // setMenu('profile')
+                        setSowModalBox(false)
                         navigate('/account')
                     }}
                         className={`flex cursor-pointer justify-start items-center mb-5 py-3 ${menu == 'profile'?'border-[#544BF0] border-b-2':'border-[#2E2E2E] border-b'}  text-black`}>
@@ -174,12 +175,14 @@ const Header = () => {
                     </div>
 
                     <div onClick={() => {
-                        setMenu('Change Paassword')
+                        // setMenu('Change Paassword')
                         navigate('changePassword')
+                        setSowModalBox(false)
                     }}
                         className={`flex cursor-pointer justify-start items-center mb-5 py-3 ${menu == 'Notifications'?'border-[#544BF0] border-b-2':'border-[#2E2E2E] border-b'}  text-black`}>
                         {/* <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/> */}
-                        <div className={`notification-icon ${menu == 'Change Paassword'?' activeIcon':''}`}></div>
+                        <img src="./icons/look.svg" className="mr-2" alt="" />
+                        {/* <div className={`notification-icon ${menu == 'Change Paassword'?' activeIcon':''}`}></div> */}
                         <div className={`text-[20px] font-normal text-[#2E2E2E] ${menu == 'Change Paassword' ? 'activeText':''}`}>Change Paassword</div>
                     </div>
 
