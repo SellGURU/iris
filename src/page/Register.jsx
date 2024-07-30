@@ -184,7 +184,7 @@ const Register = () => {
               }}
               placeHolder={"Your Practice Name"}
               label={"Practice Name:"}
-              options={["Enter New One", "Sample Name 1", "Sample Name 2" , "sample Name 3"]}
+              options={["Sample Name 1", "Sample Name 2" , "sample Name 3"]}
             ></Select>
           </div>
           <div className="grid relative w-[330px]">
