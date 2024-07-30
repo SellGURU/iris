@@ -21,3 +21,8 @@
   @apply text-[#544BF0] justify-between items-center flex disabled:cursor-not-allowed h-[52px]  py-[12px] px-[24px] bg-white leading-[19.36px] text-[20px] font-[500]  rounded-[12px]  #{!important};
 }
 
+
+
+.iris-tertiary-Button-container:hover ,.iris-tertiary-small-Button-container:hover,.iris-tertiary-large-Button-container:hover .pelusicon{
+  @apply bg-[#6C7593]
+}

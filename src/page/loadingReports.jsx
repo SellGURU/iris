@@ -2,7 +2,7 @@ export const LoadingReports = () => {
     return (
         <>
             <img className="w-full  fixed z-10 left-0 top-32" src="./Vector.svg" alt=""/>
-            <div className={"absolute justify-center items-center flex z-50 w-full h-1/2"}>
+            <div className={"absolute justify-center items-center flex z-50 w-full h-[75vh]"}>
                 <div className={"flex  flex-col justify-center items-center text-center"}>
                     <div className={"bg-white shadow-md px-4 py-6 rounded-xl w-[548px] gap-10 flex flex-col justify-center items-center text-center "}>
                         <h1 className={"text-[28px] font-medium text-black"}>Processing Your Scan Report</h1>

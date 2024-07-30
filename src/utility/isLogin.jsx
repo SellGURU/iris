@@ -18,6 +18,10 @@ export const IsLogin = ({children}) => {
 }
 const checkValidToken = () => {
     const [access,] = useLocalStorage("token")
+    console.log(access)
+    if(access == undefined){
+        return true
+    }
     const [isPanding, setIsPanding] = useState(true)
     const [status, setStatus] = useState(true)
     const xhr = new XMLHttpRequest();

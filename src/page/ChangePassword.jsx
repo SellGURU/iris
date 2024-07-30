@@ -96,7 +96,7 @@ const ChangePassword = () => {
                                 }
                             </div>
                             <div className="grid relative mt-[40px] mb-[60px] w-[330px]">
-                                <label className="flex mb-2 text-xl font-medium" htmlFor="confirmPassword">Change Password:</label>
+                                <label className="flex mb-2 text-xl font-medium" htmlFor="confirmPassword">Confirm New Password:</label>
                                 <div className="relative">
                                     {/* {
                                         form.values.password.length == 0?

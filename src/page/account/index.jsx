@@ -103,7 +103,7 @@ const AccountInfo = () => {
                                         setEditPanel('photo')
                                     }} className="absolute cursor-pointer right-4 flex justify-center items-center bottom-[-4px] w-[68px] h-[32px] bg-white rounded-[6px]">
                                         <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                        <div className="text-primary-color text-[14px] font-medium">Edit</div>
+                                        <div className="text-primary-color cursor-pointer text-[14px] font-medium">Edit</div>
                                     </div>
                                 </div>
                                 <div>
@@ -149,8 +149,8 @@ const AccountInfo = () => {
                                         setEditPanel("")
                                     }} theme="iris">
                                         <div className="flex justify-between items-center">
-                                            <img className="mr-2" src="./icons/save.svg" alt="" />
-                                            <div>Save</div>
+                                            <img className="mr-2 cursor-pointer" src="./icons/save.svg" alt="" />
+                                            <div className="cursor-pointer">Save</div>
                                         </div>
                                     </Button>
                                 </div>
@@ -184,7 +184,7 @@ const AccountInfo = () => {
                                         <Button onClick={() => setEditPanel("personal")} theme="iris-tertiary-small">
                                             <div className="flex cursor-pointer justify-between items-center">
                                                 <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                                <div>Edit</div>
+                                                <div className="cursor-pointer">Edit</div>
                                             </div>
                                         </Button>                                
                                     </div>
@@ -228,9 +228,9 @@ const AccountInfo = () => {
                                             // toast.success("update information")
                                             setEditPanel("")
                                         }} theme="iris">
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between cursor-pointer items-center">
                                                 <img className="mr-2" src="./icons/save.svg" alt="" />
-                                                <div>Save</div>
+                                                <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
                                     </div>
@@ -253,9 +253,9 @@ const AccountInfo = () => {
                                     <div className="w-full flex mt-10 justify-between items-center">
                                         <h1 className={"text-[24px] font-medium"}>Login Information:</h1>
                                         <Button onClick={() => setEditPanel("login")} theme="iris-tertiary-small">
-                                            <div className="flex cursor-pointer justify-between items-center">
+                                            <div className="flex cursor-pointer cursor-pointer justify-between items-center">
                                                 <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                                <div>Edit</div>
+                                                <div className="cursor-pointer">Edit</div>
                                             </div>
                                         </Button>                               
                                     </div>
@@ -294,9 +294,9 @@ const AccountInfo = () => {
                                             // toast.success("update information")
                                             setEditPanel("")
                                         }} theme="iris">
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex cursor-pointer justify-between items-center">
                                                 <img className="mr-2" src="./icons/save.svg" alt="" />
-                                                <div>Save</div>
+                                                <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
                                     </div>
@@ -344,9 +344,9 @@ const AccountInfo = () => {
                                 <div className="w-full flex mt-10 justify-between items-center">
                                     <h1 className={"text-[24px] font-medium"}>Address:</h1>
                                     <Button onClick={() => setEditPanel("address")} theme="iris-tertiary-small">
-                                        <div className="flex cursor-pointer justify-between items-center">
+                                        <div className="flex  cursor-pointer justify-between items-center">
                                             <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                            <div>Edit</div>
+                                            <div className="cursor-pointer">Edit</div>
                                         </div>
                                     </Button>                            
                                 </div>
@@ -383,9 +383,9 @@ const AccountInfo = () => {
                                     // toast.success("update information")
                                     setEditPanel("")
                                 }} theme="iris">
-                                    <div className="flex justify-between items-center">
+                                    <div className="flex cursor-pointer justify-between items-center">
                                         <img className="mr-2" src="./icons/save.svg" alt="" />
-                                        <div>Save</div>
+                                        <div className="cursor-pointer">Save</div>
                                     </div>
                                 </Button>                                
                             </div>

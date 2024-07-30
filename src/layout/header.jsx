@@ -107,8 +107,8 @@ const Header = () => {
                                 setShowSideBar(false)
                             }}
                                  className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black">
-                                <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/>
-                                <div className="text-2xl font-normal ">Home</div>
+                                <img className="mr-2 cursor-pointer w-6 h-6" src={'./home-2.svg'} alt=""/>
+                                <div className="text-2xl cursor-pointer font-normal ">Home</div>
                             </div>
 
                             {/* <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
@@ -126,15 +126,15 @@ const Header = () => {
                             <NavLink to={"/payment"}>
                                 <div onClick={() => setShowSideBar(false)}
                                      className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
-                                    <img className="mr-2 w-6 h-6" src={'./balance.png'} alt=""/>
-                                    <div className="text-2xl font-normal">Balance</div>
+                                    <img className="mr-2 cursor-pointer w-6 h-6" src={'./balance.png'} alt=""/>
+                                    <div className="text-2xl cursor-pointer font-normal">Balance</div>
                                 </div>
                             </NavLink>
 
                             <div
                                 className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
-                                <img className="mr-2 w-6 h-6" src={'./info-circle.svg'} alt=""/>
-                                <div className="text-2xl">Help & Support</div>
+                                <img className="mr-2 cursor-pointer w-6 h-6" src={'./info-circle.svg'} alt=""/>
+                                <div className="text-2xl cursor-pointer">Help & Support</div>
                             </div>
                             {/* <div
                                 className="text-[#544BF0] flex justify-center items-center text-[20px] cursor-pointer text-center mt-[64px]">
@@ -171,7 +171,7 @@ const Header = () => {
                         className={`flex cursor-pointer justify-start items-center mb-5 py-3 ${menu == 'profile'?'border-[#544BF0] border-b-2':'border-[#2E2E2E] border-b'}  text-black`}>
                         {/* <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/> */}
                         <div className={`profile-icon ${menu == 'profile'?' activeIcon':''}`}></div>
-                        <div className={`text-[20px] text-[#2E2E2E] font-normal ${menu == 'profile' ? 'activeText':''}`}>My profile</div>
+                        <div className={`text-[20px] cursor-pointer text-[#2E2E2E] font-normal ${menu == 'profile' ? 'activeText':''}`}>My profile</div>
                     </div>
 
                     <div onClick={() => {
@@ -183,15 +183,16 @@ const Header = () => {
                         {/* <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/> */}
                         <img src="./icons/look.svg" className="mr-2" alt="" />
                         {/* <div className={`notification-icon ${menu == 'Change Paassword'?' activeIcon':''}`}></div> */}
-                        <div className={`text-[20px] font-normal text-[#2E2E2E] ${menu == 'Change Paassword' ? 'activeText':''}`}>Change Paassword</div>
+                        <div className={`text-[20px] cursor-pointer font-normal text-[#2E2E2E] ${menu == 'Change Paassword' ? 'activeText':''}`}>Change Password</div>
                     </div>
 
                     <div
-                            className="text-[#544BF0] flex justify-start items-center text-[20px] cursor-pointer text-center mt-[24px]">
-                        <img onClick={() => {
+                            className="text-[#2E2E2E]  flex justify-start items-center text-[20px] cursor-pointer text-center mt-[24px]">
+                        {/* <img onClick={() => {
                             navigate('/login')
-                        }} className="mr-2" src="./logout.svg" alt=""/>
-                        <h1 onClick={() => {
+                        }} className="mr-2" src="./logout.svg" alt=""/> */}
+                        <div className="logoutIcon"></div>
+                        <h1 className="cursor-pointer" onClick={() => {
                             navigate('/login')
                         }}>Logout</h1>
                     </div>                   

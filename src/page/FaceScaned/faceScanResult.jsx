@@ -104,7 +104,7 @@ const FaceScanResult =() => {
                         >
                             Face Scanner
                         </Link>
-                        <Typography className="text-primary-color" >Breadcrumbs</Typography>
+                        <Typography className="text-primary-color" >View Report</Typography>
                     </Breadcrumbs>                
 
                </div>
@@ -124,7 +124,8 @@ const FaceScanResult =() => {
                         <Button onClick={() => {
                             setIsShowAddComment(true)
                         }} theme="iris-tertiary-large">
-                            <img className="mr-2" src={'./fi_plus-blue.svg'} />
+                            <div  className="pelusicon bg-primary-color"/>
+                            {/* <img className="mr-2" src={'./fi_plus-blue.svg'} /> */}
                             Add Comment
                         </Button>                    
                        <RWebShare data={{
