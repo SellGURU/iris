@@ -15,8 +15,8 @@ const Login = () => {
 
   // const {register, handleSubmit} = useForm();
   const initialValues = {
-    userName: "",
-    password: "",
+    userName: localStorage.getItem("myapp-email")? localStorage.getItem("myapp-email"): '',
+    password:  localStorage.getItem("myapp-password")? localStorage.getItem("myapp-password"): '',
     rememberMe: false,
   };
   const validationSchema = Yup.object().shape({
@@ -29,7 +29,14 @@ const Login = () => {
     onSubmit: () => {},
   });
   const dispatch = useDispatch();
-
+  const  remember = () => {
+    if(form.values.rememberMe){
+      localStorage.setItem("myapp-email", form.values.userName); localStorage.setItem("myapp-password", form.values.password)
+    }
+    else{
+      localStorage.setItem("myapp-email", ""); localStorage.setItem("myapp-password", "")
+    }
+  }
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
@@ -43,7 +50,7 @@ const Login = () => {
         password: form.values.password,
       })
         .then((res) => {
-          console.log(res);
+          remember()
           if (res.data.access_token) {
             setIsPanding(false);
             saveIsAccess(res.data.access_token);
