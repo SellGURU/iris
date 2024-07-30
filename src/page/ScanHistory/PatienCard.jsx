@@ -208,11 +208,12 @@ export const PatienCard = ({index, patient,isCompare,onaccepted}) => {
                     })}
                     {
                         result.length> 2 &&
-                        <div className="flex justify-center items-center">
+                        <div className="flex justify-between items-center">
+                            <div className="w-[90px]"></div>
                             <div onClick={() => {
                                 setIsShowMore(!isShowMore)
-                            }} className="text-[#544BF0] flex justify-center items-center cursor-pointer font-medium text-center mt-4">{isShowMore?'See Less':'See More'}<span><div data-mode={!isShowMore?'true':'false'} className="arowDownIcon-purple ml-1"></div></span></div>
-
+                            }} className="text-[#544BF0] flex justify-center items-center cursor-pointer font-medium text-center mt-4">{isShowMore?'See Less':'See More'}<span><div data-mode={isShowMore?'true':'false'} className="arowDownIcon-purple ml-1"></div></span></div>
+                            <div className="w-[180px]"></div>
                         </div>
 
                     }
