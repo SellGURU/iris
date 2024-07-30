@@ -95,7 +95,7 @@ export const Tour = () => {
     };
 
     return (
-        <div className="flex items-center justify-center w-full ">
+        <div className="flex items-center justify-center w-full  ">
             {getStepContent(currentStep)}
         </div>
     );

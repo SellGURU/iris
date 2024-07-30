@@ -87,7 +87,7 @@ const Forget = () => {
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-2"}>Forgot Password</h1>
-                    <div className="text-[#444444] text-[14px] mb-[60px] w-[330px]">Enter the E-mail address asociated with your account and we’ll send you a code to reset your password.</div>
+                    <div className="text-[#444444] text-[14px] mb-[60px] w-[330px]">Enter the E-mail address asociated with your account and we’ll send you a link to reset your password.</div>
                     <div className="grid mb-[60px] w-[330px]">
                         <label
                             className="flex mb-2 text-xl font-medium" htmlFor="email">E-mail Address:</label>
@@ -117,7 +117,7 @@ const Forget = () => {
                         // onSubmit()
                         // setStep(2)
                         toast.info("Link send successfully")
-                    }} theme="iris-large" disabled={!form.isValid || !form.touched.email}>
+                    }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
                             Send Link
                         </div>
