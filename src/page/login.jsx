@@ -74,10 +74,10 @@ const Login = () => {
         .catch((err) => {
           console.log(err)
           form.setFieldError("password", "The password is incorrect.");
-          toast.error(err.response.data.detail);
+          toast.error(err.response?.data?.detail);
         });
     } catch (error) {
-      console.log("error1");
+      console.log(error);
     }
   };
   const handleUsernameKeyPress = (event) => {

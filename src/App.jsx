@@ -5,6 +5,7 @@ import {HashRouter} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import {useLocalStorage} from "@uidotdev/usehooks";
+import "./api/axios";
 
 function App() {
     return (

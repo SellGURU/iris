@@ -8,7 +8,7 @@
 // An iframe is used to embed and display the face scan report using the fileId.
 
 import {useNavigate} from "react-router-dom"
-import { useContext,useState} from "react"
+import { useContext,useEffect,useState} from "react"
 import {PatientContext} from "../../context/context.jsx";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import {RWebShare} from "react-web-share";
@@ -34,11 +34,11 @@ const FaceScanResult =() => {
         // downloadLink.download = 'download.html';
         // downloadLink.click();
         var mywindow = window.open('', 'PRINT', 'height=400,width=600');
-        // console.log(document.getElementById('reported'))
+        // // console.log(document.getElementById('reported'))
         mywindow.document.write('<html><head><title>' + document.title  + '</title>');
         mywindow.document.write('</head><body >');
         mywindow.document.write('<h1>' + document.title  + '</h1>');
-        mywindow.document.write(document.getElementById('reported').innerHTML);
+        mywindow.document.write(document.getElementById('mydiv').innerHTML);
         mywindow.document.write('</body></html>');
 
         mywindow.document.close(); // necessary for IE >= 10
@@ -46,10 +46,17 @@ const FaceScanResult =() => {
 
         mywindow.print();
         mywindow.close();
-
+        // window.frames["reported"].focus();
+        // window.frames["reported"].print();
+        // document.getElementById("mydiv").contentWindow.print();
+    // document.getElementById('reported').contentWindow.print();
+        // return false;        
         return true;
+        // var decodedHTML = window.atob(pdf.replace("data:text/html;base64,",''));
+        // console.log(pdf.replace("data:text/html;base64,",''))
+        // document.getElementById("mydiv").innerHTML = decodedHTML;
     }
-     const [comment, setComment] = useState();
+    const [comment, setComment] = useState();
     const [textComment,setTextComment] = useState('')    
     const [isShowAddComment, setIsShowAddComment] = useState(false);    
     const addPaintion = () => {
@@ -65,6 +72,15 @@ const FaceScanResult =() => {
         updateLocalPatientIHistoty(patient);
         navigate('/')
     }
+    const resolvePdf =() => {
+        var decodedHTML = window.atob(pdf.replace("data:text/html;base64,",''));
+        document.getElementById("mydiv").innerHTML = decodedHTML;
+    }
+    useEffect(() => {
+        if(pdf.length>100){
+            resolvePdf()
+        }
+    })
     const updateComment=() => {
         let patients= JSON.parse(localStorage.getItem("patients"))
         let patientIndex = patients.findIndex(patient => patient.id === patientID);
@@ -193,8 +209,14 @@ const FaceScanResult =() => {
                     </div>
                 }
                 <div className="w-full px-11 mt-8">
-
-                    <iframe id="reported" className="h-[3000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    {/* <img src={pdf} /> */}
+                    {pdf.length> 10 ?
+                    <div id="mydiv"></div>
+                    :
+                    <iframe id="reported" name="reported" className="h-[3000px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+fileId}></iframe>
+                    }
+                    <div id="mydiv"></div>
+                    {/* <html>{pdf}</html> */}
                     <div className="w-full flex mt-[48px] justify-end">
                        {/* <button onClick={() => {
                         navigate('/')

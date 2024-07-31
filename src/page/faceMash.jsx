@@ -24,7 +24,7 @@ import {IoRefresh} from "react-icons/io5";
 import {LoadingReports} from "./loadingReports.jsx";
 import { Button } from "symphony-ui";
 import Permision from "./modal/Permision.jsx";
-
+import Analytics from "../api/analytics.js";
 const FaceMesh = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
@@ -726,6 +726,37 @@ const FaceMesh = () => {
         setIsLoadingResult(true)
 
     }
+    let [partyId] = useLocalStorage("partyid");
+    const analyzeFacemesh2 = () => {
+        // toast.loading("pending ...")
+        Analytics.analyticsImage({
+            patient_id:patientID,
+            error_threshold:errorThreshold,
+            gender:sex,
+            frontal_current:globalGreenImages[0].split(",")[1],
+            party_id:partyId
+        }).then(res => {
+            console.log(res)
+            if(res.data.data){
+                appContext.package.usePackage()
+                setPdf('data:text/html;base64,' + res.data.data.html_file)
+                setPhoto(globalGreenImages[0])
+                setFile(res.data.data.request_id)
+                const patient = {
+                    id: patientID,
+                    sex: sex,
+                    errorThreshold: errorThreshold,
+                    htmlId: res.data.data.request_id,
+                    photo: globalGreenImages[0]
+                }
+                addPatient(patient)
+                updateLocalPatientIHistoty(patient);
+                navigate('/result')             
+
+            }
+        })
+        setIsLoadingResult(true)
+    }    
     const calculatePercent = () => {
 
         let percent = {
@@ -1067,8 +1098,8 @@ const FaceMesh = () => {
                                 iscomplete?
                                     <>
                                     <Button onClick={() => {
-                                        analyzeFacemesh()
-                                        
+                                        // analyzeFacemesh()
+                                        analyzeFacemesh2()
                                         }} theme="iris-large">
                                         <img className="mr-2" src="./icons/print.svg"></img>
                                         Print or Save                         

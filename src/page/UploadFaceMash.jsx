@@ -20,6 +20,8 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { selectSex,selectErrorThreshold } from "../store/PatientInformationStore";
+import Analytics from "../api/analytics.js";
+
 const UploadFaceMash = () => {
     const tabs = [
         {state: "multi", label: "All poses"},
@@ -110,6 +112,37 @@ const UploadFaceMash = () => {
         // xhr.setRequestHeader('Authorization', 'Bearer ' +localStorage.getItem("token"))
         xhr.send(fileData);
     }
+    let [partyId] = useLocalStorage("partyid");
+    const analyzeFacemesh2 = () => {
+        // toast.loading("pending ...")
+        Analytics.analyticsImage({
+            patient_id:patientID,
+            error_threshold:errorThreshold,
+            gender:sex,
+            frontal_current:resolvedFile.split(',')[1],
+            party_id:partyId
+        }).then(res => {
+            console.log(res)
+            if(res.data.data){
+                appContext.package.usePackage()
+                setPdf('data:text/html;base64,' + res.data.data.html_file)
+                setPhoto(resolvedFile.split(',')[1])
+                setFile(res.data.data.request_id)
+                const patient = {
+                    id: patientID,
+                    sex: sex,
+                    errorThreshold: errorThreshold,
+                    htmlId: res.data.data.request_id,
+                    photo: resolvedFile
+                }
+                addPatient(patient)
+                updateLocalPatientIHistoty(patient);
+                navigate('/result')             
+
+            }
+        })
+        setIsLoadingResult(true)
+    }       
     const [showAnimate,setShowAniamte] = useState(false)
     // useEffect(() => {
     //     setTimeout(() => {
@@ -181,7 +214,8 @@ const UploadFaceMash = () => {
                             <div className={"flex items-center  justify-center gap-5 w-[660px] mt-4"}>
                                     <Button onClick={() => {
                                         // analyzeFacemesh()
-                                        sendToAnalyze()
+                                        // sendToAnalyze()
+                                        analyzeFacemesh2()
                                         }} theme="iris-large">
                                         <img className="mr-2" src="./icons/print.svg"></img>
                                         Print or Save                         

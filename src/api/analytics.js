@@ -1,8 +1,8 @@
 import Api from "./Api"
 
 class Analytics extends Api {
-    static faceMash(data){
-        const res = this.post('/analyze',data)
+    static analyticsImage(data){
+        const res = this.post('/analyzeIrisScan',data)
         return res   
     }
 }

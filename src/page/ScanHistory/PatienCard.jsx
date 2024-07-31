@@ -207,7 +207,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                                             <div className="downloadIcon-purple"></div>
                                         </Button>
                                         <Button onClick={() => {
-                                            setPdf('data:text/html;base64,' + patientHistory.htmlId)
+                                            // setPdf('data:text/html;base64,' + patientHistory.htmlId)
                                             setPhoto(result[0].photo)
                                             setFile(patientHistory.htmlId)                             
                                             navigate('/result')

@@ -5,7 +5,7 @@ class Api {
     static post(url, data) {
         const response = axios.post(this.base_url + url, data, {
             headers: {
-                Authorization: "Bearer "+localStorage.getItem("token"),
+                Authorization: "Bearer "+localStorage.getItem("token")?.replace(`"`,'').replace(`"`,''),
             },
             // timeout:15000
         })

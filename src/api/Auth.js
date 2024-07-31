@@ -15,6 +15,7 @@ class Auth extends Api {
         const res = this.post('/logout', data)
         return res
     }
+
 }
 
 export default Auth
