@@ -40,31 +40,39 @@ const Login = () => {
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
+  let [, seveParty] = useLocalStorage("partyid");
   //   console.log("isAccess l", isAccess);
   const onSubmit = () => {
     setIsPanding(true);
     try {
-      toast.loading("pending ...");
+      // toast.loading("pending ...");
+      // toast.loading('pending ...');
       Auth.login({
-        username: form.values.userName,
+        email: form.values.userName,
         password: form.values.password,
       })
         .then((res) => {
+          // toast.dismis()
+          console.log(res)
           remember()
-          if (res.data.access_token) {
+          if (res.data.token!='') {
             setIsPanding(false);
-            saveIsAccess(res.data.access_token);
+            saveIsAccess(res.data.token);
+            seveParty(res.data.party_id)
             dispatch(setUserName("amin"));
-            toast.dismiss();
+            // toast.
             navigate("/");
           } else {
-            console.log("res");
-            // toast.error(res.data)
+            // console.log("res");
+            toast.error(res.data.error) 
+            form.setFieldError("password", "The password is incorrect.");
+            // setTimeout(() => {
+            //   toast.pe
+            // }, 3000);
           }
         })
         .catch((err) => {
-          toast.dismiss();
-          // console.log(err.response.data)
+          console.log(err)
           form.setFieldError("password", "The password is incorrect.");
           toast.error(err.response.data.detail);
         });

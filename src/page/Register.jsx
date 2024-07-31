@@ -52,21 +52,21 @@ const Register = () => {
   const onSubmit = () => {
     setIsPanding(true);
     try {
-      toast.loading("pending ...");
-      Auth.login({
-        username: form.values.userName,
+      // toast.loading("pending ...");
+      Auth.signUp({
+        email: form.values.email,
         password: form.values.password,
+        cpassword:form.values.confirm,
+        practiceName:form.values.PracticeName
       })
         .then((res) => {
-          console.log(res);
-          if (res.data.access_token) {
+          if (res.data.status == 'success') {
             setIsPanding(false);
-            saveIsAccess(res.data.access_token);
-            dispatch(setUserName("amin"));
-            toast.dismiss();
-            navigate("/");
-          } else {
+            toast.info(res.data.msg);
+            navigate("/login");
+          } else if(res.data.status == 'fail'){
             console.log("res");
+            toast.error(res.data.msg);
             // toast.error(res.data)
           }
         })
@@ -274,7 +274,7 @@ const Register = () => {
           <Button
           disabled={!form.isValid || !form.values.accept}
             onClick={() => {
-              // onSubmit()
+              onSubmit()
             }}
             theme="iris-large"
             
