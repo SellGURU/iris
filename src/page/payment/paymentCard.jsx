@@ -30,7 +30,7 @@ export const PaymentCard = ({pak,onselect}) => {
                 <h1 className={"text-[28px] my-10 font-medium text-[#544BF0]"}>{pak.information.discount!= '0'?
                     <>
                      <span className="text-[#CBC9C9] font-thin text-[28px] line-through">${pak.information.oldCost }</span>
-                        <span className="text-[#CBC9C9] "> / </span>
+                        <span className="text-[#CBC9C9] font-thin "> / </span>
                     </>
                     :undefined}  ${pak.information.cost}</h1>
                 <div className={"flex items-center justify-center gap-4 flex-col"}>
@@ -51,7 +51,7 @@ export const PaymentCard = ({pak,onselect}) => {
                     {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
                     <Button onClick={() =>{onselect()}} theme="iris">
                         <div className="cursor-pointer w-[130px]">
-                            Get it now
+                            Get It Now
 
                         </div>
                         </Button>
