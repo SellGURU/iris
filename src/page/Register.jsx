@@ -24,19 +24,19 @@ const Register = () => {
     PracticeName: "",
   };
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required("This Full Name is required"),
+    fullName: Yup.string(),
     email: Yup.string()
       .email("This E-mail Address is not Valid.")
       .required("This E-mail Address is required."),
-    password: Yup.string()
-      .required()
-      .min(8)
-      .matches(/[a-zA-Z]/, "The password should contain letters and numbers."),
+    password: Yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Your password is too short.')
+    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     accept: Yup.boolean().isTrue(),
-    confirm: Yup.string()
-      .required()
-      .min(8)
-      .matches(/[a-zA-Z]/, "The password should contain letters and numbers."),
+    confirm: Yup
+  .string()
+  .oneOf([Yup.ref('password')], 'Passwords must match'),
   });
   const form = useFormik({
     initialValues: initialValues,
@@ -102,7 +102,7 @@ const Register = () => {
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full h-[75vh] flex items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full h-[75vh] mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
         <div className="relative overflow-hidden">
           <img
             className={"hidden  md:block h-[590px] 2xl:h-[630px]"}
@@ -265,12 +265,14 @@ const Register = () => {
                 className="ml-2 cursor-pointer text-sm text-[#444444]"
               >
                 By signing up, I agree with{" "}
-                <span className="text-primary-color">Terms & Conditions.</span>
               </label>
+              <span onClick={() => {
+                window.open('https://dev.irisaesthetics.ai/terms-conditions/')
+              }} className="text-primary-color cursor-pointer hover:underline">Terms & Conditions.</span>
             </div>
           </div>
           <Button
-          disabled={!form.values.accept}
+          disabled={!form.isValid || !form.values.accept}
             onClick={() => {
               // onSubmit()
             }}
