@@ -16,6 +16,15 @@ class Auth extends Api {
         return res
     }
 
+    static forgetpass(data){
+        const res = this.post('/mailResetPwdLink', data)
+        return res        
+    }
+
+    static updatePassword(data){
+        const res = this.post('/updateResetPassword', data)
+        return res        
+    }    
 }
 
 export default Auth

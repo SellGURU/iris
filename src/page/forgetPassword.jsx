@@ -3,13 +3,14 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 import {toast} from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
 import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import VerificationInput from "react-verification-input";
+import { useSearchParams } from "react-router-dom";
 
 const Forget = () => {
     const passwordRef = useRef(null);
@@ -21,10 +22,28 @@ const Forget = () => {
     const validationSchema = Yup.object().shape({
         email: Yup.string().required('This E-mail Address is reguired').email('This E-mail Address is not Valid.'),
     })
+    let [searchParams] = useSearchParams();
     const form = useFormik({
         initialValues: initialValues,
         validationSchema: validationSchema,
         onSubmit: () => {
+        }
+    })
+    const form2 = useFormik({
+        initialValues: {
+            Confirmpassword:"",
+            NewPassword:""
+        },
+        validationSchema: Yup.object().shape({
+            NewPassword:  Yup.string().required('Password is required').min(8, 'Your password is too short.').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+            Confirmpassword: Yup.string().oneOf([Yup.ref('NewPassword')], 'Passwords must match'),
+        }),
+        onSubmit: () => {
+        }
+    })    
+    useEffect(() => {
+        if(searchParams.get("token")){
+            setStep(2)
         }
     })
     const dispatch = useDispatch();
@@ -77,6 +96,7 @@ const Forget = () => {
         }
     }
     const [HidePass, setHidePass] = useState(false)
+    const [HidePass2, setHidePass2] = useState(false)
     const resolveStep =() => {
         return (
             <>
@@ -116,7 +136,11 @@ const Forget = () => {
                     <Button onClick={() => {
                         // onSubmit()
                         // setStep(2)
-                        toast.info("Link send successfully")
+                        Auth.forgetpass({
+                            email:form.values.email
+                        }).then(res => {
+                            toast.info(res.data.msg)
+                        })
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
                             Send Link
@@ -185,12 +209,10 @@ const Forget = () => {
                                 } */}
 
                                 <input
-                                    onKeyDown={handleKeyPressSubmitData}
-                                    ref={passwordRef}
                                     placeholder="Enter new password"
                                     id="NewPassword"
-                                    className={`w-full outline-none pl-5 pr-7 py-2 border-b ${form.errors.NewPassword ? 'border-b border-red-500' : ''}`}
-                                    {...form.getFieldProps('NewPassword')}
+                                    className={`w-full outline-none pl-5 pr-7 py-2 border-b ${form2.errors.NewPassword ? 'border-b border-red-500' : ''}`}
+                                    {...form2.getFieldProps('NewPassword')}
                                     type={!HidePass ? "password" : 'text'}
                                 />
                                 <img onClick={() => {
@@ -200,12 +222,12 @@ const Forget = () => {
 
                             </div>
                             {
-                                form.errors.NewPassword &&
-                                <div className="text-sm mt-2 text-red-500">{form.errors.NewPassword}</div>
+                                form2.errors.NewPassword &&
+                                <div className="text-sm mt-2 text-red-500">{form2.errors.NewPassword}</div>
                             }
                         </div>
                         <div className="grid relative mt-[60px] mb-[60px] w-[330px]">
-                            <label className="flex mb-2 text-xl font-medium" htmlFor="password">Change Password:</label>
+                            <label className="flex mb-2 text-xl font-medium" htmlFor="Confirmpassword">Confirm New Password:</label>
                             <div className="relative">
                                 {/* {
                                     form.values.password.length == 0?
@@ -214,27 +236,31 @@ const Forget = () => {
                                 } */}
 
                                 <input
-                                    onKeyDown={handleKeyPressSubmitData}
-                                    ref={passwordRef}
                                     placeholder="Confirm password"
                                     id="Confirmpassword"
-                                    className={`w-full outline-none pl-5 pr-7 py-2 border-b ${form.errors.Confirmpassword ? 'border-b border-red-500' : ''}`}
-                                    {...form.getFieldProps('Confirmpassword')}
-                                    type={!HidePass ? "password" : 'text'}
+                                    className={`w-full outline-none pl-5 pr-7 py-2 border-b ${form2.errors.Confirmpassword ? 'border-b border-red-500' : ''}`}
+                                    {...form2.getFieldProps('Confirmpassword')}
+                                    type={!HidePass2 ? "password" : 'text'}
                                 />
                                 <img onClick={() => {
-                                    setHidePass(!HidePass)
+                                    setHidePass2(!HidePass2)
                                 }} className="absolute cursor-pointer bottom-3 right-1"
-                                    src={!HidePass ? "./eye.svg" : './eye-slash.svg'}/>
+                                    src={!HidePass2 ? "./eye.svg" : './eye-slash.svg'}/>
 
                             </div>
                             {
-                                form.errors.Confirmpassword &&
-                                <div className="text-sm mt-2 text-red-500">{form.errors.Confirmpassword}</div>
+                                form2.errors.Confirmpassword &&
+                                <div className="text-sm mt-2 text-red-500">{form2.errors.Confirmpassword}</div>
                             }
                         </div>                        
                         {/* <div className="text-[#444444] mt-[16px]  flex items-center text-[14px] mb-[60px] w-[330px]">Don’t recieve an E-mail? <span className="text-primary-color ml-2"> Click here</span></div> */}
-                        <Button disabled theme="iris-large">
+                        <Button onClick={() => {
+                            Auth.updatePassword({
+                                resetPassToken:searchParams.get("token"),
+                                new_password:form2.values.NewPassword,
+                                new_cpassword:form2.values.Confirmpassword
+                            })
+                        }}  disabled={!form2.isValid || !form2.touched.NewPassword} theme="iris-large">
                             <div className="w-[280px]">
                                 Change Password
 

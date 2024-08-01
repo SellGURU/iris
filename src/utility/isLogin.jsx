@@ -2,11 +2,16 @@ import {useLocalStorage} from "@uidotdev/usehooks";
 import {Navigate, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useState} from "react";
+import { useSearchParams } from "react-router-dom";
 
 export const IsLogin = ({children}) => {
     const navigate = useNavigate();
     const validToken = checkValidToken()
+    let [searchParams] = useSearchParams();
     // console.log(validToken)
+    if(searchParams.get("fcode") =='resetpass'){
+        return <Navigate to={"/forgetpass?token="+searchParams.get("token")}/>
+    }
     if (validToken ) {
         return (
             <Navigate to={"/login"}/>

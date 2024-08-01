@@ -1,17 +1,26 @@
 /* eslint-disable react/jsx-key */
 import {useState, useContext, useEffect} from "react";
-
+import { useLocalStorage } from "@uidotdev/usehooks";
 import {SearchBox} from "../../components/searchBox/SearchBox";
 import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
 import {Link, useNavigate} from "react-router-dom";
 import {PatientContext} from "../../context/context.jsx";
 import { Button } from "symphony-ui";
+import Application from "../../api/Application.js";
 
 export const ScanHistory = () => {
     const {patients2} = useContext(PatientContext);
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
     console.log(patients)
+     let [partyId] = useLocalStorage("partyid");
+
+    Application.getScanList({
+        party_id:partyId
+    }).then((res) => {
+        console.log
+    })
+    
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     let indexOfLastItem = currentPage * itemsPerPage;
