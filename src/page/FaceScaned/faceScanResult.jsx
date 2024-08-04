@@ -170,7 +170,7 @@ const FaceScanResult =() => {
                        </RWebShare>
                        <Button onClick={download} theme="iris-large">
                            <img className="mr-2" src="print.svg" alt=""/>
-                           Print Report
+                           Finish 
                        </Button>
                        {/* <button onClick={download}
                                className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">

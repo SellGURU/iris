@@ -98,7 +98,7 @@ const AccountInfo = () => {
                         {editPanel!= 'photo' ?
                             <div className="flex w-full justify-start items-center gap-4">
                                 <div className="relative">
-                                    <img className="w-[180px] ml-[88px] h-[180px] object-cover rounded-full"  src={user.information.Personal.photo} alt="" />
+                                    <img className="w-[180px] ml-[0px] h-[180px] object-cover rounded-full"  src={user.information.Personal.photo} alt="" />
                                     <div onClick={() => {
                                         setEditPanel('photo')
                                     }} className="absolute cursor-pointer right-4 flex justify-center items-center bottom-[-4px] w-[68px] h-[32px] bg-white rounded-[6px]">
@@ -122,7 +122,7 @@ const AccountInfo = () => {
                             <>
                                 <div className="flex w-full justify-between items-start">
                                     <div >
-                                        <div className="relative ml-[88px]">
+                                        <div className="relative ml-[0px]">
                                             <img onClick={() => {
                                                 document.getElementById("imageUploader").click()
                                             }} className="w-[180px]  h-[180px]  object-cover  rounded-full"  src={currentImage} alt="" />
