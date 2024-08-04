@@ -25,7 +25,7 @@ import {LoadingReports} from "./loadingReports.jsx";
 import { Button } from "symphony-ui";
 import Permision from "./modal/Permision.jsx";
 import Analytics from "../api/analytics.js";
-const FaceMesh = () => {
+const FaceAnalyse = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
     const [showService,setShowService] = useState(false)
@@ -793,7 +793,7 @@ const FaceMesh = () => {
     return (
         <>
             <div className={`${!isLoadingResult && "hidden"}`}><LoadingReports/></div>
-            <div className={` ${isLoadingResult && " !hidden "}`}>
+            <div className={` ${isLoadingResult && " !hidden "} scale-50 mt-[-230px] min-[1220px]:scale-[60%] min-[1220px]:mt-[-185px] min-[1380px]:scale-[70%] min-[1380px]:mt-[-145px] min-[1530px]:scale-[75%] min-[1530px]:mt-[-100px] min-[1700px]:scale-[80%] min-[1700px]:mt-[-80px] min-[2000px]:scale-[100%] min-[2000px]:mt-[0px] fixed w-full`}>
 
                 <div
                     className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
@@ -1263,7 +1263,7 @@ const FaceMesh = () => {
             }      
             {
                 showPermision &&
-                    <div className="w-full top-0 fixed z-[60] flex justify-center items-center h-full">
+                    <div className="w-full scale-50 top-0 fixed z-[60] flex justify-center items-center h-full">
                         <Permision onAllow={() => {
                             img_source_select()
                             setShowPermision(false)
@@ -1280,4 +1280,4 @@ const FaceMesh = () => {
         </>
     )
 };
-export default FaceMesh;
+export default FaceAnalyse;

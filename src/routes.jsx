@@ -18,10 +18,12 @@ import Account from "./page/account/edit.jsx";
 import AccountInfo from "./page/account/index.jsx";
 import Compare from "./page/compare/index.jsx";
 import ChangePassword from "./page/ChangePassword.jsx";
+import FaceAnalyse from "./page/FaceAnalyse.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/register", element: <Register/>},
     {path: "/forgetPass", element: <Forget/>},
+    {path: "/faceAnalyse", element: <FaceAnalyse/>},
     {
         path: 'changePassword',
         element:
