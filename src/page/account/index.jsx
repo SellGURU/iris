@@ -9,6 +9,14 @@ import Link from '@mui/material/Link';
 import { toast } from "react-toastify"
 import { useFormik } from "formik";
 import Select from "../../components/select";
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+  LanguageSelect,
+} from "react-country-state-city";
+
+import "react-country-state-city/dist/react-country-state-city.css";
 const AccountInfo = () => {
     const appcontext = useContext(PatientContext)
     const user = appcontext.user
@@ -41,6 +49,7 @@ const AccountInfo = () => {
         },
         onSubmit:() =>{}
     })  
+    const [countryid, setCountryid] = useState(0);
     const AddressFormik = useFormik({
         initialValues:{
             Country:appcontext.user.information.Address.Country,
@@ -391,8 +400,30 @@ const AccountInfo = () => {
                                 </Button>                                
                             </div>
                             <div className="grid grid-cols-2 gap-10 mt-10">
-                                <TextField {...AddressFormik.getFieldProps("Country")} theme="iris" label="Country:" placeholder="Your Country"  inValid={false} name="Country"  type="text" />
-                                <TextField {...AddressFormik.getFieldProps("City")} theme="iris" label="City:" placeholder="Your City"  inValid={false} name="City"  type="text" />     
+                                <div className="max-w-[330px]">
+                                    <label htmlFor="" className={`iris-TextField-label`}>Country:</label>
+                                    <CountrySelect
+                                        onChange={(e) =>{
+                                            setCountryid(e.id)
+                                            AddressFormik.setFieldValue("Country",e.name)
+                                        }}
+                                        showFlag={false}
+                                        placeHolder="Select Country"
+                                    />
+
+                                </div>
+                                <div>
+                                    <label htmlFor="" className={`iris-TextField-label`}>City:</label>
+                                    <StateSelect
+                                        countryid={Number(countryid)}
+                                        onChange={(e) => {
+                                        AddressFormik.setFieldValue("City",e.name)
+                                        }}
+                                        placeHolder="Select State"
+                                    />              
+                                </div>
+                                {/* <TextField {...AddressFormik.getFieldProps("Country")} theme="iris" label="Country:" placeholder="Your Country"  inValid={false} name="Country"  type="text" /> */}
+                                {/* <TextField {...AddressFormik.getFieldProps("City")} theme="iris" label="City:" placeholder="Your City"  inValid={false} name="City"  type="text" />      */}
                                 <TextField  {...AddressFormik.getFieldProps("Postalcode")}  theme="iris" label="Postal code:" placeholder="Your Postal code"  inValid={false} name="Postalcode" type="text" />
                                 <TextField  {...AddressFormik.getFieldProps("TaxId")}  theme="iris" label="Tax Id:" placeholder="Your Tax Id" inValid={false} name="TaxId"  type="text" />  
                             </div>
