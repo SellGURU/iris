@@ -930,7 +930,7 @@ const FaceMesh = () => {
                     <div className="flex items-center justify-start h-[550px] flex-col gap-4">
                         <div
                             className="all-poses-auto relative flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
-                            <div className={"w-full absolute top-1 p-4"}><h1>1.Front</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>1. Front</h1></div>
                             {globalGreenLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -979,7 +979,7 @@ const FaceMesh = () => {
                         </div>
                         <div
                             className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            <div className={"w-full absolute top-1 p-4"}><h1>2.right</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>2. Right</h1></div>
                             {globalBlueLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -1034,7 +1034,7 @@ const FaceMesh = () => {
                             {globalRedLandmarks &&
                                 <AiFillCheckSquare
                                     className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-                            <div className={"w-full absolute top-1 p-4"}><h1>3.Left</h1></div>
+                            <div className={"w-full absolute top-1 p-4"}><h1>3. Left</h1></div>
 
                             <div className="relative">
                                 {/* {isCameraStart && globalRedLandmarks ?
@@ -1085,9 +1085,9 @@ const FaceMesh = () => {
                     </div>
 
                 </div>
-                <div className={"flex items-start justify-center py-6"}>
-                    <div className={"flex items-center justify-center flex-col gap-5 "}>
-                        <div className={"flex items-center justify-center gap-5 w-[660px]"}>
+                <div className={"flex w-full items-start justify-center py-6"}>
+                    <div className={"flex items-center w-full justify-center flex-col gap-5 "}>
+                        <div className={"flex items-center justify-center gap-5 w-full"}>
                             {/* <ButtonPrimary className={"disabled:bg-[#bebebe] !text-xl !px-8 !py-3 rounded-xl"}
                                            disabled={isCameraStart}
                                            onClick={() => img_source_select()}>
@@ -1235,7 +1235,7 @@ const FaceMesh = () => {
                         </Link>
                         <div id="result"></div>
                     </div>
-                    <div className={"flex invisible items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
+                    {/* <div className={"flex invisible items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
                         <div onClick={() => setIsShowFaceGuide((!isShowFaceGuide))} className="flex items-center">
                             <input checked={isShowFaceGuide} id="disabled-checked-checkbox" type="checkbox" value=""
                                    className="w-4 h-4 text-blue-600 focus:!bg-blue-700 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 "/>
@@ -1245,7 +1245,7 @@ const FaceMesh = () => {
                             </label>
                         </div>
 
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

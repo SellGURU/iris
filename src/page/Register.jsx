@@ -121,17 +121,17 @@ const Register = () => {
                   </div>
 
                   <div className="text-[18px] mt-6 text-white">
-                    1.Analyzes facial measurements and provides guidance for the
+                    1. Analyzes facial measurements and provides guidance for the
                     use of injectable beauty products.
                   </div>
 
                   <div className="text-[18px] mt-6 text-white">
-                    2.AI technology encodes the expertise of world-renowned
+                    2. AI technology encodes the expertise of world-renowned
                     plastic surgeon <br /> Dr. Arthur Swift.{" "}
                   </div>
 
                   <div className="text-[18px] mt-6 text-white">
-                    3.Improves consistency of results, enhance efficiency and
+                    3. Improves consistency of results, enhance efficiency and
                     provides a competitive edge.{" "}
                   </div>
 
@@ -268,7 +268,7 @@ const Register = () => {
               </label>
               <span onClick={() => {
                 window.open('https://dev.irisaesthetics.ai/terms-conditions/')
-              }} className="text-primary-color cursor-pointer hover:underline">Terms & Conditions.</span>
+              }} className="text-primary-color cursor-pointer ml-1 font-medium hover:underline">Terms & Conditions.</span>
             </div>
           </div>
           <Button

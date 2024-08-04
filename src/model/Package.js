@@ -36,6 +36,26 @@ class Package {
             }
         }
     }
+
+    getRemining() {
+        if(this.information){
+            return this.information.bundle - this.information.useage
+        }
+        return 0
+    }
+
+    getPercentUsage(){
+        if(this.information){
+            return this.information.useage / this.information.bundle * 100
+        }
+        return 0
+    }
+
+    getPercentRemining(){
+        if(this.information){
+            return this.getRemining() / this.information.bundle * 100
+        }
+    }    
 }
 
 export default Package

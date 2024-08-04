@@ -122,12 +122,12 @@ export const PaymentHistory = () => {
                                         {appContext.package.getPackage().getInformation().useage == 0?
                                             <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
                                         :
-                                            <p className={`text-lg ${appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100>=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getInformation().bundle - appContext.package.getPackage().getInformation().useage} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
+                                            <p className={`text-lg ${appContext.package.getPackage().getPercentUsage() >=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getRemining()} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
                                         }
                                     </div>
                                     <div className={`h-[20px] relative w-[93%] mt-[8px] rounded-[8px] bg-[#E1E1E1] `}>
-                                        <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
-                                            width:100 - appContext.package.getPackage().getInformation().useage/appContext.package.getPackage().getInformation().bundle * 100+'%'
+                                        <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
+                                            width:appContext.package.getPackage().getPercentRemining()+'%'
                                         }}></div>
                                     </div>
                                 </div>
@@ -141,12 +141,12 @@ export const PaymentHistory = () => {
 
                             <PaymentMethod></PaymentMethod>                
                             <div className={ "px-6 flex items-center justify-between py-4"}>
-                                <div onClick={() => {
+                                {/* <div onClick={() => {
                                     setSHowMoreAutoPlay(!showMoreautoPlay)
                                 }} className={"font-medium cursor-pointer text-xl flex items-center gap-2 justify-start"}>Turn on Autopay
                                 <span><img className={`${!showMoreautoPlay&& 'rotate-180'}`} src="./arrow-down.svg" alt="" /></span>
                                 </div>
-                                <Switch />
+                                <Switch /> */}
                             </div>
                             {showMoreautoPlay &&
                                 <div className="px-6 text-[#444444] mb-6 text-[16px]">

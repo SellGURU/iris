@@ -51,7 +51,7 @@ export const PaymentCard = ({pak,onselect}) => {
                     {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
                     <Button onClick={() =>{onselect()}} theme="iris">
                         <div className="cursor-pointer w-[130px]">
-                            Get It Now
+                            Purchase
 
                         </div>
                         </Button>

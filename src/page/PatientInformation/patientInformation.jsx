@@ -69,33 +69,33 @@ export const PatientInformation = () => {
                         <Link underline="hover"  className="text-primary-color" href="/">
                             Home
                         </Link>
-                        <Typography className="text-primary-color" >Patient Information</Typography>
+                        <Typography className="text-primary-color" >Client Information</Typography>
                     </Breadcrumbs>                
 
                 </div>              
-            <h1 className={"text-3xl font-medium"}>Patient Information</h1>
-            <p className={"w-[450px] md:w-[720px] text-xl font-normal text-center"}>The patient ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
+            <h1 className={"text-3xl font-medium"}>Client Information</h1>
+            <p className={"w-[450px] md:w-[720px] text-xl font-normal text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
             <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
                 <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white z-20 h-[88px] border"}>
                     <div className="flex w-full justify-between items-center">
-                        <h1 className={"w-[500px] text-xl font-medium"}>Patient ID</h1>
-                        <input defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
+                        <h1 className={"w-[500px] text-xl font-medium"}>Client ID</h1>
+                        <input disabled defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
                             placeholder={"Enter Patient ID"}/>
 
                     </div>
                 </CardPatient>
                 <CardPatient className={`w-[450px] md:w-[600px] xl:w-[730px] bg-white  border ${showMore?'h-[138px]':'h-[118px]'}`}>
                     <div className="flex w-full justify-between items-center">
-                        <div onClick={() => {setShowMore(!showMore)}} className="flex cursor-pointer justify-start items-center w-[500px]">
+                        <div className="flex cursor-pointer justify-start items-center w-[500px]">
                             <h1 className={" text-xl  font-medium"}>Facial Esthetic Preference </h1>
-                            <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} />
+                            {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
                         </div>
                         <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
 
                     </div>
-                    {showMore &&
+                    {/* {showMore &&
                         <div className="text-[#444444]">Choose the sex of the subject in the image.</div>
-                    }
+                    } */}
                 </CardPatient>
                 {/* <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>

@@ -56,7 +56,7 @@ const Forget = () => {
 
         setIsPanding(true)
         try {
-            toast.loading('pending ...')
+            // toast.loading('pending ...')
             Auth.login({
                 username: form.values.userName,
                 password: form.values.password
@@ -139,7 +139,7 @@ const Forget = () => {
                         Auth.forgetpass({
                             email:form.values.email
                         }).then(res => {
-                            toast.info(res.data.msg)
+                            // toast.info(res.data.msg)
                         })
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">

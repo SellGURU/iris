@@ -66,10 +66,10 @@ export const ScanHistory = () => {
         <>
         <div className="container  mx-auto flex flex-col sm:px-6 md:px-8 lg:px-10  xl:px-12  gap-5">
             <div className="w-full flex flex-col items-center gap-3 ">
-                <h1 className="text-4xl font-semibold text-[#1A1919] ">Scan History</h1>
-                <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
+                <h1 className="text-4xl font-semibold text-[#1A1919] ">Scan Library</h1>
+                {/* <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
                     Scan history records past scanned documents, showing details like date, categorization, download options, and patient scan comparisons for easy reference and retrieval.
-                </p>
+                </p> */}
             </div>
             <div className="flex w-full justify-between">
                 <div className="w-[220px]">
@@ -80,7 +80,7 @@ export const ScanHistory = () => {
                         </ButtonPrimary> */}
                         <Button onClick={() => {navigate('/PatientInformation')}} theme="iris">
                             <img className="mr-1" src="fi_plus.svg" alt=""/>
-                            Take a Scan                       
+                            Add New Client                    
                         </Button>
                     {/* </Link> */}
 

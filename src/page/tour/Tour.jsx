@@ -32,7 +32,7 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="1"
-                        text=" Click 'Start Scan' to open your camera and capture a well-lit and clear selfie, or use 'Upload Image' to select a recent, centered photo from your gallery."
+                        text=" Click 'Start Scan' to open your camera and capture a well-lit and clear image, or use 'Upload Image' to select a recent, centered photo from your gallery."
                         image={'image/tour-1.svg'}
                         note="Note: Remove glasses, ensure the subject's face is clear of hair, use a neutral background, and maintain good lighting for optimal results."
                         onNext={handleNext}
@@ -45,7 +45,7 @@ export const Tour = () => {
                         step="2"
                         text="  Position the subject's head in the frame and instruct them to slightly move their face until the mesh goes green. "
                         image={'image/tour-2.svg'}
-                        note="Note: The scan may take approximately 3 seconds. Maintain position and hold still for each side of the scan. If you only want to scan the front side of the subject's face, select the 'Single pose' button above the camera area. "
+                        note="Note: If you only want to scan the front side of the subject's face, select the 'Single pose' button above the camera area. The scan may take approximately 3 seconds. Maintain position and hold still for each side of the scan. "
                         onNext={handleNext}
                         onSkip={handleSkip}
                     />
@@ -54,7 +54,7 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="3"
-                        text="Repeat the process for the left and right sides of the subject's face. The scanner will capture each side and indicate completion with a checkmark on the right sidebar."
+                        text=" Repeat the process for the left and right sides of the subject's face. The scanner will capture each side and indicate completion with a checkmark on the right sidebar."
                         image={'image/tour-3.svg'}
                         note="Note: To rescan any side, press the rescan button and remove the scan of that side to start again."
                         onNext={handleNext}
