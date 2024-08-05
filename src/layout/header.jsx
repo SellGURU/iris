@@ -77,7 +77,7 @@ const Header = () => {
                 <div className="flex gap-6 justify-end">
                     {
                         Appcontext.package.getPackage().isExist()?
-                            <Button disabled theme="iris-tertiary-large">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() >= 1 && 's'} remained</Button>
+                            <Button disabled theme="iris-tertiary-large">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
                         :
                             <Button onClick={() => {
                                 navigate('/payment')
