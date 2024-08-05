@@ -5,19 +5,19 @@ export const ProgressbarCustom = ({percent,className}) => {
             <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
                 <div
                     className={`${percent.front?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
-                    1.Front
+                    1. Front
                 </div>
             </div>
             <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
                 <div
                     className={`${percent.left?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
-                    2.Right
+                    2. Right
                 </div>
             </div>
             <div className={"w-2/6 bg-white rounded-md text-white border-white border-4 px-1" + className}>
                 <div
                     className={`${percent.right?"bg-blue-600 text-white ":" bg-white border border-red-500 text-red-500 "} text-left h-full w-full rounded-md flex items-center justify-start pl-1`}>
-                    3.left
+                    3. Left
                 </div>
             </div>
         </div>
