@@ -246,19 +246,19 @@ export const PatienCard = ({index, patient,onaccepted}) => {
 
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
                             <div className="">Comments:</div>
-                            <div className={`w-full ${comment.length > 0? 'ml-[200px]':''} `}>
+                            <div className={` ${comment.length > 0? '':''} `}>
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}
                                             className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
                                             <h1 className={"text-nowrap font-[300]"}>12 April 2024 </h1>
-                                            <p className={"w-4/6"}>{comment}</p>
+                                            <p className={"w-4/6 font-[300]"}>{comment}</p>
                                         </div>
                                     )
                                 })}
                                 {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[#7E7E7E]"}>No comment found</div>)}
                             </div>
-                            <div className={" h-full w-1/6 flex items-center justify-end"}>
+                            <div className={" h-full  flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
                                         className={ "text-nowrap disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>

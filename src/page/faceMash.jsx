@@ -1101,7 +1101,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris-large">
                                         <img className="mr-2" src="./icons/print.svg"></img>
-                                        Print or Save                         
+                                        Finish                     
                                     </Button>         
                                     <Button onClick={() => {
                                         setIsCameraStart(false)
