@@ -70,7 +70,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
-                    <h2 className="text-xl font-bold text-[#1A1919]">Patient ID: {id}</h2>
+                    <h2 className="text-[18px] font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
                     <div className="flex gap-2 items-center justify-between">
                         {/* <div onClick={() => setIsShowComment(!isShowComment)}
@@ -78,7 +78,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div> */}
-                        <Button theme="iris-tertiary" onClick={() => setIsShowComment(!isShowComment)}>
+                        <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
                             Show comments
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
@@ -93,7 +93,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                             setAccepted([])
                             onaccepted([])
                             setIsCompare(false)
-                        }} theme="iris-secondary">
+                        }} theme="iris-secondary-small">
                             <img src="./icons/close.svg" className="mr-2" alt="" />
                             Cancel
                         </Button>                        
@@ -101,12 +101,12 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                         <Button onClick={() => {
                             // navigate('/compare/'+id)
                             setIsCompare(true)
-                        }} theme="iris-secondary">
+                        }} theme="iris-secondary-small">
                             <img src="./icons/shapes.svg" className="mr-2" alt="" />
                             Compare
                         </Button>
                         }
-                        <Button  onClick={clickHandler} theme="iris">
+                        <Button  onClick={clickHandler} theme="iris-small">
                             <img className="mr-2" src="camera.svg" alt=""/>
                             New Scan                            
                         </Button>
@@ -154,12 +154,12 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                                                     onaccepted(array)
                                                 }                                       
                                         }} htmlFor={id}>
-                                            <h2 className="font-normal text-[16px] text-[#2E2E2E]">Scan reports</h2>
+                                            <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan reports</h2>
                                         </label>
                                     </div>
                                     <div className="text-[#7E7E7E] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-[300] tex-[16px] text-[#7E7E7E]">{myDate.getDate()+"   "+myDate.toLocaleString('default', { month: 'long' })+"   "+myDate.getFullYear()}</span>{" "}
+                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{myDate.getDate()+"   "+myDate.toLocaleString('default', { month: 'long' })+"   "+myDate.getFullYear()}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
@@ -245,23 +245,23 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                     <>
 
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
-                            <div className="">Comments:</div>
+                            <div className="text-[14px]">Comments:</div>
                             <div className={` ${comment.length > 0? '':''} `}>
                                 {comment.map((comment, index) => {
                                     return (
                                         <div key={index}
                                             className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                            <h1 className={"text-nowrap font-[300]"}>12 April 2024 </h1>
-                                            <p className={"w-4/6 font-[300]"}>{comment}</p>
+                                            <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
+                                            <p className={"w-4/6 font-[300] text-[14px]"}>{comment}</p>
                                         </div>
                                     )
                                 })}
-                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[#7E7E7E]"}>No comment found</div>)}
+                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[14px] text-[#7E7E7E]"}>No comment found</div>)}
                             </div>
                             <div className={" h-full  flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
-                                        className={ "text-nowrap disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
+                                        className={ "text-nowrap text-[14px] disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
                                     Add Comment
                                 </button>
                             </div>

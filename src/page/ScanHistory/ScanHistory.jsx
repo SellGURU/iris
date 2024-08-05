@@ -64,9 +64,9 @@ export const ScanHistory = () => {
 
     return (
         <>
-        <div className="container  mx-auto flex flex-col sm:px-6 md:px-8 lg:px-10  xl:px-12  gap-5">
+        <div className="container  mx-auto flex flex-col px-[24px]  gap-5">
             <div className="w-full flex flex-col items-center gap-3 ">
-                <h1 className="text-4xl font-semibold text-[#1A1919] ">Scan Library</h1>
+                <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
                 {/* <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
                     Scan history records past scanned documents, showing details like date, categorization, download options, and patient scan comparisons for easy reference and retrieval.
                 </p> */}
@@ -78,21 +78,21 @@ export const ScanHistory = () => {
                             <img src="fi_plus.svg" alt=""/>
                             Add a New Patient 
                         </ButtonPrimary> */}
-                        <Button onClick={() => {navigate('/PatientInformation')}} theme="iris">
+                        <Button onClick={() => {navigate('/PatientInformation')}} theme="iris-small">
                             <img className="mr-1" src="fi_plus.svg" alt=""/>
                             Add New Client                    
                         </Button>
                     {/* </Link> */}
 
                 </div>
-                <SearchBox className="h-10" changeHandler={filterPatientsHandler} placeHolder="Search"/>
-                <div className="flex gap-8 items-center">
+                <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                <div className="flex text-[12px] gap-8 items-center">
                     <div  className="flex items-center gap-3 cursor-pointer">
-                        <img src="filter.svg" alt=""/>
+                        <img className="w-[14px]"   src="filter.svg" alt=""/>
                         Filter
                     </div>
-                    <div className="flex items-center gap-3 cursor-pointer">
-                        <img src="sort.svg" alt=""/>
+                    <div className="flex text-[12px]  items-center gap-3 cursor-pointer">
+                        <img className="w-[14px]" src="sort.svg" alt=""/>
                         Sort By Date
                     </div>
                 </div>
@@ -120,7 +120,7 @@ export const ScanHistory = () => {
 
             <hr className="h-[1px] bg-gray-300 w-full my-5"/>
             {patientList == 0 ? (
-                <p className="text-center text-[#606060] font-medium">
+                <p className="text-center text-[12px] text-[#606060] font-medium">
                     No records found.{" "}
                     <Link to="/PatientInformation">
             <span className="underline text-[#544BF0]">
