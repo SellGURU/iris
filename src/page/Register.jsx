@@ -62,11 +62,11 @@ const Register = () => {
         .then((res) => {
           if (res.data.status == 'success') {
             setIsPanding(false);
-            toast.info(res.data.msg);
+            // toast.info(res.data.msg);
             navigate("/login");
           } else if(res.data.status == 'fail'){
             console.log("res");
-            toast.error(res.data.msg);
+            // toast.error(res.data.msg);
             // toast.error(res.data)
           }
         })
@@ -74,7 +74,7 @@ const Register = () => {
           toast.dismiss();
           // console.log(err.response.data)
           form.setFieldError("password", "The password is incorrect.");
-          toast.error(err.response.data.detail);
+          // toast.error(err.response.data.detail);
         });
     } catch (error) {
       console.log("error1");
