@@ -69,7 +69,7 @@ const Header = () => {
     return (
         <div className="">
             <div
-                className=" sticky top-0 left-0 mb-5 shadow-md h-auto py-3 z-50  w-full bg-white flex items-center justify-between px-5">
+                className=" sticky top-0 left-0 mb-5 shadow-md h-auto py-2 z-50  w-full bg-white flex items-center justify-between px-5">
                 <div className="w-[410px]">
                     <IoMenu onClick={() => {
                         setShowSideBar(true)
@@ -80,7 +80,7 @@ const Header = () => {
                 <div className="flex w-[410px] gap-6 justify-end">
                     {
                         Appcontext.package.getPackage().isExist()?
-                            <Button disabled theme="iris-tertiary-large">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
+                            <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
                         :
                             <Button onClick={() => {
                                 navigate('/payment')

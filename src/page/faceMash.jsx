@@ -25,6 +25,8 @@ import {LoadingReports} from "./loadingReports.jsx";
 import { Button } from "symphony-ui";
 import Permision from "./modal/Permision.jsx";
 import Analytics from "../api/analytics.js";
+import Switch from '@mui/material/Switch';
+
 const FaceMesh = () => {
     const [isShowFaceGuide, setIsShowFaceGuide] = useState(false);
     const [isLoadingResult, setIsLoadingResult] = useState(false);
@@ -793,7 +795,7 @@ const FaceMesh = () => {
     return (
         <>
             <div className={`${!isLoadingResult && "hidden"}`}><LoadingReports/></div>
-            <div className={` ${isLoadingResult && " !hidden "}`}>
+            <div className={` ${isLoadingResult && " !hidden  "} h-[60vh]`}>
 
                 <div
                     className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
@@ -806,17 +808,13 @@ const FaceMesh = () => {
                         </Breadcrumbs>                
 
                     </div>                          
-                    <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
-                    <p className={"text-lg font-normal"}>Please provide scans of your face from the left, right,
-                        and
-                        front
-                        to
-                        ensure a complete analysis.</p>
+                    <h1 className={"text-[28px] mt-[-60px] font-medium"}>Face Scanner</h1>
+                    <p className={"text-[18px] font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis. How to scan face?</p>
 
 
-                    <TabsCustume tabs={tabs} setState={setStatus} state={status}/>
+                    {/* <TabsCustume tabs={tabs} setState={setStatus} state={status}/> */}
                 </div>
-                <div className={"flex items-center justify-center gap-4"}>
+                <div className={"flex items-start justify-center gap-4"}>
 
                     <div className="flex items-center justify-center gap-10 rounded-md">
                         <div
@@ -825,14 +823,14 @@ const FaceMesh = () => {
                                 className="cam-preview video-cam hidden"
                                 id="video-cam"
                                 ref={video2}
-                                width="660px"
-                                height="550px"
+                                width="507px"
+                                height="430px"
                                 autoPlay
                             ></video>
                         </div>
 
                         <div
-                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[660px] h-[550px] rounded-md flex items-center justify-center ">
+                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[507px] h-[430px] rounded-md flex items-center justify-center ">
 
                             <img src={"/image/cameraPluse.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="camera"/>
@@ -840,14 +838,14 @@ const FaceMesh = () => {
                                 className={`cam-preview rounded-md ${isCameraStart ? "" : "hidden"}`}
                                 id="output2"
                                 ref={out2}
-                                width="660px"
-                                height="550px"
+                                width="507px"
+                                height="430px"
                             ></canvas>
                             {isCameraStart && startTimer3 && !globalRedLandmarks ?
                                 <div
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
-                                         className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
+                                         className={"flex justify-between text-[12px] px-3 py-2 rounded-xl items-center w-5/6"}>
                                         <h1>The left side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
@@ -868,7 +866,7 @@ const FaceMesh = () => {
                                 <div
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
-                                         className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
+                                         className={"flex justify-between text-[12px] px-3 py-2 rounded-xl items-center w-5/6"}>
                                         <h1>The right side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
@@ -890,7 +888,7 @@ const FaceMesh = () => {
                                     className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
                                     <div style={{background: "rgba(255, 255, 255, 0.5)"}}
                                          className={"flex justify-between px-3 py-2 rounded-xl items-center w-5/6"}>
-                                        <h1>The front side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
+                                        <h1 className="text-[12px]">The front side of your face is being scanned.<span className="font-medium"> Please hold still.</span></h1>
                                         <CountdownCircleTimer
                                             isPlaying
                                             size={50}
@@ -912,30 +910,30 @@ const FaceMesh = () => {
                             }
                             {status == 'one' && globalGreenLandmarks &&
                                 <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
-                                    <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
+                                    <div className={"flex animate-zooming text-[12px] text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
                                         <h1>All poses of your face  were scanned successfully</h1>
                                     </div>
                                 </div>
                             }
                             {status == 'multi' && globalGreenLandmarks && globalBlueLandmarks && globalRedLandmarks &&
                                 <div  className=" absolute z-40 w-full  top-5 right-0 flex justify-center items-center  ">
-                                    <div className={"flex animate-zooming text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
+                                    <div className={"flex animate-zooming text-[14px] text-[white] bg-[#07A10499] justify-between px-3 py-2 rounded-xl items-center w-11/12"}>
                                         <h1>All poses of your face  were scanned successfully</h1>
                                     </div>
                                 </div>
                             }                            
                         </div>
                     </div>
-                    <div className="flex items-center justify-start h-[550px] flex-col gap-4">
+                    <div className="flex items-center justify-start flex-col gap-[15px]">
                         <div
-                            className="all-poses-auto relative flex-col  w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                            className="all-poses-auto relative flex-col  w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                             <div className={"w-full absolute top-1 p-4"}><h1>1. Front</h1></div>
                             {globalGreenLandmarks &&
                                 <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-                            <div className="relative">
+                            <div className="">
                                 {/* {isCameraStart && globalGreenLandmarks ?
                             (
                                 <div onClick={() => refreshPic("green")}
@@ -947,26 +945,26 @@ const FaceMesh = () => {
 
                                 {
                                     globalGreenLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute w-[230px] h-[130px]" src={globalGreenImages[0]}></img>
+                                        <img className="absolute w-[157px] h-[133px]" src={globalGreenImages[0]}></img>
                                         :
                                         undefined
                                 }
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer?'visible':'invisible'}   ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer?'visible':'invisible'}   ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
                                     id="output3"
                                     ref={out3}
-                                    width="230px"
-                                    height="130px"
+                                    width="157px"
+                                    height="133px"
                                 ></canvas>
                                 {isShowFaceGuide &&
-                                    <img className={"absolute  top-0 rounded-md z-30 w-[230px] h-[130px]"}
+                                    <img className={"absolute  top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
                                          src={globalGreenImages[1]}/>
                                 }
-                                <canvas id="green" ref={green} height="130px" width="230px"
+                                <canvas id="green" ref={green} height="133px" width="157px"
                                         className={`${isCameraStart ? "opacity-40 invisible relative z-10 " : "hidden"}`}></canvas>
                                 {
                                     isCameraStart && startTimer && !globalGreenLandmarks ?
-                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+                                        <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
 
                                         </div>
                                     :
@@ -977,14 +975,14 @@ const FaceMesh = () => {
                                  alt="front pose"/> */}
                         </div>
                         <div
-                            className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                            className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                             <div className={"w-full absolute top-1 p-4"}><h1>2. Right</h1></div>
                             {globalBlueLandmarks &&
                                 <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-                            <div className="relative">
+                            <div className="">
                                 {/* {isCameraStart && globalBlueLandmarks ?
                                     (
                                         <div onClick={() => refreshPic("blue")}
@@ -996,27 +994,27 @@ const FaceMesh = () => {
 
                                 {
                                     globalBlueLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute w-[230px] h-[130px]" src={globalBlueImages[0]}></img>
+                                        <img className="absolute w-[157px] h-[133px]" src={globalBlueImages[0]}></img>
                                         :
                                         undefined
                                 }                         
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer2?'visible':'invisible'}  ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer2?'visible':'invisible'}  ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
                                     id="output4"
                                     ref={out4}
-                                    width="230px"
-                                    height="130px"
+                                    width="157px"
+                                    height="133px"
                                 ></canvas>
                                 {isShowFaceGuide &&
-                                    <img className={"absolute top-0 rounded-md z-30 w-[230px] h-[130px]"}
+                                    <img className={"absolute top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
                                          src={globalBlueImages[1]}/>
                                 }
 
-                                <canvas id="blue" ref={blue} height="130px" width="230px"
+                                <canvas id="blue" ref={blue} height="133px" width="157px"
                                         className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  `}></canvas>
                                 {
                                     isCameraStart && startTimer2 && !globalBlueLandmarks ?
-                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+                                        <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
 
                                         </div>
                                     :
@@ -1029,13 +1027,13 @@ const FaceMesh = () => {
 
                         </div>
                         <div
-                            className={`all-poses-auto relative flex-col w-[230px] h-[174px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                            className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                             {globalRedLandmarks &&
                                 <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
                             <div className={"w-full absolute top-1 p-4"}><h1>3. Left</h1></div>
 
-                            <div className="relative">
+                            <div className="">
                                 {/* {isCameraStart && globalRedLandmarks ?
                             (
                                 <div onClick={() => refreshPic("red")}
@@ -1047,22 +1045,22 @@ const FaceMesh = () => {
 
                                 {
                                     globalRedLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                        <img className="absolute  w-[230px] h-[130px]" src={globalRedImages[0]}></img>
                                         :
                                         undefined
                                 }
                                 <canvas
-                                    className={`cam-preview absolute top-0 rounded-md ${isCameraStart && startTimer3?'visible':'invisible'}  ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
+                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer3?'visible':'invisible'}  ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
                                     id="output5"
                                     ref={out5}
-                                    width="230px"
-                                    height="130px"
+                                    width="157px"
+                                    height="133px"
                                 ></canvas>
 
                                 <canvas
                                     className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  border-10`}
                                     id="red" ref={red}
-                                    height="130px" width="230px"></canvas>
+                                    height="133px" width="157px"></canvas>
                                 {
                                     isCameraStart && startTimer3 && !globalRedLandmarks ?
                                         <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
@@ -1073,7 +1071,7 @@ const FaceMesh = () => {
                                 }                                       
                             </div>
                             {isShowFaceGuide &&
-                                <img className="absolute top-0 z-50 w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                <img className="absolute top-0 z-50 w-[157px] h-[133px]" src={globalRedImages[0]}></img>
                             }
 
                             {/* <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
@@ -1099,9 +1097,11 @@ const FaceMesh = () => {
                                     <Button onClick={() => {
                                         // analyzeFacemesh()
                                         analyzeFacemesh2()
-                                        }} theme="iris-large">
-                                        <img className="mr-2" src="./icons/print.svg"></img>
-                                        Finish                     
+                                        }} theme="iris">
+                                        <div className="flex justify-center items-center w-[100px] ">
+                                            <img className="mr-2" src="./icons/print.svg"></img>
+                                            Finish                     
+                                        </div>
                                     </Button>         
                                     <Button onClick={() => {
                                         setIsCameraStart(false)
@@ -1130,8 +1130,8 @@ const FaceMesh = () => {
                                         // setTimeout(() => {
                                         //     img_source_select()
                                         // }, 1000);
-                                    }} theme="iris-secondary-large">
-                                        <div className="flex justify-center items-center w-[150px]">
+                                    }} theme="iris-secondary">
+                                        <div className="flex justify-center items-center w-[100px]">
                                             <img className="mr-2" src="./icons/redo.svg" alt="" />
                                             Rescan
                                         </div>
@@ -1142,7 +1142,7 @@ const FaceMesh = () => {
                                     // img_source_select()
                                     publish('openModal')
                                     setShowPermision(true)
-                                    }} theme="iris-large">
+                                    }} theme="iris">
                                     <IoCameraOutline size={'24px'} className="mr-2"/>
                                     Start Scan                            
                                 </Button>
@@ -1217,7 +1217,7 @@ const FaceMesh = () => {
                                         <Button onClick={() => {
                                             navigate('/faceMashFile')
                                             // document.getElementById("upload-file").click()
-                                        }} disabled={isCameraStart}  theme="iris-secondary-large"> 
+                                        }} disabled={isCameraStart}  theme="iris-secondary"> 
                                             <LuUploadCloud className="mr-2"/>
                                             Upload Image
                                         </Button>
@@ -1226,12 +1226,28 @@ const FaceMesh = () => {
                                 </>
 
                                 : undefined}
+                                {!isCameraStart &&
+                                    <div className="absolute flex justify-center items-center right-[410px]">
+                                        {/* <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
+                                            How to scan face?
+                                        </Link> */}
+                                        <div className="text-primary-color text-[14px] cursor-pointer">
+                                            single pose
+                                        </div>
+                                        <Switch onChange={(e) => {
+                                            console.log(e.target.checked)
+                                            if(e.target.checked){
+                                                setStatus('one')
+                                            }else{
+                                                setStatus('multi')
+                                            }
+                                        }} />
+                                    </div>
 
+                                }
                         </div>
                         {/* <ButtonPrimary onClick={() => navigate("/PatientInformation")}>Setting</ButtonPrimary> */}
-                        <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
-                            How to scan face?
-                        </Link>
+
                         <div id="result"></div>
                     </div>
                     {/* <div className={"flex invisible items-center mt-3 justify-center flex-col gap-5 w-[229px]"}>
