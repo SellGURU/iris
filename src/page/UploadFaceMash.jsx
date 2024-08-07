@@ -170,50 +170,52 @@ const UploadFaceMash = () => {
                             </Breadcrumbs>                
 
                         </div>                         
-                        <h1 className={"text-[28px] mt-[-60px] font-medium"}>Face Scanner</h1>
+                        <h1 className={"text-[28px] mt-[0px] md:mt-[-60px] font-medium"}>Face Scanner</h1>
                         <p className={"text-[18px] flex justify-center items-center text-center w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.
-                            <span className="cursor-pointer ml-1"><img src={"./icons/info-circle.svg"}/></span>
+                            <span className="cursor-pointer hidden md:block ml-1"><img src={"./icons/info-circle.svg"}/></span>
                         </p>
 
 
                         {/* <TabsCustume disable tabs={tabs} setState={setStatus} state={status}/> */}
                     </div>
+                    <div className="flex justify-center items-center">
+                        <div className="block md:flex justify-center w-[507px] md:w-full">
+                            <div onClick={() => {
+                                document.getElementById('fileUploader').click()
+                            }} className="w-[507px]  relative overflow-hidden h-[430px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
+                                    <div className="grid grid-cols-1 ">
+                                        <div className="flex self-center justify-center">
+                                            <img className="w-[108px]  " src={"/image/cameraPluse.svg"} alt="camera"/>
 
-                    <div className="flex justify-center w-full">
-                        <div onClick={() => {
-                            document.getElementById('fileUploader').click()
-                        }} className="w-[507px]  relative overflow-hidden h-[430px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
-                                <div className="grid grid-cols-1 ">
-                                    <div className="flex self-center justify-center">
-                                        <img className="w-[108px]  " src={"/image/cameraPluse.svg"} alt="camera"/>
-
+                                        </div>
+                                        <div className="text-[#7E7E7E]">Drag & drop image here or <span className="text-primary-color cursor-pointer">Choose</span> </div>
+                                        <input onChange={(e) => {
+                                        var file = e.target.files[0];
+                                        var reader = new FileReader();
+                                        reader.onloadend = function () {
+                                            setResolvedFile(reader.result)
+                                        }
+                                        reader.readAsDataURL(file);
+                                }} accept="image/png, image/jpeg" type="file" id="fileUploader" className="invisible w-full h-full absolute bottom-0" />                                
                                     </div>
-                                    <div className="text-[#7E7E7E]">Drag & drop image here or <span className="text-primary-color cursor-pointer">Choose</span> </div>
-                                    <input onChange={(e) => {
-                                    var file = e.target.files[0];
-                                    var reader = new FileReader();
-                                    reader.onloadend = function () {
-                                        setResolvedFile(reader.result)
-                                    }
-                                    reader.readAsDataURL(file);
-                            }} accept="image/png, image/jpeg" type="file" id="fileUploader" className="invisible w-full h-full absolute bottom-0" />                                
-                                </div>
+                            </div>
+
+                            <div onClick={() => {
+                                document.getElementById('fileUploader').click()
+                                // setShowAniamte(false)
+                            }} className={`w-[157px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-none h-[133px] bg-[#D9D9D9] mt-4 md:mt-[0px] rounded-[8px] md:ml-4`}>
+                                <div className="text-[#444444] absolute top-2 left-2">1.Front</div>
+
+                                <img className="object-cover" src={resolvedFile} alt="" />
+                            </div>
                         </div>
 
-                        <div onClick={() => {
-                            document.getElementById('fileUploader').click()
-                            // setShowAniamte(false)
-                        }} className={`w-[157px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-none h-[133px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
-                            <div className="text-[#444444] absolute top-2 left-2">1.Front</div>
-
-                            <img className="object-cover" src={resolvedFile} alt="" />
-                        </div>
                     </div>
                     
                     <div className="flex justify-center w-full">
                         {
                             resolvedFile!= '' &&
-                            <div className={"flex items-center  justify-center gap-5 w-[660px] mt-4"}>
+                            <div className={"flex items-center  justify-center gap-5 w-full md:w-[660px] mt-4"}>
                                     <Button onClick={() => {
                                         // analyzeFacemesh()
                                         // sendToAnalyze()
@@ -224,7 +226,7 @@ const UploadFaceMash = () => {
                                     </Button>                  
                             </div>      
                         }
-                        <div className="w-[229px]"></div>          
+                        <div className="w-[0px] md:w-[229px]"></div>          
                     </div>
         
 

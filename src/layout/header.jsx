@@ -78,13 +78,18 @@ const Header = () => {
                 </div>
                 <img className=" w-[100px]" src="/image/login/IRIS.svg" alt="logo"/>
                 <div className="flex w-[410px] gap-6 justify-end">
+                    
                     {
                         Appcontext.package.getPackage().isExist()?
-                            <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
+                            <div className="hidden md:flex">
+                                <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
+                            </div>
                         :
-                            <Button onClick={() => {
-                                navigate('/payment')
-                            }} theme="iris">Top Up Now</Button>
+                            <div className="hidden md:flex">
+                                <Button onClick={() => {
+                                    navigate('/payment')
+                                }} theme="iris">Top Up Now</Button>
+                            </div>
                     }
 
                     <div onClick={() => {

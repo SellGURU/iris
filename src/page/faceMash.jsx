@@ -808,17 +808,35 @@ const FaceMesh = () => {
                         </Breadcrumbs>                
 
                     </div>                          
-                    <h1 className={"text-[28px] mt-[-60px] font-medium"}>Face Scanner</h1>
-                    <p className={"text-[18px] font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis. How to scan face?</p>
+                    <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
+                    <p className={"text-[18px] px-[24px] text-center font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis. How to scan face?</p>
 
+                                {!isCameraStart &&
+                                    <div className="flex md:hidden justify-center items-center">
+                                        {/* <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
+                                            How to scan face?
+                                        </Link> */}
+                                        <div className="text-primary-color text-[14px] cursor-pointer">
+                                            single pose
+                                        </div>
+                                        <Switch onChange={(e) => {
+                                            console.log(e.target.checked)
+                                            if(e.target.checked){
+                                                setStatus('one')
+                                            }else{
+                                                setStatus('multi')
+                                            }
+                                        }} />
+                                    </div>
 
+                                }
                     {/* <TabsCustume tabs={tabs} setState={setStatus} state={status}/> */}
                 </div>
-                <div className={"flex items-start justify-center gap-4"}>
+                <div className={"static md:flex items-start justify-center gap-4"}>
 
                     <div className="flex items-center justify-center gap-10 rounded-md">
                         <div
-                            className=" all-poses-auto ">
+                            className=" absolute all-poses-auto ">
                             <video
                                 className="cam-preview video-cam hidden"
                                 id="video-cam"
@@ -924,161 +942,163 @@ const FaceMesh = () => {
                             }                            
                         </div>
                     </div>
-                    <div className="flex items-center justify-start flex-col gap-[15px]">
-                        <div
-                            className="all-poses-auto relative flex-col  w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
-                            <div className={"w-full absolute top-1 p-4"}><h1>1. Front</h1></div>
-                            {globalGreenLandmarks &&
-                                <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                    <div className="flex md:block justify-center w-full md:w-auto md:justify-start">
+                        <div className={`flex items-center mt-[16px] md:mt-[0px] ${status=='one'?'justify-start w-[507px] md:w-auto':'justify-center md:justify-start'}  md:justify-start md:flex-col gap-[20px] md:gap-[15px]`}>
+                            <div
+                                className="all-poses-auto relative flex-col  w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                                <div className={"w-full absolute top-1 p-4"}><h1>1. Front</h1></div>
+                                {globalGreenLandmarks &&
+                                    <AiFillCheckSquare
+                                        className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
 
-                            <div className="">
-                                {/* {isCameraStart && globalGreenLandmarks ?
-                            (
-                                <div onClick={() => refreshPic("green")}
-                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
-                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                <div className="">
+                                    {/* {isCameraStart && globalGreenLandmarks ?
+                                (
+                                    <div onClick={() => refreshPic("green")}
+                                        className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                        <IoRefresh className={"block w-7 h-7  "}/>
+                                    </div>
+                                ) : ""
+                            } */}
+
+                                    {
+                                        globalGreenLandmarks && !isShowFaceGuide ?
+                                            <img className="absolute w-[157px] h-[133px]" src={globalGreenImages[0]}></img>
+                                            :
+                                            undefined
+                                    }
+                                    <canvas
+                                        className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer?'visible':'invisible'}   ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
+                                        id="output3"
+                                        ref={out3}
+                                        width="157px"
+                                        height="133px"
+                                    ></canvas>
+                                    {isShowFaceGuide &&
+                                        <img className={"absolute  top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
+                                            src={globalGreenImages[1]}/>
+                                    }
+                                    <canvas id="green" ref={green} height="133px" width="157px"
+                                            className={`${isCameraStart ? "opacity-40 invisible relative z-10 " : "hidden"}`}></canvas>
+                                    {
+                                        isCameraStart && startTimer && !globalGreenLandmarks ?
+                                            <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                            </div>
+                                        :
+                                        undefined
+                                    }
                                 </div>
-                            ) : ""
-                        } */}
+                                {/* <img src={"/image/front.svg"} className={`${startTimer ||globalGreenLandmarks? "hidden" : "absolute top-10"}`}
+                                    alt="front pose"/> */}
+                            </div>
+                            <div
+                                className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                <div className={"w-full absolute top-1 p-4"}><h1>2. Right</h1></div>
+                                {globalBlueLandmarks &&
+                                    <AiFillCheckSquare
+                                        className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
 
-                                {
-                                    globalGreenLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute w-[157px] h-[133px]" src={globalGreenImages[0]}></img>
+
+                                <div className="">
+                                    {/* {isCameraStart && globalBlueLandmarks ?
+                                        (
+                                            <div onClick={() => refreshPic("blue")}
+                                                className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                                <IoRefresh className={"block w-7 h-7  "}/>
+                                            </div>
+                                        ) : ""
+                                    } */}
+
+                                    {
+                                        globalBlueLandmarks && !isShowFaceGuide ?
+                                            <img className="absolute w-[157px] h-[133px]" src={globalBlueImages[0]}></img>
+                                            :
+                                            undefined
+                                    }                         
+                                    <canvas
+                                        className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer2?'visible':'invisible'}  ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
+                                        id="output4"
+                                        ref={out4}
+                                        width="157px"
+                                        height="133px"
+                                    ></canvas>
+                                    {isShowFaceGuide &&
+                                        <img className={"absolute top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
+                                            src={globalBlueImages[1]}/>
+                                    }
+
+                                    <canvas id="blue" ref={blue} height="133px" width="157px"
+                                            className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  `}></canvas>
+                                    {
+                                        isCameraStart && startTimer2 && !globalBlueLandmarks ?
+                                            <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                            </div>
                                         :
                                         undefined
-                                }
-                                <canvas
-                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer?'visible':'invisible'}   ${isCameraStart && !globalGreenLandmarks ? "" : "hidden"}`}
-                                    id="output3"
-                                    ref={out3}
-                                    width="157px"
-                                    height="133px"
-                                ></canvas>
-                                {isShowFaceGuide &&
-                                    <img className={"absolute  top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
-                                         src={globalGreenImages[1]}/>
-                                }
-                                <canvas id="green" ref={green} height="133px" width="157px"
-                                        className={`${isCameraStart ? "opacity-40 invisible relative z-10 " : "hidden"}`}></canvas>
-                                {
-                                    isCameraStart && startTimer && !globalGreenLandmarks ?
-                                        <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
-
-                                        </div>
-                                    :
-                                    undefined
-                                }
-                            </div>
-                            {/* <img src={"/image/front.svg"} className={`${startTimer ||globalGreenLandmarks? "hidden" : "absolute top-10"}`}
-                                 alt="front pose"/> */}
-                        </div>
-                        <div
-                            className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            <div className={"w-full absolute top-1 p-4"}><h1>2. Right</h1></div>
-                            {globalBlueLandmarks &&
-                                <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-
-
-                            <div className="">
-                                {/* {isCameraStart && globalBlueLandmarks ?
-                                    (
-                                        <div onClick={() => refreshPic("blue")}
-                                             className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
-                                            <IoRefresh className={"block w-7 h-7  "}/>
-                                        </div>
-                                    ) : ""
-                                } */}
-
-                                {
-                                    globalBlueLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute w-[157px] h-[133px]" src={globalBlueImages[0]}></img>
-                                        :
-                                        undefined
-                                }                         
-                                <canvas
-                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer2?'visible':'invisible'}  ${isCameraStart && !globalBlueLandmarks ? "" : "hidden"}`}
-                                    id="output4"
-                                    ref={out4}
-                                    width="157px"
-                                    height="133px"
-                                ></canvas>
-                                {isShowFaceGuide &&
-                                    <img className={"absolute top-0 left-0 rounded-md z-30 w-[157px] h-[133px]"}
-                                         src={globalBlueImages[1]}/>
-                                }
-
-                                <canvas id="blue" ref={blue} height="133px" width="157px"
-                                        className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  `}></canvas>
-                                {
-                                    isCameraStart && startTimer2 && !globalBlueLandmarks ?
-                                        <div className="w-full absolute top-0 left-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
-
-                                        </div>
-                                    :
-                                    undefined
-                                }                            
-                            </div>
-
-                            {/* <img src={"/image/left.svg"} className={`${startTimer2 || globalBlueLandmarks? "hidden" : " absolute top-10"} `}
-                                 alt="front pose"/> */}
-
-                        </div>
-                        <div
-                            className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
-                            {globalRedLandmarks &&
-                                <AiFillCheckSquare
-                                    className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
-                            <div className={"w-full absolute top-1 p-4"}><h1>3. Left</h1></div>
-
-                            <div className="">
-                                {/* {isCameraStart && globalRedLandmarks ?
-                            (
-                                <div onClick={() => refreshPic("red")}
-                                     className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
-                                    <IoRefresh className={"block w-7 h-7  "}/>
+                                    }                            
                                 </div>
-                            ) : ""
-                        } */}
 
-                                {
-                                    globalRedLandmarks && !isShowFaceGuide ?
-                                        <img className="absolute  w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                {/* <img src={"/image/left.svg"} className={`${startTimer2 || globalBlueLandmarks? "hidden" : " absolute top-10"} `}
+                                    alt="front pose"/> */}
+
+                            </div>
+                            <div
+                                className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                {globalRedLandmarks &&
+                                    <AiFillCheckSquare
+                                        className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
+                                <div className={"w-full absolute top-1 p-4"}><h1>3. Left</h1></div>
+
+                                <div className="">
+                                    {/* {isCameraStart && globalRedLandmarks ?
+                                (
+                                    <div onClick={() => refreshPic("red")}
+                                        className={"bg-white rounded-full z-50  absolute bottom-5 right-3 p-1 border border-[#544BF0] flex items-center justify-center"}>
+                                        <IoRefresh className={"block w-7 h-7  "}/>
+                                    </div>
+                                ) : ""
+                            } */}
+
+                                    {
+                                        globalRedLandmarks && !isShowFaceGuide ?
+                                            <img className="absolute  w-[230px] h-[130px]" src={globalRedImages[0]}></img>
+                                            :
+                                            undefined
+                                    }
+                                    <canvas
+                                        className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer3?'visible':'invisible'}  ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
+                                        id="output5"
+                                        ref={out5}
+                                        width="157px"
+                                        height="133px"
+                                    ></canvas>
+
+                                    <canvas
+                                        className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  border-10`}
+                                        id="red" ref={red}
+                                        height="133px" width="157px"></canvas>
+                                    {
+                                        isCameraStart && startTimer3 && !globalRedLandmarks ?
+                                            <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+
+                                            </div>
                                         :
                                         undefined
+                                    }                                       
+                                </div>
+                                {isShowFaceGuide &&
+                                    <img className="absolute top-0 z-50 w-[157px] h-[133px]" src={globalRedImages[0]}></img>
                                 }
-                                <canvas
-                                    className={`cam-preview absolute top-0 left-0 rounded-md ${isCameraStart && startTimer3?'visible':'invisible'}  ${isCameraStart && !globalRedLandmarks ? "" : "hidden"}`}
-                                    id="output5"
-                                    ref={out5}
-                                    width="157px"
-                                    height="133px"
-                                ></canvas>
 
-                                <canvas
-                                    className={` ${isCameraStart ? "opacity-40 invisible relative z-10" : "hidden"}  border-10`}
-                                    id="red" ref={red}
-                                    height="133px" width="157px"></canvas>
-                                {
-                                    isCameraStart && startTimer3 && !globalRedLandmarks ?
-                                        <div className="w-full absolute top-0 opacity-60 h-full takePhotoAnimation rotate-[180deg] bg-black ">
+                                {/* <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
+                                    alt="front pose"/> */}
 
-                                        </div>
-                                    :
-                                    undefined
-                                }                                       
                             </div>
-                            {isShowFaceGuide &&
-                                <img className="absolute top-0 z-50 w-[157px] h-[133px]" src={globalRedImages[0]}></img>
-                            }
-
-                            {/* <img src={"/image/right.svg"} className={`${startTimer3 || globalRedLandmarks? "hidden" : " absolute top-10"} `}
-                                 alt="front pose"/> */}
 
                         </div>
-
                     </div>
 
                 </div>
@@ -1227,7 +1247,7 @@ const FaceMesh = () => {
 
                                 : undefined}
                                 {!isCameraStart &&
-                                    <div className="absolute flex justify-center items-center right-[410px]">
+                                    <div className="absolute hidden md:flex justify-center items-center md:right-[12%] lg:right-[20%] 2xl:right-[410px]">
                                         {/* <Link className={" text-base font-normal text-[#544BF0] "} to={"/tour"}>
                                             How to scan face?
                                         </Link> */}
