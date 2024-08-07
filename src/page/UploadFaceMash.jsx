@@ -170,17 +170,19 @@ const UploadFaceMash = () => {
                             </Breadcrumbs>                
 
                         </div>                         
-                        <h1 className={"text-3xl font-medium"}>Face Scanner</h1>
-                        <p className={"text-lg text-center w-full px-24 text-[#444444] font-normal"}>Ensure your image is less than 2MB in JPEG or PNG format. Use a plain, light background, and make sure the image is clear and recent (within 6 months). Your face must be fully visible with no glasses, hats, or headgear, and hair should not cover your face. Only single pose and front-facing images are accepted.</p>
+                        <h1 className={"text-[28px] mt-[-60px] font-medium"}>Face Scanner</h1>
+                        <p className={"text-[18px] flex justify-center items-center text-center w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.
+                            <span className="cursor-pointer ml-1"><img src={"./icons/info-circle.svg"}/></span>
+                        </p>
 
 
-                        <TabsCustume disable tabs={tabs} setState={setStatus} state={status}/>
+                        {/* <TabsCustume disable tabs={tabs} setState={setStatus} state={status}/> */}
                     </div>
 
                     <div className="flex justify-center w-full">
                         <div onClick={() => {
                             document.getElementById('fileUploader').click()
-                        }} className="w-[660px]  relative overflow-hidden h-[554px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
+                        }} className="w-[507px]  relative overflow-hidden h-[430px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
                                 <div className="grid grid-cols-1 ">
                                     <div className="flex self-center justify-center">
                                         <img className="w-[108px]  " src={"/image/cameraPluse.svg"} alt="camera"/>
@@ -201,7 +203,7 @@ const UploadFaceMash = () => {
                         <div onClick={() => {
                             document.getElementById('fileUploader').click()
                             // setShowAniamte(false)
-                        }} className={`w-[229px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-none h-[174px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
+                        }} className={`w-[157px] overflow-hidden relative border-4 ${showAnimate? 'animate-bounce':''} border-none h-[133px] bg-[#D9D9D9] rounded-[8px] ml-4`}>
                             <div className="text-[#444444] absolute top-2 left-2">1.Front</div>
 
                             <img className="object-cover" src={resolvedFile} alt="" />
@@ -216,7 +218,7 @@ const UploadFaceMash = () => {
                                         // analyzeFacemesh()
                                         // sendToAnalyze()
                                         analyzeFacemesh2()
-                                        }} theme="iris-large">
+                                        }} theme="iris">
                                         <img className="mr-2" src="./icons/print.svg"></img>
                                         Print or Save                         
                                     </Button>                  
