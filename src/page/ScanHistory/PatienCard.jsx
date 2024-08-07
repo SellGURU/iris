@@ -62,15 +62,15 @@ export const PatienCard = ({index, patient,onaccepted}) => {
         }
     }
     return (
-        <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border  p-[32px]">
+        <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                <img className="mt-3 w-[73px] rounded-[8px] h-[56px]"
+                <img className="mt-3 rounded-[8px] h-[45px] md:h-[56px]"
                      src={result[0].photo.length > 0 && result[0].photo} alt=""/>
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
-                    <h2 className="text-[18px] font-bold text-[#1A1919]">Patient ID: {id}</h2>
+                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919]">Patient ID: {id}</h2>
 
                     <div className="flex gap-2 items-center justify-between">
                         {/* <div onClick={() => setIsShowComment(!isShowComment)}
@@ -261,7 +261,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                             <div className={" h-full  flex items-center justify-end"}>
                                 <button disabled={isShowAddComment}
                                         onClick={() => setIsShowAddComment(!isShowAddComment)}
-                                        className={ "text-nowrap text-[14px] disabled:text-slate-400 text-base font-normal underline text-[#544BF0] h-full"}>
+                                        className={ "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full"}>
                                     Add Comment
                                 </button>
                             </div>

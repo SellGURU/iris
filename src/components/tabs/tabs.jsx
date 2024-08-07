@@ -2,7 +2,7 @@ export const TabsCustume = ({state, setState, tabs,disable ,isCol, className = "
     return (
         <>
             <div className={"w-[300px]  " + className}>
-                <div className={`rounded-xl mt-4 ${isCol?'block':'flex'} py-2.5 px-2 gap-4  relative items-center border border-[#7E7E7E]`}>
+                <div className={`rounded-xl ${isCol?'block':'flex'} py-2.5 px-2 gap-4  relative items-center border border-[#7E7E7E]`}>
                     {tabs.map((tab, index) => (
                         <div
                             key={index}

@@ -62,7 +62,7 @@ export const PatientInformation = () => {
     }
     return (
         <>
-        <img className="w-full fixed z-0 left-0 top-32" src="./Vector.svg" alt="" />
+        <img className="h-full md:w-full fixed z-0 left-0 top-0 md:top-32" src="./Vector.svg" alt="" />
         <div className={"flex relative z-30 items-center justify-center flex-col gap-5 mt-10"}>
                 <div className="px-12 mt-[-10px] w-full flex justify-start">
                     <Breadcrumbs aria-label="breadcrumb">
@@ -74,29 +74,64 @@ export const PatientInformation = () => {
 
                 </div>              
             <h1 className={"text-2xl font-medium"}>Client Information</h1>
-            <p className={"w-[450px] md:w-[720px] text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
-            <form className={"flex relative items-center justify-center flex-col gap-5"} onSubmit={handleSubmit(onSubmitData)}>
-                <CardPatient className={"w-[450px] md:w-[600px] xl:w-[730px] bg-white z-20 h-[88px] border"}>
-                    <div className="flex w-full justify-between items-center">
-                        <h1 className={"w-[500px] text-[18px] font-medium"}>Client ID</h1>
-                        <input disabled defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
-                            placeholder={"Enter Patient ID"}/>
-
-                    </div>
-                </CardPatient>
-                <CardPatient className={`w-[450px] md:w-[600px] xl:w-[730px] bg-white  border ${showMore?'h-[138px]':'h-[118px]'}`}>
-                    <div className="flex w-full justify-between items-center">
-                        <div className="flex cursor-pointer justify-start items-center w-[500px]">
-                            <h1 className={" text-[18px]  font-medium"}>Facial Esthetic Preference </h1>
-                            {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
+            <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
+            <form  onSubmit={handleSubmit(onSubmitData)}>
+                <div className={"flex 2xl:grid xl:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
+                    <CardPatient className={"w-[550px] md:w-[600px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div className="flex w-full justify-between items-center">
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Client ID</h1>
+                            {/* <input disabled defaultValue={getRand()} {...register("id")} className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter Patient ID"}/> */}
+                            <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div>
                         </div>
-                        <TabsCustume className={"w-full  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+                    </CardPatient>
+                    <CardPatient className={"w-[550px] md:w-[600px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div className="flex w-full justify-between items-center">
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>First Name</h1>
+                            <input  {...register("id")} className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter First Name"}/>
 
-                    </div>
-                    {/* {showMore &&
-                        <div className="text-[#444444]">Choose the sex of the subject in the image.</div>
-                    } */}
-                </CardPatient>
+                        </div>
+                    </CardPatient>
+                    <CardPatient className={"w-[550px] md:w-[600px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div className="flex w-full justify-between items-center">
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name</h1>
+                            <input  {...register("id")} className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter Last Name"}/>
+
+                        </div>
+                    </CardPatient>
+                    <CardPatient className={"w-[550px] md:w-[600px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div className="flex w-full justify-between items-center">
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>E-Mail <span className="text-[#444444] mr-1 font-[400] opacity-50">(Optional)</span></h1>
+                            <input  {...register("id")} className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter E-Mail"}/>
+
+                        </div>
+                    </CardPatient>      
+                    <CardPatient className={"w-[550px] md:w-[600px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div className="flex w-full justify-between items-center">
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
+                            <input  className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter Phone"}/>
+
+                        </div>
+                    </CardPatient>                                                            
+                    <CardPatient className={`w-[550px] md:w-[600px] 2xl:w-[550px] bg-white  border h-[88px] `}>
+                        <div className="flex w-full justify-between items-center">
+                            <div className="flex cursor-pointer justify-start items-center w-[500px]">
+                                <h1 className={" text-[18px]  font-medium"}>Facial Esthetic Preference </h1>
+                                {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
+                            </div>
+                            <TabsCustume className={"w-full mt-[0px] rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+
+                        </div>
+                        {/* {showMore &&
+                            <div className="text-[#444444]">Choose the sex of the subject in the image.</div>
+                        } */}
+                    </CardPatient>
+
+                </div>
                 {/* <CardPatient className={"w-[272px] h-[118px] border"}>
                     <h1 className={" text-xl font-medium"}>Error Threshold {threhold} (%)</h1>
                     <input value={threhold} onChange={(e) => {
@@ -106,7 +141,7 @@ export const PatientInformation = () => {
                            placeholder={"number"}/>
 
                 </CardPatient> */}
-                <div className="mt-8">
+                <div className="mt-2 2xl:flex 2xl:justify-center 2xl:mt-8">
                     <Button type="submit" theme="iris-large">
                         Save & Continue
                     </Button>
