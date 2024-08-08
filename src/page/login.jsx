@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useRef, useState } from "react";
 import { useFormik } from "formik";
@@ -64,7 +64,7 @@ const Login = () => {
             navigate("/");
           } else {
             // console.log("res");
-            toast.error(res.data.error) 
+            // toast.error(res.data.error) 
             form.setFieldError("password", "The password is incorrect.");
             // setTimeout(() => {
             //   toast.pe
@@ -74,7 +74,7 @@ const Login = () => {
         .catch((err) => {
           console.log(err)
           form.setFieldError("password", "The password is incorrect.");
-          toast.error(err.response?.data?.detail);
+          // toast.error(err.response?.data?.detail);
         });
     } catch (error) {
       console.log(error);
@@ -110,7 +110,7 @@ const Login = () => {
           className="w-fit px-10 py-5  animate-comeFromLeft   gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
         >
-          <h1 className={" font-medium text-2xl pb-10"}>Welcome Back to IRIS</h1>
+          <h1 className={" font-medium text-2xl pb-5"}>Welcome Back to IRIS</h1>
           <div className="grid w-[330px]">
             <label className="flex mb-2 text-xl font-medium" htmlFor="userName">
               E-mail Address:
