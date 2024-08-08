@@ -162,7 +162,7 @@ export const PatientInformation = () => {
                 <div className="mt-2 lg:flex lg:justify-center lg:mt-8 xl:mt-2 xl:block 2xl:flex 2xl:justify-center 2xl:mt-8">
                     <Button onClick={() => {
                         setSex(gender)
-                        setPatientID(formik.id)
+                        setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
 
                         if (isShowTour) {

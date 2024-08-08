@@ -102,7 +102,7 @@ const Register = () => {
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full h-[75vh] mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full h-screen lg:h-[75vh] mt-[150px] md:mt-[200px] lg:mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
         <div className="relative overflow-hidden">
           <img
             className={"hidden  md:block h-[590px] 2xl:h-[630px]"}
@@ -127,7 +127,7 @@ const Register = () => {
 
                   <div className="text-[18px] mt-6 text-white">
                     2. AI technology encodes the expertise of world-renowned
-                    plastic surgeon <br /> Dr. Arthur Swift.{" "}
+                    plastic surgeon Dr. Arthur Swift.{" "}
                   </div>
 
                   <div className="text-[18px] mt-6 text-white">

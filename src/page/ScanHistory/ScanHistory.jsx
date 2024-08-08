@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-key */
-import {useState, useContext, useEffect} from "react";
+import {useState, useContext, useEffect, useRef} from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import {SearchBox} from "../../components/searchBox/SearchBox";
 import {PatienCard} from "./PatienCard";
 import Pageination from "../../components/pagenation/Pagenation";
 import {Link, useNavigate} from "react-router-dom";
-import {PatientContext} from "../../context/context.jsx";
+import SortModal from '../modal/Sort.jsx';
+import FilterModal from '../modal/Filter.jsx';
 import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
+import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 
 export const ScanHistory = () => {
     // const {patients2,addPatient} = useContext(PatientContext);
@@ -16,25 +18,44 @@ export const ScanHistory = () => {
     // addPatient(patient)
     // updateLocalPatientIHistoty(patient);    
     const patients = JSON.parse(localStorage.getItem("patients")) || [
-    // {
-    //     id: '1',
-    //     sex: 'male',
-    //     errorThreshold: 10,
-    //     htmlId: '',
-    //     photo: '',
-    //     comment:[],
-    //     result:[
-    //         {
-    //             date: new Date().toISOString().split('T')[0],
-    //             photo: 'https://ui-avatars.com/api/?background=random',
-    //             htmlId: ''               
-    //         }            
-    //     ]
-    // }        
+    {
+        id: '1',
+        sex: 'male',
+        errorThreshold: 10,
+        htmlId: '',
+        photo: '',
+        comment:[],
+        result:[
+            {
+                date: new Date().toISOString().split('T')[0],
+                photo: 'https://ui-avatars.com/api/?background=random',
+                htmlId: ''               
+            }            
+        ]
+    }        
     ];
-    console.log(patients)
-     let [partyId] = useLocalStorage("partyid");
-
+    const [filterType,setFilterType] = useState('Default')
+    const sorts =[
+        "Default","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
+    ]
+    // console.log(patients)
+    let [partyId] = useLocalStorage("partyid");
+    const filterModalRefrence = useRef(null)
+    const sortRefrence = useRef(null)
+    const [showFilter,setShowFilter] = useState(false)
+    const [showSort,setShowSort] = useState(false) 
+    useModalAutoClose({
+        refrence:filterModalRefrence,
+        close:() =>{
+            setShowSort(false)
+        }
+    })
+    useModalAutoClose({
+        refrence:sortRefrence,
+        close:() =>{
+            // setShowFilter(false)
+        }
+    })    
     Application.getScanList({
         party_id:partyId
     }).then((res) => {
@@ -107,15 +128,29 @@ export const ScanHistory = () => {
 
                     </div>
                     <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
-                    <div className="flex text-[12px] gap-8 items-center">
-                        <div  className="flex items-center gap-3 cursor-pointer">
+                    <div className="flex relative text-[12px] gap-8 items-center">
+                        <div onClick={() => {
+                            setShowFilter(true)
+                        }} className="flex items-center gap-3 cursor-pointer">
                             <img className="w-[14px]"   src="filter.svg" alt=""/>
                             Filter
                         </div>
-                        <div className="flex text-[12px]  items-center gap-3 cursor-pointer">
+                        {
+                            showFilter &&
+                            <FilterModal setShowFilter={setShowFilter} refrence={sortRefrence} />
+                            // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
+                        }  
+                        <div onClick={() => {
+                            setShowSort(true)
+                            setShowFilter(false)
+                        }} className="flex text-[12px]   items-center gap-3 cursor-pointer">
                             <img className="w-[14px]" src="sort.svg" alt=""/>
-                            Sort By Date
+                            Sort By {filterType}
                         </div>
+                        {
+                            showSort &&
+                            <SortModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
+                        }                        
                     </div>
                 </div>
                 {patientList.map((patient, i) => {
