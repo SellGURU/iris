@@ -145,7 +145,7 @@ export const ScanHistory = () => {
                         No records found.{" "}
                         <Link to="/PatientInformation">
                 <span className="underline text-[#544BF0]">
-                        Scan your first patient now! {" "}
+                        Scan your first client now! {" "}
                 </span>
                         </Link>
                     </p>

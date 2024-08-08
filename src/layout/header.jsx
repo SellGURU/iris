@@ -85,7 +85,7 @@ const Header = () => {
                                 <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
                             </div>
                         :
-                            <div className="hidden md:flex">
+                            <div className="hidden animate-bounce md:flex">
                                 <Button onClick={() => {
                                     navigate('/payment')
                                 }} theme="iris">Top Up Now</Button>
