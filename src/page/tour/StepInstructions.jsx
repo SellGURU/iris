@@ -12,12 +12,22 @@ export const StepInstructions = ({
   note,
   onNext,
   onSkip,
+  onBack
 }) => {
   const [isShowTour, setIsShowTour] = useLocalStorage("tour");
 
   const navigate = useNavigate();
   return (
-    <div className="  shadow-xl flex flex-col items-center  border  gap-2 py-5 px-10 justify-start max-w-[672px]  rounded-lg ">
+    <div className="relative  shadow-xl flex flex-col items-center  border  gap-2 py-5 px-10 justify-start max-w-[672px]  rounded-lg ">
+      <div className="absolute left-14 top-[30px] cursor-pointer" onClick={() => {
+        if(step == 1){
+          navigate(-1)
+        }else{
+          onBack()
+        }
+      }}>
+        <img src="./icons/back2.svg" alt="" />
+      </div>
       <h1 className="text-[22px] text-center font-medium text-[#2E2E2E]">
         How Face Scanner Works
       </h1>
