@@ -172,7 +172,9 @@ const UploadFaceMash = () => {
                         </div>                         
                         <h1 className={"text-[28px] mt-[0px] md:mt-[-60px] font-medium"}>Face Scanner</h1>
                         <p className={"text-[18px] flex justify-center items-center text-center w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.
-                            <span className="cursor-pointer hidden md:block ml-1"><img src={"./icons/info-circle.svg"}/></span>
+                            <span onClick={() => {
+                                navigate('/tour')
+                            }} className="cursor-pointer hidden md:block ml-1"><img src={"./icons/info-circle.svg"}/></span>
                         </p>
 
 
@@ -222,7 +224,7 @@ const UploadFaceMash = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris">
                                         <img className="mr-2" src="./icons/print.svg"></img>
-                                        Print or Save                         
+                                        Finish                       
                                     </Button>                  
                             </div>      
                         }

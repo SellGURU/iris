@@ -809,7 +809,9 @@ const FaceMesh = () => {
 
                     </div>                          
                     <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
-                    <p className={"text-[18px] px-[24px] text-center font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis. How to scan face?</p>
+                    <p className={"text-[18px] px-[24px] text-center font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis.<span onClick={() => {
+                        navigate('/tour')
+                    }} className="text-primary-color cursor-pointer"> How to scan face?</span></p>
 
                                 {!isCameraStart &&
                                     <div className="flex md:hidden justify-center items-center">
