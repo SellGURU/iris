@@ -3,7 +3,7 @@ import {PaymentTable} from "./paymentTable.jsx";
 import {PaymentCard} from "./paymentCard.jsx";
 import PaymentMethod from "./paymentMethod.jsx";
 import {PatientContext} from '../../context/context.jsx'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Package from "../../model/Package.js";
 import { useNavigate } from "react-router-dom";
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -11,11 +11,31 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import PackageApi from '../../api/package.js';
+
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
-    console.log(appContext.package.getPackage())
+    // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
+    useEffect(() => {
+        PackageApi.getPackages().then((res) => {
+            console.log(res)
+            const resolved =res.data.data.USD.map(el => {
+                // console.log(el.subs_info_data)
+                return new Package({
+                    name:el.display_name,
+                    cycle:el.sub_period,
+                    cost:el.sd_price,
+                    useage:0,
+                    bundle:el.allowed_scans,
+                    discount:el.sdiscount,
+                    options:[]                       
+                })
+            })
+            console.log(resolved)
+        })
+    })
     const packages = [
         new Package({
             name:'Individual',
