@@ -164,7 +164,18 @@ export const PatientInformation = () => {
                         setSex(gender)
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
-
+                        const patient = {
+                            id: formik.values.id,
+                            sex: gender,
+                            errorThreshold: threhold,
+                            htmlId: '',
+                            photo:'',
+                            firstName:formik.values.firstName,
+                            lastName:formik.values.lastName,
+                            email:formik.values.email,
+                            phone:formik.values.phone
+                        }
+                        updateLocalPatientIHistoty(patient);
                         if (isShowTour) {
                             navigate("/tour")
                         } else {

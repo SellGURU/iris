@@ -7,17 +7,29 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
     const date = new Date();
     if (patientIndex === -1) {
         // If the patient does not exist, create a new patient entry
-        const newPatient = {
-            id: patientInformation.id,
-            sex: patientInformation.sex,
-            errorThreshold: patientInformation.errorThreshold,
-            comment:[],
-            result: [{
-                date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
-                photo: patientInformation.photo,
-                htmlId: patientInformation.htmlId
-            }],
-        };
+        let newPatient;
+
+        if(patientInformation.htmlId != ''){
+            newPatient = {
+                id: patientInformation.id,
+                sex: patientInformation.sex,
+                errorThreshold: patientInformation.errorThreshold,
+                comment:[],
+                result: [{
+                    date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
+                    photo: patientInformation.photo,
+                    htmlId: patientInformation.htmlId
+                }],
+            };
+        }else{
+            newPatient = {
+                id: patientInformation.id,
+                sex: patientInformation.sex,
+                errorThreshold: patientInformation.errorThreshold,
+                comment:[],
+                result: [],                
+            };
+        }
 
         patients.push(newPatient);
         localStorage.setItem("patients", JSON.stringify(patients));

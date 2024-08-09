@@ -18,21 +18,21 @@ export const ScanHistory = () => {
     // addPatient(patient)
     // updateLocalPatientIHistoty(patient);    
     const patients = JSON.parse(localStorage.getItem("patients")) || [
-    {
-        id: '1',
-        sex: 'male',
-        errorThreshold: 10,
-        htmlId: '',
-        photo: '',
-        comment:[],
-        result:[
-            {
-                date: new Date().toISOString().split('T')[0],
-                photo: 'https://ui-avatars.com/api/?background=random',
-                htmlId: ''               
-            }            
-        ]
-    }        
+    // {
+    //     id: '1',
+    //     sex: 'male',
+    //     errorThreshold: 10,
+    //     htmlId: '',
+    //     photo: '',
+    //     comment:[],
+    //     result:[
+    //         {
+    //             date: new Date().toISOString().split('T')[0],
+    //             photo: 'https://ui-avatars.com/api/?background=random',
+    //             htmlId: ''               
+    //         }            
+    //     ]
+    // }        
     ];
     const [filterType,setFilterType] = useState('Default')
     const sorts =[

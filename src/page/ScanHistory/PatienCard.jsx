@@ -65,8 +65,13 @@ export const PatienCard = ({index, patient,onaccepted}) => {
         <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                <img className="mt-3 rounded-[8px] h-[45px] md:h-[56px]"
-                     src={result[0].photo.length > 0 && result[0].photo} alt=""/>
+                {result.length>0?
+                    <img className="mt-3 rounded-[8px] h-[45px] md:h-[56px]"
+                        src={result[0].photo.length > 0 && result[0].photo} alt=""/>
+                    :
+                    <img className="mt-3 rounded-[8px] h-[45px] md:h-[56px]"
+                        src={'https://ui-avatars.com/api/?background=random'} alt=""/>                    
+                    }
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-3">
