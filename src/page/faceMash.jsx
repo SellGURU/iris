@@ -748,7 +748,8 @@ const FaceMesh = () => {
                     sex: sex,
                     errorThreshold: errorThreshold,
                     htmlId: res.data.data.request_id,
-                    photo: globalGreenImages[0]
+                    photo: globalGreenImages[0],
+                    imageMode:'Live Scan'
                 }
                 addPatient(patient)
                 updateLocalPatientIHistoty(patient);

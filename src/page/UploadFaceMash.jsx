@@ -133,7 +133,8 @@ const UploadFaceMash = () => {
                     sex: sex,
                     errorThreshold: errorThreshold,
                     htmlId: res.data.data.request_id,
-                    photo: resolvedFile
+                    photo: resolvedFile,
+                    imageMode:'Uploaded image'                    
                 }
                 addPatient(patient)
                 updateLocalPatientIHistoty(patient);

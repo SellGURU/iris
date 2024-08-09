@@ -58,7 +58,7 @@ export const StepInstructions = ({
             }}
           >
             <div className="w-[172px] cursor-pointer">
-              {step == 4 ? "Finish" : "Next"}
+              {step == 4 ? "Get Started" : "Next"}
             </div>
           </Button>
         </div>

@@ -38,6 +38,7 @@ export const ScanHistory = () => {
     const sorts =[
         "Default","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
     ]
+    const [imageBy,setImageBy] = useState('any')
     // console.log(patients)
     let [partyId] = useLocalStorage("partyid");
     const filterModalRefrence = useRef(null)
@@ -83,22 +84,43 @@ export const ScanHistory = () => {
         console.log("indexOfLastItem", indexOfLastItem);
 
         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
+        return () =>{}
     }, [currentPage]);
+
+
     const navigate = useNavigate()
-    const [patientList, setPatientList] = useState(
-        patients.slice(indexOfFirstItem, indexOfLastItem)
-    );
+    const [patientList, setPatientList] = useState(patients);
+    useEffect(() => {
+
+        if(imageBy!= 'any'){
+            setPatientList(patients.filter(el =>{
+                if(el.result){
+                    if(el.result.filter((e) =>e.imageMode == imageBy).length>0){
+                        return true
+                    }else{
+                        return false
+                    }
+
+                }
+                return false
+                
+            }))
+        }else {
+            setPatientList(patients)
+        }
+    },[imageBy])    
     const totalPages = Math.ceil(patients.length / itemsPerPage);
 
     const filterPatientsHandler = (e) => {
-        const filteredItem = patientList.filter((patient) => {
-            return patient.id.includes(e.target.value);
+        // console.log(patientList)
+        const filteredItem = patientList.filter((el) => {
+            return el.id.includes(e.target.value)
         });
-        console.log(patientList)
+        // console.log(patientList)
         if (e.target.value.length <= 0) {
             setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
         } else {
-            setPatientList(filteredItem);
+            setPatientList([...filteredItem]);
         }
         // console.log(filteredItem)
     };
@@ -137,7 +159,7 @@ export const ScanHistory = () => {
                         </div>
                         {
                             showFilter &&
-                            <FilterModal setShowFilter={setShowFilter} refrence={sortRefrence} />
+                            <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter} refrence={sortRefrence} />
                             // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
                         }  
                         <div onClick={() => {
@@ -154,21 +176,21 @@ export const ScanHistory = () => {
                     </div>
                 </div>
                 {patientList.map((patient, i) => {
-                    const [results,setResults] = useState([])
+                    // const [results,setResults] = useState([])
                     return (
                         <>
                             <PatienCard
                                 index={i + 1}
                                 key={Number(patient.id)}
                                 patient={patient}
-                                onaccepted={(e) => {setResults(e)}}
+                                onaccepted={(e) => {}}
                             />
-                            <div className="w-full mt-0">
+                            {/* <div className="w-full mt-0">
                                 {results.map((el) => {
                                     return (
                                         <iframe className="h-[350px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={"https://iris.ainexus.com/v1/golden_ratios/"+el}></iframe>                           
                                     )
-                            })}</div>
+                            })}</div> */}
                         </>
                     );
                 })}

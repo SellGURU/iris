@@ -165,7 +165,7 @@ export const PatientInformation = () => {
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
                         const patient = {
-                            id: formik.values.id,
+                            id: formik.values.id.toString(),
                             sex: gender,
                             errorThreshold: threhold,
                             htmlId: '',

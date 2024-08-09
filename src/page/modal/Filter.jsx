@@ -7,8 +7,10 @@ import { Button } from 'symphony-ui';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useState } from 'react';
 
-const FilterModal =({refrence,setShowFilter}) => {
+const FilterModal =({refrence,setShowFilter,setImageBy,imageBy}) => {
+    const [filterImagBy,setFilterImageBy]= useState(imageBy)
     return (
         <>
             <div ref={refrence} className="absolute scale-[85%] top-4 gap-2 flex flex-col p-4 right-0 rounded-[8px] z-30 w-[300px] bg-white" style={{
@@ -22,9 +24,9 @@ const FilterModal =({refrence,setShowFilter}) => {
                             defaultValue="female"
                             name="radio-buttons-group"
                         >
-                            <FormControlLabel value="Any" control={<Radio />} label="Any" />
-                            <FormControlLabel value="Live Scan" control={<Radio />} label="Live Scan" />
-                            <FormControlLabel value="Uploaded image" control={<Radio />} label="Uploaded image" />
+                            <FormControlLabel value="Any" control={<Radio onChange={() => {setFilterImageBy('any')}} checked={filterImagBy =='any'} />} label="Any" />
+                            <FormControlLabel value="Live Scan" control={<Radio onChange={() => {setFilterImageBy('Live Scan')}} checked={filterImagBy =='Live Scan'} />} label="Live Scan" />
+                            <FormControlLabel value="Uploaded image" control={<Radio onChange={() => {setFilterImageBy('Uploaded image')}} checked={filterImagBy =='Uploaded image'} />} label="Uploaded image" />
                         </RadioGroup>
                     </FormControl>                
                 </div>            
@@ -47,6 +49,7 @@ const FilterModal =({refrence,setShowFilter}) => {
                 <div className='w-full flex justify-between items-center'>
                     <Button onClick={() => {
                         setShowFilter(false)
+                        setImageBy("any")
                     }} theme='iris-secondary-small'>
                         <div className='w-[100px]'>
                             Clear Filter
@@ -54,6 +57,7 @@ const FilterModal =({refrence,setShowFilter}) => {
                     </Button>
                     <Button onClick={() => {
                         setShowFilter(false)
+                        setImageBy(filterImagBy)
                     }} theme='iris-small'>
                         <div className='w-[100px]'>
                             Apply Filter

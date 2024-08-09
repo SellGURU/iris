@@ -14,6 +14,10 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
                 id: patientInformation.id,
                 sex: patientInformation.sex,
                 errorThreshold: patientInformation.errorThreshold,
+                firstName:patients[patientIndex].firstName,
+                lastName:patients[patientIndex].lastName,
+                email:patients[patientIndex].email,
+                phone:patients[patientIndex].phone,                
                 comment:[],
                 result: [{
                     date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
@@ -26,6 +30,10 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
                 id: patientInformation.id,
                 sex: patientInformation.sex,
                 errorThreshold: patientInformation.errorThreshold,
+                firstName:patientInformation.firstName,
+                lastName:patientInformation.lastName,
+                email:patientInformation.email,
+                phone:patientInformation.phone,                  
                 comment:[],
                 result: [],                
             };
@@ -43,7 +51,8 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
                 {
                     date: new Date().toISOString().split('T')[0],
                     photo: patientInformation.photo,
-                    htmlId: patients[patientIndex].result.length
+                    htmlId: patients[patientIndex].result.length,
+                    imageMode:patientInformation.imageMode
                 }
             ]
         };
