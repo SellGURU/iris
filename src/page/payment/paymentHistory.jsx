@@ -92,8 +92,8 @@ export const PaymentHistory = () => {
             <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
             <div className={"w-full"}>
                 <div>
-                    <div className={"flex w-full flex-col md:flex-row  gap-10 items-start justify-between"}>
-                        <div className={" w-full relative h-[302px] border  rounded-md "}>
+                    <div className={"block lg:flex w-full flex-col md:flex-row  gap-10 items-start justify-between"}>
+                        <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
                                 <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
@@ -164,7 +164,7 @@ export const PaymentHistory = () => {
                     </div>
                     <div className={"mt-32"}>
                         <h1 className={"text-2xl font-medium "}>Update Your Subscription Today (Instant Access)</h1>
-                        <div className={"flex flex-col md:flex-row items-center pt-10 justify-between gap-4"}>
+                        <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
                             {
                                 packages.map((el,index) => {
                                     

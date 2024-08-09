@@ -63,6 +63,9 @@
   cursor: pointer;
   @apply w-4 h-4 bg-[#544BF0];
 }
+.hiddenScrollBar::-webkit-scrollbar{
+  display: none;
+}
 
 .shareIcon-purple{
   mask-image: url(/share.svg);
