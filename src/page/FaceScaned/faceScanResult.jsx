@@ -126,20 +126,20 @@ const FaceScanResult =() => {
                </div>
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
                 <div className="flex justify-center">
-                    <div className="text-center text-[18px] text-[#444444] max-w-[850px] mb-4">
+                    <div className="text-center text-[18px] text-[#444444] w-[600px] md:max-w-[850px] mb-4">
                         Here is the preview of your report. Use the top-right buttons to download the PDF or share the document. To remove the report or return to the home page, use the buttons at the bottom.
                     </div>
                 </div>
                 <div className="w-full justify-between px-12 flex mt-[46px] items-center">
-                   <div className="flex justify-start items-center">
+                   <div className="md:flex justify-start items-center">
                         <div className="text-[#444444] text-[18px] mr-[230px]">Patient ID: {patientID}</div>
                         <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
                         <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
                    </div>
-                   <div className="flex justify-end gap-4 items-center">
+                   <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
                         <Button onClick={() => {
                             setIsShowAddComment(true)
-                        }} theme="iris-tertiary-large">
+                        }} theme="iris-tertiary">
                             <div  className="pelusicon tirtryIconHover bg-primary-color"/>
                             {/* <img className="mr-2" src={'./fi_plus-blue.svg'} /> */}
                             Add Comment
@@ -163,12 +163,12 @@ const FaceScanResult =() => {
                                navigator.share({
                                    url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
                                })                            
-                           }} theme='iris-secondary-large'>
+                           }} theme='iris-secondary'>
                                <img className="mr-2" src="share2.svg" alt=""/>
                                Share                            
                            </Button>
                        </RWebShare>
-                       <Button onClick={download} theme="iris-large">
+                       <Button onClick={download} theme="iris">
                            <img className="mr-2" src="print.svg" alt=""/>
                            Finish 
                        </Button>
@@ -225,7 +225,7 @@ const FaceScanResult =() => {
                            Go to Home
                            <div className="ml-2 arrow-right-white" />
                        </button> */}
-                       <Button theme="iris-large" onClick={() => {
+                       <Button theme="iris" onClick={() => {
                         navigate('/')
                        }}>
                            Go to Home
