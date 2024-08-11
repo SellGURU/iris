@@ -16,7 +16,7 @@ import * as Yup from "yup";
 
 export const PatientInformation = () => {
     const getRand = () => {
-        return Math.floor(Math.random() * (100000 - 1000)) + 100
+        return Math.floor(Math.random() * (100000 - 1000))
     }
     const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
