@@ -1149,7 +1149,8 @@ const FaceMesh = () => {
                                         setStarttimer(false) 
                                         setStarttimer2(false)
                                         setStarttimer3(false)
-                                        setIscomplete(false)                            
+                                        setIscomplete(false)     
+                                        // setStatus(status)                       
                                         // setTimeout(() => {
                                         //     img_source_select()
                                         // }, 1000);
@@ -1166,8 +1167,10 @@ const FaceMesh = () => {
                                     publish('openModal')
                                     setShowPermision(true)
                                     }} theme="iris">
-                                    <IoCameraOutline size={'24px'} className="mr-2"/>
-                                    Start Scan                            
+                                    <div className="flex justify-center items-center px-[8px]">
+                                        <IoCameraOutline size={'24px'} className="mr-2"/>
+                                        Start Scan                            
+                                    </div>
                                 </Button>
 
                             }
@@ -1257,7 +1260,7 @@ const FaceMesh = () => {
                                         <div className="text-primary-color text-[14px] cursor-pointer">
                                             single pose
                                         </div>
-                                        <Switch onChange={(e) => {
+                                        <Switch checked={status == 'one'?true:false} onChange={(e) => {
                                             console.log(e.target.checked)
                                             if(e.target.checked){
                                                 setStatus('one')

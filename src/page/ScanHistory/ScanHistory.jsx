@@ -95,7 +95,7 @@ export const ScanHistory = () => {
     console.log(patients)
     const [filterType,setFilterType] = useState('َAny')
     const sorts =[
-        "َAny","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
+        "Any","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
     ]
     const [imageBy,setImageBy] = useState('any')
     // console.log(patients)
