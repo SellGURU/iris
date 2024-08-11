@@ -232,7 +232,7 @@ const UploadFaceMash = () => {
                                     </Button>                  
                             </div>      
                         }
-                        <div className="w-[0px] md:w-[157px]"></div>          
+                        <div className="w-[0px] ml-4 md:w-[157px]"></div>          
                     </div>
         
 
