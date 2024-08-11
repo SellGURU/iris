@@ -215,7 +215,9 @@ export const ScanHistory = () => {
                         {/* </Link> */}
 
                     </div>
-                    <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                    <div className="absolute w-full h-8 left-0 flex justify-center items-center">
+                        <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                    </div>
                     <div className="flex  xl:w-[280px] justify-end relative text-[12px] gap-8 items-center">
                         <div onClick={() => {
                             setShowFilter(true)
