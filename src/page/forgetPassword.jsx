@@ -110,7 +110,7 @@ const Forget = () => {
                     <div className="text-[#444444] text-[14px] mb-[60px] w-[330px]">Enter the E-mail address asociated with your account and we’ll send you a link to reset your password.</div>
                     <div className="grid mb-[60px] w-[330px]">
                         <label
-                            className="flex mb-2 text-xl font-medium" htmlFor="email">E-mail Address:</label>
+                            className="flex mb-2 text-[16px] font-medium" htmlFor="email">E-mail Address:</label>
                         <div className="relative">
                             {/* {
                                 form.values.userName.length == 0?
@@ -122,7 +122,7 @@ const Forget = () => {
                                 onKeyDown={handleUsernameKeyPress}
                                 {...form.getFieldProps('email')}
                                 id="email"
-                                className={`w-full pl-5 fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
+                                className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${form.errors.userName ? 'border-b border-red-500' : ''}`}
                                 type="text"
                                 placeholder="Your E-mail Address"
                             />
@@ -130,7 +130,7 @@ const Forget = () => {
                         </div>
                         {
                             form.errors.email &&
-                            <div className="text-sm mt-2 text-red-500">{form.errors.email}</div>
+                            <div className="text-[12px] mt-2 text-red-500">{form.errors.email}</div>
                         }
                     </div> 
                     <Button onClick={() => {
@@ -149,7 +149,7 @@ const Forget = () => {
                     {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()
                     }} disabled={!form.isValid}>Log In</ButtonPrimary> */}
-                    <p className="  text-sm font-normal">
+                    <p className="  text-[12px] font-normal">
                         Don’t have an account?
                         <Link to="/register" className="text-primary-color"> Sign up</Link>
                     </p>
@@ -285,7 +285,10 @@ const Forget = () => {
                 <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img className={"hidden md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                <img
+                className={"h-[50vh] hidden xl:block xl:h-[60vh] 2xl:h-[80vh]"}
+                src={"image/login-pic.png"}
+                />
                 {resolveStep()}
             </div>
 

@@ -148,7 +148,7 @@ export const ScanHistory = () => {
 
 
     const navigate = useNavigate()
-    const [patientList, setPatientList] = useState(patients);
+    const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
     useEffect(() => {
 
         if(imageBy!= 'any'){
@@ -223,7 +223,7 @@ export const ScanHistory = () => {
                             setShowFilter(true)
                         }} data-tooltip-id="my-tooltip" data-tooltip-content="Filter your scan history by specific criteria." className="flex items-center gap-3 cursor-pointer">
                             <img className="w-[14px]"   src="filter.svg" alt=""/>
-                            Filter
+                            Filter by
                         </div>
                         <Tooltip id="my-tooltip" />                        
                         {
