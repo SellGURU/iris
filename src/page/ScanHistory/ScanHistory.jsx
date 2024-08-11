@@ -226,7 +226,7 @@ export const ScanHistory = () => {
                             <img className="w-[14px]"   src="filter.svg" alt=""/>
                             Filter by
                         </div>
-                        <Tooltip id="my-tooltip" />                        
+                        <Tooltip className="max-w-[230px] bg-white" id="my-tooltip" />                        
                         {
                             showFilter &&
                             <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter} refrence={sortRefrence} />
