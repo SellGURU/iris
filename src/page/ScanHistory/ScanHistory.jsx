@@ -194,7 +194,7 @@ export const ScanHistory = () => {
     return (
         <>
         <div className="w-full flex justify-center">
-            <div className="md:container w-full  flex flex-col px-[24px]  gap-5">
+            <div className="xl:container w-full  flex flex-col px-2 xl:px-[24px]  gap-5">
                 <div className="w-full flex flex-col items-center gap-3 ">
                     <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
                     {/* <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
