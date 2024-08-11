@@ -74,7 +74,7 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="4"
-                        text="Once all poses are completed successfully, press the 'Print or Save' button to begin processing and preparing the report."
+                        text="Once all poses are completed successfully, press the 'Finish' button to begin processing and preparing the report."
                         image={'image/tour-4.svg'}
                         note="Note: You can also perform a new scan, and all records will be saved in your scan history."
                         onNext={() => {
