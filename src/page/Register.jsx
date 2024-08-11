@@ -102,8 +102,8 @@ const Register = () => {
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full h-screen lg:h-[75vh] mt-[150px] md:mt-[200px] lg:mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
-        <div className="relative overflow-hidden">
+      <div className="w-full h-screen lg:h-[75vh] mt-[150px] md:mt-[200px] xl:mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
+        {/* <div className="relative overflow-hidden">
           <img
             className={"hidden  md:block h-[590px] 2xl:h-[630px]"}
             src={"image/login-pic.png"}
@@ -135,14 +135,12 @@ const Register = () => {
                     provides a competitive edge.{" "}
                   </div>
 
-                  {/* <div className="text-[14px] mt-6 text-white">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor                            
-                            </div>                                                     */}
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <img className="h-[50vh] xl:h-[85vh] 2xl:h-[80vh]" src={"./image/iris-login.png"} />
         <div
           className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
