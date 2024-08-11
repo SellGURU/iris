@@ -7,12 +7,13 @@ import {ToastContainer} from 'react-toastify';
 import {useLocalStorage} from "@uidotdev/usehooks";
 import "./api/axios";
 
+
 function App() {
     return (
         <>
             <HashRouter basename="/">
                 <AppRoutes/>
-            </HashRouter>
+            </HashRouter>        
         </>
     );
 }

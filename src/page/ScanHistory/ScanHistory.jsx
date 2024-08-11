@@ -9,6 +9,7 @@ import SortModal from '../modal/Sort.jsx';
 import FilterModal from '../modal/Filter.jsx';
 import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
+import { Tooltip } from 'react-tooltip'
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 
@@ -92,9 +93,9 @@ export const ScanHistory = () => {
         },            
     ];
     console.log(patients)
-    const [filterType,setFilterType] = useState('Default')
+    const [filterType,setFilterType] = useState('َAny')
     const sorts =[
-        "Default","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
+        "َAny","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
     ]
     const [imageBy,setImageBy] = useState('any')
     // console.log(patients)
@@ -218,10 +219,11 @@ export const ScanHistory = () => {
                     <div className="flex relative text-[12px] gap-8 items-center">
                         <div onClick={() => {
                             setShowFilter(true)
-                        }} className="flex items-center gap-3 cursor-pointer">
+                        }} data-tooltip-id="my-tooltip" data-tooltip-content="Filter your scan history by specific criteria." className="flex items-center gap-3 cursor-pointer">
                             <img className="w-[14px]"   src="filter.svg" alt=""/>
                             Filter
                         </div>
+                        <Tooltip id="my-tooltip" />                        
                         {
                             showFilter &&
                             <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter} refrence={sortRefrence} />
@@ -230,7 +232,7 @@ export const ScanHistory = () => {
                         <div onClick={() => {
                             setShowSort(true)
                             setShowFilter(false)
-                        }} className="flex text-[12px]   items-center gap-3 cursor-pointer">
+                        }} data-tooltip-id="my-tooltip" data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra." className="flex text-[12px]   items-center gap-3 cursor-pointer">
                             <img className="w-[14px]" src="sort.svg" alt=""/>
                             Sort By {filterType}
                         </div>
