@@ -103,6 +103,7 @@ export const ScanHistory = () => {
     const filterModalRefrence = useRef(null)
     const sortRefrence = useRef(null)
     const [showFilter,setShowFilter] = useState(false)
+    const [showMorePage,setShowMorePage] = useState(false)
     const [showSort,setShowSort] = useState(false) 
     useModalAutoClose({
         refrence:filterModalRefrence,
@@ -123,7 +124,7 @@ export const ScanHistory = () => {
     })
     
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const [itemsPerPage,setItemPerPage] = useState('5');
     let indexOfLastItem = currentPage * itemsPerPage;
     let indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const handlePageChange = (page) => {
@@ -321,13 +322,36 @@ export const ScanHistory = () => {
                             totalPages={totalPages}
                             onPageChange={handlePageChange}
                         />
+                    {patients != 0 ? (<h1 onClick={() => {
+                        setShowMorePage(!showMorePage)
+                    }} className={"text-[16px] cursor-pointer text-[#7E7E7E] absolute left-8  font-normal"}>Show <span
+                            className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.
+                            {showMorePage ?
+                            <div className="absolute py-4 rounded-[8px] top-[-150px] left-3 bg-white w-[73px]" style={{
+                                boxShadow:'0px 0px 12px #00000026'
+                            }}>
+                                <div onClick={() => {
+                                    setItemPerPage('5')
+                                }} className="flex cursor-pointer justify-center  text-[#2E2E2E] items-center ">5</div>  
+                                <div onClick={() => {
+                                    setItemPerPage('10')
+                                }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">10</div>    
+                                <div onClick={() => {
+                                    setItemPerPage('15')
+                                }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">15</div>    
+                                {/* <div onClick={() => {
+                                    setItemPerPage()
+                                }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">All</div>                                                                                                       */}
+                            </div>                            
+                            :undefined
+                            }                            
+                            </h1>
+                    ):""}                        
                     </div>
                 )}
 
                 
-                {/* {patients != 0 ? (<h1 className={"text-[16px] font-normal"}>Show <span
-                        className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.</h1>
-                ):""} */}
+
             </div>
 
         </div>
