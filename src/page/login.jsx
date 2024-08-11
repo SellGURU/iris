@@ -103,7 +103,7 @@ const Login = () => {
       </div>
       <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
         <img
-          className={"hidden md:block  h-[500px] 2xl:h-[630px]"}
+          className={"h-[50vh] xl:h-[85vh] 2xl:h-[80vh]"}
           src={"image/login-pic.png"}
         />
         <div
@@ -112,7 +112,7 @@ const Login = () => {
         >
           <h1 className={" font-medium text-2xl "}>Welcome Back to IRIS</h1>
           <div className="grid w-[330px]">
-            <label className="flex mb-2 text-xl font-medium" htmlFor="userName">
+            <label className="flex mb-2 text-[16px] font-medium" htmlFor="userName">
               E-mail Address:
             </label>
             <div className="relative">
@@ -125,7 +125,7 @@ const Login = () => {
                 onKeyDown={handleUsernameKeyPress}
                 {...form.getFieldProps("userName")}
                 id="userName"
-                className={`w-full pl-5 fill-none outline-none py-2 border-b ${
+                className={`w-full pl-5 fill-none text-[14px] outline-none py-2 border-b ${
                   form.errors.userName ? "border-b border-red-500" : ""
                 }`}
                 type="text"
@@ -133,13 +133,13 @@ const Login = () => {
               />
             </div>
             {form.errors.userName && (
-              <div className="text-sm mt-2 text-red-500">
+              <div className=" text-[12px] mt-2 text-red-500">
                 {form.errors.userName}
               </div>
             )}
           </div>
           <div className="grid relative w-[330px]">
-            <label className="flex mb-2 text-xl font-medium" htmlFor="password">
+            <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
               Password:
             </label>
             <div className="relative">
@@ -154,7 +154,7 @@ const Login = () => {
                 ref={passwordRef}
                 placeholder="Your Password"
                 id="password"
-                className={`w-full outline-none pl-5 pr-7 py-2 border-b ${
+                className={`w-full outline-none text-[14px] pl-5 pr-7 py-2 border-b ${
                   form.errors.password ? "border-b border-red-500" : ""
                 }`}
                 {...form.getFieldProps("password")}
@@ -169,7 +169,7 @@ const Login = () => {
               />
             </div>
             {form.errors.password && (
-              <div className="text-sm mt-2 text-red-500">
+              <div className="text-[12px] mt-2 text-red-500">
                 {form.errors.password}
               </div>
             )}
@@ -183,12 +183,12 @@ const Login = () => {
               />
               <label
                 htmlFor="rememberMeBox"
-                className="ml-2 cursor-pointer text-sm text-[#444444]"
+                className="ml-2 cursor-pointer text-[12px] text-[#444444]"
               >
                 Remember me
               </label>
             </div>
-            <p className="  text-sm font-normal">
+            <p className="  text-[12px] font-normal">
               <Link to="/forgetpass" className="text-primary-color">
                 Forgot Password?
               </Link>
@@ -206,7 +206,7 @@ const Login = () => {
           {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()
                     }} disabled={!form.isValid}>Log In</ButtonPrimary> */}
-          <p className="  text-sm font-normal">
+          <p className="  text-[12px] font-normal">
             Don’t have an account?
             <Link to="/register" className="text-primary-color">
               {" "}

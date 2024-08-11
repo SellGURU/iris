@@ -148,7 +148,7 @@ const Register = () => {
           <h1 className={" font-semibold text-2xl pb-1"}>Welcome to IRIS</h1>
 
           <div className="grid w-[330px]">
-            <label className="flex mb-2 text-xl font-medium" htmlFor="email">
+            <label className="flex mb-2 text-[16px] font-medium" htmlFor="email">
               E-mail Address:
             </label>
             <div className="relative">
@@ -161,7 +161,7 @@ const Register = () => {
                 onKeyDown={handleUsernameKeyPress}
                 {...form.getFieldProps("email")}
                 id="email"
-                className={`w-full pl-5 fill-none outline-none py-2 border-b ${
+                className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${
                   form.errors.userName ? "border-b border-red-500" : ""
                 }`}
                 type="text"
@@ -169,7 +169,7 @@ const Register = () => {
               />
             </div>
             {form.errors.email && (
-              <div className="text-sm mt-2 text-red-500">
+              <div className="text-[12px] mt-2 text-red-500">
                 {form.errors.email}
               </div>
             )}
@@ -186,7 +186,7 @@ const Register = () => {
             ></Select>
           </div>
           <div className="grid relative w-[330px]">
-            <label className="flex mb-2 text-xl font-medium" htmlFor="password">
+            <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
               Create a Password:
             </label>
             <div className="relative">
@@ -195,7 +195,7 @@ const Register = () => {
                 ref={passwordRef}
                 placeholder="Your Password"
                 id="password"
-                className={`w-full outline-none pl-5 pr-7 py-2 border-b ${
+                className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
                   form.errors.password ? "border-b border-red-500" : ""
                 }`}
                 {...form.getFieldProps("password")}
@@ -210,13 +210,13 @@ const Register = () => {
               />
             </div>
             {form.errors.password && form.touched.password && (
-              <div className="text-sm mt-2 text-red-500">
+              <div className=" mt-2 text-[12px] text-red-500">
                 {form.errors.password}
               </div>
             )}
           </div>
           <div className="grid relative w-[330px]">
-            <label className="flex mb-2 text-xl font-medium" htmlFor="password">
+            <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
               Repeat the Password:
             </label>
             <div className="relative">
@@ -231,7 +231,7 @@ const Register = () => {
                 ref={passwordRef}
                 placeholder="Your Password"
                 id="password"
-                className={`w-full outline-none pl-5 pr-7 py-2 border-b ${
+                className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
                   form.errors.confirm ? "border-b border-red-500" : ""
                 }`}
                 {...form.getFieldProps("confirm")}
@@ -246,7 +246,7 @@ const Register = () => {
               />
             </div>
             {form.errors.confirm && form.touched.confirm && (
-              <div className="text-sm mt-2 text-red-500">
+              <div className="text-[12px] mt-2 text-red-500">
                 {form.errors.confirm}
               </div>
             )}
@@ -260,13 +260,13 @@ const Register = () => {
               />
               <label
                 htmlFor="accept"
-                className="ml-2 cursor-pointer text-sm text-[#444444]"
+                className="ml-2 cursor-pointer text-[12px] text-[#444444]"
               >
                 By signing up, I agree with{" "}
               </label>
               <span onClick={() => {
                 window.open('https://dev.irisaesthetics.ai/terms-conditions/')
-              }} className="text-primary-color cursor-pointer ml-1 font-medium hover:underline">Terms & Conditions.</span>
+              }} className="text-primary-color text-[14px] cursor-pointer ml-1 font-medium hover:underline">Terms & Conditions.</span>
             </div>
           </div>
           <Button
@@ -280,7 +280,7 @@ const Register = () => {
             <div className="flex justify-center w-full">Sign up</div>
           </Button>
 
-          <div className="text-primary-color mt-[-4px] text-[14px] flex w-full justify-end">
+          <div className="text-primary-color mt-[-4px] text-[12px] flex w-full justify-end">
             <Link to="/login">Already have an account?</Link>
           </div>
         </div>

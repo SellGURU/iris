@@ -48,13 +48,13 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
   useEffect(()=> console.log(showOptions)  , [showOptions])
   return (
     <div className="relative">
-      <label className="flex mb-2 text-xl font-medium" htmlFor={label}>
+      <label className="flex mb-2 text-[16px] font-medium" htmlFor={label}>
         {label}
       </label>
       <div   className="flex justify-between select-none  cursor-pointer mt-3 w-full">
         <input placeholder={placeHolder} value={value} onChange={(e) => {
           onchange(e.target.value)
-        }}  type="text" className="w-full outline-none pl-5 pr-7 py-2  "/>
+        }}  type="text" className="w-full text-[14px] outline-none pl-5 pr-7 py-2  "/>
         {/* <div
         onClick={() => setShowOptions(true)}
           className="w-full flex justify-between items-center"
