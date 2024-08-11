@@ -7,7 +7,7 @@ import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 
-export const PatienCard = ({index, patient,onaccepted}) => {
+export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     const {
         setPdf,
         setFile,
@@ -16,6 +16,11 @@ export const PatienCard = ({index, patient,onaccepted}) => {
     const [isCompare,setIsCompare] = useState(false)
     const {id, date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
+    useEffect(() => {
+        if(activeResult != patient.id){
+            setIsCompare(false)
+        }
+    },[activeResult])
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
     const [comment, setComment] = useState(initComment);
