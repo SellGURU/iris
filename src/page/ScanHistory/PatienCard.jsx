@@ -70,7 +70,7 @@ export const PatienCard = ({index, patient,onaccepted}) => {
                         src={result[0].photo.length > 0 && result[0].photo} alt=""/>
                     :
                     <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={'https://ui-avatars.com/api/?background=random'} alt=""/>                    
+                        src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/>                    
                     }
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
