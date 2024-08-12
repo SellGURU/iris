@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {useLocalStorage} from "@uidotdev/usehooks";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useState} from "react";
 import { useSearchParams } from "react-router-dom";
 
 export const IsLogin = ({children}) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const validToken = checkValidToken()
     let [searchParams] = useSearchParams();
     // console.log(validToken)

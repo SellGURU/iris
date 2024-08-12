@@ -11,6 +11,7 @@ import { Button } from "symphony-ui";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import GenerateId from '../../utility/generateId.js'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -31,6 +32,7 @@ export const PatientInformation = () => {
         setSex,
         setPatientID,
         setErrorThreshold,
+        idController,
     } = useContext(PatientContext);
 
     // is show tour false did not load the show tour and redirect to face mash
@@ -39,7 +41,7 @@ export const PatientInformation = () => {
     const {register, getValues, handleSubmit} = useForm()
     const formik = useFormik({
         initialValues:{
-            id:getRand(),
+            id:GenerateId.resolveid(),
             firstName:'',
             lastName:'',
             email:'',
