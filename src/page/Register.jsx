@@ -90,6 +90,14 @@ const Register = () => {
       onSubmit();
     }
   };
+  const resolveHightImage = () => {
+    if(document.getElementById("contentBox")){
+      return document.getElementById("contentBox").offsetHeight
+
+    }else {
+      return '80vh'
+    }
+  }
   const [HidePass, setHidePass] = useState(false);
   const [HidePass2, setHidePass2] = useState(false);
   return (
@@ -140,8 +148,9 @@ const Register = () => {
             </div>
           </div>
         </div> */}
-        <img className="h-[50vh] hidden md:block xl:h-[70vh]  2xl:h-[80vh]  " src={"./image/iris-login.png"} />
+        <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolveHightImage()}} />
         <div
+          id="contentBox"
           className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
         >
