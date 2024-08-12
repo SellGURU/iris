@@ -238,7 +238,7 @@ export const ScanHistory = () => {
                             setShowFilter(false)
                         }} data-tooltip-id="my-tooltip" data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra." className="flex text-[12px]   items-center gap-3 cursor-pointer">
                             <img className="w-[14px]" src="sort.svg" alt=""/>
-                            Sort By {filterType}
+                            Sort By
                         </div>
                         {
                             showSort &&
@@ -330,7 +330,7 @@ export const ScanHistory = () => {
                         />
                     {patients != 0 ? (<h1 onClick={() => {
                         setShowMorePage(!showMorePage)
-                    }} className={"text-[16px] cursor-pointer text-[#7E7E7E] absolute left-8  font-normal"}>Show <span
+                    }} className={"text-[16px] cursor-pointer text-[#7E7E7E] absolute left-2 xl:left-[75px]  font-normal"}>Show <span
                             className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.
                             {showMorePage ?
                             <div className="absolute py-4 rounded-[8px] top-[-150px] left-3 bg-white w-[73px]" style={{
