@@ -41,6 +41,15 @@ const Login = () => {
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
   let [, seveParty] = useLocalStorage("partyid");
+  
+  const resolveHightImage = () => {
+    if(document.getElementById("contentBox")){
+      return document.getElementById("contentBox").offsetHeight * 1.3
+
+    }else {
+      return '80vh'
+    }
+  }  
   //   console.log("isAccess l", isAccess);
   const onSubmit = () => {
     setIsPanding(true);
@@ -92,7 +101,7 @@ const Login = () => {
   };
   const [HidePass, setHidePass] = useState(false);
   return (
-    <div className={" "}>
+    <div className={"h-[100svh] w-full fixed overflow-hidden "}>
       <div className={"h-[100px]  flex items-center justify-between px-10"}>
         <img
           className={" w-auto h-auto h-h"}
@@ -102,11 +111,13 @@ const Login = () => {
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
       <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-        <img
+        {/* <img
           className={"h-[50vh] xl:h-[85vh] 2xl:h-[80vh]"}
           src={"image/login-pic.png"}
-        />
+        /> */}
+        <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage()}} />        
         <div
+          id="contentBox"
           className="w-fit px-10 py-5  animate-comeFromLeft   gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
         >
