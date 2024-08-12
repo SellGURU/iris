@@ -109,7 +109,7 @@ export const PaymentHistory = () => {
 
             </div>      
             <h1 className={"text-3xl font-medium"}>Payment History</h1>
-            <p className={"text-lg font-normal"}>Effortlessly handle your billing and invoices right here.</p>
+            <p className={"text-lg font-normal"}>You can view your orders, payments, cards, and current package status here.</p>
             <div className={"w-full"}>
                 <div>
                     <div className={"block lg:flex w-full flex-col md:flex-row  gap-10 items-start justify-between"}>
