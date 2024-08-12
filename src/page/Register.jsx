@@ -101,7 +101,7 @@ const Register = () => {
   const [HidePass, setHidePass] = useState(false);
   const [HidePass2, setHidePass2] = useState(false);
   return (
-    <div className={"h-[100svh] overflow-hidden "}>
+    <div className={"h-[100svh] w-full md:fixed md:overflow-hidden "}>
       <div className={"h-[100px]  flex items-center justify-between px-10"}>
         <img
           className={" w-auto h-auto h-h"}
