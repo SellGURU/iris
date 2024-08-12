@@ -44,7 +44,7 @@ const Forget = () => {
     const [resolvedHight,setResolvedHight] = useState('80vh')
     const resolveHightImage = () => {
         if(document.getElementById("contentBox")){
-        setResolvedHight(document.getElementById("contentBox").offsetHeight * 1.3)
+        setResolvedHight(document.getElementById("contentBox").offsetHeight * 1.2)
         }else {
         setResolvedHight("80vh")
         }
@@ -117,6 +117,7 @@ const Forget = () => {
             {
                 step ==0 && 
                 <div
+                    id="contentBox"
                     className="w-fit animate-comeFromLeft px-10 py-5 gap-5  flex flex-col"
                     // onSubmit={form.submitForm()}
                 >
