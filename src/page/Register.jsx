@@ -93,7 +93,7 @@ const Register = () => {
   const [HidePass, setHidePass] = useState(false);
   const [HidePass2, setHidePass2] = useState(false);
   return (
-    <div className={" "}>
+    <div className={"h-[100svh] overflow-hidden "}>
       <div className={"h-[100px]  flex items-center justify-between px-10"}>
         <img
           className={" w-auto h-auto h-h"}
@@ -102,7 +102,7 @@ const Register = () => {
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full h-screen lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
         {/* <div className="relative overflow-hidden">
           <img
             className={"hidden  md:block h-[590px] 2xl:h-[630px]"}
@@ -140,7 +140,7 @@ const Register = () => {
             </div>
           </div>
         </div> */}
-        <img className="h-[50vh] hidden xl:block xl:h-[85vh] 2xl:h-[80vh]" src={"./image/iris-login.png"} />
+        <img className="h-[50vh] hidden md:block  2xl:h-[80vh]  " src={"./image/iris-login.png"} />
         <div
           className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
