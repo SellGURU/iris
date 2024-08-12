@@ -41,14 +41,20 @@ const Forget = () => {
         onSubmit: () => {
         }
     })  
+    const [resolvedHight,setResolvedHight] = useState('80vh')
     const resolveHightImage = () => {
         if(document.getElementById("contentBox")){
-        return document.getElementById("contentBox").offsetHeight * 1.3
-
+        setResolvedHight(document.getElementById("contentBox").offsetHeight * 1.3)
         }else {
-        return '80vh'
+        setResolvedHight("80vh")
         }
-    }       
+    }  
+    useEffect(() => {
+        resolveHightImage()
+    })
+    addEventListener("resize", (event) => {
+    resolveHightImage()
+    });
     useEffect(() => {
         if(searchParams.get("token")){
             setStep(2)
@@ -297,7 +303,7 @@ const Forget = () => {
                 className={"h-[50vh] hidden xl:block xl:h-[60vh] 2xl:h-[80vh]"}
                 src={"image/login-pic.png"}
                 /> */}
-                <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage()}} />                 
+                <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage}} />                 
                 {resolveStep()}
             </div>
 
