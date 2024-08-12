@@ -303,7 +303,7 @@ const Forget = () => {
                 className={"h-[50vh] hidden xl:block xl:h-[60vh] 2xl:h-[80vh]"}
                 src={"image/login-pic.png"}
                 /> */}
-                <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage}} />                 
+                <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolvedHight}} />                 
                 {resolveStep()}
             </div>
 
