@@ -140,7 +140,7 @@ const Register = () => {
             </div>
           </div>
         </div> */}
-        <img className="h-[50vh] hidden md:block  2xl:h-[80vh]  " src={"./image/iris-login.png"} />
+        <img className="h-[50vh] hidden md:block xl:h-[70vh]  2xl:h-[80vh]  " src={"./image/iris-login.png"} />
         <div
           className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
           // onSubmit={form.submitForm()}
