@@ -47,7 +47,7 @@ export const Tour = () => {
                     <StepInstructions
                         step="2"
                         text={` Position the subject's head in the frame and instruct them to slightly move their face until the mesh goes green.  If you only want to scan the front side of the subject's face, select the "Single pose" button above the camera area.  `}
-                        image={'image/tour2.png'}
+                        image={'image/tour.png'}
                         note="Note: The scan may take approximately 3 seconds. Maintain position and hold still for each side of the scan. "
                         onNext={handleNext}
                         onSkip={handleSkip}
