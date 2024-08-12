@@ -3,7 +3,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 // import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -41,15 +41,20 @@ const Login = () => {
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
   let [, seveParty] = useLocalStorage("partyid");
-  
+  const [resolvedHight,setResolvedHight] = useState('80vh')
   const resolveHightImage = () => {
     if(document.getElementById("contentBox")){
-      return document.getElementById("contentBox").offsetHeight * 1.3
-
+      setResolvedHight(document.getElementById("contentBox").offsetHeight * 1.3)
     }else {
-      return '80vh'
+      setResolvedHight("80vh")
     }
   }  
+  useEffect(() => {
+    resolveHightImage()
+  })
+  addEventListener("resize", (event) => {
+  resolveHightImage()
+  });
   //   console.log("isAccess l", isAccess);
   const onSubmit = () => {
     setIsPanding(true);
@@ -115,7 +120,7 @@ const Login = () => {
           className={"h-[50vh] xl:h-[85vh] 2xl:h-[80vh]"}
           src={"image/login-pic.png"}
         /> */}
-        <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage()}} />        
+        <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolvedHight}} />        
         <div
           id="contentBox"
           className="w-fit px-10 py-5  animate-comeFromLeft   gap-5  flex flex-col"

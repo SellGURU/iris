@@ -40,7 +40,15 @@ const Forget = () => {
         }),
         onSubmit: () => {
         }
-    })    
+    })  
+    const resolveHightImage = () => {
+        if(document.getElementById("contentBox")){
+        return document.getElementById("contentBox").offsetHeight * 1.3
+
+        }else {
+        return '80vh'
+        }
+    }       
     useEffect(() => {
         if(searchParams.get("token")){
             setStep(2)
@@ -285,10 +293,11 @@ const Forget = () => {
                 <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img
+                {/* <img
                 className={"h-[50vh] hidden xl:block xl:h-[60vh] 2xl:h-[80vh]"}
                 src={"image/login-pic.png"}
-                />
+                /> */}
+                <img className=" hidden md:block  " src={"./image/login-pic.png"} style={{height:resolveHightImage()}} />                 
                 {resolveStep()}
             </div>
 
