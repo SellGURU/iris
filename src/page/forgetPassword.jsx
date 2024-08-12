@@ -294,7 +294,7 @@ const Forget = () => {
     }
     return (
 
-        <div className={" "}>
+        <div className={"h-[100svh] w-full fixed overflow-hidden  "}>
             <div className={"h-[100px]  flex items-center justify-between px-10"}>
                 <img className={" w-auto h-auto h-h"} src={"/image/login/IRIS.svg"} alt="iris"/>
                 <ButtonPrimary className={'invisible'}>Account</ButtonPrimary>
