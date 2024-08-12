@@ -256,48 +256,50 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
 
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
                             <div className="text-[14px]">Comments:</div>
-                            <div className={` ${comment.length > 0? '':''} `}>
-                                {comment.map((comment, index) => {
-                                    return (
-                                        <div key={index}
-                                            className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                            <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
-                                            <p className={"w-4/6 font-[300] text-[14px]"}>{comment}</p>
-                                        </div>
-                                    )
-                                })}
-                                {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[14px] text-[#7E7E7E]"}>No comment found</div>)}
-                            </div>
-                            <div className={" h-full  flex items-center justify-end"}>
-                                <button disabled={isShowAddComment}
-                                        onClick={() => setIsShowAddComment(!isShowAddComment)}
-                                        className={ "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full"}>
-                                    Add Comment
-                                </button>
-                            </div>
-                        </div>
-                        {isShowAddComment && <form  className={"w-full "}>
-                            <div className={"w-full flex items-center justify-center"}>
-                                <div className={" px-5 pt-5 w-4/6 flex items-end gap-5 justify-end border-b pb-2"}>
-                                    <input value={textComment} onChange={(el) => {
-                                        setTextComment(el.target.value)
-                                    }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
-                                    {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
-                                        formHandler()                                       
-                                    }} className={"!text-xs !px-4 !py-2.5"}>
-                                        Add Comment
-                                    </ButtonPrimary> */}
-                                    <div className="w-full flex justify-end">
-                                        <Button disabled={textComment.length == 0} onClick={() => {
-                                            formHandler()
-                                        }} theme="iris-small">
-                                            Save
-                                        </Button>
-
-                                    </div>
+                            {!isShowAddComment &&
+                                <div className={` ${comment.length > 0? '':''} `}>
+                                    {comment.map((comment, index) => {
+                                        return (
+                                            <div key={index}
+                                                className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
+                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
+                                                <p className={"w-4/6 font-[300] text-[14px]"}>{comment}</p>
+                                            </div>
+                                        )
+                                    })}
+                                    {comment.length<=0&&!isShowAddComment &&(<div className={" text-center text-[14px] text-[#7E7E7E]"}>No comment found</div>)}
                                 </div>
-                            </div>
-                        </form>}
+                            }
+                            {!isShowAddComment ?
+                                <div className={" h-full  flex items-center justify-end"}>
+                                    <button disabled={isShowAddComment}
+                                            onClick={() => setIsShowAddComment(!isShowAddComment)}
+                                            className={ "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full"}>
+                                        Add Comment
+                                    </button>
+                                </div>:
+                                    <div className={"w-full flex items-center justify-center"}>
+                                        <div className={" px-5 w-full flex items-end gap-5 justify-end border-b pb-2"}>
+                                            <input value={textComment} onChange={(el) => {
+                                                setTextComment(el.target.value)
+                                            }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                            {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                                formHandler()                                       
+                                            }} className={"!text-xs !px-4 !py-2.5"}>
+                                                Add Comment
+                                            </ButtonPrimary> */}
+                                            <div className="w-full flex justify-end">
+                                                <Button disabled={textComment.length == 0} onClick={() => {
+                                                    formHandler()
+                                                }} theme="iris-small">
+                                                    Save
+                                                </Button>
+
+                                            </div>
+                                        </div>
+                                    </div>                                
+                            }
+                        </div>
                     </>
 
                 }
