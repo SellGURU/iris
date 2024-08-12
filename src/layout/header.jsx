@@ -227,6 +227,7 @@ const Header = () => {
                         }} className="mr-2" src="./logout.svg" alt=""/> */}
                         <div className="logoutIcon w-[18px]"></div>
                         <h1 className="cursor-pointer" onClick={() => {
+                            localStorage.clear()
                             navigate('/login')
                         }}>Logout</h1>
                     </div>                   
