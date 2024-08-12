@@ -41,6 +41,8 @@ const Login = () => {
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
   let [, seveParty] = useLocalStorage("partyid");
+  let [,saveEmail] = useLocalStorage("email")
+  let [,savePass] = useLocalStorage("password")
   const [resolvedHight,setResolvedHight] = useState('80vh')
   const resolveHightImage = () => {
     if(document.getElementById("contentBox")){
@@ -73,7 +75,10 @@ const Login = () => {
             setIsPanding(false);
             saveIsAccess(res.data.token);
             seveParty(res.data.party_id)
+            saveEmail(form.values.userName)
+            savePass(form.values.password)
             dispatch(setUserName("amin"));
+
             // toast.
             navigate("/");
           } else {

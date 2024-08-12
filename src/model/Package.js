@@ -5,7 +5,9 @@ class Package {
         cycle:'',
         cost:0,
         useage:0,
-        bundle:0
+        bundle:0,
+        subCode:"+sPwwWEH4syZZdnvq5k/jA==",
+        subprice_code:"+sPwwWEH4syZZdnvq5k/jA==",        
     }
     constructor(info){
         this.information = info

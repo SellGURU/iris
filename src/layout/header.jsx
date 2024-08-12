@@ -13,6 +13,9 @@ import {useSelector} from "react-redux";
 import { subscribe } from "../utility/event.js";
 import { Button } from "symphony-ui";
 import {PatientContext} from '../context/context.jsx'
+import PackageApi from '../api/package.js';
+import Package from "../model/Package.js";
+
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
     const [showSideBar, setShowSideBar] = useState(false)
@@ -21,7 +24,30 @@ const Header = () => {
     const username = useSelector(selectUserName)
     const [showModal,setSHowModal] = useState(false)
     const [menu,setMenu] = useState('')
+    let [email,] = useLocalStorage("email")
+    let [pass,] = useLocalStorage("password")    
     const [showModalBox,setSowModalBox] = useState(false)
+    PackageApi.getCurrentPackage({
+        email:email,
+        password:pass
+    }).then(res => {
+        // console.log(res)
+        if(res.data.status == 'success'){
+            if(res.data.data.subs_data.length> 0){
+                let newPak = new Package({
+                    name:'',
+                    cycle:'Yearly',
+                    cost:0,
+                    useage:res.data.data.subs_data[0].iscan_used,
+                    bundle:res.data.data.subs_data[0].iscan_brought,
+                    discount:0,
+                    options:[]                           
+                })
+                // console.log(newPak)
+                Appcontext.package.updatePackage(newPak)
+            }
+        }
+    })
     useModalAutoClose({
         refrence: menuRef,
         close: () => {

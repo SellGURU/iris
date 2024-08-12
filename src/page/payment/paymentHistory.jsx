@@ -12,17 +12,19 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import PackageApi from '../../api/package.js';
-
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
+    let [localPartyId,] = useLocalStorage("partyid");
+    let [localEmail,] = useLocalStorage("email")    
     useEffect(() => {
         PackageApi.getPackages().then((res) => {
             console.log(res)
-            const resolved =res.data.data.USD.map(el => {
-                // console.log(el.subs_info_data)
+            const resolved =res.data.USD.map(el => {
+                // console.log(JSON.parse(el.subs_info_data))
                 return new Package({
                     name:el.display_name,
                     cycle:el.sub_period,
@@ -44,6 +46,8 @@ export const PaymentHistory = () => {
             useage:0,
             bundle:1 ,
             discount:'0',
+            subCode:"+sPwwWEH4syZZdnvq5k/jA==",
+            subprice_code:"+sPwwWEH4syZZdnvq5k/jA==",
             options:[
                 "1 Scan",
                 "Use Within 12 Months",
@@ -58,6 +62,8 @@ export const PaymentHistory = () => {
             bundle:50,
             discount:'25' ,
             oldCost:'500',
+            subCode:"cKdL+SBoIZT8thdWlpB6Xg==",
+            subprice_code:"cKdL+SBoIZT8thdWlpB6Xg==",            
             options:[
                 "$8 Per Scan",
                 "50 Scan Bundle",
@@ -72,6 +78,8 @@ export const PaymentHistory = () => {
             bundle:100,
             discount:'40',
             oldCost:'1000',
+            subCode:"jrF6+co9GsoMxmC6FK+xLw==",
+            subprice_code:"jrF6+co9GsoMxmC6FK+xLw==",              
             options:[
                 "$6 Per Scan",
                 "100 Scan Bundle",
@@ -86,6 +94,8 @@ export const PaymentHistory = () => {
             bundle:1000,
             discount:'50',
             oldCost:'10000',
+            subCode:"gFXhS/ruHAPbiz0k0SPN3w==",
+            subprice_code:"gFXhS/ruHAPbiz0k0SPN3w==",             
             options:[
                 "$5 Per Scan",
                 "1000 Scan Bundle",
@@ -187,11 +197,23 @@ export const PaymentHistory = () => {
                         <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
                             {
                                 packages.map((el,index) => {
-                                    
+                                    console.log(el)
                                     return (
                                         <PaymentCard onselect={() => {
-                                            appContext.package.updatePackage(el)
-                                            navigate('/')
+                                            PackageApi.byPackage({
+                                                sub_code:el.information.subCode,
+                                                subprice_code:el.information.subCode,
+                                                party_id:localPartyId,
+                                                email:localEmail
+                                            }).then(res => {
+                                                console.log(res)
+                                                if(res.data.status == 'success'){
+                                                    // console.log(res.data.data)
+                                                    window.open(res.data.data, '_blank');
+                                                }
+                                            })
+                                            // appContext.package.updatePackage(el)
+                                            // navigate('/')
                                         }} key={index} pak={el}/>
                                     )
                                 })
