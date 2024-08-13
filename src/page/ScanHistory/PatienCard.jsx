@@ -263,7 +263,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                             <div key={index}
                                                 className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
                                                 <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
-                                                <p className={"w-4/6 font-[300] text-[14px]"}>{comment}</p>
+                                                <p className={"w-[90%] font-[300] text-[14px]"}>{comment}</p>
                                             </div>
                                         )
                                     })}
