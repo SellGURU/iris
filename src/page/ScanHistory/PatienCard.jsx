@@ -89,7 +89,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div> */}
                         <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
-                            {isShowComment?'hide comments':'Show comments'}
+                            {isShowComment?'Hide comments':'Show comments'}
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </Button>
