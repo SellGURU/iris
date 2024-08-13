@@ -35,7 +35,7 @@ const Header = () => {
         if(res.data.status == 'success'){
             if(res.data.data.subs_data.length> 0){
                 let newPak = new Package({
-                    name:'',
+                    name:'No available package',
                     cycle:'Yearly',
                     cost:0,
                     useage:res.data.data.subs_data[0].iscan_used,
