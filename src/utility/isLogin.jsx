@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 export const IsLogin = ({children}) => {
     // const navigate = useNavigate();
     const validToken = checkValidToken()
-    let [searchParams] = useSearchParams();
+    const [searchParams,setSearchParams] = useSearchParams();
     // console.log(validToken)
     if(searchParams.get("fcode") =='resetpass'){
         return <Navigate to={"/forgetpass?token="+searchParams.get("token")}/>

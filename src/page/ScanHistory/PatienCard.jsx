@@ -89,7 +89,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </div> */}
                         <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
-                            Show comments
+                            {isShowComment?'hide comments':'Show comments'}
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </Button>
@@ -257,7 +257,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                         <div className={"w-full border-t pt-5 flex items-start gap-5 justify-between"}>
                             <div className="text-[14px]">Comments:</div>
                             {!isShowAddComment &&
-                                <div className={` ${comment.length > 0? '':''} `}>
+                                <div className={` ${comment.length > 0? 'flex-1':' flex-1'} `}>
                                     {comment.map((comment, index) => {
                                         return (
                                             <div key={index}
