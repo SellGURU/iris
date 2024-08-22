@@ -38,7 +38,14 @@ export const PaymentCard = ({pak,onselect}) => {
                     {
                         pak.information.options.map((el,index) => {
                             return(
-                                <p key={index} className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                                <>
+                                    {
+                                        el != ' '?
+                                        <p key={index} className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                                    :
+                                        <p key={index} className={`text-[16px] invisible w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                                    }
+                                </>
                             )
                         })
                     }

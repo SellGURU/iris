@@ -51,7 +51,7 @@ export const PaymentHistory = () => {
             options:[
                 "1 Scan",
                 "Use Within 12 Months",
-                ""
+                " "
             ]           
         }),
         new Package({
