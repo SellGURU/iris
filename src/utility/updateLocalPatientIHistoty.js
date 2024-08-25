@@ -1,10 +1,13 @@
 export const updateLocalPatientIHistoty = (patientInformation) => {
 
     // Fetch the existing patients from localStorage
+    console.log(patientInformation)
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
     // const patientInformation = state[state.length - 1];
-    const patientIndex = patients.findIndex(patient => patient.id === patientInformation.id);
+    console.log(patients)
+    const patientIndex = patients.findIndex(patient => Number(patient.id) == patientInformation.id);
     const date = new Date();
+    console.log(patientIndex)
     if (patientIndex === -1) {
         // If the patient does not exist, create a new patient entry
         let newPatient;
