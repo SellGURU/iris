@@ -153,11 +153,10 @@ const Login = () => {
                 placeholder="Your E-mail Address"
               />
             </div>
-            {form.errors.userName && (
-              <div className=" text-[12px] mt-2 text-red-500">
-                {form.errors.userName}
-              </div>
-            )}
+
+            <div className={`${form.errors.userName?'visible':'invisible'} h-[16px] text-[12px] mt-1 text-red-500`}>
+              {form.errors.userName}
+            </div>
           </div>
           <div className="grid relative w-[330px]">
             <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
@@ -189,11 +188,11 @@ const Login = () => {
                 src={!HidePass ? "./eye.svg" : "./eye-slash.svg"}
               />
             </div>
-            {form.errors.password && (
-              <div className="text-[12px] mt-2 text-red-500">
-                {form.errors.password}
-              </div>
-            )}
+
+            <div className={`${form.errors.password?'visible':'invisible'} h-[16px] text-[12px] mt-1  text-red-500`}>
+              {form.errors.password}
+            </div>
+
           </div>
           <div className="w-full mb-6 flex items-center justify-between">
             <div className="flex justify-start items-center">
