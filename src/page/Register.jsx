@@ -177,11 +177,9 @@ const Register = () => {
                 placeholder="Your E-mail Address"
               />
             </div>
-            {form.errors.email && (
-              <div className="text-[12px] mt-2 text-red-500">
+              <div className={`${form.errors.email ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
                 {form.errors.email}
               </div>
-            )}
           </div>
           <div className="grid w-[330px]">
             <Select
@@ -218,11 +216,9 @@ const Register = () => {
                 src={!HidePass ? "./eye.svg" : "./eye-slash.svg"}
               />
             </div>
-            {form.errors.password && form.touched.password && (
-              <div className=" mt-2 text-[12px] text-red-500">
-                {form.errors.password}
-              </div>
-            )}
+            <div className={`${form.errors.password ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+              {form.errors.password}
+            </div>
           </div>
           <div className="grid relative w-[330px]">
             <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
@@ -254,11 +250,10 @@ const Register = () => {
                 src={!HidePass2 ? "./eye.svg" : "./eye-slash.svg"}
               />
             </div>
-            {form.errors.confirm && form.touched.confirm && (
-              <div className="text-[12px] mt-2 text-red-500">
-                {form.errors.confirm}
-              </div>
-            )}
+
+            <div className={`${form.errors.confirm ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+              {form.errors.confirm}
+            </div>
           </div>
           <div className="w-full justify-between">
             <div className="flex justify-start items-center">
