@@ -94,7 +94,7 @@ export const PatientInformation = () => {
 
                 </div>              
             <h1 className={"text-2xl font-medium"}>Client Information</h1>
-            <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
+            {/* <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p> */}
             <form  onSubmit={handleSubmit(onSubmitData)}>
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
                     <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
@@ -140,7 +140,8 @@ export const PatientInformation = () => {
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
                         <div className="flex w-full justify-between items-center">
                             <div className="flex cursor-pointer justify-start items-center w-[500px]">
-                                <h1 className={" text-[18px]  font-medium"}>Facial Esthetic Preference </h1>
+                                <h1 className={" text-[18px]  font-medium"}>Facial Aesthetic Preference 
+ </h1>
                                 {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
                             </div>
                             <TabsCustume className={"w-full mt-[0px] rounded-md"} setState={setGender} tabs={tabs} state={gender}/>

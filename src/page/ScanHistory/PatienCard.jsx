@@ -13,8 +13,29 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         setFile,
         setPhoto,
     } = useContext(PatientContext);
+
+    useEffect(() => {
+      const timerId = setInterval(() => {
+        setCurrentDateTime(new Date());  // Update the current date and time every minute
+      }, 1000 * 60);  // Set interval to 60 seconds
+  
+      return () => {
+        clearInterval(timerId);  // Clear the interval on component unmount
+      };
+    }, []);
+    const formatDate = (date) => {
+        const dateObj = new Date(date);  // Ensure date is a Date object
+        const year = dateObj.getFullYear();
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const hours = dateObj.getHours().toString().padStart(2, '0');
+        const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    
+        return `${year}-${month}-${day} ${hours}:${minutes}`;
+    };
+    
     const [isCompare,setIsCompare] = useState(false)
-    const {id, date, photo, result,comment:initComment} = patient;
+    const {id , date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
     useEffect(() => {
         if(activeResult != patient.id){
@@ -56,8 +77,16 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         if(textComment.length>0){
             const patients= JSON.parse(localStorage.getItem("patients"))
             const patientIndex = patients.findIndex(patient => patient.id === id);
-
-            patients[patientIndex].comment.push(textComment)
+            const newComment = {
+                text: textComment,
+                date: new Date()  // Store the current date and time
+            };
+    
+            if (patients[patientIndex].comment) {
+                patients[patientIndex].comment.push(newComment);
+            } else {
+                patients[patientIndex].comment = [newComment];  // Initialize the comment array if it does not exist
+            }
             localStorage.setItem("patients", JSON.stringify(patients));
             setIsShowAddComment(false)
             updateComment()
@@ -70,18 +99,22 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                {result.length>0?
+                   <img className="rounded-[8px] h-[45px] md:h-[56px]"
+                        src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/> 
+                {/* {result.length>0?
                     <img className="rounded-[8px] h-[45px] md:h-[56px]"
                         src={result[0].photo.length > 0 && result[0].photo} alt=""/>
                     :
                     <img className="rounded-[8px] h-[45px] md:h-[56px]"
                         src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/>                    
-                    }
+                    } */}
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919]">Patient ID: {id}</h2>
-
+                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8">Patient ID: {id}  <div> {patient.firstName} {patient.lastName}</div> </h2>
+                    <div>{}</div>
+                    <div className=" text-lg font-medium text-[#1A1919]"> 
+                    </div>
                     <div className="flex gap-2 items-center justify-between">
                         {/* <div onClick={() => setIsShowComment(!isShowComment)}
                              className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
@@ -258,12 +291,12 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                             <div className="text-[14px]">Comments:</div>
                             {!isShowAddComment &&
                                 <div className={` ${comment.length > 0? 'flex-1':' flex-1'} `}>
-                                    {comment.map((comment, index) => {
+                                    {comment.map((item, index) => {
                                         return (
                                             <div key={index}
                                                 className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
-                                                <p className={"w-[90%] font-[300] text-[14px]"}>{comment}</p>
+                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>{formatDate(new Date(item.date))} </h1>
+                                                <p className={"w-[90%] font-[300] text-[14px]"}>{item.text}</p>
                                             </div>
                                         )
                                     })}

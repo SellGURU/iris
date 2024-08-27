@@ -1122,7 +1122,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris">
                                         <div className="flex justify-center items-center w-[100px] ">
-                                            <img className="mr-2" src="./icons/print.svg"></img>
+                                            <img className="mr-2" src="/icons/print.svg"></img>
                                             Finish                     
                                         </div>
                                     </Button>         

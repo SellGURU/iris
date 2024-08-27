@@ -197,6 +197,7 @@ export const PaymentHistory = () => {
                         <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
                             {
                                 packages.map((el,index) => {
+                                    
                                     console.log(el)
                                     return (
                                         <PaymentCard onselect={() => {

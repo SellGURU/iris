@@ -29,7 +29,7 @@ export const StepInstructions = ({
         <img src="./icons/back2.svg" alt="" />
       </div>
       <h1 className="text-[22px] text-center font-medium text-[#2E2E2E]">
-        How Face Scanner Works
+        How The Face Scanner Works
       </h1>
       <div className="flex flex-col w-full items-center justify-center gap-5 px-5">
         <div className="  self-start     ">

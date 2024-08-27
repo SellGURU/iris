@@ -286,6 +286,7 @@ export const ScanHistory = () => {
                         }
                     }                                                         
                 }).map((patient, i) => {
+                    
                     return (
                         <>
                             <PatienCard
