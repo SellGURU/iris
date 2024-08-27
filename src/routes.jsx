@@ -7,7 +7,7 @@ import SignUp from "./page/signup";
 import GetCode from "./page/signup/getCode";
 import GetNumberPage from "./page/signup/getNumberPage";
 import WelcomePage from "./page/signup/welcome";
-import {IsLogin} from "./utility/isLogin.jsx";
+// import {IsLogin} from "./utility/isLogin.jsx";
 import {Tour} from "./page/tour/Tour.jsx";
 import {PatientInformation} from "./page/PatientInformation/patientInformation.jsx";
 import Header from "./layout/header.jsx";
@@ -29,9 +29,9 @@ export const route = [
     {
         path: 'changePassword',
         element:
-            <IsLogin>
+            // <IsLogin>
                 <ChangePassword></ChangePassword>
-            </IsLogin>
+            // </IsLogin>
     },      
     {
         path: "/", element:
@@ -39,66 +39,66 @@ export const route = [
         , children: [
             {
                 path: "", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <ScanHistory/>
-                    </IsLogin>
+                    // </IsLogin>
             },
             {
                 path: "/account", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <AccountInfo/>
-                    </IsLogin>
+                    // </IsLogin>
             },         
             {
                 path: "/edit", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <Account/>
-                    </IsLogin>
+                    // </IsLogin>
             },                  
             {
                 path: "faceMashFile", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <UploadFaceMash/>
-                    </IsLogin>
+                    // </IsLogin>
             }, {
                 path: "payment", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <PaymentHistory/>
-                    </IsLogin>
+                    // </IsLogin>
             },
             {
                 path: 'result',
                 element:
-                    <IsLogin>
+                    // <IsLogin>
                         <FaceScaned></FaceScaned>
-                    </IsLogin>
+                    // </IsLogin>
             },
           
             {
                 path: 'compare/:id',
                 element:
-                    <IsLogin>
+                    // <IsLogin>
                         <Compare></Compare>
-                    </IsLogin>
+                    // </IsLogin>
             },            
             {
                 path: "PatientInformation", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <PatientInformation/>
-                    </IsLogin>
+                    // </IsLogin>
             },
             {
                 path: "facecamera", element:
-                    <IsLogin>
+                    // <IsLogin>
                         <FaceMesh/>
-                    </IsLogin>
+                    // </IsLogin>
             },
             {
                 path: "tour",
                 element:
-                    <IsLogin>
+                    // <IsLogin>
                         <Tour/>
-                    </IsLogin>
+                    // </IsLogin>
             },
 
 
