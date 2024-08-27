@@ -19,9 +19,11 @@ import AccountInfo from "./page/account/index.jsx";
 import Compare from "./page/compare/index.jsx";
 import ChangePassword from "./page/ChangePassword.jsx";
 import FaceAnalyse from "./page/FaceAnalyse.jsx";
+import InformationSiginup from "./page/informationSiginup.jsx";
 export const route = [
     {path: "/login", element: <Login/>},
     {path: "/register", element: <Register/>},
+    {path: "/registerInformation", element: <InformationSiginup/>},    
     {path: "/forgetPass", element: <Forget/>},
     {path: "/faceAnalyse", element: <FaceAnalyse/>},
     {
