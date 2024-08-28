@@ -23,7 +23,7 @@ export const PaymentCard = ({pak,onselect}) => {
                         <div className={`absolute top-0 left-0 w-[142px] flex justify-center items-center  rounded-br-[16px]  z-10 text-[18px] ${isHoverd?' bg-white text-primary-color ':' bg-[#544BF0] text-white'}  h-[40px]`}>{pak.information.discount}% Discount</div>
                     :undefined
                 }
-                <img className="absolute -top-1" src="./icons/Oval7.svg" alt="" />
+                
                 {
                     isHoverd?
                         <img className="absolute top-0" src="./icons/Oval6.svg" />

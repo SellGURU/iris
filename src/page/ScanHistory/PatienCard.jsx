@@ -26,14 +26,15 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     const formatDate = (date) => {
         const dateObj = new Date(date);  // Ensure date is a Date object
         const year = dateObj.getFullYear();
-        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-        const day = dateObj.getDate().toString().padStart(2, '0');
-        const hours = dateObj.getHours().toString().padStart(2, '0');
-        const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const month = monthNames[dateObj.getMonth()];  // Get the month name
+        const day = dateObj.getDate().toString();  // Get the day
     
-        return `${year}-${month}-${day} ${hours}:${minutes}`;
+        return `${day} ${month} ${year}`;
     };
-    
     const [isCompare,setIsCompare] = useState(false)
     const {id , date, photo, result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
@@ -111,7 +112,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8">Patient ID: {id}  <div> {patient.firstName} {patient.lastName}</div> </h2>
+                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8"> <div> {patient.firstName} {patient.lastName}</div> <span className="text-base font-normal text-[#7E7E7E]">Client ID: {id} </span>  </h2>
                     <div>{}</div>
                     <div className=" text-lg font-medium text-[#1A1919]"> 
                     </div>
