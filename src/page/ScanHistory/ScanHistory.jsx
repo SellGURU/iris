@@ -199,9 +199,9 @@ export const ScanHistory = () => {
             <div className="xl:container w-full  flex flex-col px-2 xl:px-[24px]  gap-5">
                 <div className="w-full flex flex-col items-center gap-3 ">
                     <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
-                    {/* <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
+                    <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
                         Scan history records past scanned documents, showing details like date, categorization, download options, and patient scan comparisons for easy reference and retrieval.
-                    </p> */}
+                    </p>
                 </div>
                 <div className="flex w-full justify-between">
                     <div className="md:220px relative z-20 xl:w-[280px]">
