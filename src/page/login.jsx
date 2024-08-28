@@ -43,6 +43,7 @@ const Login = () => {
   let [, seveParty] = useLocalStorage("partyid");
   let [,saveEmail] = useLocalStorage("email")
   let [,savePass] = useLocalStorage("password")
+  let [,saveOrg] = useLocalStorage("orgData")
   const [resolvedHight,setResolvedHight] = useState('80vh')
   const resolveHightImage = () => {
     if(document.getElementById("contentBox")){
@@ -77,6 +78,7 @@ const Login = () => {
             seveParty(res.data.party_id)
             saveEmail(form.values.userName)
             savePass(form.values.password)
+            saveOrg(JSON.stringify(res.data.org_data))
             dispatch(setUserName("amin"));
 
             // toast.
