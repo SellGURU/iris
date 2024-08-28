@@ -33,6 +33,7 @@ const FaceMesh = () => {
     const [showService,setShowService] = useState(false)
     const [showPermision,setShowPermision] = useState(false)
     const navigate = useNavigate();
+    const [orgs,] = useLocalStorage("orgData")
     // const sex = useSelector(selectSex);
     // const id = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
@@ -731,11 +732,13 @@ const FaceMesh = () => {
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
         Analytics.analyticsImage({
-            patient_id:patientID,
+            client_id:patientID,
             error_threshold:errorThreshold,
             gender:sex,
             frontal_current:globalGreenImages[0].split(",")[1],
-            party_id:partyId
+            orgSCode: JSON.parse(orgs).orgSCode,
+            orgCode:JSON.parse(orgs).orgCode,
+
         }).then(res => {
             console.log(res)
             if(res.data.data){

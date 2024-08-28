@@ -39,6 +39,7 @@ export const PatientInformation = () => {
     // is show tour false did not load the show tour and redirect to face mash
     const [isShowTour,] = useLocalStorage("tour")
     const [showMore,setShowMore] = useState(false)
+    const [orgs,] = useLocalStorage("orgData")
     const {register, getValues, handleSubmit} = useForm()
     const formik = useFormik({
         initialValues:{
@@ -180,13 +181,13 @@ export const PatientInformation = () => {
                             phone:formik.values.phone
                         }
                         Application.addClient({
-                            orgCode: "string",
-                            orgSCode: "string",
+                            orgCode: JSON.parse(orgs).orgCode,
+                            orgSCode: JSON.parse(orgs).orgSCode,
                             first_name: patient.firstName,
                             last_name: patient.lastName,
                             email: patient.email,
-                            gender: patient.gender,
-                            client_id: patient.client_id,
+                            gender: patient.sex,
+                            client_id: patient.id,
                             phone_code: patient.phone.split(" ")[0],
                             phone: patient.phone                           
                         })
