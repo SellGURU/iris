@@ -25,19 +25,23 @@ export const PaymentHistory = () => {
     useConstructor(() => {
         PackageApi.getPackages().then((res) => {
             console.log(res)
-            const resolved =res.data.USD.map(el => {
+            const resolved =res.data.map(el => {
                 // console.log(JSON.parse(el.subs_info_data))
                 return new Package({
                     name:el.display_name,
                     cycle:el.sub_period,
                     cost:el.sd_price,
                     useage:0,
+                    oldCost:el.sr_price,
                     bundle:el.allowed_scans,
-                    discount:el.sdiscount,
-                    options:[]                       
+                    subCode:el.sub_code,
+                    subprice_code:el.subprice_code,                    
+                    discount:el.sr_price == el.sd_price?'0':el.sdiscount,
+                    options:el.subs_info_data.display_points_list                    
                 })
             })
             console.log(resolved)
+            setPackages(resolved)
         })
         PackageApi.getPymentHistory({
             orgCode: JSON.parse(orgs).orgCode,
@@ -49,7 +53,7 @@ export const PaymentHistory = () => {
         })
     })
     
-    const packages = [
+    const [packages,setPackages] = useState([
         new Package({
             name:'Individual',
             cycle:'Yearly',
@@ -113,7 +117,7 @@ export const PaymentHistory = () => {
                 "Use Within 12 Months"
             ]              
         })                              
-    ]
+    ])
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
     const [transactions,setTransactions] = useState([])
     return (

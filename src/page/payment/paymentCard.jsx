@@ -52,6 +52,7 @@ export const PaymentCard = ({pak,onselect}) => {
                             )
                         })
                     }
+                    {pak.information.options.length <3 ? <p  className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center invisible text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>item </p>:undefined}
                     {/* <p className={"text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center text-[#444444]"}> <span><img src="./icons/tick.svg" alt="" /></span>use within 12 months</p> */}
                     {/* <p className={"text-xl font-normal text-[#444444]"}>Feature information </p> */}
                 </div>
