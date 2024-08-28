@@ -72,7 +72,6 @@ const Login = () => {
       })
         .then((res) => {
           // toast.dismis()
-          console.log(res)
           remember()
           if (res.data.token!='') {
             setIsPanding(false);
@@ -98,8 +97,9 @@ const Login = () => {
             // toast.
             navigate("/");
           } else {
-            // console.log("res");
+            // console.log(res.msg);
             // toast.error(res.data.error) 
+            // alert(res.msg)
             form.setFieldError("password", "The password is incorrect.");
             // setTimeout(() => {
             //   toast.pe

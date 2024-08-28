@@ -24,9 +24,7 @@ export const PaymentHistory = () => {
     const [orgs,] = useLocalStorage("orgData")    
     useConstructor(() => {
         PackageApi.getPackages().then((res) => {
-            console.log(res)
             const resolved =res.data.map(el => {
-                // console.log(JSON.parse(el.subs_info_data))
                 return new Package({
                     name:el.display_name,
                     cycle:el.sub_period,
@@ -40,7 +38,6 @@ export const PaymentHistory = () => {
                     options:el.subs_info_data.display_points_list                    
                 })
             })
-            console.log(resolved)
             setPackages(resolved)
         })
         PackageApi.getPymentHistory({
@@ -48,7 +45,9 @@ export const PaymentHistory = () => {
             orgSCode: JSON.parse(orgs).orgSCode,
             email: localEmail           
         }).then(res => {
-            setTransactions(res.data.data)
+            if(res.data.status!= 'fail'){
+                setTransactions(res.data.data)
+            }
             // console.log(res)
         })
     })

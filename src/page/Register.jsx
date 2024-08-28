@@ -65,7 +65,8 @@ const Register = () => {
             // toast.info(res.data.msg);
             navigate("/login");
           } else if(res.data.status == 'fail'){
-            console.log("res");
+            // console.log(res);
+            alert(res.data.msg)
             // toast.error(res.data.msg);
             // toast.error(res.data)
           }

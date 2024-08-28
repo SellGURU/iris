@@ -10,6 +10,7 @@ import FilterModal from '../modal/Filter.jsx';
 import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { Tooltip } from 'react-tooltip'
+import { useConstructor } from "../../help.js";
 import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 
@@ -92,6 +93,7 @@ export const ScanHistory = () => {
         //     ]
         // },            
     ];
+    const [orgs,] = useLocalStorage("orgData")
     const [results,setResults] = useState([])
     const [activeResult,setActiveResult] = useState(null)
     const [filterType,setFilterType] = useState('Any')
@@ -117,12 +119,16 @@ export const ScanHistory = () => {
         close:() =>{
             // setShowFilter(false)
         }
-    })    
-    Application.getScanList({
-        party_id:partyId
-    }).then((res) => {
-        console.log
-    })
+    })   
+    useConstructor(() => {
+        Application.getScanList({
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode
+        }).then((res) => {
+            console.log(res)
+        })
+
+    }) 
     
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage,setItemPerPage] = useState('5');
