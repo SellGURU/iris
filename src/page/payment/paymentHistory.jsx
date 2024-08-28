@@ -104,6 +104,15 @@ export const PaymentHistory = () => {
         })                              
     ]
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
+    const transactions = [
+        { date: '23 Jan 2023', scans: 50, price: '\$5000' },
+        { date: '23 Feb 2023', scans: 100, price: '\$5000' },
+        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+      ];
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
             <div className="px-0  w-full flex justify-start">
@@ -126,13 +135,15 @@ export const PaymentHistory = () => {
                         <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
-                                <ButtonPrimary onClickHandler={() => {
+                                <h1 className={"text-2xl font-medium "}>Scan Remaining</h1>
+                                {/* <ButtonPrimary onClickHandler={() => {
                                     window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
-                                }} className={"text-[14px]"}>Upgrade</ButtonPrimary>
+                                }} className={"text-[14px]"}>Upgrade</ButtonPrimary> */}
                             </div>
-                            <div className={"space-y-10 flex-col px-6 py-4"}>
-                                <div className={"flex items-center justify-between  "}>
+                            <div className={"space-y-6 flex-col px-6 py-4"}>
+                                <span className="font-nomral text-[#7E7E7E]">Usage</span>
+                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getRemining()} scans remained</p>
+                                {/* <div className={"flex items-center justify-between  "}>
                                     <div>
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
                                         <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().name}</p>
@@ -145,31 +156,51 @@ export const PaymentHistory = () => {
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cost</h1>
                                         <p className={"text-xl font-medium"}>{'$'+appContext.package.getPackage().getInformation().cost}</p>
                                     </div>
-                                </div>
-                                <div className="absolute bottom-4 w-full">
-                                    <div className={"space-y-0"}>
-                                        {/* <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1> */}
+                                </div> */}
+                                <div className="w-full">
+                                    {/* <div className={"space-y-0"}>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
                                         {appContext.package.getPackage().getInformation().useage == 0?
                                             <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
                                         :
                                             <p className={`text-lg ${appContext.package.getPackage().getPercentUsage() >=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getRemining()} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
                                         }
-                                    </div>
-                                    <div className={`h-[20px] relative w-[93%] mt-[8px] rounded-[8px] bg-[#E1E1E1] `}>
+                                    </div> */}
+                                    <div className={`h-[20px] relative w-[93%]  rounded-[8px] bg-[#E1E1E1] `}>
                                         <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
                                             width:appContext.package.getPackage().getPercentRemining()+'%'
                                         }}></div>
                                     </div>
                                 </div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire date: 2025 Sep 12</div>
                             </div>
                         </div>
                         <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '} border rounded-md `}>
-                            <div
-                                className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={" text-2xl font-medium"}>Payment Method</h1>
-                            </div>
-
-                            <PaymentMethod></PaymentMethod>                
+                          
+                            <div className="border p-4 rounded-lg">
+      <h2 className="text-lg font-bold mb-4">Transaction History</h2>
+      <div className="overflow-auto max-h-[220px]" >
+        <table className="min-w-full bg-white ">
+          <thead className="border-b  text-xl">
+            <tr className="w-full bg-[#F5F5F5] text-[#2E2E2E] font-medium">
+              <th className="py-2 px-4 font-medium">Billing Date</th>
+              <th className="py-2 px-4  font-medium">Number of Scan</th>
+              <th className="py-2 px-4 font-medium">Price</th>
+            </tr>
+          </thead>
+          <tbody className="">
+            {transactions.map((transaction, index) => (
+              <tr key={index}className="pt-2">
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.date}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.scans}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+                            {/* <PaymentMethod></PaymentMethod>                 */}
                             <div className={ "px-6 flex items-center justify-between py-4"}>
                                 {/* <div onClick={() => {
                                     setSHowMoreAutoPlay(!showMoreautoPlay)
@@ -186,14 +217,14 @@ export const PaymentHistory = () => {
 
                         </div>
                     </div>
-                    <div className={"w-full mt-16 space-y-5"}>
+                    {/* <div className={"w-full mt-16 space-y-5"}>
                         <h1 className={"text-2xl font-medium text-[#2E2E2E]"}>Invoice</h1>
                         <p className={"text-[#7E7E7E] font-normal text-base mb-10"}>Effortlessly handle your billing and
                             invoices right here.</p>
                         <PaymentTable/>
-                    </div>
-                    <div className={"mt-32"}>
-                        <h1 className={"text-2xl font-medium "}>Update Your Subscription Today (Instant Access)</h1>
+                    </div> */}
+                    <div className={"mt-10"}>
+                        <h1 className={"text-2xl font-medium "}>Purchase More Scans</h1>
                         <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
                             {
                                 packages.map((el,index) => {
