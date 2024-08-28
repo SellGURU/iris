@@ -5,6 +5,11 @@ class Application extends Api {
         const response = this.post('/listIrisScans',data)
         return response
     }
+
+    static addClient(data) {
+        const response = this.post('/addClient',data)
+        return response
+    }
 }
 
 export default Application

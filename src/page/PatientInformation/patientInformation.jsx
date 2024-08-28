@@ -14,6 +14,7 @@ import Link from '@mui/material/Link';
 import GenerateId from '../../utility/generateId.js'
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Application from "../../api/Application.js";
 
 export const PatientInformation = () => {
     const getRand = () => {
@@ -132,7 +133,7 @@ export const PatientInformation = () => {
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
-                            <input type="number" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
+                            <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/>
 
                         </div>
@@ -178,6 +179,17 @@ export const PatientInformation = () => {
                             email:formik.values.email,
                             phone:formik.values.phone
                         }
+                        Application.addClient({
+                            orgCode: "string",
+                            orgSCode: "string",
+                            first_name: patient.firstName,
+                            last_name: patient.lastName,
+                            email: patient.email,
+                            gender: patient.gender,
+                            client_id: patient.client_id,
+                            phone_code: patient.phone.split(" ")[0],
+                            phone: patient.phone                           
+                        })
                         updateLocalPatientIHistoty(patient);
                         if (isShowTour) {
                             navigate("/tour")

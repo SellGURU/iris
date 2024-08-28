@@ -27,27 +27,27 @@ const Header = () => {
     let [email,] = useLocalStorage("email")
     let [pass,] = useLocalStorage("password")    
     const [showModalBox,setSowModalBox] = useState(false)
-    PackageApi.getCurrentPackage({
-        email:email,
-        password:pass
-    }).then(res => {
-        // console.log(res)
-        if(res.data.status == 'success'){
-            if(res.data.data.subs_data.length> 0){
-                let newPak = new Package({
-                    name:'No available package',
-                    cycle:'Yearly',
-                    cost:0,
-                    useage:res.data.data.subs_data[0].iscan_used,
-                    bundle:res.data.data.subs_data[0].iscan_brought,
-                    discount:0,
-                    options:[]                           
-                })
-                // console.log(newPak)
-                Appcontext.package.updatePackage(newPak)
-            }
-        }
-    })
+    // PackageApi.getCurrentPackage({
+    //     email:email,
+    //     password:pass
+    // }).then(res => {
+    //     // console.log(res)
+    //     if(res.data.status == 'success'){
+    //         if(res.data.data.subs_data.length> 0){
+    //             let newPak = new Package({
+    //                 name:'No available package',
+    //                 cycle:'Yearly',
+    //                 cost:0,
+    //                 useage:res.data.data.subs_data[0].iscan_used,
+    //                 bundle:res.data.data.subs_data[0].iscan_brought,
+    //                 discount:0,
+    //                 options:[]                           
+    //             })
+    //             // console.log(newPak)
+    //             Appcontext.package.updatePackage(newPak)
+    //         }
+    //     }
+    // })
     useModalAutoClose({
         refrence: menuRef,
         close: () => {
