@@ -61,9 +61,9 @@ export const PatientInformation = () => {
     const onSubmitData = (data, e) => {
 
         e.preventDefault()
-        setSex(gender)
-        setPatientID(data.id)
-        setErrorThreshold(threhold)
+        // setSex(gender)
+        // setPatientID(data.id)
+        // setErrorThreshold(threhold)
         // addPatient(patient);
         // add it to local storage (in context)
         // const patient = {
@@ -75,11 +75,6 @@ export const PatientInformation = () => {
         // }
         // addPatient(patient)
         // updateLocalPatientIHistoty(patient);
-        if (isShowTour) {
-            navigate("/tour")
-        } else {
-            navigate("/faceCamera")
-        }
     }
 
     return (
@@ -191,7 +186,8 @@ export const PatientInformation = () => {
                             phone_code:patient.phone!= ''? patient.phone.split(" ")[0]:undefined,
                             phone:patient.phone!= ''? patient.phone.split(" ")[1]:undefined,                        
                         }).then(res => {
-                            if(res.status!= 'fail'){
+                            console.log(res)
+                            if(res.data.status == 'success'){
                                 updateLocalPatientIHistoty(patient);
                                 if (isShowTour) {
                                     navigate("/tour")
@@ -199,6 +195,8 @@ export const PatientInformation = () => {
                                     navigate("/faceCamera")
                                 }                        
 
+                            }else{
+                                alert(res.data.msg)
                             }
                         })
                     }} disabled={!formik.isValid || !formik.touched.firstName} type="submit" theme="iris-large">
