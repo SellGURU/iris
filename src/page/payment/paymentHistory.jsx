@@ -108,10 +108,8 @@ export const PaymentHistory = () => {
         { date: '23 Jan 2023', scans: 50, price: '\$5000' },
         { date: '23 Feb 2023', scans: 100, price: '\$5000' },
         { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
-        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
-        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
-        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
-        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
+        { date: '11 Mar 2023', scans: 1000, price: '\$5000' },
+    
       ];
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
@@ -175,11 +173,11 @@ export const PaymentHistory = () => {
                                 <div className=" font-normal text-[#7E7E7E]">Expire date: 2025 Sep 12</div>
                             </div>
                         </div>
-                        <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '} border rounded-md `}>
+                        <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
                           
                             <div className="border p-4 rounded-lg">
       <h2 className="text-lg font-bold mb-4">Transaction History</h2>
-      <div className="overflow-auto max-h-[220px]" >
+      <div className="overflow-auto max-h-[225px]" >
         <table className="min-w-full bg-white ">
           <thead className="border-b  text-xl">
             <tr className="w-full bg-[#F5F5F5] text-[#2E2E2E] font-medium">
@@ -225,7 +223,7 @@ export const PaymentHistory = () => {
                     </div> */}
                     <div className={"mt-10"}>
                         <h1 className={"text-2xl font-medium "}>Purchase More Scans</h1>
-                        <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
+                        <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center mt-4 justify-between gap-3  py-6 px-4"}>
                             {
                                 packages.map((el,index) => {
                                     
