@@ -3,16 +3,18 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 // import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState ,useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
+import Package from "../model/Package.js";
+import {PatientContext} from '../context/context.jsx'
 
 const Login = () => {
   const passwordRef = useRef(null);
-
+  const Appcontext = useContext(PatientContext)
   // const {register, handleSubmit} = useForm();
   const initialValues = {
     userName: localStorage.getItem("myapp-email")? localStorage.getItem("myapp-email"): '',
@@ -80,7 +82,19 @@ const Login = () => {
             savePass(form.values.password)
             saveOrg(JSON.stringify(res.data.org_data))
             dispatch(setUserName("amin"));
-
+            if(res.data.org_data.subs_data.length> 0){
+                let newPak = new Package({
+                    name:'No available package',
+                    cycle:'Yearly',
+                    cost:0,
+                    useage:res.data.org_data.subs_data[0].iscan_used,
+                    bundle:res.data.org_data.subs_data[0].iscan_brought,
+                    discount:0,
+                    options:[]                           
+                })
+                    // console.log(newPak)
+                Appcontext.package.updatePackage(newPak)
+            }
             // toast.
             navigate("/");
           } else {
