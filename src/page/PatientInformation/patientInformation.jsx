@@ -186,17 +186,21 @@ export const PatientInformation = () => {
                             first_name: patient.firstName,
                             last_name: patient.lastName,
                             email: patient.email,
-                            gender: patient.sex,
+                            gender: patient.sex == 'masculine'? 'male':'female',
                             client_id: patient.id,
-                            phone_code: patient.phone.split(" ")[0],
-                            phone: patient.phone                           
+                            phone_code:patient.phone!= ''? patient.phone.split(" ")[0]:undefined,
+                            phone:patient.phone!= ''? patient.phone.split(" ")[1]:undefined,                        
+                        }).then(res => {
+                            if(res.status!= 'fail'){
+                                updateLocalPatientIHistoty(patient);
+                                if (isShowTour) {
+                                    navigate("/tour")
+                                } else {
+                                    navigate("/faceCamera")
+                                }                        
+
+                            }
                         })
-                        updateLocalPatientIHistoty(patient);
-                        if (isShowTour) {
-                            navigate("/tour")
-                        } else {
-                            navigate("/faceCamera")
-                        }                        
                     }} disabled={!formik.isValid || !formik.touched.firstName} type="submit" theme="iris-large">
                         Save & Continue
                     </Button>

@@ -732,9 +732,8 @@ const FaceMesh = () => {
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
         Analytics.analyticsImage({
-            client_id:patientID,
+            client_id:patientID.toString(),
             error_threshold:errorThreshold,
-            gender:sex,
             frontal_current:globalGreenImages[0].split(",")[1],
             orgSCode: JSON.parse(orgs).orgSCode,
             orgCode:JSON.parse(orgs).orgCode,

@@ -119,7 +119,6 @@ const UploadFaceMash = () => {
         Analytics.analyticsImage({
             client_id:patientID,
             error_threshold:errorThreshold,
-            gender:sex,
             frontal_current:resolvedFile.split(',')[1],
             orgSCode: JSON.parse(orgs).orgSCode,
             orgCode:JSON.parse(orgs).orgCode,

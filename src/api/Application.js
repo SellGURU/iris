@@ -10,6 +10,8 @@ class Application extends Api {
         const response = this.post('/addClient',data)
         return response
     }
+
+
 }
 
 export default Application

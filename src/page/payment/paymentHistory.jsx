@@ -13,6 +13,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import PackageApi from '../../api/package.js';
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useConstructor } from "../../help.js";
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
@@ -20,7 +21,8 @@ export const PaymentHistory = () => {
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");
     let [localEmail,] = useLocalStorage("email")    
-    useEffect(() => {
+    const [orgs,] = useLocalStorage("orgData")    
+    useConstructor(() => {
         PackageApi.getPackages().then((res) => {
             console.log(res)
             const resolved =res.data.USD.map(el => {
@@ -37,7 +39,16 @@ export const PaymentHistory = () => {
             })
             console.log(resolved)
         })
+        PackageApi.getPymentHistory({
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            email: localEmail           
+        }).then(res => {
+            setTransactions(res.data.data)
+            // console.log(res)
+        })
     })
+    
     const packages = [
         new Package({
             name:'Individual',
@@ -104,13 +115,7 @@ export const PaymentHistory = () => {
         })                              
     ]
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
-    const transactions = [
-        { date: '23 Jan 2023', scans: 50, price: '\$5000' },
-        { date: '23 Feb 2023', scans: 100, price: '\$5000' },
-        { date: '23 Mar 2023', scans: 1000, price: '\$5000' },
-        { date: '11 Mar 2023', scans: 1000, price: '\$5000' },
-    
-      ];
+    const [transactions,setTransactions] = useState([])
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
             <div className="px-0  w-full flex justify-start">
@@ -189,9 +194,9 @@ export const PaymentHistory = () => {
           <tbody className="">
             {transactions.map((transaction, index) => (
               <tr key={index}className="pt-2">
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.date}</td>
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.scans}</td>
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.price}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.payDateTime}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.paidAmount}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
               </tr>
             ))}
           </tbody>
@@ -233,7 +238,8 @@ export const PaymentHistory = () => {
                                             PackageApi.byPackage({
                                                 sub_code:el.information.subCode,
                                                 subprice_code:el.information.subCode,
-                                                party_id:localPartyId,
+                                                orgCode: JSON.parse(orgs).orgCode,
+                                                orgSCode: JSON.parse(orgs).orgSCode,
                                                 email:localEmail
                                             }).then(res => {
                                                 console.log(res)
