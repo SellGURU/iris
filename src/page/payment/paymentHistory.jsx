@@ -200,7 +200,7 @@ export const PaymentHistory = () => {
             {transactions.map((transaction, index) => (
               <tr key={index}className="pt-2">
                 <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.payDateTime}</td>
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.paidAmount}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
                 <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
               </tr>
             ))}
