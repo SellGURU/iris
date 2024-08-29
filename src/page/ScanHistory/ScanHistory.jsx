@@ -192,8 +192,11 @@ export const ScanHistory = () => {
 
     const filterPatientsHandler = (e) => {
         // console.log(patientList)
-        const filteredItem = patientList.filter((el) => {
-            return el.id.includes(e.target.value)
+        const filteredItem = patients.filter((el) => {
+            return el.client_info.clientCode.includes(e.target.value)
+            || el.client_info.lastName.includes(e.target.value)
+            || el.client_info.firstName.includes(e.target.value)
+            || el.client_info.email.includes(e.target.value)
         });
         // console.log(patientList)
         if (e.target.value.length <= 0) {
@@ -259,24 +262,24 @@ export const ScanHistory = () => {
                 </div>
                 {patientList.sort((a,b) =>{
                     if(filterType == 'Maximum Scan'){
-                        if(a.result.length >= b.result.length){
+                        if(a.scans.length >= b.scans.length){
                             return -1
                         }else {
                             return 1
                         }
                     }
                     if(filterType == 'Minimum Scan'){
-                        if(a.result.length >= b.result.length){
+                        if(a.scans.length >= b.scans.length){
                             return 1
                         }else {
                             return -1
                         }
                     }     
                     if(filterType == 'Oldest Scan'){
-                        let ADate = a.result.map(e => new Date(e.date))
-                        let BDate = b.result.map(e => new Date(e.date))
-                        var maxDate1=new Date(Math.min.apply(null,ADate));
-                        var maxDate2=new Date(Math.min.apply(null,BDate));
+                        let ADate = a.scans.map(e => e.timestamp)
+                        let BDate = b.scans.map(e => e.timestamp)
+                        var maxDate1=Math.min.apply(null,ADate);
+                        var maxDate2=Math.min.apply(null,BDate);
                      
                         if(maxDate1 > maxDate2){
                             return 1
@@ -285,16 +288,17 @@ export const ScanHistory = () => {
                         }
                     }    
                     if(filterType == 'Newest Scan'){
-                        let ADate = a.result.map(e => new Date(e.date))
-                        let BDate = b.result.map(e => new Date(e.date))
-                        let maxDate1=new Date(Math.max.apply(null,ADate));
-                        let maxDate2=new Date(Math.max.apply(null,BDate));
-                     
-                        if(maxDate1 >= maxDate2){
+                        let ADate = a.scans.map(e => e.timestamp)
+                        let BDate = b.scans.map(e => e.timestamp)
+                        
+                        let maxDate1=Math.max.apply(null,ADate);
+                        let maxDate2=Math.max.apply(null,BDate);
+                        if(maxDate1 < maxDate2){
                             return 1
                         }else {
                             return -1
                         }
+                        
                     }                                                         
                 }).map((patient, i) => {
                     
