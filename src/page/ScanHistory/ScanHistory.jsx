@@ -122,6 +122,11 @@ export const ScanHistory = () => {
         }
     })   
     useConstructor(() => {
+        if(patients.length > 0){
+            if(!patients[0].client_info){
+                localStorage.clear()
+            }
+        }
         Application.getScanList({
             orgCode: JSON.parse(orgs).orgCode,
             orgSCode: JSON.parse(orgs).orgSCode
