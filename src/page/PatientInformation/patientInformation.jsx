@@ -56,6 +56,7 @@ export const PatientInformation = () => {
         validationSchema:Yup.object().shape({
             firstName:Yup.string().required(),
             lastName:Yup.string().required(),
+            phone:Yup.string().min(7,'Phone number must be between 7 and 12 characters long.').max(12,'Phone number must be between 7 and 12 characters long.'),
             email:Yup.string().required().matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         })
     })
@@ -129,12 +130,12 @@ export const PatientInformation = () => {
 
                         </div>
                     </CardPatient>      
-                    <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                    <CardPatient className={"w-[550px] relative order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
                             {/* <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/> */}
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
                             <PhoneInput
                             // {...formik.getFieldProps("phone")} 
                             value={formik.values.phone}
@@ -147,6 +148,9 @@ export const PatientInformation = () => {
                                 formik.setFieldValue("phone",e)
                             }}
                             placeholder="Enter Phone" />
+                        </div>
+                        <div className="text-[10px] absolute text-red-500 bottom-1" >
+                            {formik.errors.phone}
                         </div>
                     </CardPatient>                                                            
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
