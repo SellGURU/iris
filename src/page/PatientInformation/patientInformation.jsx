@@ -99,7 +99,7 @@ export const PatientInformation = () => {
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
                     <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex lg:grid xl:flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}

@@ -76,7 +76,7 @@ export const Tour = () => {
                         step="4"
                         text="Once all poses are completed successfully, press the 'Finish' button to begin processing and preparing the report."
                         image={'image/tour4.png'}
-                        note="You can also perform a new scan, and all records will be saved in your scan library."
+                        note="Note: You can also perform a new scan, and all records will be saved in your scan library."
                         onNext={() => {
                             setIsShowTour(false)
                             navigate("/facecamera")

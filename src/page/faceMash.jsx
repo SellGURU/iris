@@ -731,6 +731,9 @@ const FaceMesh = () => {
     let [partyId] = useLocalStorage("partyid");
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
+        if (window.stream) {
+            window.stream.getVideoTracks()[0].stop();
+        }
         Analytics.analyticsImage({
             client_id:patientID.toString(),
             error_threshold:errorThreshold,
