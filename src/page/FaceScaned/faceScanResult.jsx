@@ -16,6 +16,7 @@ import { Button } from "symphony-ui";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import Application from "../../api/Application.js";
 
 const FaceScanResult =() => {
     const navigate = useNavigate()
@@ -26,7 +27,8 @@ const FaceScanResult =() => {
         fileId,
         errorThreshold,
         addPatient,
-        photo
+        photo,
+        setPdf
     } = useContext(PatientContext);
     const download = () => {
         // const downloadLink = document.createElement("a");
@@ -100,6 +102,19 @@ const FaceScanResult =() => {
             setIsShowAddComment(false)
         }
     }    
+    useEffect(() => {
+        console.log(patientID)
+        // Application.getScanDetails({
+        //     scanCode: "c1e8404b-ee23-487f-b4f8-6c02409ab623",
+        //     orgCode: "4ViHoPV6r+Yjl9YHqd36cA==",
+        //     orgSCode: "Tl150F+gj04xE0AaJfJo1A==",
+        //     client_id: "617219"
+        // }).then((res) => {
+        //     console.log(res)
+        //     setPdf(res.data.html_file)
+        //     resolvePdf()
+        // })
+    })
     const date = new Date();
     return (
         <>

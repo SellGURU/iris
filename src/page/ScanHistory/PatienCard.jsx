@@ -14,15 +14,15 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         setPhoto,
     } = useContext(PatientContext);
 
-    useEffect(() => {
-      const timerId = setInterval(() => {
-        setCurrentDateTime(new Date());  // Update the current date and time every minute
-      }, 1000 * 60);  // Set interval to 60 seconds
+    // useEffect(() => {
+    //   const timerId = setInterval(() => {
+    //     setCurrentDateTime(new Date());  // Update the current date and time every minute
+    //   }, 1000 * 60);  // Set interval to 60 seconds
   
-      return () => {
-        clearInterval(timerId);  // Clear the interval on component unmount
-      };
-    }, []);
+    //   return () => {
+    //     clearInterval(timerId);  // Clear the interval on component unmount
+    //   };
+    // }, []);
     const formatDate = (date) => {
         const dateObj = new Date(date);  // Ensure date is a Date object
         const year = dateObj.getFullYear();
@@ -36,7 +36,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         return `${day} ${month} ${year}`;
     };
     const [isCompare,setIsCompare] = useState(false)
-    const {id , date, photo, result,comment:initComment} = patient;
+    // const {id , result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
     useEffect(() => {
         if(activeResult != patient.id){
@@ -45,13 +45,13 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     },[activeResult])
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
-    const [comment, setComment] = useState(initComment);
+    const [comment, setComment] = useState(patient.comments);
     const navigate = useNavigate();
     const [isShowMore,setIsShowMore] = useState(false)
     const updateComment=() => {
-        let patients= JSON.parse(localStorage.getItem("patients"))
-        let patientIndex = patients.findIndex(patient => patient.id === id);
-        setComment(patients[patientIndex].comment);
+        // let patients= JSON.parse(localStorage.getItem("patients"))
+        // let patientIndex = patients.findIndex(patient => patient.id === id);
+        // setComment(patients[patientIndex].comment);
     }
     // const dispatch = useDispatch();
     const download = (id) => {
@@ -68,7 +68,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     } = useContext(PatientContext);
     const clickHandler = () => {
         setSex(patient.sex)
-        setPatientID(patient.id)
+        setPatientID(patient.client_info.clientCode)
         setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
@@ -101,27 +101,16 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
             <div className="flex items-start self-start gap-5 ">
                 {index}
                    <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/> 
-                {/* {result.length>0?
-                    <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={result[0].photo.length > 0 && result[0].photo} alt=""/>
-                    :
-                    <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/>                    
-                    } */}
+                        src={`https://ui-avatars.com/api/?name=${patient.client_info.firstName+' '+patient.client_info.lastName}`} alt=""/> 
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8"> <div> {patient.firstName} {patient.lastName}</div> <span className="text-base font-normal text-[#7E7E7E]">Client ID: {id} </span>  </h2>
+                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8"> <div> {patient.client_info.firstName} {patient.client_info.lastName}</div> <span className="text-base font-normal text-[#7E7E7E]">Client ID: {patient.client_info.clientCode} </span>  </h2>
                     <div>{}</div>
                     <div className=" text-lg font-medium text-[#1A1919]"> 
                     </div>
                     <div className="flex gap-2 items-center justify-between">
-                        {/* <div onClick={() => setIsShowComment(!isShowComment)}
-                             className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
-                            ({comment.length})
-                            <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
-                        </div> */}
+
                         <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
                             {isShowComment?'Hide comments':'Show comments'}
                             ({comment.length})
@@ -157,25 +146,25 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                    {result.map((patientHistory, index) => {
-                        const myDate = new Date(patientHistory.date);
+                    {patient.scans.map((patientHistory, index) => {
+                        // const myDate = new Date(patientHistory.date);
                         return (
                             <>
                                 {index < 2 || isShowMore?
-                                <div key={index + id} className="flex justify-between items-center w-full ">
+                                <div key={index + patient.client_info.clientCode} className="flex justify-between items-center w-full ">
                                     <div className="flex justify-start gap-1 items-center">
                                         {isCompare &&
-                                            <Checkbox id={id}  checked={accepted.includes(patientHistory.htmlId)} onChange={() => {
-                                                if(!accepted.includes(patientHistory.htmlId)){
+                                            <Checkbox id={patientHistory.scan_id}  checked={accepted.includes(patientHistory.scan_id)} onChange={() => {
+                                                if(!accepted.includes(patientHistory.scan_id)){
                                                     const array = accepted
                                                     if(accepted.length >= 3){
                                                         array.shift()
                                                     }
-                                                    setAccepted([...array,patientHistory.htmlId])
-                                                    onaccepted([...array,patientHistory.htmlId])
+                                                    setAccepted([...array,patientHistory.scan_id])
+                                                    onaccepted([...array,patientHistory.scan_id])
                                                 }else{
                                                     const array = accepted
-                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    const index = accepted.indexOf(patientHistory.scan_id);
                                                     array.splice(index, 1)
                                                     setAccepted(array)
                                                     onaccepted(array)
@@ -183,33 +172,33 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                             }}></Checkbox>
                                         }
                                         <label onClick={() => {
-                                                 if(!accepted.includes(patientHistory.htmlId)){
+                                                 if(!accepted.includes(patientHistory.scan_id)){
                                                     const array = accepted
                                                     if(accepted.length >= 3){
                                                         array.shift()
                                                     }
-                                                    setAccepted([...array,patientHistory.htmlId])
-                                                    onaccepted([...array,patientHistory.htmlId])
+                                                    setAccepted([...array,patientHistory.scan_id])
+                                                    onaccepted([...array,patientHistory.scan_id])
                                                 }else{
                                                     const array = accepted
-                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    const index = accepted.indexOf(patientHistory.scan_id);
                                                     array.splice(index, 1)
                                                     setAccepted(array)
                                                     onaccepted(array)
                                                 }                                       
-                                        }} htmlFor={id}>
+                                        }} htmlFor={patientHistory.scan_id}>
                                             <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan reports</h2>
                                         </label>
                                     </div>
                                     <div className="text-[#7E7E7E] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{myDate.getDate()+"   "+myDate.toLocaleString('default', { month: 'long' })+"   "+myDate.getFullYear()}</span>{" "}
+                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{ new Date(patientHistory.timestamp).toLocaleString()}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
                                         <RWebShare data={{
                                             text: "iris",
-                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
+                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.scan_id,
                                             title: "iris",
                                         }}>
                                             {/* <div
@@ -232,7 +221,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                                 onClick={() => {
                                                     if (navigator.share) {
                                                         navigator.share({
-                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.scan_id
                                                         })
                                                             .then(() => console.log('Successful share'))
                                                             .catch((error) => console.log('Error sharing', error));
@@ -247,14 +236,15 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                             className="bg-[#F9F9FB] cursor-pointer border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
                                             <div className="downloadIcon-purple"></div>
                                         </div> */}
-                                        <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
+                                        <Button onClick={() => download(patientHistory.scan_id)} theme="iris-secondary-small">
                                             <div className="downloadIcon-purple"></div>
                                         </Button>
                                         <Button onClick={() => {
                                             // setPdf('data:text/html;base64,' + patientHistory.htmlId)
-                                            setPhoto(result[0].photo)
-                                            setFile(patientHistory.htmlId)                             
-                                            navigate('/result')
+                                            // setPhoto(result[0].photo)
+                                            // setFile(patientHistory.scan_id)       
+                                            // setPatientID(patient.client_info.clientCode)                      
+                                            navigate(`/showReport/?scanId=${patientHistory.scan_id}&clientId=${patient.client_info.clientCode}`)
 
                                             }} theme="iris-secondary-small">
                                             View Reports
@@ -274,7 +264,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                         )
                     })}
                     {
-                        result.length> 2 &&
+                        patient.scans.length> 2 &&
                         <div className="flex justify-between items-center">
                             <div className="w-[90px]"></div>
                             <div onClick={() => {

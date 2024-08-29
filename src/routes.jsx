@@ -13,6 +13,7 @@ import { PatientInformation } from "./page/PatientInformation/patientInformation
 import Header from "./layout/header.jsx";
 import { ScanHistory } from "./page/ScanHistory/ScanHistory.jsx";
 import FaceScaned from "./page/FaceScaned/faceScanResult.jsx";
+import ShowReport from "./page/FaceScaned/showReport.jsx";
 import { PaymentHistory } from "./page/payment/paymentHistory.jsx";
 import Account from "./page/account/edit.jsx";
 import AccountInfo from "./page/account/index.jsx";
@@ -86,6 +87,14 @@ export const route = [
           </IsLogin>
         ),
       },
+      {
+        path: "showReport",
+        element: (
+          <IsLogin>
+            <ShowReport></ShowReport>
+          </IsLogin>
+        ),
+      },      
 
       {
         path: "compare/:id",
@@ -121,7 +130,14 @@ export const route = [
       },
     ],
   },
-
+  {
+    path: "showReportScan",
+    element: (
+      <IsLogin>
+        <ShowReport></ShowReport>
+      </IsLogin>
+    ),
+  },  
   {
     path: "/SignUp",
     element: <SignUp />,

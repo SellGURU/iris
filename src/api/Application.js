@@ -11,6 +11,11 @@ class Application extends Api {
         return response
     }
 
+    static getScanDetails(data) {
+        const response = this.post('/getIrisScanDetails',data)
+        return response
+    }
+
 
 }
 
