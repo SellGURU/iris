@@ -17,12 +17,14 @@ import { useConstructor } from "../../help.js";
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
+    let [org,] = useLocalStorage("orgData")
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");
     let [localEmail,] = useLocalStorage("email")    
     const [orgs,] = useLocalStorage("orgData")    
     useConstructor(() => {
+        console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
         PackageApi.getPackages().then((res) => {
             const resolved =res.data.map(el => {
                 return new Package({
@@ -148,7 +150,7 @@ export const PaymentHistory = () => {
                             </div>
                             <div className={"space-y-6 flex-col px-6 py-4"}>
                                 <span className="font-nomral text-[#7E7E7E]">Usage</span>
-                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getRemining()} scans remained</p>
+                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
                                 {/* <div className={"flex items-center justify-between  "}>
                                     <div>
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
@@ -178,7 +180,7 @@ export const PaymentHistory = () => {
                                         }}></div>
                                     </div>
                                 </div>
-                                <div className=" font-normal text-[#7E7E7E]">Expire date: 2025 Sep 12</div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0].active_to * 1000).toDateString()}</div>
                             </div>
                         </div>
                         <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
