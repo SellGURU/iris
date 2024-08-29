@@ -33,6 +33,7 @@ const FaceMesh = () => {
     const [showService,setShowService] = useState(false)
     const [showPermision,setShowPermision] = useState(false)
     const navigate = useNavigate();
+    const [orgs,] = useLocalStorage("orgData")
     // const sex = useSelector(selectSex);
     // const id = useSelector(selectPatientID);
     // const errorThreshold = useSelector(selectErrorThreshold);
@@ -730,12 +731,16 @@ const FaceMesh = () => {
     let [partyId] = useLocalStorage("partyid");
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
+        if (window.stream) {
+            window.stream.getVideoTracks()[0].stop();
+        }
         Analytics.analyticsImage({
-            patient_id:patientID,
+            client_id:patientID.toString(),
             error_threshold:errorThreshold,
-            gender:sex,
             frontal_current:globalGreenImages[0].split(",")[1],
-            party_id:partyId
+            orgSCode: JSON.parse(orgs).orgSCode,
+            orgCode:JSON.parse(orgs).orgCode,
+
         }).then(res => {
             console.log(res)
             if(res.data.data){
@@ -812,7 +817,7 @@ const FaceMesh = () => {
                     <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
                     <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis.<span onClick={() => {
                         navigate('/tour')
-                    }} className="text-primary-color cursor-pointer"> How to scan face?</span></p>
+                    }} className="text-primary-color cursor-pointer"> How to scan a face?</span></p>
 
                                 {!isCameraStart &&
                                     <div className="flex md:hidden justify-center items-center">
@@ -1122,7 +1127,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris">
                                         <div className="flex justify-center items-center w-[100px] ">
-                                            <img className="mr-2" src="./icons/print.svg"></img>
+                                            <img className="mr-2" src="/icons/print.svg"></img>
                                             Finish                     
                                         </div>
                                     </Button>         

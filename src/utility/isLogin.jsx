@@ -10,7 +10,7 @@ export const IsLogin = ({children}) => {
     const validToken = checkValidToken()
     const [searchParams,setSearchParams] = useSearchParams();
     // console.log(validToken)
-    if(searchParams.get("fcode") =='resetpass'){
+    if(searchParams.get("fcode") =='resetstaffpass'){
         return <Navigate to={"/forgetpass?token="+searchParams.get("token")}/>
     }
     if (validToken ) {

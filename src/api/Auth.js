@@ -7,7 +7,7 @@ class Auth extends Api {
     }
 
     static signUp(data) {
-        const res = this.post('/addIrisUser', data)
+        const res = this.post('/addIrisOrg', data)
         return res
     }    
 

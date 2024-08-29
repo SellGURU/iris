@@ -3,6 +3,7 @@ import {TabsCustume} from "../../components/tabs/tabs.jsx";
 import {useState, useContext} from "react";
 import {PatientContext} from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
+import {countries} from 'country-data';
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
@@ -14,6 +15,9 @@ import Link from '@mui/material/Link';
 import GenerateId from '../../utility/generateId.js'
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Application from "../../api/Application.js";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 export const PatientInformation = () => {
     const getRand = () => {
@@ -22,7 +26,7 @@ export const PatientInformation = () => {
     const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold, setthrehold] = useState(10)
-
+    const [value, setValue] = useState("US")
     //tabs to switch the gender
     const tabs = [
         {state: "masculine", label: "Masculine"},
@@ -38,6 +42,7 @@ export const PatientInformation = () => {
     // is show tour false did not load the show tour and redirect to face mash
     const [isShowTour,] = useLocalStorage("tour")
     const [showMore,setShowMore] = useState(false)
+    const [orgs,] = useLocalStorage("orgData")
     const {register, getValues, handleSubmit} = useForm()
     const formik = useFormik({
         initialValues:{
@@ -51,7 +56,8 @@ export const PatientInformation = () => {
         validationSchema:Yup.object().shape({
             firstName:Yup.string().required(),
             lastName:Yup.string().required(),
-            email:Yup.string().email()
+            phone:Yup.string().min(7,'Phone number must be between 7 and 12 characters.').max(12,'Phone number must be between 7 and 12 characters long.'),
+            email:Yup.string().required().matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         })
     })
 
@@ -59,9 +65,9 @@ export const PatientInformation = () => {
     const onSubmitData = (data, e) => {
 
         e.preventDefault()
-        setSex(gender)
-        setPatientID(data.id)
-        setErrorThreshold(threhold)
+        // setSex(gender)
+        // setPatientID(data.id)
+        // setErrorThreshold(threhold)
         // addPatient(patient);
         // add it to local storage (in context)
         // const patient = {
@@ -73,11 +79,6 @@ export const PatientInformation = () => {
         // }
         // addPatient(patient)
         // updateLocalPatientIHistoty(patient);
-        if (isShowTour) {
-            navigate("/tour")
-        } else {
-            navigate("/faceCamera")
-        }
     }
 
     return (
@@ -94,12 +95,12 @@ export const PatientInformation = () => {
 
                 </div>              
             <h1 className={"text-2xl font-medium"}>Client Information</h1>
-            <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p>
+            {/* <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p> */}
             <form  onSubmit={handleSubmit(onSubmitData)}>
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
                     <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex lg:grid xl:flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID</h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}
@@ -107,7 +108,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>First Name</h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>First Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input  {...formik.getFieldProps("firstName")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter First Name"}/>
 
@@ -115,7 +116,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name</h1>
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input {...formik.getFieldProps("lastName")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Last Name"}/>
 
@@ -123,24 +124,42 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>E-Mail <span className="text-[#444444] mr-1 font-[400] opacity-50">(Optional)</span></h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>E-Mail <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input type="email" {...formik.getFieldProps("email")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter E-Mail"}/>
 
                         </div>
                     </CardPatient>      
-                    <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                    <CardPatient className={"w-[550px] relative order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
-                            <input type="number" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
-                                placeholder={"Enter Phone"}/>
-
+                            {/* <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
+                            <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
+                                placeholder={"Enter Phone"}/> */}
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
+                           <div className="relative">
+                                <PhoneInput
+                                // {...formik.getFieldProps("phone")} 
+                                value={formik.values.phone}
+                                defaultCountry="US"
+                                className={"border-b outline-none h-10 w-full "}
+                                onCountryChange={(e) => {
+                                    setValue(e)
+                                }}
+                                onChange={(e) => {
+                                    formik.setFieldValue("phone",e)
+                                }}
+                                placeholder="Enter Phone" />
+                                <div className="text-[10px] flex min-w-[240px] w-full justify-end absolute text-red-500 bottom-[-18px] left-[-8px]" >
+                                    {formik.errors.phone}
+                                </div>
+                           </div>
                         </div>
                     </CardPatient>                                                            
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
                         <div className="flex w-full justify-between items-center">
                             <div className="flex cursor-pointer justify-start items-center w-[500px]">
-                                <h1 className={" text-[18px]  font-medium"}>Facial Esthetic Preference </h1>
+                                <h1 className={" text-[18px]  font-medium"}>Facial Aesthetic Preference<span className={"text-red-500 ml-1 mt-[-8px]"} >*</span> 
+ </h1>
                                 {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
                             </div>
                             <TabsCustume className={"w-full mt-[0px] rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
@@ -164,6 +183,7 @@ export const PatientInformation = () => {
                 <div className="mt-2 lg:flex lg:justify-center lg:mt-8 xl:mt-2 xl:block 2xl:flex 2xl:justify-center 2xl:mt-8">
                     <Button onClick={() => {
                         setSex(gender)
+                        console.log(countries[value].countryCallingCodes[0])
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
                         const patient = {
@@ -177,12 +197,30 @@ export const PatientInformation = () => {
                             email:formik.values.email,
                             phone:formik.values.phone
                         }
-                        updateLocalPatientIHistoty(patient);
-                        if (isShowTour) {
-                            navigate("/tour")
-                        } else {
-                            navigate("/faceCamera")
-                        }                        
+                        Application.addClient({
+                            orgCode: JSON.parse(orgs).orgCode,
+                            orgSCode: JSON.parse(orgs).orgSCode,
+                            first_name: patient.firstName,
+                            last_name: patient.lastName,
+                            email: patient.email,
+                            gender: patient.sex == 'masculine'? 'male':'female',
+                            client_id: patient.id,
+                            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
+                            phone:patient.phone!= ''? formik.values.phone:undefined,                        
+                        }).then(res => {
+                            console.log(res)
+                            if(res.data.status == 'success'){
+                                updateLocalPatientIHistoty(patient);
+                                if (isShowTour) {
+                                    navigate("/tour")
+                                } else {
+                                    navigate("/faceCamera")
+                                }                        
+
+                            }else{
+                                alert(res.data.msg)
+                            }
+                        })
                     }} disabled={!formik.isValid || !formik.touched.firstName} type="submit" theme="iris-large">
                         Save & Continue
                     </Button>

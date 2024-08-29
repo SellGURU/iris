@@ -16,6 +16,8 @@ import { Button } from "symphony-ui";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import Application from "../../api/Application.js";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const FaceScanResult =() => {
     const navigate = useNavigate()
@@ -26,7 +28,8 @@ const FaceScanResult =() => {
         fileId,
         errorThreshold,
         addPatient,
-        photo
+        photo,
+        setPdf
     } = useContext(PatientContext);
     const download = () => {
         // const downloadLink = document.createElement("a");
@@ -81,25 +84,56 @@ const FaceScanResult =() => {
             resolvePdf()
         }
     })
+    
+    const [orgs,] = useLocalStorage("orgData")
     const updateComment=() => {
         let patients= JSON.parse(localStorage.getItem("patients"))
-        let patientIndex = patients.findIndex(patient => patient.id === patientID);
-        setComment(patients[patientIndex].comment);
+        let patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+        setComment(patients[patientIndex].comments);
     }    
     const formHandler = () => {
         if(textComment.length>0){
-            const patients= JSON.parse(localStorage.getItem("patients"))
-            const patientIndex = patients.findIndex(patient => patient.id === patientID);
-
-            patients[patientIndex].comment.push(textComment)
-            localStorage.setItem("patients", JSON.stringify(patients));
-            setIsShowAddComment(false)
-            updateComment()
-            setTextComment("")
+            Application.addComment({
+                client_id:patientID,
+                orgCode: JSON.parse(orgs).orgCode,
+                orgSCode: JSON.parse(orgs).orgSCode,
+                comment_text: textComment                
+            }).then(res => {
+                const patients= JSON.parse(localStorage.getItem("patients"))
+                const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+                const newComment = {
+                    cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+                    cText: textComment ,
+                    cTextDateTime: new Date().toISOString()
+                };
+        
+                if (patients[patientIndex].comments) {
+                    patients[patientIndex].comments.push(newComment);
+                } else {
+                    patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+                }
+                localStorage.setItem("patients", JSON.stringify(patients));
+                setIsShowAddComment(false)
+                updateComment()
+                setTextComment("")
+            })
         }else {
             setIsShowAddComment(false)
         }
     }    
+    useEffect(() => {
+        console.log(patientID)
+        // Application.getScanDetails({
+        //     scanCode: "c1e8404b-ee23-487f-b4f8-6c02409ab623",
+        //     orgCode: "4ViHoPV6r+Yjl9YHqd36cA==",
+        //     orgSCode: "Tl150F+gj04xE0AaJfJo1A==",
+        //     client_id: "617219"
+        // }).then((res) => {
+        //     console.log(res)
+        //     setPdf(res.data.html_file)
+        //     resolvePdf()
+        // })
+    })
     const date = new Date();
     return (
         <>

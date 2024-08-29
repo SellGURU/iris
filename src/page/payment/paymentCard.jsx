@@ -6,9 +6,11 @@ import { useState } from "react";
 export const PaymentCard = ({pak,onselect}) => {
     // console.log(pak)
     const [isHoverd,setIsHoverd] = useState(false)
+
     return (
         <>
             <div
+          
                 onMouseEnter={() => {
                     setIsHoverd(true)
                 }}
@@ -21,6 +23,7 @@ export const PaymentCard = ({pak,onselect}) => {
                         <div className={`absolute top-0 left-0 w-[142px] flex justify-center items-center  rounded-br-[16px]  z-10 text-[18px] ${isHoverd?' bg-white text-primary-color ':' bg-[#544BF0] text-white'}  h-[40px]`}>{pak.information.discount}% Discount</div>
                     :undefined
                 }
+                
                 {
                     isHoverd?
                         <img className="absolute top-0" src="./icons/Oval6.svg" />
@@ -49,6 +52,7 @@ export const PaymentCard = ({pak,onselect}) => {
                             )
                         })
                     }
+                    {pak.information.options.length <3 ? <p  className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center invisible text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>item </p>:undefined}
                     {/* <p className={"text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center text-[#444444]"}> <span><img src="./icons/tick.svg" alt="" /></span>use within 12 months</p> */}
                     {/* <p className={"text-xl font-normal text-[#444444]"}>Feature information </p> */}
                 </div>
@@ -56,9 +60,9 @@ export const PaymentCard = ({pak,onselect}) => {
                     className={"rounded-b-md  w-full -mx-3 -mb-2 text-wrap bg-[#F5F5F5] py-6 gap-3 flex items-center justify-center flex-col text-center"}>
                     <p className={"text-wrap text-[18px] text-[#444444] w-full"}>Promotional Pricing</p>
                     {/* <ButtonPrimary oncl>Get It Now</ButtonPrimary> */}
-                    <Button onClick={() =>{onselect()}} theme="iris">
+                    <Button disabled={!isHoverd}  onClick={() =>{onselect()}} theme="iris">
                         <div className="cursor-pointer w-[130px]">
-                            Purchase
+                            Purchase Now
 
                         </div>
                         </Button>

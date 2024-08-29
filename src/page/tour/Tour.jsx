@@ -32,7 +32,7 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="1"
-                        text=" Click 'Start Scan' to open your camera and capture a well-lit and clear image, or use 'Upload Image' to select a recent, centered photo from your gallery."
+                        text=" Click 'Start Scan' to open your camera and capture a well-lit and clear image, or use 'Upload Image' to select a recent photo from your gallery."
                         image={'image/tour-1.svg'}
                         note="Note: Remove glasses, ensure the subject's face is clear of hair, use a neutral background, and maintain good lighting for optimal results."
                         onNext={handleNext}
@@ -46,9 +46,9 @@ export const Tour = () => {
                 return (
                     <StepInstructions
                         step="2"
-                        text={` Position the subject's head in the frame and instruct them to slightly move their face until the mesh goes green.  If you only want to scan the front side of the subject's face, select the "Single pose" button above the camera area.  `}
+                        text={` Position the subject's head in the frame and instruct them to slightly move their face until the mesh goes green. If you only want to scan the front of the subject's face, select the "Single pose" button above the camera area.`}
                         image={'image/tour.png'}
-                        note="Note: The scan may take approximately 3 seconds. Maintain position and hold still for each side of the scan. "
+                        note="Note: The scan takes approximately 3 seconds. Maintain position and hold still for each side of the scan.  "
                         onNext={handleNext}
                         onSkip={handleSkip}
                         onBack={() =>{
@@ -76,7 +76,7 @@ export const Tour = () => {
                         step="4"
                         text="Once all poses are completed successfully, press the 'Finish' button to begin processing and preparing the report."
                         image={'image/tour4.png'}
-                        note="Note: You can also perform a new scan, and all records will be saved in your scan history."
+                        note="Note: You can also perform a new scan, and all records will be saved in your scan library."
                         onNext={() => {
                             setIsShowTour(false)
                             navigate("/facecamera")

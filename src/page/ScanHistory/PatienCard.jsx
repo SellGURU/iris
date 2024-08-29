@@ -6,6 +6,8 @@ import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
+import Application from "../../api/Application.js";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     const {
@@ -13,8 +15,30 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         setFile,
         setPhoto,
     } = useContext(PatientContext);
+
+    // useEffect(() => {
+    //   const timerId = setInterval(() => {
+    //     setCurrentDateTime(new Date());  // Update the current date and time every minute
+    //   }, 1000 * 60);  // Set interval to 60 seconds
+  
+    //   return () => {
+    //     clearInterval(timerId);  // Clear the interval on component unmount
+    //   };
+    // }, []);
+    const formatDate = (date) => {
+        const dateObj = new Date(date);  // Ensure date is a Date object
+        const year = dateObj.getFullYear();
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const month = monthNames[dateObj.getMonth()];  // Get the month name
+        const day = dateObj.getDate().toString();  // Get the day
+    
+        return `${day} ${month} ${year}`;
+    };
     const [isCompare,setIsCompare] = useState(false)
-    const {id, date, photo, result,comment:initComment} = patient;
+    // const {id , result,comment:initComment} = patient;
     const [textComment,setTextComment] = useState('')
     useEffect(() => {
         if(activeResult != patient.id){
@@ -23,13 +47,13 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     },[activeResult])
     const [isShowComment, setIsShowComment] = useState(false);
     const [isShowAddComment, setIsShowAddComment] = useState(false);
-    const [comment, setComment] = useState(initComment);
+    const [comment, setComment] = useState(patient.comments);
     const navigate = useNavigate();
     const [isShowMore,setIsShowMore] = useState(false)
     const updateComment=() => {
-        let patients= JSON.parse(localStorage.getItem("patients"))
-        let patientIndex = patients.findIndex(patient => patient.id === id);
-        setComment(patients[patientIndex].comment);
+        // let patients= JSON.parse(localStorage.getItem("patients"))
+        // let patientIndex = patients.findIndex(patient => patient.id === id);
+        // setComment(patients[patientIndex].comment);
     }
     // const dispatch = useDispatch();
     const download = (id) => {
@@ -46,22 +70,42 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     } = useContext(PatientContext);
     const clickHandler = () => {
         setSex(patient.sex)
-        setPatientID(patient.id)
+        setPatientID(patient.client_info.clientCode)
         setErrorThreshold(patient.errorThreshold)
         navigate("/faceCamera")
     }
     const [accepted,setAccepted] = useState([])
+    const [orgs,] = useLocalStorage("orgData")
     const {register, handleSubmit,formState: { errors }} = useForm()
     const formHandler = () => {
         if(textComment.length>0){
-            const patients= JSON.parse(localStorage.getItem("patients"))
-            const patientIndex = patients.findIndex(patient => patient.id === id);
-
-            patients[patientIndex].comment.push(textComment)
-            localStorage.setItem("patients", JSON.stringify(patients));
-            setIsShowAddComment(false)
-            updateComment()
-            setTextComment("")
+            Application.addComment({
+                client_id:patient.client_info.clientCode,
+                orgCode: JSON.parse(orgs).orgCode,
+                orgSCode: JSON.parse(orgs).orgSCode,
+                comment_text: textComment                
+            }).then(res => {
+                console.log(res)
+                const patients= JSON.parse(localStorage.getItem("patients"))
+                const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patient.client_info.clientCode );
+                const newComment = {
+                    cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+                    cText: textComment ,
+                    cTextDateTime: new Date().toISOString()
+                };
+        
+                if (patients[patientIndex].comments) {
+                    patient.comments.push(newComment)
+                    patients[patientIndex].comments.push(newComment);
+                } else {
+                    patients[patientIndex].comments = [newComment];
+                     patient.comments =[newComment]   // Initialize the comment array if it does not exist
+                }
+                localStorage.setItem("patients", JSON.stringify(patients));
+                setIsShowAddComment(false)
+                updateComment()
+                setTextComment("")
+            })
         }else {
             setIsShowAddComment(false)
         }
@@ -70,24 +114,17 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
             <div className="flex items-start self-start gap-5 ">
                 {index}
-                {result.length>0?
-                    <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={result[0].photo.length > 0 && result[0].photo} alt=""/>
-                    :
-                    <img className="rounded-[8px] h-[45px] md:h-[56px]"
-                        src={`https://ui-avatars.com/api/?name=${patient.firstName+' '+patient.lastName}`} alt=""/>                    
-                    }
+                   <img className="rounded-[8px] h-[45px] md:h-[56px]"
+                        src={`https://ui-avatars.com/api/?name=${patient.client_info.firstName+' '+patient.client_info.lastName}`} alt=""/> 
             </div>
             <div className="w-full flex flex-col items-start  justify-center ">
                 <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919]">Patient ID: {id}</h2>
-
+                    <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8"> <div> {patient.client_info.firstName} {patient.client_info.lastName}</div> <span className="text-base font-normal text-[#7E7E7E]">Client ID: {patient.client_info.clientCode} </span>  </h2>
+                    <div>{}</div>
+                    <div className=" text-lg font-medium text-[#1A1919]"> 
+                    </div>
                     <div className="flex gap-2 items-center justify-between">
-                        {/* <div onClick={() => setIsShowComment(!isShowComment)}
-                             className={" cursor-pointer text-base select-none flex justify-center items-center font-normal  text-[#544BF0] "}>Show comments
-                            ({comment.length})
-                            <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
-                        </div> */}
+
                         <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
                             {isShowComment?'Hide comments':'Show comments'}
                             ({comment.length})
@@ -123,25 +160,25 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                     </div>
                 </div>
                 <div className="flex flex-col mt-5 gap-5 pb-3   w-full">
-                    {result.map((patientHistory, index) => {
-                        const myDate = new Date(patientHistory.date);
+                    {patient.scans.map((patientHistory, index) => {
+                        // const myDate = new Date(patientHistory.date);
                         return (
                             <>
                                 {index < 2 || isShowMore?
-                                <div key={index + id} className="flex justify-between items-center w-full ">
+                                <div key={index + patient.client_info.clientCode} className="flex justify-between items-center w-full ">
                                     <div className="flex justify-start gap-1 items-center">
                                         {isCompare &&
-                                            <Checkbox id={id}  checked={accepted.includes(patientHistory.htmlId)} onChange={() => {
-                                                if(!accepted.includes(patientHistory.htmlId)){
+                                            <Checkbox id={patientHistory.scan_id}  checked={accepted.includes(patientHistory.scan_id)} onChange={() => {
+                                                if(!accepted.includes(patientHistory.scan_id)){
                                                     const array = accepted
                                                     if(accepted.length >= 3){
                                                         array.shift()
                                                     }
-                                                    setAccepted([...array,patientHistory.htmlId])
-                                                    onaccepted([...array,patientHistory.htmlId])
+                                                    setAccepted([...array,patientHistory.scan_id])
+                                                    onaccepted([...array,patientHistory.scan_id])
                                                 }else{
                                                     const array = accepted
-                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    const index = accepted.indexOf(patientHistory.scan_id);
                                                     array.splice(index, 1)
                                                     setAccepted(array)
                                                     onaccepted(array)
@@ -149,33 +186,33 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                             }}></Checkbox>
                                         }
                                         <label onClick={() => {
-                                                 if(!accepted.includes(patientHistory.htmlId)){
+                                                 if(!accepted.includes(patientHistory.scan_id)){
                                                     const array = accepted
                                                     if(accepted.length >= 3){
                                                         array.shift()
                                                     }
-                                                    setAccepted([...array,patientHistory.htmlId])
-                                                    onaccepted([...array,patientHistory.htmlId])
+                                                    setAccepted([...array,patientHistory.scan_id])
+                                                    onaccepted([...array,patientHistory.scan_id])
                                                 }else{
                                                     const array = accepted
-                                                    const index = accepted.indexOf(patientHistory.htmlId);
+                                                    const index = accepted.indexOf(patientHistory.scan_id);
                                                     array.splice(index, 1)
                                                     setAccepted(array)
                                                     onaccepted(array)
                                                 }                                       
-                                        }} htmlFor={id}>
+                                        }} htmlFor={patientHistory.scan_id}>
                                             <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan reports</h2>
                                         </label>
                                     </div>
                                     <div className="text-[#7E7E7E] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{myDate.getDate()+"   "+myDate.toLocaleString('default', { month: 'long' })+"   "+myDate.getFullYear()}</span>{" "}
+                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{ new Date(patientHistory.timestamp).toLocaleString()}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">
                                         <RWebShare data={{
                                             text: "iris",
-                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId,
+                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.scan_id,
                                             title: "iris",
                                         }}>
                                             {/* <div
@@ -198,7 +235,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                                 onClick={() => {
                                                     if (navigator.share) {
                                                         navigator.share({
-                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
+                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.scan_id
                                                         })
                                                             .then(() => console.log('Successful share'))
                                                             .catch((error) => console.log('Error sharing', error));
@@ -213,14 +250,15 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                             className="bg-[#F9F9FB] cursor-pointer border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
                                             <div className="downloadIcon-purple"></div>
                                         </div> */}
-                                        <Button onClick={() => download(patientHistory.htmlId)} theme="iris-secondary-small">
+                                        <Button onClick={() => download(patientHistory.scan_id)} theme="iris-secondary-small">
                                             <div className="downloadIcon-purple"></div>
                                         </Button>
                                         <Button onClick={() => {
                                             // setPdf('data:text/html;base64,' + patientHistory.htmlId)
-                                            setPhoto(result[0].photo)
-                                            setFile(patientHistory.htmlId)                             
-                                            navigate('/result')
+                                            // setPhoto(result[0].photo)
+                                            // setFile(patientHistory.scan_id)       
+                                            // setPatientID(patient.client_info.clientCode)                      
+                                            navigate(`/showReport/?scanId=${patientHistory.scan_id}&clientId=${patient.client_info.clientCode}`)
 
                                             }} theme="iris-secondary-small">
                                             View Reports
@@ -240,7 +278,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                         )
                     })}
                     {
-                        result.length> 2 &&
+                        patient.scans.length> 2 &&
                         <div className="flex justify-between items-center">
                             <div className="w-[90px]"></div>
                             <div onClick={() => {
@@ -258,12 +296,12 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                             <div className="text-[14px]">Comments:</div>
                             {!isShowAddComment &&
                                 <div className={` ${comment.length > 0? 'flex-1':' flex-1'} `}>
-                                    {comment.map((comment, index) => {
+                                    {comment.map((item, index) => {
                                         return (
                                             <div key={index}
                                                 className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>12 April 2024 </h1>
-                                                <p className={"w-[90%] font-[300] text-[14px]"}>{comment}</p>
+                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>{formatDate(new Date(item.cTextDateTime))} </h1>
+                                                <p className={"w-[90%] font-[300] text-[14px]"}>{item.cText}</p>
                                             </div>
                                         )
                                     })}

@@ -26,17 +26,19 @@ const Register = () => {
   const validationSchema = Yup.object().shape({
     fullName: Yup.string(),
     email: Yup.string()
-      .email("This E-mail Address is not Valid.")
+      .email("Please enter a valid email address.")
       .required("This E-mail Address is required."),
     password: Yup
     .string()
     .required('Password is required')
-    .min(8, 'Your password is too short.')
+    .min(6, 'Password must be at least 6 characters long.')
     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     accept: Yup.boolean().isTrue(),
     confirm: Yup
   .string()
   .oneOf([Yup.ref('password')], 'Passwords must match'),
+  PracticeName: Yup
+    .string().required("Practice name must be alphanumeric.").matches(/^[^!@#$%^&*+=<>:;|~]*$/,'Practice name must be alphanumeric.')
   });
   const form = useFormik({
     initialValues: initialValues,
@@ -65,7 +67,8 @@ const Register = () => {
             // toast.info(res.data.msg);
             navigate("/login");
           } else if(res.data.status == 'fail'){
-            console.log("res");
+            // console.log(res);
+            alert(res.data.msg)
             // toast.error(res.data.msg);
             // toast.error(res.data)
           }
@@ -192,6 +195,9 @@ const Register = () => {
               options={["Sample Name 1", "Sample Name 2" , "sample Name 3"]}
             ></Select>
           </div>
+          <div className={`${form.errors.PracticeName ? 'visible':'invisible'} h-[8px] text-[12px] mt-[-10px] text-red-500`}>
+              {form.errors.PracticeName}
+            </div>            
           <div className="grid relative w-[330px]">
             <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
               Create a Password:

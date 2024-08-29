@@ -16,6 +16,11 @@ class Package extends Api {
         const response = this.post("/createIrisProdPayLink",data)
         return response
     }
+
+    static getPymentHistory(data){
+        const response = this.post('/paymentHistory',data)
+        return response        
+    }    
 }
 
 export default Package

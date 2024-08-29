@@ -5,7 +5,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
     const patients = JSON.parse(localStorage.getItem("patients")) || [];
     // const patientInformation = state[state.length - 1];
     console.log(patients)
-    const patientIndex = patients.findIndex(patient => Number(patient.id) == patientInformation.id);
+    const patientIndex = patients.findIndex(patient => Number(patient.client_info.clientCode) == patientInformation.id);
     const date = new Date();
     console.log(patientIndex)
     if (patientIndex === -1) {
@@ -14,31 +14,35 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
 
         if(patientInformation.htmlId != ''){
             newPatient = {
-                id: patientInformation.id,
-                sex: patientInformation.sex,
-                errorThreshold: patientInformation.errorThreshold,
-                firstName:patients[patientIndex].firstName,
-                lastName:patients[patientIndex].lastName,
-                email:patients[patientIndex].email,
-                phone:patients[patientIndex].phone,                
-                comment:[],
-                result: [{
-                    date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
-                    photo: patientInformation.photo,
-                    htmlId: patientInformation.htmlId
+                client_info:{
+                    clientCode:patientInformation.id,
+                    email:patientInformation.email,
+                    firstName:patientInformation.firstName,
+                    gender:patientInformation.sex,
+                    lastName:patientInformation.lastName,
+                    phone:patientInformation.phone
+                },              
+                comments:[],
+                scans: [{
+                    scanId:patientInformation.htmlId,
+                    timestamp:new Date().toISOString(),
+                    // date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
+                    // photo: patientInformation.photo,
+                    // htmlId: patientInformation.htmlId
                 }],
             };
         }else{
             newPatient = {
-                id: patientInformation.id,
-                sex: patientInformation.sex,
-                errorThreshold: patientInformation.errorThreshold,
-                firstName:patientInformation.firstName,
-                lastName:patientInformation.lastName,
-                email:patientInformation.email,
-                phone:patientInformation.phone,                  
-                comment:[],
-                result: [],                
+                client_info:{
+                    clientCode:patientInformation.id,
+                    email:patientInformation.email,
+                    firstName:patientInformation.firstName,
+                    gender:patientInformation.sex,
+                    lastName:patientInformation.lastName,
+                    phone:patientInformation.phone
+                },           
+                comments:[],
+                scans: [],                
             };
         }
 
@@ -49,13 +53,11 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
         // If the patient exists, update the results
         patients[patientIndex] = {
             ...patients[patientIndex],
-            result: [
-                ...patients[patientIndex].result,
+            scans: [
+                ...patients[patientIndex].scans,
                 {
-                    date: new Date().toISOString().split('T')[0],
-                    photo: patientInformation.photo,
-                    htmlId: patients[patientIndex].result.length,
-                    imageMode:patientInformation.imageMode
+                    scanId:patientInformation.htmlId,
+                    timestamp:new Date().toISOString(),
                 }
             ]
         };

@@ -13,32 +13,48 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import PackageApi from '../../api/package.js';
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useConstructor } from "../../help.js";
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
+    let [org,] = useLocalStorage("orgData")
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");
     let [localEmail,] = useLocalStorage("email")    
-    useEffect(() => {
+    const [orgs,] = useLocalStorage("orgData")    
+    useConstructor(() => {
+        console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
         PackageApi.getPackages().then((res) => {
-            console.log(res)
-            const resolved =res.data.USD.map(el => {
-                // console.log(JSON.parse(el.subs_info_data))
+            const resolved =res.data.map(el => {
                 return new Package({
                     name:el.display_name,
                     cycle:el.sub_period,
                     cost:el.sd_price,
                     useage:0,
+                    oldCost:el.sr_price,
                     bundle:el.allowed_scans,
-                    discount:el.sdiscount,
-                    options:[]                       
+                    subCode:el.sub_code,
+                    subprice_code:el.subprice_code,                    
+                    discount:el.sr_price == el.sd_price?'0':el.sdiscount,
+                    options:el.subs_info_data.display_points_list                    
                 })
             })
-            console.log(resolved)
+            setPackages(resolved)
+        })
+        PackageApi.getPymentHistory({
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            email: localEmail           
+        }).then(res => {
+            if(res.data.status!= 'fail'){
+                setTransactions(res.data.data)
+            }
+            // console.log(res)
         })
     })
-    const packages = [
+    
+    const [packages,setPackages] = useState([
         new Package({
             name:'Individual',
             cycle:'Yearly',
@@ -102,8 +118,9 @@ export const PaymentHistory = () => {
                 "Use Within 12 Months"
             ]              
         })                              
-    ]
+    ])
     const [showMoreautoPlay,setSHowMoreAutoPlay] = useState(false)
+    const [transactions,setTransactions] = useState([])
     return (
         <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
             <div className="px-0  w-full flex justify-start">
@@ -126,13 +143,15 @@ export const PaymentHistory = () => {
                         <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={"text-2xl font-medium "}>Current Package Summary</h1>
-                                <ButtonPrimary onClickHandler={() => {
+                                <h1 className={"text-2xl font-medium "}>Scan Remaining</h1>
+                                {/* <ButtonPrimary onClickHandler={() => {
                                     window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
-                                }} className={"text-[14px]"}>Upgrade</ButtonPrimary>
+                                }} className={"text-[14px]"}>Upgrade</ButtonPrimary> */}
                             </div>
-                            <div className={"space-y-10 flex-col px-6 py-4"}>
-                                <div className={"flex items-center justify-between  "}>
+                            <div className={"space-y-6 flex-col px-6 py-4"}>
+                                <span className="font-nomral text-[#7E7E7E]">Usage</span>
+                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
+                                {/* <div className={"flex items-center justify-between  "}>
                                     <div>
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
                                         <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().name}</p>
@@ -145,31 +164,51 @@ export const PaymentHistory = () => {
                                         <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cost</h1>
                                         <p className={"text-xl font-medium"}>{'$'+appContext.package.getPackage().getInformation().cost}</p>
                                     </div>
-                                </div>
-                                <div className="absolute bottom-4 w-full">
-                                    <div className={"space-y-0"}>
-                                        {/* <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1> */}
+                                </div> */}
+                                <div className="w-full">
+                                    {/* <div className={"space-y-0"}>
+                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
                                         {appContext.package.getPackage().getInformation().useage == 0?
                                             <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
                                         :
                                             <p className={`text-lg ${appContext.package.getPackage().getPercentUsage() >=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getRemining()} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
                                         }
-                                    </div>
-                                    <div className={`h-[20px] relative w-[93%] mt-[8px] rounded-[8px] bg-[#E1E1E1] `}>
+                                    </div> */}
+                                    <div className={`h-[20px] relative w-[93%]  rounded-[8px] bg-[#E1E1E1] `}>
                                         <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
                                             width:appContext.package.getPackage().getPercentRemining()+'%'
                                         }}></div>
                                     </div>
                                 </div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0].active_to * 1000).toDateString()}</div>
                             </div>
                         </div>
-                        <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '} border rounded-md `}>
-                            <div
-                                className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={" text-2xl font-medium"}>Payment Method</h1>
-                            </div>
-
-                            <PaymentMethod></PaymentMethod>                
+                        <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
+                          
+                            <div className="border p-4 rounded-lg">
+      <h2 className="text-lg font-bold mb-4">Transaction History</h2>
+      <div className="overflow-auto max-h-[225px]" >
+        <table className="min-w-full bg-white ">
+          <thead className="border-b  text-xl">
+            <tr className="w-full bg-[#F5F5F5] text-[#2E2E2E] font-medium">
+              <th className="py-2 px-4 font-medium">Billing Date</th>
+              <th className="py-2 px-4  font-medium">Number of Scan</th>
+              <th className="py-2 px-4 font-medium">Price</th>
+            </tr>
+          </thead>
+          <tbody className="">
+            {transactions.map((transaction, index) => (
+              <tr key={index}className="pt-2">
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.payDateTime}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+                            {/* <PaymentMethod></PaymentMethod>                 */}
                             <div className={ "px-6 flex items-center justify-between py-4"}>
                                 {/* <div onClick={() => {
                                     setSHowMoreAutoPlay(!showMoreautoPlay)
@@ -186,24 +225,26 @@ export const PaymentHistory = () => {
 
                         </div>
                     </div>
-                    <div className={"w-full mt-16 space-y-5"}>
+                    {/* <div className={"w-full mt-16 space-y-5"}>
                         <h1 className={"text-2xl font-medium text-[#2E2E2E]"}>Invoice</h1>
                         <p className={"text-[#7E7E7E] font-normal text-base mb-10"}>Effortlessly handle your billing and
                             invoices right here.</p>
                         <PaymentTable/>
-                    </div>
-                    <div className={"mt-32"}>
-                        <h1 className={"text-2xl font-medium "}>Update Your Subscription Today (Instant Access)</h1>
-                        <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center pt-10 justify-between gap-4"}>
+                    </div> */}
+                    <div className={"mt-10"}>
+                        <h1 className={"text-2xl font-medium "}>Purchase More Scans</h1>
+                        <div className={"flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center mt-4 justify-between gap-3  py-6 px-4"}>
                             {
                                 packages.map((el,index) => {
+                                    
                                     console.log(el)
                                     return (
                                         <PaymentCard onselect={() => {
                                             PackageApi.byPackage({
                                                 sub_code:el.information.subCode,
                                                 subprice_code:el.information.subCode,
-                                                party_id:localPartyId,
+                                                orgCode: JSON.parse(orgs).orgCode,
+                                                orgSCode: JSON.parse(orgs).orgSCode,
                                                 email:localEmail
                                             }).then(res => {
                                                 console.log(res)
