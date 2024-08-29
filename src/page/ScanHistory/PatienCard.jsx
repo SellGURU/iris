@@ -6,6 +6,8 @@ import {PatientContext} from "../../context/context.jsx";
 import {RWebShare} from "react-web-share";
 import {useForm} from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
+import Application from "../../api/Application.js";
+import {useLocalStorage} from "@uidotdev/usehooks";
 
 export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     const {
@@ -73,25 +75,37 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
         navigate("/faceCamera")
     }
     const [accepted,setAccepted] = useState([])
+    const [orgs,] = useLocalStorage("orgData")
     const {register, handleSubmit,formState: { errors }} = useForm()
     const formHandler = () => {
         if(textComment.length>0){
-            const patients= JSON.parse(localStorage.getItem("patients"))
-            const patientIndex = patients.findIndex(patient => patient.id === id);
-            const newComment = {
-                text: textComment,
-                date: new Date()  // Store the current date and time
-            };
-    
-            if (patients[patientIndex].comment) {
-                patients[patientIndex].comment.push(newComment);
-            } else {
-                patients[patientIndex].comment = [newComment];  // Initialize the comment array if it does not exist
-            }
-            localStorage.setItem("patients", JSON.stringify(patients));
-            setIsShowAddComment(false)
-            updateComment()
-            setTextComment("")
+            Application.addComment({
+                client_id:patient.client_info.clientCode,
+                orgCode: JSON.parse(orgs).orgCode,
+                orgSCode: JSON.parse(orgs).orgSCode,
+                comment_text: textComment                
+            }).then(res => {
+                console.log(res)
+                const patients= JSON.parse(localStorage.getItem("patients"))
+                const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patient.client_info.clientCode );
+                const newComment = {
+                    cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+                    cText: textComment ,
+                    cTextDateTime: new Date().toISOString()
+                };
+        
+                if (patients[patientIndex].comments) {
+                    patient.comments.push(newComment)
+                    patients[patientIndex].comments.push(newComment);
+                } else {
+                    patients[patientIndex].comments = [newComment];
+                     patient.comments =[newComment]   // Initialize the comment array if it does not exist
+                }
+                localStorage.setItem("patients", JSON.stringify(patients));
+                setIsShowAddComment(false)
+                updateComment()
+                setTextComment("")
+            })
         }else {
             setIsShowAddComment(false)
         }
@@ -286,8 +300,8 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                                         return (
                                             <div key={index}
                                                 className={"flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"}>
-                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>{formatDate(new Date(item.date))} </h1>
-                                                <p className={"w-[90%] font-[300] text-[14px]"}>{item.text}</p>
+                                                <h1 className={"text-nowrap text-[14px] font-[300]"}>{formatDate(new Date(item.cTextDateTime))} </h1>
+                                                <p className={"w-[90%] font-[300] text-[14px]"}>{item.cText}</p>
                                             </div>
                                         )
                                     })}

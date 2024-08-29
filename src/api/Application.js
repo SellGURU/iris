@@ -16,6 +16,10 @@ class Application extends Api {
         return response
     }
 
+    static addComment(data) {
+        const response = this.post('/upsertComment',data)
+        return response
+    }
 
 }
 
