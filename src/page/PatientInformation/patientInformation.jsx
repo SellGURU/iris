@@ -56,7 +56,7 @@ export const PatientInformation = () => {
         validationSchema:Yup.object().shape({
             firstName:Yup.string().required(),
             lastName:Yup.string().required(),
-            phone:Yup.string().min(7,'Phone number must be between 7 and 12 characters long.').max(12,'Phone number must be between 7 and 12 characters long.'),
+            phone:Yup.string().min(7,'Phone number must be between 7 and 12 characters.').max(12,'Phone number must be between 7 and 12 characters long.'),
             email:Yup.string().required().matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         })
     })
@@ -136,21 +136,23 @@ export const PatientInformation = () => {
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/> */}
                             <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
-                            <PhoneInput
-                            // {...formik.getFieldProps("phone")} 
-                            value={formik.values.phone}
-                            defaultCountry="US"
-                            className={"border-b outline-none h-10 w-full "}
-                            onCountryChange={(e) => {
-                                setValue(e)
-                            }}
-                            onChange={(e) => {
-                                formik.setFieldValue("phone",e)
-                            }}
-                            placeholder="Enter Phone" />
-                        </div>
-                        <div className="text-[10px] absolute text-red-500 bottom-1" >
-                            {formik.errors.phone}
+                           <div className="relative">
+                                <PhoneInput
+                                // {...formik.getFieldProps("phone")} 
+                                value={formik.values.phone}
+                                defaultCountry="US"
+                                className={"border-b outline-none h-10 w-full "}
+                                onCountryChange={(e) => {
+                                    setValue(e)
+                                }}
+                                onChange={(e) => {
+                                    formik.setFieldValue("phone",e)
+                                }}
+                                placeholder="Enter Phone" />
+                                <div className="text-[10px] flex min-w-[240px] w-full justify-end absolute text-red-500 bottom-[-18px] left-[-8px]" >
+                                    {formik.errors.phone}
+                                </div>
+                           </div>
                         </div>
                     </CardPatient>                                                            
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
