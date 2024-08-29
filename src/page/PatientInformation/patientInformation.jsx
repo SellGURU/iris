@@ -3,6 +3,7 @@ import {TabsCustume} from "../../components/tabs/tabs.jsx";
 import {useState, useContext} from "react";
 import {PatientContext} from "../../context/context.jsx";
 import {useForm} from "react-hook-form";
+import {countries} from 'country-data';
 import ButtonPrimary from "../../components/button/buttonPrimery.jsx";
 import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
@@ -15,6 +16,8 @@ import GenerateId from '../../utility/generateId.js'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Application from "../../api/Application.js";
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 export const PatientInformation = () => {
     const getRand = () => {
@@ -23,7 +26,7 @@ export const PatientInformation = () => {
     const navigate = useNavigate();
     const [gender, setGender] = useState("masculine");
     const [threhold, setthrehold] = useState(10)
-
+    const [value, setValue] = useState("US")
     //tabs to switch the gender
     const tabs = [
         {state: "masculine", label: "Masculine"},
@@ -128,10 +131,22 @@ export const PatientInformation = () => {
                     </CardPatient>      
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
+                            {/* <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
-                                placeholder={"Enter Phone"}/>
-
+                                placeholder={"Enter Phone"}/> */}
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
+                            <PhoneInput
+                            // {...formik.getFieldProps("phone")} 
+                            value={formik.values.phone}
+                            defaultCountry="US"
+                            className={"border-b outline-none h-10 w-full "}
+                            onCountryChange={(e) => {
+                                setValue(e)
+                            }}
+                            onChange={(e) => {
+                                formik.setFieldValue("phone",e)
+                            }}
+                            placeholder="Enter Phone" />
                         </div>
                     </CardPatient>                                                            
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
@@ -162,6 +177,7 @@ export const PatientInformation = () => {
                 <div className="mt-2 lg:flex lg:justify-center lg:mt-8 xl:mt-2 xl:block 2xl:flex 2xl:justify-center 2xl:mt-8">
                     <Button onClick={() => {
                         setSex(gender)
+                        console.log(countries[value].countryCallingCodes[0])
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
                         const patient = {
@@ -183,8 +199,8 @@ export const PatientInformation = () => {
                             email: patient.email,
                             gender: patient.sex == 'masculine'? 'male':'female',
                             client_id: patient.id,
-                            phone_code:patient.phone!= ''? patient.phone.split(" ")[0]:undefined,
-                            phone:patient.phone!= ''? patient.phone.split(" ")[1]:undefined,                        
+                            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
+                            phone:patient.phone!= ''? formik.values.phone:undefined,                        
                         }).then(res => {
                             console.log(res)
                             if(res.data.status == 'success'){
