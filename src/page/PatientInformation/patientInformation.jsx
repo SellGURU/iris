@@ -99,7 +99,7 @@ export const PatientInformation = () => {
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
                     <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex lg:grid xl:flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID</h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}
@@ -107,7 +107,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>First Name</h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>First Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input  {...formik.getFieldProps("firstName")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter First Name"}/>
 
@@ -115,7 +115,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name</h1>
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input {...formik.getFieldProps("lastName")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Last Name"}/>
 
@@ -123,7 +123,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>E-Mail</h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>E-Mail <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input type="email" {...formik.getFieldProps("email")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter E-Mail"}/>
 
@@ -152,7 +152,7 @@ export const PatientInformation = () => {
                     <CardPatient className={` w-[550px]  md:w-[600px] lg:w-[480px] 2xl:w-[550px]  order-6 lg:order-1 2xl:order-1 bg-white  border h-[88px] `}>
                         <div className="flex w-full justify-between items-center">
                             <div className="flex cursor-pointer justify-start items-center w-[500px]">
-                                <h1 className={" text-[18px]  font-medium"}>Facial Aesthetic Preference 
+                                <h1 className={" text-[18px]  font-medium"}>Facial Aesthetic Preference<span className={"text-red-500 ml-1 mt-[-8px]"} >*</span> 
  </h1>
                                 {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
                             </div>
