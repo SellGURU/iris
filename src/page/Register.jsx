@@ -31,12 +31,14 @@ const Register = () => {
     password: Yup
     .string()
     .required('Password is required')
-    .min(8, 'Your password is too short.')
+    .min(6, 'Your password is too short.')
     .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     accept: Yup.boolean().isTrue(),
     confirm: Yup
   .string()
   .oneOf([Yup.ref('password')], 'Passwords must match'),
+  PracticeName: Yup
+    .string().required().matches(/^[^!@#$%^&*+=<>:;|~]*$/)
   });
   const form = useFormik({
     initialValues: initialValues,

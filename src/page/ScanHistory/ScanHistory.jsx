@@ -302,6 +302,7 @@ export const ScanHistory = () => {
                                 activeResult={activeResult}
                                 onaccepted={(e) => {
                                     setResults(e)
+                                    console.log(e)
                                     setActiveResult(patient.id)
                                 }}
                             />
