@@ -56,7 +56,7 @@ export const PatientInformation = () => {
         validationSchema:Yup.object().shape({
             firstName:Yup.string().required(),
             lastName:Yup.string().required(),
-            email:Yup.string().email()
+            email:Yup.string().required().matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         })
     })
 
@@ -123,7 +123,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>E-Mail <span className="text-[#444444] mr-1 font-[400] opacity-50">(Optional)</span></h1>
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>E-Mail</h1>
                             <input type="email" {...formik.getFieldProps("email")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter E-Mail"}/>
 
