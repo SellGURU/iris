@@ -81,7 +81,38 @@ export const PatientInformation = () => {
         // addPatient(patient)
         // updateLocalPatientIHistoty(patient);
     }
+    const submitForm = (patient) => {
+        Application.addClient({
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            first_name: patient.firstName,
+            last_name: patient.lastName,
+            email: patient.email,
+            gender: patient.sex == 'masculine'? 'male':'female',
+            client_id: patient.id,
+            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
+            phone:patient.phone!= ''? formik.values.phone:undefined,                        
+        }).then(res => {
+            setIsLoading(false)
+            if(res.data.status == 'success'){
+                updateLocalPatientIHistoty(patient);
+                if (isShowTour) {
+                    navigate("/tour")
+                } else {
+                    navigate("/faceCamera")
+                }                        
 
+            }else{
+                if(res.data.msg =='client_already_exist'){
+                    submitForm({...patient,id:GenerateId.resolveid()})
+                }else{
+                    alert(res.data.msg)
+                }
+            }
+        }).catch(() => {
+            setIsLoading(false)
+        })        
+    }
     return (
         <>
         <img className="h-full md:w-full fixed z-0 left-0 top-0 md:top-32" src="./Vector.svg" alt="" />
@@ -104,9 +135,9 @@ export const PatientInformation = () => {
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
-                            <img onClick={() => {
+                            {/* <img onClick={() => {
                                  formik.setFieldValue("id",GenerateId.resolveid())
-                            }} className="absolute right-8 cursor-pointer" src="./refresh.svg" alt="" />
+                            }} className="absolute right-8 cursor-pointer" src="./refresh.svg" alt="" /> */}
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}
                         </div>
                     </CardPatient>
@@ -202,33 +233,7 @@ export const PatientInformation = () => {
                             email:formik.values.email,
                             phone:formik.values.phone
                         }
-                        Application.addClient({
-                            orgCode: JSON.parse(orgs).orgCode,
-                            orgSCode: JSON.parse(orgs).orgSCode,
-                            first_name: patient.firstName,
-                            last_name: patient.lastName,
-                            email: patient.email,
-                            gender: patient.sex == 'masculine'? 'male':'female',
-                            client_id: patient.id,
-                            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
-                            phone:patient.phone!= ''? formik.values.phone:undefined,                        
-                        }).then(res => {
-                            console.log(res)
-                            setIsLoading(false)
-                            if(res.data.status == 'success'){
-                                updateLocalPatientIHistoty(patient);
-                                if (isShowTour) {
-                                    navigate("/tour")
-                                } else {
-                                    navigate("/faceCamera")
-                                }                        
-
-                            }else{
-                                alert(res.data.msg)
-                            }
-                        }).catch(() => {
-                            setIsLoading(false)
-                        })
+                        submitForm(patient)
                     }} disabled={!formik.isValid || !formik.touched.firstName || isLaoding} type="submit" theme="iris-large">
                         Save & Continue
                     </Button>
