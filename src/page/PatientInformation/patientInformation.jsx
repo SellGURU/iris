@@ -43,6 +43,7 @@ export const PatientInformation = () => {
     const [isShowTour,] = useLocalStorage("tour")
     const [showMore,setShowMore] = useState(false)
     const [orgs,] = useLocalStorage("orgData")
+    const [isLaoding,setIsLoading] = useState(false)
     const {register, getValues, handleSubmit} = useForm()
     const formik = useFormik({
         initialValues:{
@@ -186,6 +187,7 @@ export const PatientInformation = () => {
                         console.log(countries[value].countryCallingCodes[0])
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
+                        setIsLoading(true)
                         const patient = {
                             id: formik.values.id.toString(),
                             sex: gender,
@@ -209,6 +211,7 @@ export const PatientInformation = () => {
                             phone:patient.phone!= ''? formik.values.phone:undefined,                        
                         }).then(res => {
                             console.log(res)
+                            setIsLoading(false)
                             if(res.data.status == 'success'){
                                 updateLocalPatientIHistoty(patient);
                                 if (isShowTour) {
@@ -220,8 +223,10 @@ export const PatientInformation = () => {
                             }else{
                                 alert(res.data.msg)
                             }
+                        }).catch(() => {
+                            setIsLoading(false)
                         })
-                    }} disabled={!formik.isValid || !formik.touched.firstName} type="submit" theme="iris-large">
+                    }} disabled={!formik.isValid || !formik.touched.firstName || isLaoding} type="submit" theme="iris-large">
                         Save & Continue
                     </Button>
 
