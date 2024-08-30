@@ -132,7 +132,7 @@ export const ScanHistory = () => {
             orgSCode: JSON.parse(orgs).orgSCode
         }).then((res) => {
             if(res.data){
-                if(!res.data.msg){
+                if(!res.data.detail){
                     setPatinets(res.data)
                     setPatientList(res.data)
                     localStorage.setItem("patients", JSON.stringify(res.data));
