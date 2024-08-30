@@ -57,7 +57,26 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     }
     // const dispatch = useDispatch();
     const download = (id) => {
-        window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
+        Application.getScanDetails({
+            scanCode: id,
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            client_id: patient.client_info.clientCode
+        }).then((res) => {
+            // setIsLoading(false)
+            // setDate(new Date(res.data.data.timestamp))
+            var element = document.createElement('a');
+            // element.innerHTML = decodedHTML
+            element.setAttribute('download', 'report');  
+            element.setAttribute('href','data:text/html;base64,'+res.data.data.html_file);  
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();    
+            // document.body.removeChild(element);                  
+            // document.getElementById("mydiv").innerHTML = decodedHTML;
+        })        
+        // window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
         // downloadLink.download = 'download.html';
