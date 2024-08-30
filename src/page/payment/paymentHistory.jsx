@@ -28,7 +28,7 @@ export const PaymentHistory = () => {
         const month = monthNames[dateObj.getMonth()];  // Get the month name
         const day = dateObj.getDate().toString();  // Get the day
     
-        return `${day} ${month} ${year}`;
+        return `${month} ${day} ${year}`;
     };    
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
