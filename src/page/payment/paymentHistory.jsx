@@ -18,6 +18,18 @@ import { useConstructor } from "../../help.js";
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
     let [org,] = useLocalStorage("orgData")
+    const formatDate = (date) => {
+        const dateObj = new Date(date);  // Ensure date is a Date object
+        const year = dateObj.getFullYear();
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const month = monthNames[dateObj.getMonth()];  // Get the month name
+        const day = dateObj.getDate().toString();  // Get the day
+    
+        return `${day} ${month} ${year}`;
+    };    
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");
@@ -199,7 +211,7 @@ export const PaymentHistory = () => {
           <tbody className="">
             {transactions.map((transaction, index) => (
               <tr key={index}className="pt-2">
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.payDateTime}</td>
+                <td className="py-3 px-4 text-center text-[#2E2E2E]">{formatDate(transaction.payDateTime)}</td>
                 <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
                 <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
               </tr>
