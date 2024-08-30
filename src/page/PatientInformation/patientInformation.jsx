@@ -99,11 +99,14 @@ export const PatientInformation = () => {
             {/* <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p> */}
             <form  onSubmit={handleSubmit(onSubmitData)}>
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
-                    <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
-                        <div className="flex lg:grid xl:flex w-full justify-between items-center">
+                    <CardPatient className={"w-[550px] relative order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div  className="flex lg:grid xl:flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
+                            <img onClick={() => {
+                                 formik.setFieldValue("id",GenerateId.resolveid())
+                            }} className="absolute right-8 cursor-pointer" src="./refresh.svg" alt="" />
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}
                         </div>
                     </CardPatient>
