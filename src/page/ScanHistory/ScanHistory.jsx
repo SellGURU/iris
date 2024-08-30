@@ -125,7 +125,8 @@ export const ScanHistory = () => {
         // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
         let patinetsAll =  localStorage.getItem("patients")
         if(patinetsAll){
-            if(patinetsAll =="{\"msg\":\"no_data\",\"status\":\"fail\"}"){
+            console.log(JSON.parse(patinetsAll))
+            if(JSON.parse(patinetsAll).status == 'fail'){
                 localStorage.clear()
             }
         }
@@ -141,7 +142,9 @@ export const ScanHistory = () => {
             orgSCode: JSON.parse(orgs).orgSCode
         }).then((res) => {
             if(res.data){
-                if(!res.data.detail){
+                if(res.data.status == 'fail'){
+                    console.log(res.data)
+                }else if(!res.data.detail){
                     setPatinets(res.data)
                     setPatientList(res.data)
                     localStorage.setItem("patients", JSON.stringify(res.data));
