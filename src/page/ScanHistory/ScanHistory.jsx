@@ -121,6 +121,15 @@ export const ScanHistory = () => {
             // setShowFilter(false)
         }
     })   
+    useEffect(() => {
+        // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
+        let patinetsAll =  localStorage.getItem("patients")
+        if(patinetsAll){
+            if(patinetsAll =="{\"msg\":\"no_data\",\"status\":\"fail\"}"){
+                localStorage.clear()
+            }
+        }
+    })
     useConstructor(() => {
         if(patients.length > 0){
             if(!patients[0].client_info){
