@@ -271,7 +271,7 @@ const Register = () => {
             // onSubmit={form.submitForm()}
           >
             <h1 className={" font-semibold text-2xl pb-1"}>Welcome to IRIS</h1>
-              <div className="max-w-[330px] text-[14px] text-[#444444] mb-4">Choose a password with at least 8 characters, including uppercase, lowercase, numbers, and one special character (e.g., @, #, $).</div>
+              {/* <div className="max-w-[330px] text-[14px] text-[#444444] mb-4">Choose a password with at least 8 characters, including uppercase, lowercase, numbers, and one special character (e.g., @, #, $).</div> */}
             <div className="grid relative w-[330px]">
               <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
                 Create a Password:
