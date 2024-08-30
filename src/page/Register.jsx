@@ -16,27 +16,31 @@ const Register = () => {
 
   // const {register, handleSubmit} = useForm();
   const initialValues = {
-    fullName: "",
+    // fullName: "",
+    firstName:"",
+    lastName:"",
     email: "",
-    password: "",
-    confirm: "",
+    // password: "",
+    // confirm: "",
     accept: false,
     PracticeName: "",
   };
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string(),
+    // fullName: Yup.string(),
+    firstName:Yup.string().required(),
+    lastName:Yup.string().required(),
     email: Yup.string()
       .email("Please enter a valid email address.")
       .required("This E-mail Address is required."),
-    password: Yup
-    .string()
-    .required('Password is required')
-    .min(6, 'Password must be at least 6 characters long.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+    // password: Yup
+    // .string()
+    // .required('Password is required')
+    // .min(6, 'Password must be at least 6 characters long.')
+    // .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     accept: Yup.boolean().isTrue(),
-    confirm: Yup
-  .string()
-  .oneOf([Yup.ref('password')], 'Passwords must match'),
+  //   confirm: Yup
+  // .string()
+  // .oneOf([Yup.ref('password')], 'Passwords must match'),
   PracticeName: Yup
     .string().required("Practice name must be alphanumeric.").matches(/^[^!@#$%^&*+=<>:;|~]*$/,'Practice name must be alphanumeric.')
   });
@@ -45,8 +49,25 @@ const Register = () => {
     validationSchema: validationSchema,
     onSubmit: () => {},
   });
+  const form2 = useFormik({
+    initialValues: {
+      password: "",
+      confirm: "",     
+    },
+    validationSchema: Yup.object().shape({
+    password: Yup
+      .string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters long.')
+      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),      
+    confirm: Yup
+      .string()
+      .oneOf([Yup.ref('password')], 'Passwords must match'),      
+    }),
+    onSubmit: () => {},
+  });  
   const dispatch = useDispatch();
-
+  const [step,setStep] = useState(0)
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
@@ -57,9 +78,11 @@ const Register = () => {
       // toast.loading("pending ...");
       Auth.signUp({
         email: form.values.email,
-        password: form.values.password,
-        cpassword:form.values.confirm,
-        practiceName:form.values.PracticeName
+        password: form2.values.password,
+        cpassword:form2.values.confirm,
+        practiceName:form.values.PracticeName,
+        firstName:form.values.firstName,
+        lastName:form.values.lastName
       })
         .then((res) => {
           if (res.data.status == 'success') {
@@ -114,186 +137,211 @@ const Register = () => {
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
       <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
-        {/* <div className="relative overflow-hidden">
-          <img
-            className={"hidden  md:block h-[590px] 2xl:h-[630px]"}
-            src={"image/login-pic.png"}
-          />
-          <div className="absolute flex justify-center items-center top-0 w-[100%] h-[100%]">
-            <div
-              className="rounded-[16px]   w-[75%] h-[70%]"
-              style={{ backdropFilter: "blur(6px)" }}
-            >
-              <div className="absolute flex justify-center items-start  top-0 ">
-                <div className="rounded-[16px]    w-full h-[70%] px-2">
-                  <div className="text-[20px] font-medium text-white">
-                    A Revolutionary Face Mapping Tool for New and Experienced
-                    Aestheticians
-                  </div>
 
-                  <div className="text-[18px] mt-6 text-white">
-                    1. Analyzes facial measurements and provides guidance for the
-                    use of injectable beauty products.
-                  </div>
-
-                  <div className="text-[18px] mt-6 text-white">
-                    2. AI technology encodes the expertise of world-renowned
-                    plastic surgeon Dr. Arthur Swift.{" "}
-                  </div>
-
-                  <div className="text-[18px] mt-6 text-white">
-                    3. Improves consistency of results, enhance efficiency and
-                    provides a competitive edge.{" "}
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolveHightImage()}} />
-        <div
-          id="contentBox"
-          className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
-          // onSubmit={form.submitForm()}
-        >
-          <h1 className={" font-semibold text-2xl pb-1"}>Welcome to IRIS</h1>
-
-          <div className="grid w-[330px]">
-            <label className="flex mb-2 text-[16px] font-medium" htmlFor="email">
-              E-mail Address:
-            </label>
-            <div className="relative">
-              {/* {
-                                form.values.userName.length == 0?
-                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
-                                :undefined
-                            } */}
-              <input
-                onKeyDown={handleUsernameKeyPress}
-                {...form.getFieldProps("email")}
-                id="email"
-                className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${
-                  form.errors.userName ? "border-b border-red-500" : ""
-                }`}
-                type="text"
-                placeholder="Your E-mail Address"
-              />
-            </div>
-              <div className={`${form.errors.email ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
-                {form.errors.email}
-              </div>
-          </div>
-          <div className="grid w-[330px]">
-            <Select
-              value={form.values.PracticeName}
-              onchange={(value) => {
-                form.setFieldValue("PracticeName", value);
-              }}
-              placeHolder={"Your Practice Name"}
-              label={"Practice Name:"}
-              options={["Sample Name 1", "Sample Name 2" , "sample Name 3"]}
-            ></Select>
-          </div>
-          <div className={`${form.errors.PracticeName ? 'visible':'invisible'} h-[8px] text-[12px] mt-[-10px] text-red-500`}>
-              {form.errors.PracticeName}
-            </div>            
-          <div className="grid relative w-[330px]">
-            <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
-              Create a Password:
-            </label>
-            <div className="relative">
-              <input
-                onKeyDown={handleKeyPressSubmitData}
-                ref={passwordRef}
-                placeholder="Your Password"
-                id="password"
-                className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
-                  form.errors.password ? "border-b border-red-500" : ""
-                }`}
-                {...form.getFieldProps("password")}
-                type={!HidePass ? "password" : "text"}
-              />
-              <img
-                onClick={() => {
-                  setHidePass(!HidePass);
-                }}
-                className="absolute cursor-pointer bottom-3 right-1"
-                src={!HidePass ? "./eye.svg" : "./eye-slash.svg"}
-              />
-            </div>
-            <div className={`${form.errors.password ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
-              {form.errors.password}
-            </div>
-          </div>
-          <div className="grid relative w-[330px]">
-            <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
-              Repeat the Password:
-            </label>
-            <div className="relative">
-              {/* {
-                                form.values.password.length == 0?
-                                    <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
-                                :undefined
-                            } */}
-
-              <input
-                onKeyDown={handleKeyPressSubmitData}
-                ref={passwordRef}
-                placeholder="Your Password"
-                id="password"
-                className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
-                  form.errors.confirm ? "border-b border-red-500" : ""
-                }`}
-                {...form.getFieldProps("confirm")}
-                type={!HidePass2 ? "password" : "text"}
-              />
-              <img
-                onClick={() => {
-                  setHidePass2(!HidePass2);
-                }}
-                className="absolute cursor-pointer bottom-3 right-1"
-                src={!HidePass2 ? "./eye.svg" : "./eye-slash.svg"}
-              />
-            </div>
-
-            <div className={`${form.errors.confirm ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
-              {form.errors.confirm}
-            </div>
-          </div>
-          <div className="w-full justify-between">
-            <div className="flex justify-start items-center">
-              <input
-                {...form.getFieldProps("accept")}
-                id="accept"
-                type="checkbox"
-              />
-              <label
-                htmlFor="accept"
-                className="ml-2 cursor-pointer text-[12px] text-[#444444]"
-              >
-                By signing up, I agree with{" "}
+        {step == 0?
+            <div
+              id="contentBox"
+              className="w-fit px-10  animate-comeFromLeft gap-5  flex flex-col"
+              // onSubmit={form.submitForm()}
+            >
+            <h1 className={" font-semibold text-2xl pb-1"}>Welcome to IRIS</h1>
+            <div className="grid w-[330px]">
+              <label className="flex mb-2 text-[16px] font-medium" htmlFor="firstName">
+                First Name
               </label>
-              <span onClick={() => {
-                window.open('https://dev.irisaesthetics.ai/terms-conditions/')
-              }} className="text-primary-color text-[14px] cursor-pointer ml-1 font-medium hover:underline">Terms & Conditions.</span>
+              <div className="relative">
+                <input
+                  {...form.getFieldProps("firstName")}
+                  id="firstName"
+                  className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${
+                    form.errors.firstName ? "border-b border-red-500" : ""
+                  }`}
+                  type="text"
+                  placeholder="Your First Name"
+                />
+              </div>
+                <div className={`${form.errors.firstName ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+                  {form.errors.firstName}
+                </div>
+            </div>
+            <div className="grid w-[330px]">
+              <label className="flex mb-2 text-[16px] font-medium" htmlFor="lastName">
+                Last Name
+              </label>
+              <div className="relative">
+                <input
+                  {...form.getFieldProps("lastName")}
+                  id="lastName"
+                  className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${
+                    form.errors.lastName ? "border-b border-red-500" : ""
+                  }`}
+                  type="text"
+                  placeholder="Your Last Name"
+                />
+              </div>
+                <div className={`${form.errors.lastName ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+                  {form.errors.lastName}
+                </div>
+            </div>            
+            <div className="grid w-[330px]">
+              <label className="flex mb-2 text-[16px] font-medium" htmlFor="email">
+                E-mail Address:
+              </label>
+              <div className="relative">
+                {/* {
+                                  form.values.userName.length == 0?
+                                      <img className="absolute cursor-pointer bottom-3 left-1" src='./sms.svg' alt="" />
+                                  :undefined
+                              } */}
+                <input
+                  onKeyDown={handleUsernameKeyPress}
+                  {...form.getFieldProps("email")}
+                  id="email"
+                  className={`w-full pl-5 text-[14px] fill-none outline-none py-2 border-b ${
+                    form.errors.userName ? "border-b border-red-500" : ""
+                  }`}
+                  type="text"
+                  placeholder="Your E-mail Address"
+                />
+              </div>
+                <div className={`${form.errors.email ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+                  {form.errors.email}
+                </div>
+            </div>
+            <div className="grid w-[330px]">
+              <Select
+                value={form.values.PracticeName}
+                onchange={(value) => {
+                  form.setFieldValue("PracticeName", value);
+                }}
+                placeHolder={"Your Practice Name"}
+                label={"Practice Name:"}
+                options={["Sample Name 1", "Sample Name 2" , "sample Name 3"]}
+              ></Select>
+            </div>
+            <div className={`${form.errors.PracticeName ? 'visible':'invisible'} h-[8px] text-[12px] mt-[-10px] text-red-500`}>
+                {form.errors.PracticeName}
+              </div>            
+
+            <div className="w-full justify-between">
+              <div className="flex justify-start items-center">
+                <input
+                  {...form.getFieldProps("accept")}
+                  id="accept"
+                  type="checkbox"
+                />
+                <label
+                  htmlFor="accept"
+                  className="ml-2 cursor-pointer text-[12px] text-[#444444]"
+                >
+                  By signing up, I agree with{" "}
+                </label>
+                <span onClick={() => {
+                  window.open('https://dev.irisaesthetics.ai/terms-conditions/')
+                }} className="text-primary-color text-[14px] cursor-pointer ml-1 font-medium hover:underline">Terms & Conditions.</span>
+              </div>
+            </div>
+            <Button
+            disabled={!form.isValid || !form.values.accept}
+              onClick={() => {
+                // onSubmit()
+                setStep(1)
+              }}
+              theme="iris-large"
+              
+            >
+              <div className="flex justify-center w-full">Continue</div>
+            </Button>
+
+            <div className="text-primary-color mt-[-4px] text-[12px] flex w-full justify-end">
+              <Link to="/login">Already have an account?</Link>
             </div>
           </div>
-          <Button
-          disabled={!form.isValid || !form.values.accept}
-            onClick={() => {
-              onSubmit()
-            }}
-            theme="iris-large"
-            
+        :
+          <div
+            id="contentBox"
+            className="w-fit px-10 min-h-[620px] justify-center  animate-comeFromLeft gap-5  flex flex-col"
+            // onSubmit={form.submitForm()}
           >
-            <div className="flex justify-center w-full">Sign up</div>
-          </Button>
+            <h1 className={" font-semibold text-2xl pb-1"}>Welcome to IRIS</h1>
+              <div className="max-w-[330px] text-[14px] text-[#444444] mb-4">Choose a password with at least 8 characters, including uppercase, lowercase, numbers, and one special character (e.g., @, #, $).</div>
+            <div className="grid relative w-[330px]">
+              <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
+                Create a Password:
+              </label>
+              <div className="relative">
+                <input
+                  onKeyDown={handleKeyPressSubmitData}
+                  ref={passwordRef}
+                  placeholder="Your Password"
+                  id="password"
+                  className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
+                    form2.errors.password ? "border-b border-red-500" : ""
+                  }`}
+                  {...form2.getFieldProps("password")}
+                  type={!HidePass ? "password" : "text"}
+                />
+                <img
+                  onClick={() => {
+                    setHidePass(!HidePass);
+                  }}
+                  className="absolute cursor-pointer bottom-3 right-1"
+                  src={!HidePass ? "./eye.svg" : "./eye-slash.svg"}
+                />
+              </div>
+              <div className={`${form2.errors.password ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+                {form2.errors.password}
+              </div>
+            </div>
+            <div className="grid relative w-[330px]">
+              <label className="flex mb-2 text-[16px] font-medium" htmlFor="password">
+                Repeat the Password:
+              </label>
+              <div className="relative">
+                {/* {
+                                  form.values.password.length == 0?
+                                      <img className="absolute cursor-pointer bottom-3 left-1" src='./lock.svg' alt="" />
+                                  :undefined
+                              } */}
 
-          <div className="text-primary-color mt-[-4px] text-[12px] flex w-full justify-end">
-            <Link to="/login">Already have an account?</Link>
-          </div>
-        </div>
+                <input
+                  onKeyDown={handleKeyPressSubmitData}
+                  ref={passwordRef}
+                  placeholder="Your Password"
+                  id="password"
+                  className={`w-full text-[14px] outline-none pl-5 pr-7 py-2 border-b ${
+                    form2.errors.confirm ? "border-b border-red-500" : ""
+                  }`}
+                  {...form2.getFieldProps("confirm")}
+                  type={!HidePass2 ? "password" : "text"}
+                />
+                <img
+                  onClick={() => {
+                    setHidePass2(!HidePass2);
+                  }}
+                  className="absolute cursor-pointer bottom-3 right-1"
+                  src={!HidePass2 ? "./eye.svg" : "./eye-slash.svg"}
+                />
+              </div>
+
+              <div className={`${form2.errors.confirm ? 'visible':'invisible'} h-[8px] text-[12px] mt-2 text-red-500`}>
+                {form2.errors.confirm}
+              </div>
+            </div>
+            <Button
+            disabled={!form2.isValid || form2.values.confirm == ''}
+              onClick={() => {
+                onSubmit()
+              }}
+              theme="iris-large"
+              
+            >
+              <div className="flex justify-center w-full">Sign up</div>
+            </Button>
+
+          </div>        
+        }
       </div>
     </div>
   );
