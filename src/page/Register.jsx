@@ -3,7 +3,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
-import { useRef, useState } from "react";
+import { useRef, useState ,useEffect} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,20 @@ import Select from "../components/select/index.jsx";
 
 const Register = () => {
   const passwordRef = useRef(null);
-
+  const [resolvedHight,setResolvedHight] = useState('80vh')
+  const resolveHightImage = () => {
+    if(document.getElementById("contentBox")){
+      setResolvedHight(document.getElementById("contentBox").offsetHeight * 1)
+    }else {
+      setResolvedHight("80vh")
+    }
+  }  
+  useEffect(() => {
+    resolveHightImage()
+  })
+  addEventListener("resize", (event) => {
+  resolveHightImage()
+  });  
   // const {register, handleSubmit} = useForm();
   const initialValues = {
     // fullName: "",
@@ -116,14 +129,7 @@ const Register = () => {
       onSubmit();
     }
   };
-  const resolveHightImage = () => {
-    if(document.getElementById("contentBox")){
-      return document.getElementById("contentBox").offsetHeight
 
-    }else {
-      return '80vh'
-    }
-  }
   const [HidePass, setHidePass] = useState(false);
   const [HidePass2, setHidePass2] = useState(false);
   return (
@@ -138,7 +144,7 @@ const Register = () => {
       </div>
       <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
 
-        <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolveHightImage()}} />
+        <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolvedHight}} />
         {step == 0?
             <div
               id="contentBox"
@@ -339,6 +345,13 @@ const Register = () => {
             >
               <div className="flex justify-center w-full">Sign up</div>
             </Button>
+
+            <div onClick={() => {
+              setStep(0)
+            }} className="flex cursor-pointer w-[120px] items-center gap-2 justify-start">
+              <img src="./arrow-left.svg" className="w-8"  />
+              <div className="text-primary-color">Back</div>
+            </div>
 
           </div>        
         }
