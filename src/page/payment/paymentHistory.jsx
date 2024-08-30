@@ -180,7 +180,7 @@ export const PaymentHistory = () => {
                                         }}></div>
                                     </div>
                                 </div>
-                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0].active_to * 1000).toDateString()}</div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0].active_to * 1000).toDateString().substring(3)}</div>
                             </div>
                         </div>
                         <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
