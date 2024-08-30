@@ -780,6 +780,10 @@ const FaceMesh = () => {
 
         }).then(res => {
             console.log(res)
+            if(res.data.status == '403'){
+                localStorage.clear()
+                navigate('/login')
+            }
             if(res.data.data){
                 appContext.package.usePackage()
                 setPdf('data:text/html;base64,' + res.data.data.html_file)
