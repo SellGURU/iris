@@ -332,6 +332,7 @@ export const ScanHistory = () => {
                                 key={Number(patient.client_info.clientCode)}
                                 patient={patient}
                                 activeResult={activeResult}
+                                result={results}
                                 onaccepted={(e) => {
                                     setResults(e)
                                     console.log(e)

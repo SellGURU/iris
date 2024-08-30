@@ -9,13 +9,24 @@ import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import {useLocalStorage} from "@uidotdev/usehooks";
 
-export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
+export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
     const {
         setPdf,
         setFile,
         setPhoto,
     } = useContext(PatientContext);
 
+    useEffect(() => {
+
+        if(result!= null){
+            patient.scans.map(e => {
+                if(result.includes(e.scan_id)){
+                    setIsCompare(true)
+                }
+            })
+
+        }
+    })
     // useEffect(() => {
     //   const timerId = setInterval(() => {
     //     setCurrentDateTime(new Date());  // Update the current date and time every minute
