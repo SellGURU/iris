@@ -16,7 +16,20 @@ import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 
 export const ScanHistory = () => {
     // const {patients2,addPatient} = useContext(PatientContext);
-
+    const closeCamera= () => {
+        const videoElement  = document.getElementById("video-cam")
+        if(videoElement){
+            const stream = videoElement.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => {
+                track.stop(); // Stop each track (video/audio)
+            });         
+            videoElement.srcObject = null; // Clear the video element's source
+        }         
+    }
+    useEffect(() => {
+        closeCamera()
+    })
     // addPatient(patient)
     // updateLocalPatientIHistoty(patient);    
     // const patients = JSON.parse(localStorage.getItem("patients")) || [
