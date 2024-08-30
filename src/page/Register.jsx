@@ -27,8 +27,8 @@ const Register = () => {
   };
   const validationSchema = Yup.object().shape({
     // fullName: Yup.string(),
-    firstName:Yup.string().required(),
-    lastName:Yup.string().required(),
+    firstName:Yup.string().required('First name is a required.'),
+    lastName:Yup.string().required('Last name is a required.'),
     email: Yup.string()
       .email("Please enter a valid email address.")
       .required("This E-mail Address is required."),
