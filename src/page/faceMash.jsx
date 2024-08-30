@@ -754,6 +754,7 @@ const FaceMesh = () => {
         // toast.loading("pending ...")
         if (stream) {
         // Stop all tracks of the stream
+            console.log(stream)
             stream.getTracks().forEach((track) => track.stop());
             setStream(null);
         }

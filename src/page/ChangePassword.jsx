@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
+import Auth from "../api/Auth";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const ChangePassword = () => {
     const initialValues = {
@@ -11,9 +13,11 @@ const ChangePassword = () => {
         confirmPassword:''
     }
     const validationSchema = Yup.object().shape({
-        CurrentPassword: Yup.string().required('This Current Password is reguired').min(8).max(15),
-        NewPassword: Yup.string().required('This New Password is reguired').min(8).max(15),
-        confirmPassword: Yup.string().required('This confirm Password is reguired').min(8).max(15),
+        CurrentPassword: Yup.string().required('This Current Password is reguired').min(6).max(15),
+        NewPassword: Yup.string().required('This New Password is reguired').min(6).max(15),
+        confirmPassword: Yup
+        .string()
+        .oneOf([Yup.ref('NewPassword')], 'Passwords must match'),
     })
     const form = useFormik({
         initialValues: initialValues,
@@ -22,6 +26,23 @@ const ChangePassword = () => {
         }
     })    
     const navigate = useNavigate()
+    const [orgs,] = useLocalStorage("orgData")    
+    const submit = () => {
+        Auth.changePassword({
+            orgscode: JSON.parse(orgs).orgSCode,
+            email:JSON.parse(orgs).orgEmail,
+            current_password: form.values.CurrentPassword,
+            new_password: form.values.NewPassword,
+            new_cpassword: form.values.confirmPassword           
+        }).then(res => {
+            if(res.data.status == 'fail'){
+                alert(res.data.msg)
+            }else{
+                navigate('/login')
+
+            }
+        })
+    }
     const [HidePass, setHidePass] = useState(false)
     const [HidePass2, setHidePass2] = useState(false)
     const [HidePass3, setHidePass3] = useState(false)
@@ -130,7 +151,7 @@ const ChangePassword = () => {
                                     <img className="w-[24px] mr-2" src="./arrow-left.svg" alt="" />
                                     Back
                                 </Button>
-                                <Button disabled theme="iris-large">
+                                <Button onClick={() =>{submit()}} disabled={!form.isValid || form.values.NewPassword == '' || form.values.CurrentPassword == '' || form.values.confirmPassword == ''} theme="iris-large">
                                     <div className="w-full">
                                         Change Password
 
