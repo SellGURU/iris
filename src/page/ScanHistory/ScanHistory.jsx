@@ -145,9 +145,12 @@ export const ScanHistory = () => {
                 if(res.data.status == 'fail'){
                     console.log(res.data)
                 }else if(!res.data.detail){
-                    setPatinets(res.data)
-                    setPatientList(res.data)
-                    localStorage.setItem("patients", JSON.stringify(res.data));
+                    if(res.data.length>0){
+                        setPatinets(res.data)
+                        setPatientList(res.data)
+                        localStorage.setItem("patients", JSON.stringify(res.data));
+
+                    }
 
                 }
             }
