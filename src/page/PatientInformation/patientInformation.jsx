@@ -43,6 +43,7 @@ export const PatientInformation = () => {
     const [isShowTour,] = useLocalStorage("tour")
     const [showMore,setShowMore] = useState(false)
     const [orgs,] = useLocalStorage("orgData")
+    const [isLaoding,setIsLoading] = useState(false)
     const {register, getValues, handleSubmit} = useForm()
     const formik = useFormik({
         initialValues:{
@@ -80,7 +81,38 @@ export const PatientInformation = () => {
         // addPatient(patient)
         // updateLocalPatientIHistoty(patient);
     }
+    const submitForm = (patient) => {
+        Application.addClient({
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            first_name: patient.firstName,
+            last_name: patient.lastName,
+            email: patient.email,
+            gender: patient.sex == 'masculine'? 'male':'female',
+            client_id: patient.id,
+            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
+            phone:patient.phone!= ''? formik.values.phone:undefined,                        
+        }).then(res => {
+            setIsLoading(false)
+            if(res.data.status == 'success'){
+                updateLocalPatientIHistoty(patient);
+                if (isShowTour) {
+                    navigate("/tour")
+                } else {
+                    navigate("/faceCamera")
+                }                        
 
+            }else{
+                if(res.data.msg =='client_already_exist'){
+                    submitForm({...patient,id:GenerateId.resolveid()})
+                }else{
+                    alert(res.data.msg)
+                }
+            }
+        }).catch(() => {
+            setIsLoading(false)
+        })        
+    }
     return (
         <>
         <img className="h-full md:w-full fixed z-0 left-0 top-0 md:top-32" src="./Vector.svg" alt="" />
@@ -98,11 +130,14 @@ export const PatientInformation = () => {
             {/* <p className={"w-[450px] sm:w-[600px] md:w-[720px] text-[18px] 2xl:text-xl font-[14px] text-center"}>The client ID is unique, and if a duplicate ID is entered, the scan will be added to the history of that record. All fields are mandatory to fill out.</p> */}
             <form  onSubmit={handleSubmit(onSubmitData)}>
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
-                    <CardPatient className={"w-[550px] order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
-                        <div className="flex lg:grid xl:flex w-full justify-between items-center">
+                    <CardPatient className={"w-[550px] relative order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
+                        <div  className="flex lg:grid xl:flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
+                            {/* <img onClick={() => {
+                                 formik.setFieldValue("id",GenerateId.resolveid())
+                            }} className="absolute right-8 cursor-pointer" src="./refresh.svg" alt="" /> */}
                             {/* <div className="w-full text-[#7E7E7E] text-[18px]">{getRand()}</div> */}
                         </div>
                     </CardPatient>
@@ -186,6 +221,7 @@ export const PatientInformation = () => {
                         console.log(countries[value].countryCallingCodes[0])
                         setPatientID(formik.values.id)
                         setErrorThreshold(threhold)
+                        setIsLoading(true)
                         const patient = {
                             id: formik.values.id.toString(),
                             sex: gender,
@@ -197,31 +233,8 @@ export const PatientInformation = () => {
                             email:formik.values.email,
                             phone:formik.values.phone
                         }
-                        Application.addClient({
-                            orgCode: JSON.parse(orgs).orgCode,
-                            orgSCode: JSON.parse(orgs).orgSCode,
-                            first_name: patient.firstName,
-                            last_name: patient.lastName,
-                            email: patient.email,
-                            gender: patient.sex == 'masculine'? 'male':'female',
-                            client_id: patient.id,
-                            phone_code:patient.phone!= ''? countries[value].countryCallingCodes[0]:undefined,
-                            phone:patient.phone!= ''? formik.values.phone:undefined,                        
-                        }).then(res => {
-                            console.log(res)
-                            if(res.data.status == 'success'){
-                                updateLocalPatientIHistoty(patient);
-                                if (isShowTour) {
-                                    navigate("/tour")
-                                } else {
-                                    navigate("/faceCamera")
-                                }                        
-
-                            }else{
-                                alert(res.data.msg)
-                            }
-                        })
-                    }} disabled={!formik.isValid || !formik.touched.firstName} type="submit" theme="iris-large">
+                        submitForm(patient)
+                    }} disabled={!formik.isValid || !formik.touched.firstName || isLaoding} type="submit" theme="iris-large">
                         Save & Continue
                     </Button>
 

@@ -67,6 +67,17 @@ const FaceMesh = () => {
     const [status, setStatus] = useState("multi")
     const [resolvedFile, setResolvedFile] = useState('')
     const [iscomplete,setIscomplete] = useState(false)
+    const videoRef = useRef(null);
+    const [stream, setStream] = useState(null);
+    const startVideo = async () => {
+        try {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoRef.current.srcObject = mediaStream;
+        setStream(mediaStream);
+        } catch (error) {
+        console.error('Error accessing webcam: ', error);
+        }
+    };    
     const tabs = [
         {state: "multi", label: "All poses"},
         {state: "one", label: "Single pose"}
@@ -429,23 +440,25 @@ const FaceMesh = () => {
     const faceMesh = CustFaceMash();
     faceMesh.onResults(onResultsFaceMesh);
 
-    const img_source_select = () => {
+    const img_source_select = async () => {
         setIsCameraStart(true)
         const constraints = {
             video: {
                 width: 420, height: 420,
             },
         };
-
-        navigator.mediaDevices
-            .getUserMedia(constraints)
-            .then((stream) => {
-                window.stream = stream;
-                if (video2) video2.current.srcObject = stream;
-            })
-            .catch((e) => {
-                console.log("camera error:", e);
-            });
+        const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+        video2.current.srcObject = mediaStream;
+        setStream(mediaStream);
+        // navigator.mediaDevices
+        //     .getUserMedia(constraints)
+        //     .then((stream) => {
+        //         window.stream = stream;
+        //         if (video2) video2.current.srcObject = stream;
+        //     })
+        //     .catch((e) => {
+        //         console.log("camera error:", e);
+        //     });
 
         start();
     }
@@ -729,11 +742,23 @@ const FaceMesh = () => {
 
     }
     let [partyId] = useLocalStorage("partyid");
+    useEffect(() => {
+        // Cleanup on unmount
+        return () => {
+        if (stream) {
+            stream.getTracks().forEach((track) => track.stop());
+        }
+        };
+    }, [stream]);    
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
-        if (window.stream) {
-            window.stream.getVideoTracks()[0].stop();
+        if (stream) {
+        // Stop all tracks of the stream
+            console.log(stream)
+            stream.getTracks().forEach((track) => track.stop());
+            setStream(null);
         }
+        video2.current.srcObject = null;
         Analytics.analyticsImage({
             client_id:patientID.toString(),
             error_threshold:errorThreshold,
@@ -815,7 +840,7 @@ const FaceMesh = () => {
 
                     </div>                          
                     <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
-                    <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>Please provide scans of your face from the left, right, and front to ensure a complete analysis.<span onClick={() => {
+                    <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>{`Please provide scans of the client's face from the left, right, and front to ensure a complete analysis`}<span onClick={() => {
                         navigate('/tour')
                     }} className="text-primary-color cursor-pointer"> How to scan a face?</span></p>
 

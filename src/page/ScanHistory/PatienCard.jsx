@@ -9,13 +9,24 @@ import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import {useLocalStorage} from "@uidotdev/usehooks";
 
-export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
+export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
     const {
         setPdf,
         setFile,
         setPhoto,
     } = useContext(PatientContext);
 
+    useEffect(() => {
+
+        if(result!= null){
+            patient.scans.map(e => {
+                if(result.includes(e.scan_id)){
+                    setIsCompare(true)
+                }
+            })
+
+        }
+    })
     // useEffect(() => {
     //   const timerId = setInterval(() => {
     //     setCurrentDateTime(new Date());  // Update the current date and time every minute
@@ -57,7 +68,26 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
     }
     // const dispatch = useDispatch();
     const download = (id) => {
-        window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
+        Application.getScanDetails({
+            scanCode: id,
+            orgCode: JSON.parse(orgs).orgCode,
+            orgSCode: JSON.parse(orgs).orgSCode,
+            client_id: patient.client_info.clientCode
+        }).then((res) => {
+            // setIsLoading(false)
+            // setDate(new Date(res.data.data.timestamp))
+            var element = document.createElement('a');
+            // element.innerHTML = decodedHTML
+            element.setAttribute('download', 'report');  
+            element.setAttribute('href','data:text/html;base64,'+res.data.data.html_file);  
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();    
+            // document.body.removeChild(element);                  
+            // document.getElementById("mydiv").innerHTML = decodedHTML;
+        })        
+        // window.open("https://iris.ainexus.com/v1/golden_ratios/" + id)
         // const downloadLink = document.createElement("a");
         // downloadLink.href = pdf;
         // downloadLink.download = 'download.html';
@@ -84,28 +114,26 @@ export const PatienCard = ({index, patient,onaccepted,activeResult}) => {
                 orgCode: JSON.parse(orgs).orgCode,
                 orgSCode: JSON.parse(orgs).orgSCode,
                 comment_text: textComment                
-            }).then(res => {
-                console.log(res)
-                const patients= JSON.parse(localStorage.getItem("patients"))
-                const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patient.client_info.clientCode );
-                const newComment = {
-                    cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
-                    cText: textComment ,
-                    cTextDateTime: new Date().toISOString()
-                };
-        
-                if (patients[patientIndex].comments) {
-                    patient.comments.push(newComment)
-                    patients[patientIndex].comments.push(newComment);
-                } else {
-                    patients[patientIndex].comments = [newComment];
-                     patient.comments =[newComment]   // Initialize the comment array if it does not exist
-                }
-                localStorage.setItem("patients", JSON.stringify(patients));
-                setIsShowAddComment(false)
-                updateComment()
-                setTextComment("")
-            })
+            }).then()
+            const patients= JSON.parse(localStorage.getItem("patients"))
+            const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patient.client_info.clientCode );
+            const newComment = {
+                cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+                cText: textComment ,
+                cTextDateTime: new Date().toISOString()
+            };
+    
+            if (patients[patientIndex].comments) {
+                patient.comments.push(newComment)
+                patients[patientIndex].comments.push(newComment);
+            } else {
+                patients[patientIndex].comments = [newComment];
+                    patient.comments =[newComment]   // Initialize the comment array if it does not exist
+            }
+            localStorage.setItem("patients", JSON.stringify(patients));
+            setIsShowAddComment(false)
+            updateComment()
+            setTextComment("")            
         }else {
             setIsShowAddComment(false)
         }

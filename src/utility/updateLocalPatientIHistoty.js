@@ -24,7 +24,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
                 },              
                 comments:[],
                 scans: [{
-                    scanId:patientInformation.htmlId,
+                    scan_id:patientInformation.htmlId,
                     timestamp:new Date().toISOString(),
                     // date: date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear(),
                     // photo: patientInformation.photo,
@@ -56,7 +56,7 @@ export const updateLocalPatientIHistoty = (patientInformation) => {
             scans: [
                 ...patients[patientIndex].scans,
                 {
-                    scanId:patientInformation.htmlId,
+                    scan_id:patientInformation.htmlId,
                     timestamp:new Date().toISOString(),
                 }
             ]

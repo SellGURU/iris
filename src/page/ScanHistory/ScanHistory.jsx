@@ -121,6 +121,16 @@ export const ScanHistory = () => {
             // setShowFilter(false)
         }
     })   
+    useEffect(() => {
+        // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
+        let patinetsAll =  localStorage.getItem("patients")
+        if(patinetsAll){
+            console.log(JSON.parse(patinetsAll))
+            if(JSON.parse(patinetsAll).status == 'fail'){
+                localStorage.clear()
+            }
+        }
+    })
     useConstructor(() => {
         if(patients.length > 0){
             if(!patients[0].client_info){
@@ -132,9 +142,17 @@ export const ScanHistory = () => {
             orgSCode: JSON.parse(orgs).orgSCode
         }).then((res) => {
             if(res.data){
-                setPatinets(res.data)
-                setPatientList(res.data)
-                localStorage.setItem("patients", JSON.stringify(res.data));
+                if(res.data.status == 'fail'){
+                    console.log(res.data)
+                }else if(!res.data.detail){
+                    if(res.data.length>0){
+                        setPatinets(res.data)
+                        setPatientList(res.data)
+                        localStorage.setItem("patients", JSON.stringify(res.data));
+
+                    }
+
+                }
             }
         })
 
@@ -314,6 +332,7 @@ export const ScanHistory = () => {
                                 key={Number(patient.client_info.clientCode)}
                                 patient={patient}
                                 activeResult={activeResult}
+                                result={results}
                                 onaccepted={(e) => {
                                     setResults(e)
                                     console.log(e)

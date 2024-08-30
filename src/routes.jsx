@@ -134,7 +134,7 @@ export const route = [
     path: "showReportScan",
     element: (
       <IsLogin>
-        <ShowReport></ShowReport>
+        <ShowReport smallReport={true}></ShowReport>
       </IsLogin>
     ),
   },  

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useConstructor } from "../../help"
 import Application from "../../api/Application"
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +10,7 @@ import { Button } from "symphony-ui";
 import {RWebShare} from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
-const ShowReport = () => {
+const ShowReport = (props) => {
     const [searchParams] = useSearchParams();
     const [isLoading,setIsLoading] = useState(true)
     const [date,setDate] = useState(new Date())
@@ -60,68 +61,70 @@ const ShowReport = () => {
         <>
             <div>
                 <div className={`${isLoading && "hidden"}`}>
-               <div className="px-12">
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link underline="hover"  className="text-primary-color" href="/">
-                            Home
-                        </Link>
-                        <Link
-                            underline="hover"
-                            href="/#/facecamera"
-                            
-                            className="text-primary-color" 
-                        >
-                            Face Scanner
-                        </Link>
-                        <Typography className="text-primary-color" >View Report</Typography>
-                    </Breadcrumbs>                
-                    <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
-                    <div className="flex justify-center">
-                        <div className="text-center text-[18px] text-[#444444] w-[600px] md:max-w-[850px] mb-4">
-                            Here is the preview of your report. Use the top-right buttons to download the PDF or share the document. To remove the report or return to the home page, use the buttons at the bottom.
-                        </div>
-                    </div>
+                    {!props?.smallReport &&
+                            <div className="px-12">
+                                    <Breadcrumbs aria-label="breadcrumb">
+                                        <Link underline="hover"  className="text-primary-color" href="/">
+                                            Home
+                                        </Link>
+                                        <Link
+                                            underline="hover"
+                                            href="/#/facecamera"
+                                            
+                                            className="text-primary-color" 
+                                        >
+                                            Face Scanner
+                                        </Link>
+                                        <Typography className="text-primary-color" >View Report</Typography>
+                                    </Breadcrumbs>                
+                                    <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
+                                    <div className="flex justify-center">
+                                        <div className="text-center text-[18px] text-[#444444] w-[600px] md:max-w-[850px] mb-4">
+                                            Here is the preview of your report. Use the top-right buttons to download the PDF or share the document. To remove the report or return to the home page, use the buttons at the bottom.
+                                        </div>
+                                    </div>
 
-                <div className="w-full justify-between mb-4 flex mt-[46px] items-center">
-                   <div className="md:flex justify-start items-center">
-                        <div className="text-[#444444] text-[18px] mr-[230px]">Patient ID: {searchParams.get("clientId")}</div>
-                        <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
-                        <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
-                   </div>
-                   <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
-                  
-                       <RWebShare data={{
-                           text: "iris",
-                           url: 'https://iris.ainexus.com/v1/golden_ratios/' + '',
-                           title: "iris",
-                       }}>
-                           {/* <button onClick={() => {
-                               navigator.share({
-                                   url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
-                               })
-                           }}
-                                   className="w-[122px] border border-[#544BF0]  text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#544BF00A] flex justify-center items-center">
-                               <img className="mr-2" src="share2.svg" alt=""/>
-                               Share
-                           </button> */}
+                                <div className="w-full justify-between mb-4 flex mt-[46px] items-center">
+                                <div className="md:flex justify-start items-center">
+                                        <div className="text-[#444444] text-[18px] mr-[230px]">Patient ID: {searchParams.get("clientId")}</div>
+                                        <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
+                                        <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
+                                </div>
+                                <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
+                                
+                                    <RWebShare data={{
+                                        text: "iris",
+                                        url: 'https://iris.ainexus.com/v1/golden_ratios/' + '',
+                                        title: "iris",
+                                    }}>
+                                        {/* <button onClick={() => {
+                                            navigator.share({
+                                                url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
+                                            })
+                                        }}
+                                                className="w-[122px] border border-[#544BF0]  text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#544BF00A] flex justify-center items-center">
+                                            <img className="mr-2" src="share2.svg" alt=""/>
+                                            Share
+                                        </button> */}
 
-                           <Button  onClick={() => {
-                               navigator.share({
-                                   url: 'https://iris.ainexus.com/v1/golden_ratios/' + ''
-                               })                            
-                           }} theme='iris-secondary'>
-                               <img className="mr-2" src="share2.svg" alt=""/>
-                               Share                            
-                           </Button>
-                       </RWebShare>
-                       <Button onClick={download} theme="iris">
-                           <img className="mr-2" src="print.svg" alt=""/>
-                           Finish 
-                       </Button>
+                                        <Button  onClick={() => {
+                                            navigator.share({
+                                                url: 'https://iris.ainexus.com/v1/golden_ratios/' + ''
+                                            })                            
+                                        }} theme='iris-secondary'>
+                                            <img className="mr-2" src="share2.svg" alt=""/>
+                                            Share                            
+                                        </Button>
+                                    </RWebShare>
+                                    <Button onClick={download} theme="iris">
+                                        <img className="mr-2" src="print.svg" alt=""/>
+                                        Finish 
+                                    </Button>
 
-                   </div>
-                </div>                    
-               </div>                
+                                </div>
+                                </div>                    
+                            </div>                
+                    }
                 </div>                
                 <div className={`${!isLoading && "hidden"}`}>
                    <div className="w-full flex justify-center items-center min-h-[350px]">
