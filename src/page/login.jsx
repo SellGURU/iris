@@ -66,6 +66,7 @@ const Login = () => {
     try {
       // toast.loading("pending ...");
       // toast.loading('pending ...');
+      localStorage.clear()
       Auth.login({
         email: form.values.userName,
         password: form.values.password,
