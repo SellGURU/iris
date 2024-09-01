@@ -82,6 +82,11 @@ const Login = () => {
             savePass(form.values.password)
             saveOrg(JSON.stringify(res.data.org_data))
             dispatch(setUserName("amin"));
+            Appcontext.user.updateCustomInformation('account',{
+                PracticeName:res.data.org_data.orgName,
+                PhoneNumber:"",
+                EmailAddress:res.data.org_data.orgEmail
+            })            
             if(res.data.org_data.subs_data.length> 0){
                 let newPak = new Package({
                     name:'No available package',
