@@ -1,9 +1,11 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 
 axios.interceptors.response.use((response) => {
     if(response.data.token){
         return response
+    }
+    if(response.status == '403') {
+        localStorage.clear()
     }
     if(response?.data?.detail?.error == '403_Forbidden'){
         // console.log("invalid token")
