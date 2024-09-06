@@ -160,7 +160,7 @@ const Header = () => {
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
                             <div className="text-2xl">Setting</div>
                             </div> */}
-                            <Link2 underline="none"  href={"/payment"}>
+                            <Link2 underline="none"  href={"/#/payment"}>
                                <div onClick={() => setShowSideBar(false)}
                                      className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
                                     <img className="mr-2 cursor-pointer w-5 h-5" src={'./balance.png'} alt=""/>
