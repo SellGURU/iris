@@ -17,9 +17,16 @@ import {
 } from "react-country-state-city";
 
 import "react-country-state-city/dist/react-country-state-city.css";
+import Staffs from "../../components/Staffs";
+import StaffActionModal from "../modal/StaffAction";
+import { publish } from "../../utility/event.js";
+
 const AccountInfo = () => {
     const appcontext = useContext(PatientContext)
     const user = appcontext.user
+    const [showInviteMember,setShowInviteMember] = useState(false)
+    const [showRemoveModal,setShowRemoveModal] = useState(false)
+    const [showChangeRole,setShowChangeRole] = useState(false)
     const navigate = useNavigate()
     const personalFormik = useFormik({
         initialValues:{
@@ -49,33 +56,7 @@ const AccountInfo = () => {
         },
         onSubmit:() =>{}
     })  
-    const [stafs,setStafs] = useState([
-        {
-            fullName:"Sample name 2",
-            email:"Samplemail2@gmail.com",
-            id:"1",
-            role:'Admin',
-        },
-        {
-            fullName:"Sample name 3",
-            email:"Samplemail3@gmail.com",
-            id:"2",
-            role:'User',
-        },
-        {
-            fullName:"Sample name 4",
-            email:"Samplemail4@gmail.com",
-            id:"3",
-            role:'User',
-        }                
-    ])
-    const handleRoleChange = (userId, newRole) => {
-        // Update the user role in state
-        const updatedUsers = stafs.map((user) =>
-        user.id === userId ? { ...user, role: newRole } : user
-        );
-        setStafs(updatedUsers);
-    };    
+   
     const [countryid, setCountryid] = useState(0);
     const AddressFormik = useFormik({
         initialValues:{
@@ -468,73 +449,48 @@ const AccountInfo = () => {
                         Members:
                     </div>
                     <div className="flex justify-end">
-                        <Button theme="iris-tertiary-small">
+                        <Button onClick={() => {
+                            setShowInviteMember(true)
+                            publish("openModal");
+                        }} theme="iris-tertiary-small">
                             <img src="./icons/user-add.svg" className="mr-1" alt="" />
                             Invite member</Button>
                     </div>
                   </div>
+                  <Staffs onRemove={() => {
+                    setShowRemoveModal(true)
+                    publish("openModal");
+                  }} onChangeRole={() => {
+                    setShowChangeRole(true)
+                    publish("openModal");
+                  }}></Staffs>
+                  {
+                    showInviteMember ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"invite"} onClose={() => {
+                            setShowInviteMember(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>
+                    :undefined
+                  }        
+                  {showRemoveModal ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"remove"} onClose={() => {
+                            setShowRemoveModal(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>                  
+                  :undefined}       
 
-                  <div className="mt-10">
-                    <div  className="bg-white rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
-                        <div className="flex justify-start w-[230px] items-center">
-                            <img src={currentImage} alt="" />
-                            <div className="ml-4">
-                                <div className="text-[20px] flex justify-start items-center font-medium text-[#2E2E2E]">
-                                    {user.information.Personal.FirstName + " "+ user.information.Personal.LastName}
-                                    <span className="bg-[#48BB784D] text-[10px] flex justify-center items-center rounded-[4px] ml-1 w-[30px] h-[22px] text-[#48BB78]">
-                                        <div>You</div>
-                                    </span>
-                                </div>
-                                <div className="text-[#444444] text-[20px]">
-                                    {user.information.Account.EmailAddress}
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <Select disabled onchange={(value) => {
-                                // AccountFormik.setFieldValue("PracticeName",value)
-                            }} placeHolder={''} value={'Admin'} options={['Admin','User']}></Select>
-                            {/* <div className="text-[14px] text-[#7E7E7E]">Admin</div> */}
-                        </div>
-                        <div className="invisible">
-                            <Button theme="iris">
-                                <img className="mr-1" src="./icons/user-minus.svg" alt="" />
-                                Remove                                
-                            </Button>
-                        </div>
-                    </div>
-                    {stafs.map((el) => {
-                        return (
-                            <>
-                                <div  className="bg-white mt-4 rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
-                                    <div className="flex justify-start w-[230px] items-center">
-                                        <img className="rounded-full w-[56px] h-[56px]" src={`https://ui-avatars.com/api/?name=${el.fullName}`} alt="" />
-                                        <div className="ml-4">
-                                            <div className="text-[20px] flex justify-start items-center font-medium text-[#2E2E2E]">
-                                                {el.fullName}
-                                            </div>
-                                            <div className="text-[#444444] text-[20px]">
-                                                {el.email}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Select noteditAble onchange={(value) => {
-                                            handleRoleChange(el.id,value)
-                                        }} placeHolder={''} value={el.role} options={['Admin','User']}></Select>
-                                        {/* <div className="text-[14px] text-[#7E7E7E]">Admin</div> */}
-                                    </div>
-                                    <div className="">
-                                        <Button theme="iris">
-                                            <img className="mr-1" src="./icons/user-minus.svg" alt="" />
-                                            Remove
-                                            </Button>
-                                    </div>
-                                </div>                            
-                            </>
-                        )
-                    })}
-                  </div>
+                  {/* {showChangeRole ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"changeRole"} onClose={() => {
+                            setShowChangeRole(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>                  
+                  :undefined}    */}
                 </div>                    
             </div>
         </>

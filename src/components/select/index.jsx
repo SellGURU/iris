@@ -58,7 +58,7 @@ const Select = ({ label, options, placeHolder, onchange, value, disabled ,notedi
           if(!noteditAble){
             onchange(e.target.value)
           }
-        }}  type="text" className="w-full text-[14px]  bg-white outline-none pl-5 pr-7 py-2  "/>
+        }}  type="text" className={`w-full text-[14px]  bg-white outline-none pl-5 pr-7 py-2 ${disabled?'text-[#7E7E7E]':'text-[#444444]'}  `}/>
         {/* <div
         onClick={() => setShowOptions(true)}
           className="w-full flex justify-between items-center"
