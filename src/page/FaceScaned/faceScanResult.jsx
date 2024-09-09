@@ -107,11 +107,12 @@ const FaceScanResult =() => {
                 cText: textComment ,
                 cTextDateTime: new Date().toISOString()
             };
-    
-            if (patients[patientIndex].comments) {
-                patients[patientIndex].comments.push(newComment);
-            } else {
-                patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+            if(patients[patientIndex]){
+                if (patients[patientIndex].comments) {
+                    patients[patientIndex].comments.push(newComment);
+                } else {
+                    patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+                }
             }
             localStorage.setItem("patients", JSON.stringify(patients));
             setIsShowAddComment(false)
