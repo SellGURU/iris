@@ -86,7 +86,15 @@ const Login = () => {
                 PracticeName:res.data.org_data.orgName,
                 PhoneNumber:"",
                 EmailAddress:res.data.org_data.orgEmail
-            })            
+            })         
+            Appcontext.user.updateCustomInformation("personal",{
+              FirstName:res.data.org_data.firstName,
+              LastName:res.data.org_data.lastName,
+              
+            }) 
+            Appcontext.user.updateCustomInformation("photo",
+                `https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName              
+            )             
             if(res.data.org_data.subs_data.length> 0){
                 let newPak = new Package({
                     name:'No available package',
@@ -100,6 +108,7 @@ const Login = () => {
                     // console.log(newPak)
                 Appcontext.package.updatePackage(newPak)
             }
+            // photo:`https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName
             // toast.
             navigate("/");
           } else {

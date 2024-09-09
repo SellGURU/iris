@@ -41,7 +41,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
             <div className="mt-10">
             <div  className="bg-white rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
                 <div className="flex justify-start w-[230px] items-center">
-                    <img src={appcontext.user.information.Personal.photo} alt="" />
+                    <img className="rounded-full w-[56px] h-[56px]" src={appcontext.user.information.Personal.photo} alt="" />
                     <div className="ml-4">
                         <div className="text-[20px] flex justify-start items-center font-medium text-[#2E2E2E]">
                             {appcontext.user.information.Personal.FirstName + " "+ appcontext.user.information.Personal.LastName}
