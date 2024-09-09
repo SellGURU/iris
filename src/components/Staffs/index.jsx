@@ -40,7 +40,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
         <>
             <div className="mt-10">
             <div  className="bg-white rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
-                <div className="flex justify-start w-[230px] items-center">
+                <div className="flex justify-start w-[280px] items-center">
                     <img className="rounded-full w-[56px] h-[56px]" src={appcontext.user.information.Personal.photo} alt="" />
                     <div className="ml-4">
                         <div className="text-[20px] flex justify-start items-center font-medium text-[#2E2E2E]">
@@ -71,7 +71,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
                 return (
                     <>
                         <div  className="bg-white mt-4 rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
-                            <div className="flex justify-start w-[230px] items-center">
+                            <div className="flex justify-start w-[280px] items-center">
                                 <img className="rounded-full w-[56px] h-[56px]" src={`https://ui-avatars.com/api/?name=${el.fullName}`} alt="" />
                                 <div className="ml-4">
                                     <div className="text-[20px] flex justify-start items-center font-medium text-[#2E2E2E]">
