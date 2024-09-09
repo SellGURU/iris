@@ -68,7 +68,7 @@ const StaffActionModal = ({title,onClose,onSubmit,role,type,changeEmail}) => {
                             <div className="text-[14px] text-[#444444] w-[384px] text-center">
                                 Enjoy exclusive benefits together!
                                 <div>
-                                    Invitation links will be sent via email, allowing them to join and contribute to our success.
+                                Invitation links will be sent via email, allowing them to join and contribute to our success.
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@ const StaffActionModal = ({title,onClose,onSubmit,role,type,changeEmail}) => {
                                 <div className="text-primary-color font-medium flex justify-center mt-6 text-[24px]">{'Remove Member'}</div>
                                 <div className="w-full flex justify-center mt-6">
                                     <div className="text-[14px] text-[#444444] w-[384px] text-center">
-                                        If you remove this member, she will no longer have access to your application. However, you can always re-invite her after removal if needed.
+                                       If you remove this member, they will no longer have access to your application. However, you can always re-invite them after removal if needed.
                                     </div>
                                 </div>      
 
@@ -183,7 +183,7 @@ const StaffActionModal = ({title,onClose,onSubmit,role,type,changeEmail}) => {
                                 <div className="text-primary-color font-medium flex justify-center mt-6 text-[24px]">{'Changing the role'}</div>
                                 <div className="w-full flex justify-center mt-6">
                                     <div className="text-[14px] text-[#444444] w-[384px] text-center">
-                                        {changeEmail} is a {revertRole()} in your clinic. By changing her role to {role}, {resolveTextRole()}, but you can easily revert this change if necessary.
+                                        <strong>{changeEmail}</strong> is a  <strong>{revertRole()}</strong> in your clinic. By changing their role to {role}, {resolveTextRole()}, but you can easily revert this change if necessary.
                                     </div>
                                 </div>      
 
