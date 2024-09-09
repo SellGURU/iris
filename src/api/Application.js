@@ -2,7 +2,7 @@ import Api from "./Api"
 
 class Application extends Api {
     static getScanList(data) {
-        const response = this.post('/scanCommentsList',data)
+        const response = this.post('/fetchIrisOrgScanList ',data)
         return response
     }
 
