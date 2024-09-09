@@ -13,7 +13,7 @@ const ChangePassword = () => {
         confirmPassword:''
     }
     const validationSchema = Yup.object().shape({
-        CurrentPassword: Yup.string().required('This Current Password is reguired.').min(6,'Current password must be at least 6 characters.').max(15),
+        CurrentPassword: Yup.string().required('Current Password is required.').min(6,'Current password must be at least 6 characters.').max(15),
         NewPassword: Yup.string().required('New password is required.').min(6,'New password must be at least 6 characters.').max(15),
         confirmPassword: Yup
         .string()
