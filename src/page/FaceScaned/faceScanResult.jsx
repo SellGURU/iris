@@ -101,7 +101,9 @@ const FaceScanResult =() => {
             }).then(res => {
             })
             const patients= JSON.parse(localStorage.getItem("patients"))
+            console.log(patients)
             const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+            console.log(patientIndex)
             const newComment = {
                 cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
                 cText: textComment ,

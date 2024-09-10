@@ -20,7 +20,7 @@ const Forget = () => {
         email: '',
     }
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required('This E-mail Address is reguired').email('This E-mail Address is not Valid.'),
+        email: Yup.string().required('E-mail address is required.').email('E-mail address is not valid.'),
     })
     let [searchParams] = useSearchParams();
     const form = useFormik({
