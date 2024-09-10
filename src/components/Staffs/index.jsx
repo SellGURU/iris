@@ -8,25 +8,26 @@ import { publish } from "../../utility/event.js";
 const Staffs = ({onRemove,onChangeRole}) => {
     const appcontext = useContext(PatientContext)
     const [stafs,setStafs] = useState([
-        {
-            fullName:"Sample name 2",
-            email:"Samplemail2@gmail.com",
-            id:"1",
-            role:'Admin',
-        },
-        {
-            fullName:"Sample name 3",
-            email:"Samplemail3@gmail.com",
-            id:"2",
-            role:'User',
-        },
-        {
-            fullName:"Sample name 4",
-            email:"Samplemail4@gmail.com",
-            id:"3",
-            role:'User',
-        }                
-    ])    
+        // {
+        //     fullName:"Sample name 2",
+        //     email:"Samplemail2@gmail.com",
+        //     id:"1",
+        //     role:'Admin',
+        // },
+        // {
+        //     fullName:"Sample name 3",
+        //     email:"Samplemail3@gmail.com",
+        //     id:"2",
+        //     role:'User',
+        // },
+        // {
+        //     fullName:"Sample name 4",
+        //     email:"Samplemail4@gmail.com",
+        //     id:"3",
+        //     role:'User',
+        // }                
+    ]
+)    
     const [changeRolewithID,setChangeRoleWithId]= useState(null)
     const handleRoleChange = (userId, newRole) => {
         // Update the user role in state
@@ -39,7 +40,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
     return (
         <>
             <div className="mt-10">
-            <div  className="bg-white rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
+            <div  className="bg-white opacity-40 rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
                 <div className="flex justify-start w-[280px] items-center">
                     <img className="rounded-full w-[56px] h-[56px]" src={appcontext.user.information.Personal.photo} alt="" />
                     <div className="ml-4">
@@ -70,7 +71,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
             {stafs.map((el) => {
                 return (
                     <>
-                        <div  className="bg-white mt-4 rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
+                        <div  className="bg-white mt-4 opacity-40 rounded-[8px] p-4 flex justify-between items-center shadow-card w-full">
                             <div className="flex justify-start w-[280px] items-center">
                                 <img className="rounded-full w-[56px] h-[56px]" src={`https://ui-avatars.com/api/?name=${el.fullName}`} alt="" />
                                 <div className="ml-4">

@@ -443,13 +443,13 @@ const AccountInfo = () => {
                 </div>
 
 
-                <div className="w-full mt-6 mb-10">
+                <div className="w-full  mt-6 mb-10">
                   <div className="flex w-full justify-between items-center">
-                    <div className="text-[24px] text-[#2E2E2E] font-bold">
+                    <div className="text-[24px] opacity-40 text-[#2E2E2E] font-bold">
                         Members:
                     </div>
                     <div className="flex justify-end">
-                        <Button onClick={() => {
+                        <Button disabled onClick={() => {
                             setShowInviteMember(true)
                             publish("openModal");
                         }} theme="iris-tertiary-small">
