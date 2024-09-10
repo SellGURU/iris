@@ -8,24 +8,24 @@ import { publish } from "../../utility/event.js";
 const Staffs = ({onRemove,onChangeRole}) => {
     const appcontext = useContext(PatientContext)
     const [stafs,setStafs] = useState([
-        // {
-        //     fullName:"Sample name 2",
-        //     email:"Samplemail2@gmail.com",
-        //     id:"1",
-        //     role:'Admin',
-        // },
-        // {
-        //     fullName:"Sample name 3",
-        //     email:"Samplemail3@gmail.com",
-        //     id:"2",
-        //     role:'User',
-        // },
-        // {
-        //     fullName:"Sample name 4",
-        //     email:"Samplemail4@gmail.com",
-        //     id:"3",
-        //     role:'User',
-        // }                
+        {
+            fullName:"Sample name 2",
+            email:"Samplemail2@gmail.com",
+            id:"1",
+            role:'Admin',
+        },
+        {
+            fullName:"Sample name 3",
+            email:"Samplemail3@gmail.com",
+            id:"2",
+            role:'User',
+        },
+        {
+            fullName:"Sample name 4",
+            email:"Samplemail4@gmail.com",
+            id:"3",
+            role:'User',
+        }                
     ]
 )    
     const [changeRolewithID,setChangeRoleWithId]= useState(null)
@@ -84,7 +84,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
                                 </div>
                             </div>
                             <div>
-                                <Select noteditAble onchange={(value) => {
+                                <Select disabled noteditAble onchange={(value) => {
                                     // onChangeRole()
                                     publish("openModal")
                                     setChangeRoleTO(value)
@@ -94,7 +94,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
                                 {/* <div className="text-[14px] text-[#7E7E7E]">Admin</div> */}
                             </div>
                             <div className="">
-                                <Button onClick={() => {
+                                <Button disabled onClick={() => {
                                     onRemove(el.id)
                                 }} theme="iris">
                                     <img className="mr-1" src="./icons/user-minus.svg" alt="" />
