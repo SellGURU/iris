@@ -154,7 +154,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                     <div className="flex gap-2 items-center justify-between">
 
                         <Button theme="iris-tertiary-small" onClick={() => setIsShowComment(!isShowComment)}>
-                            {isShowComment?'Hide comments':'Show comments'}
+                            {isShowComment?'Hide Comments':'Show Comments'}
                             ({comment.length})
                             <span><div data-mode={isShowComment?'true':'false'} className="arowDownIcon-purple ml-1"></div></span>
                         </Button>

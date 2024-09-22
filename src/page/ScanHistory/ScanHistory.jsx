@@ -217,180 +217,208 @@ export const ScanHistory = () => {
 
     return (
         <>
-        <div className="w-full flex justify-center">
-            <div className="xl:container w-full  flex flex-col px-2 xl:px-[24px]  gap-5">
-                <div className="w-full flex flex-col items-center gap-3 ">
-                    <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
-                    <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
-                        Scan history records past scanned documents, showing details like date, categorization, download options, and patient scan comparisons for easy reference and retrieval.
-                    </p>
-                </div>
-                <div className="flex w-full justify-between">
-                    <div className="md:220px relative z-20 xl:w-[280px]">
-                        {/* <Link className={"cursor-pointer w-auto"} to="PatientInformation"> */}
+
+            <div className="w-full flex justify-center">
+                <div className="xl:container w-full  flex flex-col px-2 xl:px-[24px]  gap-5">
+                    <div className="w-full flex flex-col items-center gap-3 ">
+                        <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
+                        <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
+                            Scan history records past scanned documents, showing details like date, categorization,
+                            download options, and patient scan comparisons for easy reference and retrieval.
+                        </p>
+                    </div>
+                    <div className="flex w-full justify-between">
+                        <div className="md:220px relative z-20 xl:w-[280px]">
+                            {/* <Link className={"cursor-pointer w-auto"} to="PatientInformation"> */}
                             {/* <ButtonPrimary  className={"h-10 text-[15px]"}>
                                 <img src="fi_plus.svg" alt=""/>
-                                Add a New Patient 
+                                Add a New Patient
                             </ButtonPrimary> */}
-                            <Button onClick={() => {navigate('/PatientInformation')}} theme="iris-small">
+                            <Button onClick={() => {
+                                navigate('/PatientInformation')
+                            }} theme="iris-small">
                                 <img className="mr-1" src="fi_plus.svg" alt=""/>
-                                Add New Client                    
+                                Add New Client
                             </Button>
-                        {/* </Link> */}
+                            {/* </Link> */}
 
-                    </div>
-                    <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
-                        <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
-                    </div>
-                    <div className="flex  xl:w-[280px] justify-evenly relative z-[20] text-[12px] gap-8 items-center">
-                        <div onClick={() => {
-                            setShowFilter(true)
-                        }} data-tooltip-id="my-tooltip" data-tooltip-content="Filter your scan history by specific criteria." className="flex items-center gap-3 cursor-pointer">
-                            <img className="w-[14px]"   src="filter.svg" alt=""/>
-                            Filter by
                         </div>
-                        <Tooltip className="max-w-[240px] bg-white" id="my-tooltip" />                        
-                        {
-                            showFilter &&
-                            <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter} refrence={sortRefrence} />
-                            // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
-                        }  
-                        <div onClick={() => {
-                            setShowSort(true)
-                            setShowFilter(false)
-                        }} data-tooltip-id="my-tooltip" data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra." className="flex text-[12px]   items-center gap-3 cursor-pointer">
-                            <img className="w-[14px]" src="sort.svg" alt=""/>
-                            Sort by
+                        <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
+                            <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                         </div>
-                        {
-                            showSort &&
-                            <SortModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
-                        }                        
-                    </div>
-                </div>
-                {patientList.sort((a,b) =>{
-                    if(filterType == 'Maximum Scan'){
-                        if(a.scans.length >= b.scans.length){
-                            return -1
-                        }else {
-                            return 1
-                        }
-                    }
-                    if(filterType == 'Minimum Scan'){
-                        if(a.scans.length >= b.scans.length){
-                            return 1
-                        }else {
-                            return -1
-                        }
-                    }     
-                    if(filterType == 'Oldest Scan'){
-                        let ADate = a.scans.map(e => e.timestamp)
-                        let BDate = b.scans.map(e => e.timestamp)
-                        var maxDate1=Math.min.apply(null,ADate);
-                        var maxDate2=Math.min.apply(null,BDate);
-                     
-                        if(maxDate1 > maxDate2){
-                            return 1
-                        }else {
-                            return -1
-                        }
-                    }    
-                    if(filterType == 'Newest Scan'){
-                        let ADate = a.scans.map(e => e.timestamp)
-                        let BDate = b.scans.map(e => e.timestamp)
-                        
-                        let maxDate1=Math.max.apply(null,ADate);
-                        let maxDate2=Math.max.apply(null,BDate);
-                        if(maxDate1 < maxDate2){
-                            return 1
-                        }else {
-                            return -1
-                        }
-                        
-                    }                                                         
-                }).map((patient, i) => {
-                    
-                    return (
-                        <>
-                            <PatienCard
-                                index={i + 1}
-                                key={Number(patient.client_info.clientCode)}
-                                patient={patient}
-                                activeResult={activeResult}
-                                result={results}
-                                onaccepted={(e) => {
-                                    setResults(e)
-                                    console.log(e)
-                                    setActiveResult(patient.client_info.clientCode)
-                                }}
-                            />
-                            {activeResult == patient.client_info.clientCode &&
-                                <div className="w-full mt-0">
-                                    {results.map((el) => {
-                                        return (
-                                            <iframe className="h-[350px] w-full rounded-[12px] p-2" style={{boxShadow:'0px 0px 12px 0px #00000026'}} src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>                           
-                                        )
-                                })}</div>
+                        <div
+                            className="flex  xl:w-[280px] justify-evenly relative z-[20] text-[12px] gap-8 items-center">
+                            <div onClick={() => {
+                                setShowFilter(true)
+                            }} data-tooltip-id="my-tooltip"
+                                 data-tooltip-content="Filter your scan history by specific criteria."
+                                 className="flex items-center gap-3 cursor-pointer">
+                                <img className="w-[14px]" src="filter.svg" alt=""/>
+                                Filter by
+                            </div>
+                            <Tooltip className="max-w-[240px] bg-white" id="my-tooltip"/>
+                            {
+                                showFilter &&
+                                <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter}
+                                             refrence={sortRefrence}/>
+                                // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
                             }
-                        </>
-                    );
-                })}
+                            <div onClick={() => {
+                                setShowSort(true)
+                                setShowFilter(false)
+                            }} data-tooltip-id="my-tooltip"
+                                 data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra."
+                                 className="flex text-[12px]   items-center gap-3 cursor-pointer">
+                                <img className="w-[14px]" src="sort.svg" alt=""/>
+                                Sort by
+                            </div>
+                            {
+                                showSort &&
+                                <SortModal filterType={filterType} filterModalRefrence={filterModalRefrence}
+                                           sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType}/>
+                            }
+                        </div>
+                    </div>
+                    {patientList.sort((a, b) => {
+                        if (filterType == 'Maximum Scan') {
+                            if (a.scans.length >= b.scans.length) {
+                                return -1
+                            } else {
+                                return 1
+                            }
+                        }
+                        if (filterType == 'Minimum Scan') {
+                            if (a.scans.length >= b.scans.length) {
+                                return 1
+                            } else {
+                                return -1
+                            }
+                        }
+                        if (filterType == 'Oldest Scan') {
+                            let ADate = a.scans.map(e => e.timestamp)
+                            let BDate = b.scans.map(e => e.timestamp)
+                            var maxDate1 = Math.min.apply(null, ADate);
+                            var maxDate2 = Math.min.apply(null, BDate);
+
+                            if (maxDate1 > maxDate2) {
+                                return 1
+                            } else {
+                                return -1
+                            }
+                        }
+                        if (filterType == 'Newest Scan') {
+                            let ADate = a.scans.map(e => e.timestamp)
+                            let BDate = b.scans.map(e => e.timestamp)
+
+                            let maxDate1 = Math.max.apply(null, ADate);
+                            let maxDate2 = Math.max.apply(null, BDate);
+                            if (maxDate1 < maxDate2) {
+                                return 1
+                            } else {
+                                return -1
+                            }
+
+                        }
+                    }).map((patient, i) => {
+
+                        return (
+                            <>
+                                <PatienCard
+                                    index={i + 1}
+                                    key={Number(patient.client_info.clientCode)}
+                                    patient={patient}
+                                    activeResult={activeResult}
+                                    result={results}
+                                    onaccepted={(e) => {
+                                        setResults(e)
+                                        console.log(e)
+                                        setActiveResult(patient.client_info.clientCode)
+                                    }}
+                                />
+                                {activeResult == patient.client_info.clientCode &&
+                                    <div className="w-full mt-0">
+                                        {results.map((el) => {
+                                            return (
+                                                <iframe className="h-[350px] w-full rounded-[12px] p-2"
+                                                        style={{boxShadow: '0px 0px 12px 0px #00000026'}}
+                                                        src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>
+                                            )
+                                        })}</div>
+                                }
+                            </>
+                        );
+                    })}
 
 
-                <hr className="h-[1px] bg-gray-300 w-full my-5"/>
-                {patientList == 0 ? (
-                    <p className="text-center text-[12px] text-[#606060] font-medium">
-                        No records found.{" "}
-                        <Link to="/PatientInformation">
+                    <hr className="h-[1px] bg-gray-300 w-full my-5"/>
+                    {patientList == 0 ? (
+                        <p className="text-center text-[12px] text-[#606060] font-medium">
+                            No records found.{" "}
+                            <Link to="/PatientInformation">
                 <span className="underline text-[#544BF0]">
                         Scan your first client now! {" "}
                 </span>
-                        </Link>
-                    </p>
-                ) : (
-                    <div className="w-full flex justify-between">
-                    {patients != 0 ? (<h1 onClick={() => {
-                        setShowMorePage(!showMorePage)
-                        // alert("clicked")
-                    }} className={"text-[16px] w-[180px] cursor-pointer text-[#7E7E7E] relative z-20   font-normal"}>Show <span
-                            className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.
-                            {showMorePage ?
-                            <div className="absolute py-4 rounded-[8px] top-[-150px] left-3 bg-white w-[73px]" style={{
-                                boxShadow:'0px 0px 12px #00000026'
-                            }}>
-                                <div onClick={() => {
-                                    setItemPerPage('5')
-                                }} className="flex cursor-pointer justify-center  text-[#2E2E2E] items-center ">5</div>  
-                                <div onClick={() => {
-                                    setItemPerPage('10')
-                                }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">10</div>    
-                                <div onClick={() => {
-                                    setItemPerPage('15')
-                                }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">15</div>    
-                                {/* <div onClick={() => {
+                            </Link>
+                        </p>
+                    ) : (
+                        <div className="w-full flex justify-between">
+                            {patients != 0 ? (<h1 onClick={() => {
+                                    setShowMorePage(!showMorePage)
+                                    // alert("clicked")
+                                }}
+                                                  className={"text-[16px] w-[180px] cursor-pointer text-[#7E7E7E] relative z-20   font-normal"}>Show <span
+                                    className={"text-[#544BF0]"}>{itemsPerPage}</span> rows per page.
+                                    {showMorePage ?
+                                        <div
+                                            className="absolute py-4 rounded-[8px] top-[-150px] left-3 bg-white w-[73px]"
+                                            style={{
+                                                boxShadow: '0px 0px 12px #00000026'
+                                            }}>
+                                            <div onClick={() => {
+                                                setItemPerPage('5')
+                                            }}
+                                                 className="flex cursor-pointer justify-center  text-[#2E2E2E] items-center ">5
+                                            </div>
+                                            <div onClick={() => {
+                                                setItemPerPage('10')
+                                            }}
+                                                 className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">10
+                                            </div>
+                                            <div onClick={() => {
+                                                setItemPerPage('15')
+                                            }}
+                                                 className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">15
+                                            </div>
+                                            {/* <div onClick={() => {
                                     setItemPerPage()
                                 }} className="flex cursor-pointer justify-center mt-4 text-[#2E2E2E] items-center ">All</div>                                                                                                       */}
-                            </div>                            
-                            :undefined
-                            }                            
-                            </h1>
-                    ):""}                                
-                        <Pageination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}
-                        />
-                        <div className="w-[180px]"></div>
-                    </div>
-                )}
+                                        </div>
+                                        : undefined
+                                    }
+                                </h1>
+                            ) : ""}
+                            <Pageination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
+                            <div className="w-[180px]"></div>
+                        </div>
+                    )}
 
-                
+
+                </div>
 
             </div>
+            {
+                showFilter &&
 
-        </div>
-                  
+            <div
+                onClick={() => {setShowFilter(false)}}
+                className={" absolute left-0 top-0 z-30 w-[100vw] h-[100vh]"}>
+            </div>
+            }
         </>
-        
+
     );
 };
