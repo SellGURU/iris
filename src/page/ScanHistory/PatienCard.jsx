@@ -173,7 +173,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                             Cancel
                         </Button>                        
                         :
-                        <Button onClick={() => {
+                        <Button disabled={patient.scans.length <= 1} onClick={() => {
                             // navigate('/compare/'+id)
                             setIsCompare(true)
                         }} theme="iris-secondary-small">
@@ -232,9 +232,9 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                                             <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan Reports</h2>
                                         </label>
                                     </div>
-                                    <div className="text-[#7E7E7E] font-[300]">
+                                    <div className="text-[#7E7E7E] text-[14px] font-[300]">
                                         Date : <span
-                                        className=" ml-1 font-[300] tex-[14px] text-[#7E7E7E]">{ new Date(patientHistory.timestamp).toLocaleString()}</span>{" "}
+                                        className=" ml-1 font-[300] text-[14px] text-[#7E7E7E]">{ new Date(patientHistory.timestamp).toLocaleString()}</span>{" "}
                                     </div>
 
                                     <div className="flex gap-3 items-center">

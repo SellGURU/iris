@@ -81,7 +81,7 @@ export const ScanHistory = () => {
     useModalAutoClose({
         refrence:sortRefrence,
         close:() =>{
-            // setShowFilter(false)
+            setShowFilter(false)
         }
     })   
     let [getpass,] = useLocalStorage("password")
@@ -247,12 +247,12 @@ export const ScanHistory = () => {
                             <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                         </div>
                         <div
-                            className="flex  xl:w-[280px] justify-evenly relative z-[20] text-[12px] gap-8 items-center">
+                            className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
                             <div onClick={() => {
                                 setShowFilter(true)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Filter your scan history by specific criteria."
-                                 className="flex items-center gap-3 cursor-pointer">
+                                 className="flex items-center gap-2 cursor-pointer">
                                 <img className="w-[14px]" src="filter.svg" alt=""/>
                                 Filter by
                             </div>
@@ -268,7 +268,7 @@ export const ScanHistory = () => {
                                 setShowFilter(false)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra."
-                                 className="flex text-[12px]   items-center gap-3 cursor-pointer">
+                                 className="flex text-[12px]   items-center gap-2 cursor-pointer">
                                 <img className="w-[14px]" src="sort.svg" alt=""/>
                                 Sort by
                             </div>
@@ -354,11 +354,13 @@ export const ScanHistory = () => {
                     {patientList == 0 ? (
                         <p className="text-center text-[12px] text-[#606060] font-medium">
                             No records found.{" "}
-                            <Link to="/PatientInformation">
-                <span className="underline text-[#544BF0]">
-                        Scan your first client now! {" "}
-                </span>
-                            </Link>
+                            {patients.length == 0 &&
+                                <Link to="/PatientInformation">
+                                    <span className="underline text-[#544BF0]">
+                                            Scan your first client now! {" "}
+                                    </span>
+                                </Link>
+                            }
                         </p>
                     ) : (
                         <div className="w-full flex justify-between">
@@ -410,14 +412,6 @@ export const ScanHistory = () => {
                 </div>
 
             </div>
-            {
-                showFilter &&
-
-            <div
-                onClick={() => {setShowFilter(false)}}
-                className={" absolute left-0 top-0 z-30 w-[100vw] h-[100vh]"}>
-            </div>
-            }
         </>
 
     );

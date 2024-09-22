@@ -108,8 +108,9 @@ const Header = () => {
                     
                     {
                         Appcontext.package.getPackage().isExist()?
-                            <div className="hidden md:flex">
-                                <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button>
+                            <div className="hidden md:flex justify-center items-center text-gray-400">
+                                <div>{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</div>
+                                {/* <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button> */}
                             </div>
                         :
                             <div className="hidden animate-bounce md:flex">

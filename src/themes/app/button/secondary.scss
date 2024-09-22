@@ -9,7 +9,7 @@
   @apply bg-[#C4C9E8] #{!important}
 }
 .iris-secondary-Button-container-disabled ,.iris-secondary-small-Button-container-disabled ,.iris-secondary-large-Button-container-disabled:disabled {
-  @apply bg-[#F5F5FC] opacity-50 text-[#7E7E7E] border border-[#7E7E7E] #{!important};
+  @apply bg-[#F5F5FC] opacity-50 text-[#7E7E7E] hover:bg-[#544BF00A] border border-[#7E7E7E] #{!important};
 }
 
 

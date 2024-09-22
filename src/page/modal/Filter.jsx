@@ -25,8 +25,8 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy}) => {
                             name="radio-buttons-group"
                         >
                             <FormControlLabel value="Any" control={<Radio onChange={() => {setFilterImageBy('any')}} checked={filterImagBy =='any'} />} label="Any" />
-                            <FormControlLabel value="Live Scan" control={<Radio onChange={() => {setFilterImageBy('Live Scan')}} checked={filterImagBy =='Live Scan'} />} label="Live Scan" />
-                            <FormControlLabel value="Uploaded image" control={<Radio onChange={() => {setFilterImageBy('Uploaded image')}} checked={filterImagBy =='Uploaded image'} />} label="Uploaded image" />
+                            <FormControlLabel disabled value="Live Scan" control={<Radio onChange={() => {setFilterImageBy('Live Scan')}} checked={filterImagBy =='Live Scan'} />} label="Live Scan" />
+                            <FormControlLabel disabled value="Uploaded image" control={<Radio onChange={() => {setFilterImageBy('Uploaded image')}} checked={filterImagBy =='Uploaded image'} />} label="Uploaded image" />
                         </RadioGroup>
                     </FormControl>                
                 </div>            
