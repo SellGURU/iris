@@ -7,6 +7,11 @@ class Package extends Api {
 
     }
 
+    static getIrisSub(data) {
+        const response = this.post('/getIrisOrg',data)
+        return response
+    }
+
     static getCurrentPackage(data) {
         const response = this.post('/fetchIrisUser',data)
         return response

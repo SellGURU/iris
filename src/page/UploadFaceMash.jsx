@@ -21,7 +21,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { selectSex,selectErrorThreshold } from "../store/PatientInformationStore";
 import Analytics from "../api/analytics.js";
-
+import Link2 from '@mui/material/Link';
 const UploadFaceMash = () => {
     const tabs = [
         {state: "multi", label: "All poses"},
@@ -173,10 +173,8 @@ const UploadFaceMash = () => {
 
                         </div>                         
                         <h1 className={"text-[28px] mt-[0px] md:mt-[-60px] font-medium"}>Face Scanner</h1>
-                        <p className={"text-[18px] flex justify-center items-center text-center w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.
-                            <span onClick={() => {
-                                navigate('/tour')
-                            }} className="text-primary-color cursor-pointer ml-1">{"  "} How to scan face?</span>
+                        <p className={"text-[18px] flex justify-center items-center text-center gap-1 w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.{"  "}
+                            <Link2 href="/#/tour" underline="hover" className="text-primary-color  cursor-pointer">  How to scan a face?</Link2>
                             {/* <span onClick={() => {
                                 navigate('/tour')
                             }} className="cursor-pointer hidden md:block ml-1"><img src={"./icons/info-circle.svg"}/></span> */}

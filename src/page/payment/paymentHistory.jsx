@@ -36,7 +36,7 @@ export const PaymentHistory = () => {
     let [localEmail,] = useLocalStorage("email")    
     const [orgs,] = useLocalStorage("orgData")    
     useConstructor(() => {
-        console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
+        // console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
         PackageApi.getPackages().then((res) => {
             const resolved =res.data.map(el => {
                 return new Package({
@@ -192,7 +192,7 @@ export const PaymentHistory = () => {
                                         }}></div>
                                     </div>
                                 </div>
-                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0].active_to * 1000).toDateString().substring(3)}</div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000).toDateString().substring(3)}</div>
                             </div>
                         </div>
                         <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>

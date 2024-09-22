@@ -4,6 +4,7 @@ export default {
     theme: {
         extend: {
             boxShadow: {
+                "card": '0px 0px 12px 0px #00000026',
                 '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
                 '10xl': [
                     '0px 0px 17px 5px rgba(0, 0, 0, 0.1)'

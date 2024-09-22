@@ -22,8 +22,8 @@ const Login = () => {
     rememberMe: false,
   };
   const validationSchema = Yup.object().shape({
-    userName: Yup.string().required("userName is required"),
-    password: Yup.string().required(),
+    userName: Yup.string().required("E-mail address is required."),
+    password: Yup.string().required("Password is required."),
   });
   const form = useFormik({
     initialValues: initialValues,
@@ -66,6 +66,7 @@ const Login = () => {
     try {
       // toast.loading("pending ...");
       // toast.loading('pending ...');
+      localStorage.clear()
       Auth.login({
         email: form.values.userName,
         password: form.values.password,
@@ -81,6 +82,19 @@ const Login = () => {
             savePass(form.values.password)
             saveOrg(JSON.stringify(res.data.org_data))
             dispatch(setUserName("amin"));
+            Appcontext.user.updateCustomInformation('account',{
+                PracticeName:res.data.org_data.orgName,
+                PhoneNumber:"",
+                EmailAddress:res.data.org_data.orgEmail
+            })         
+            Appcontext.user.updateCustomInformation("personal",{
+              FirstName:res.data.org_data.firstName,
+              LastName:res.data.org_data.lastName,
+              
+            }) 
+            Appcontext.user.updateCustomInformation("photo",
+                `https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName              
+            )             
             if(res.data.org_data.subs_data.length> 0){
                 let newPak = new Package({
                     name:'No available package',
@@ -94,6 +108,7 @@ const Login = () => {
                     // console.log(newPak)
                 Appcontext.package.updatePackage(newPak)
             }
+            // photo:`https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName
             // toast.
             navigate("/");
           } else {

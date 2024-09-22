@@ -17,9 +17,16 @@ import {
 } from "react-country-state-city";
 
 import "react-country-state-city/dist/react-country-state-city.css";
+import Staffs from "../../components/Staffs";
+import StaffActionModal from "../modal/StaffAction";
+import { publish } from "../../utility/event.js";
+
 const AccountInfo = () => {
     const appcontext = useContext(PatientContext)
     const user = appcontext.user
+    const [showInviteMember,setShowInviteMember] = useState(false)
+    const [showRemoveModal,setShowRemoveModal] = useState(false)
+    const [showChangeRole,setShowChangeRole] = useState(false)
     const navigate = useNavigate()
     const personalFormik = useFormik({
         initialValues:{
@@ -49,6 +56,7 @@ const AccountInfo = () => {
         },
         onSubmit:() =>{}
     })  
+   
     const [countryid, setCountryid] = useState(0);
     const AddressFormik = useFormik({
         initialValues:{
@@ -430,10 +438,60 @@ const AccountInfo = () => {
                         </div>                        
                         } */}
 
-                        {/* <div className="w-full h-[1px] mt-10 bg-[#00000033]"></div>  */}
+                        <div className="w-full h-[1px] mt-10 bg-[#00000033]"></div> 
                     </div>
                 </div>
-           
+
+
+                <div className="w-full  mt-6 mb-10">
+                  <div className="flex w-full justify-between items-center">
+                    <div className="text-[24px] opacity-40 text-[#2E2E2E] font-bold">
+                        Members:
+                    </div>
+                    <div className="flex justify-end">
+                        <Button disabled onClick={() => {
+                            setShowInviteMember(true)
+                            publish("openModal");
+                        }} theme="iris-tertiary-small">
+                            <img src="./icons/user-add.svg" className="mr-1" alt="" />
+                            Invite member</Button>
+                    </div>
+                  </div>
+                  <Staffs onRemove={() => {
+                    setShowRemoveModal(true)
+                    publish("openModal");
+                  }} onChangeRole={() => {
+                    setShowChangeRole(true)
+                    publish("openModal");
+                  }}></Staffs>
+                  {
+                    showInviteMember ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"invite"} onClose={() => {
+                            setShowInviteMember(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>
+                    :undefined
+                  }        
+                  {showRemoveModal ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"remove"} onClose={() => {
+                            setShowRemoveModal(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>                  
+                  :undefined}       
+
+                  {/* {showChangeRole ?
+                     <div className="w-full top-0 fixed z-[60] left-0 flex justify-center items-center h-full">
+                         <StaffActionModal type={"changeRole"} onClose={() => {
+                            setShowChangeRole(false)
+                            publish("closeModal")
+                         }} title={'Invite member'}></StaffActionModal>
+                     </div>                  
+                  :undefined}    */}
+                </div>                    
             </div>
         </>
     )

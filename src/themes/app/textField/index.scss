@@ -9,7 +9,7 @@
 }
 
 .iris-TextField-inValid {
-  @apply border-red-500 border;
+  @apply border-red-500 border-b;
 }
 .iris-TextField-box {
   @apply rounded-[4px] flex items-center  border-b-2 border-[#E1E1E1] justify-between bg-white px-[16px];

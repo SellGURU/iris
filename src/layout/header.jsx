@@ -12,6 +12,7 @@ import {selectUserName} from "../store/PatientInformationStore.js";
 import {useSelector} from "react-redux";
 import { subscribe } from "../utility/event.js";
 import { Button } from "symphony-ui";
+import Link2 from '@mui/material/Link';
 import {PatientContext} from '../context/context.jsx'
 import PackageApi from '../api/package.js';
 import Package from "../model/Package.js";
@@ -136,14 +137,16 @@ const Header = () => {
                             <img onClick={() => {
                                 setShowSideBar(false)
                             }} className="mb-[64px] w-[30px] cursor-pointer" src="./arrow-left.svg" alt=""/>
-                            <div onClick={() => {
-                                navigate('/')
-                                setShowSideBar(false)
-                            }}
-                                 className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black">
-                                <img className="mr-2 cursor-pointer w-5 h-5" src={'./home-2.svg'} alt=""/>
-                                <div className="text-xl cursor-pointer font-normal ">Home</div>
-                            </div>
+                            <Link2 underline="none"  href='/'>
+                                <div onClick={() => {
+                                    // navigate('/')
+                                    setShowSideBar(false)
+                                }}
+                                    className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black">
+                                    <img className="mr-2 cursor-pointer w-5 h-5" src={'./home-2.svg'} alt=""/>
+                                    <div className="text-xl cursor-pointer font-normal ">Home</div>
+                                </div>
+                            </Link2>
 
                             {/* <div className="flex justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
@@ -157,13 +160,20 @@ const Header = () => {
                                 <img className="mr-2 w-6 h-6" src={'./setting-2.svg'} alt="" />
                             <div className="text-2xl">Setting</div>
                             </div> */}
-                            <NavLink to={"/payment"}>
+                            <Link2 underline="none"  href={"/#/payment"}>
+                               <div onClick={() => setShowSideBar(false)}
+                                     className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
+                                    <img className="mr-2 cursor-pointer w-5 h-5" src={'./balance.png'} alt=""/>
+                                    <div className="text-xl cursor-pointer font-normal">Balance</div>
+                                </div>                            
+                            </Link2>
+                            {/* <NavLink to={"/payment"}>
                                 <div onClick={() => setShowSideBar(false)}
                                      className={`flex  cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] text-black`}>
                                     <img className="mr-2 cursor-pointer w-5 h-5" src={'./balance.png'} alt=""/>
                                     <div className="text-xl cursor-pointer font-normal">Balance</div>
                                 </div>
-                            </NavLink>
+                            </NavLink> */}
 
                             <div
                                 className="flex cursor-pointer justify-start items-center mb-5 py-2 border-b border-[#544BF0] ">
