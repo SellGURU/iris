@@ -101,17 +101,20 @@ const FaceScanResult =() => {
             }).then(res => {
             })
             const patients= JSON.parse(localStorage.getItem("patients"))
+            console.log(patients)
             const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+            console.log(patientIndex)
             const newComment = {
                 cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
                 cText: textComment ,
                 cTextDateTime: new Date().toISOString()
             };
-    
-            if (patients[patientIndex].comments) {
-                patients[patientIndex].comments.push(newComment);
-            } else {
-                patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+            if(patients[patientIndex]){
+                if (patients[patientIndex].comments) {
+                    patients[patientIndex].comments.push(newComment);
+                } else {
+                    patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+                }
             }
             localStorage.setItem("patients", JSON.stringify(patients));
             setIsShowAddComment(false)

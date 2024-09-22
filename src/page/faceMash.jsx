@@ -180,6 +180,17 @@ const FaceMesh = () => {
     let canvasCtx, canvasCtx3, canvasWidth3, canvasHeight3, canvasCtx4, canvasCtx5, canvasWidth, canvasHeight, greenCtx,
         redCtx, blueCtx, tmpcontext = null;
     let persistent = false;
+    const closeCamera= () => {
+        const videoElement  = document.getElementById("video-cam")
+        if(videoElement){
+            const stream = videoElement.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => {
+                track.stop(); // Stop each track (video/audio)
+            });         
+            videoElement.srcObject = null; // Clear the video element's source
+        }         
+    }
     useEffect(() => {
         canvasCtx = out2.current.getContext("2d");
         canvasWidth = out2.current.width;
@@ -462,14 +473,14 @@ const FaceMesh = () => {
 
         start();
     }
-
+    let camera = null
     const start = () => {
         if (window.stream) {
             window.stream.getTracks().forEach((track) => {
                 track.stop();
             });
         }
-        const camera = CustCamera(video2.current, faceMesh);
+        camera = CustCamera(video2.current, faceMesh);
         if (video2) camera.start();
     }
 
@@ -752,13 +763,14 @@ const FaceMesh = () => {
     }, [stream]);    
     const analyzeFacemesh2 = () => {
         // toast.loading("pending ...")
-        if (stream) {
-        // Stop all tracks of the stream
-            console.log(stream)
-            stream.getTracks().forEach((track) => track.stop());
-            setStream(null);
-        }
-        video2.current.srcObject = null;
+        // if (stream) {
+        // // Stop all tracks of the stream
+        //     console.log(stream)
+        //     stream.getTracks().forEach((track) => track.stop());
+        //     setStream(null);
+        // }
+        // video2.current.srcObject = null;
+        closeCamera()
         Analytics.analyticsImage({
             client_id:patientID.toString(),
             error_threshold:errorThreshold,
@@ -768,6 +780,10 @@ const FaceMesh = () => {
 
         }).then(res => {
             console.log(res)
+            if(res.data.status == '403'){
+                localStorage.clear()
+                navigate('/login')
+            }
             if(res.data.data){
                 appContext.package.usePackage()
                 setPdf('data:text/html;base64,' + res.data.data.html_file)
@@ -840,9 +856,7 @@ const FaceMesh = () => {
 
                     </div>                          
                     <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
-                    <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>{`Please provide scans of the client's face from the left, right, and front to ensure a complete analysis`}<span onClick={() => {
-                        navigate('/tour')
-                    }} className="text-primary-color cursor-pointer"> How to scan a face?</span></p>
+                    <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>{`Please provide scans of the client's face from the left, right, and front to ensure a complete analysis.`}<Link2 href="/#/tour" underline="hover" className="text-primary-color cursor-pointer"> How to scan a face?</Link2></p>
 
                                 {!isCameraStart &&
                                     <div className="flex md:hidden justify-center items-center">
@@ -1158,6 +1172,7 @@ const FaceMesh = () => {
                                     </Button>         
                                     <Button onClick={() => {
                                         setIsCameraStart(false)
+                                        closeCamera()                                     
                                         setGlobalData({
                                             globalGreenLandmarks: null,
                                             globalBlueLandmarks: null,

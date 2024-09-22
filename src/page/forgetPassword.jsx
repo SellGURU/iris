@@ -20,7 +20,7 @@ const Forget = () => {
         email: '',
     }
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required('This E-mail Address is reguired').email('This E-mail Address is not Valid.'),
+        email: Yup.string().required('E-mail address is required.').email('E-mail address is not valid.'),
     })
     let [searchParams] = useSearchParams();
     const form = useFormik({
@@ -35,8 +35,8 @@ const Forget = () => {
             NewPassword:""
         },
         validationSchema: Yup.object().shape({
-            NewPassword:  Yup.string().required('Password is required').min(8, 'Your password is too short.').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
-            Confirmpassword: Yup.string().oneOf([Yup.ref('NewPassword')], 'Passwords must match'),
+            NewPassword:  Yup.string().required('New password is required.').min(6, 'Current password must be at least 6 characters').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
+            Confirmpassword: Yup.string().required("Confirm password is required.").oneOf([Yup.ref('NewPassword')], 'Confirm password  must match'),
         }),
         onSubmit: () => {
         }

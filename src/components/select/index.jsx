@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import useModalAutoClose from "../../hooks/useModalAutoClose";
 
-const Select = ({ label, options, placeHolder, onchange, value }) => {
+const Select = ({ label, options, placeHolder, onchange, value, disabled ,noteditAble}) => {
   const [showOptions, setShowOptions] = useState(false);
   // const [isCustomInput, setIsCustomInput] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState(options);
@@ -43,7 +43,9 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
   };
   const handleArrowClick = () => {
     // e.stopPropagation();
-    setShowOptions(!showOptions); 
+    if(!disabled){
+      setShowOptions(!showOptions); 
+    }
   };
   useEffect(()=> console.log(showOptions)  , [showOptions])
   return (
@@ -51,10 +53,12 @@ const Select = ({ label, options, placeHolder, onchange, value }) => {
       <label className="flex mb-2 text-[16px] font-medium" htmlFor={label}>
         {label}
       </label>
-      <div   className="flex justify-between select-none  cursor-pointer mt-3 w-full">
-        <input placeholder={placeHolder} value={value} onChange={(e) => {
-          onchange(e.target.value)
-        }}  type="text" className="w-full text-[14px] outline-none pl-5 pr-7 py-2  "/>
+      <div   className="flex justify-between select-none  cursor-pointer mt-3 w-full" style={{cursor:disabled?'not-allowed':'pointer'}}>
+        <input disabled={disabled} placeholder={placeHolder} value={value} onChange={(e) => {
+          if(!noteditAble){
+            onchange(e.target.value)
+          }
+        }}  type="text" className={`w-full text-[14px]  bg-white outline-none pl-5 pr-7 py-2 ${disabled?'text-[#7E7E7E]':'text-[#444444]'}  `}/>
         {/* <div
         onClick={() => setShowOptions(true)}
           className="w-full flex justify-between items-center"
