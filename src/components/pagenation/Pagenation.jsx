@@ -21,6 +21,7 @@ const Pageination = ({ currentPage, totalPages, onPageChange }) => {
     <div className="flex items-center space-x-4">
       <button
         onClick={handlePreviousPage}
+        className={"disabled:hidden"}
         disabled={currentPage === 1}
       >
         <img src="arrow-right.svg" className='rotate-180' alt="" />
@@ -38,7 +39,7 @@ const Pageination = ({ currentPage, totalPages, onPageChange }) => {
       ))}
       <button
         onClick={handleNextPage}
-       
+        className={"disabled:hidden"}
         disabled={currentPage === totalPages}
       >
         <img src="arrow-right.svg" alt="" />

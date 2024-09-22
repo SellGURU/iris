@@ -169,9 +169,9 @@ const FaceScanResult =() => {
                 </div>
                 <div className="w-full justify-between px-12 flex mt-[46px] items-center">
                    <div className="md:flex justify-start items-center">
-                        <div className="text-[#444444] text-[18px] mr-[230px]">Patient ID: {patientID}</div>
-                        <div className="text-[#7E7E7E] text-[16px] mr-8">Date: {date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</div>
-                        <div className="text-[#7E7E7E] text-[16px]">Time: {date.getHours()}:{date.getMinutes()}</div>
+                        <div className="text-[#444444] text-[18px] mr-[230px]">Client ID: {patientID}</div>
+                        <div className="text-[#7E7E7E] text-[16px] mr-8 flex items-center justify-center"><p>Date:</p> <p className={"text-[13px]"}>{date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</p></div>
+                        <div className="text-[#7E7E7E] text-[16px] flex items-center justify-center"><p>Time:</p> <p className={"text-[13px]"}>{date.getHours()}:{date.getMinutes()}</p></div>
                    </div>
                    <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
                         <Button onClick={() => {

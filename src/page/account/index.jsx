@@ -198,12 +198,12 @@ const AccountInfo = () => {
                                 <div>
                                     <div className="w-full flex mt-10 justify-between items-center">
                                         <h1 className={"text-[24px] font-medium"}>Personal Information:</h1>
-                                        <Button onClick={() => setEditPanel("personal")} theme="iris-tertiary-small">
-                                            <div className="flex cursor-pointer justify-between items-center">
-                                                <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                                <div className="cursor-pointer">Edit</div>
-                                            </div>
-                                        </Button>                                
+                                        {/*<Button onClick={() => setEditPanel("personal")} theme="iris-tertiary-small">*/}
+                                        {/*    <div className="flex cursor-pointer justify-between items-center">*/}
+                                        {/*        <img className="mr-2" src="./icons/Icon-left.svg" alt="" />*/}
+                                        {/*        <div className="cursor-pointer">Edit</div>*/}
+                                        {/*    </div>*/}
+                                        {/*</Button>                                */}
                                     </div>
                                     <div className="grid grid-cols-2 gap-10 mt-10">
                                         <div>
@@ -269,12 +269,12 @@ const AccountInfo = () => {
                                 <div>
                                     <div className="w-full flex mt-10 justify-between items-center">
                                         <h1 className={"text-[24px] font-medium"}>Login Information:</h1>
-                                        <Button onClick={() => setEditPanel("login")} theme="iris-tertiary-small">
-                                            <div className="flex cursor-pointer  justify-between items-center">
-                                                <img className="mr-2" src="./icons/Icon-left.svg" alt="" />
-                                                <div className="cursor-pointer">Edit</div>
-                                            </div>
-                                        </Button>                               
+                                        {/*<Button onClick={() => setEditPanel("login")} theme="iris-tertiary-small">*/}
+                                        {/*    <div className="flex cursor-pointer  justify-between items-center">*/}
+                                        {/*        <img className="mr-2" src="./icons/Icon-left.svg" alt="" />*/}
+                                        {/*        <div className="cursor-pointer">Edit</div>*/}
+                                        {/*    </div>*/}
+                                        {/*</Button>                               */}
                                     </div>
                                     <div className="grid grid-cols-2 gap-10 mt-10">
                                         <div>

@@ -159,7 +159,7 @@ export const PatientInformation = () => {
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
-                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>E-Mail <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
+                            <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>Email Address<span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
                             <input type="email" {...formik.getFieldProps("email")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter E-Mail"}/>
 
@@ -170,7 +170,7 @@ export const PatientInformation = () => {
                             {/* <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/> */}
-                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
+                            <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone Number<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
                            <div className="relative">
                                 <PhoneInput
                                 // {...formik.getFieldProps("phone")} 

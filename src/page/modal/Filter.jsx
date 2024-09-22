@@ -13,7 +13,7 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy}) => {
     const [filterImagBy,setFilterImageBy]= useState(imageBy)
     return (
         <>
-            <div ref={refrence} className="absolute scale-[85%] top-4 gap-2 flex flex-col p-4 right-0 rounded-[8px] z-30 w-[300px] bg-white" style={{
+            <div ref={refrence} className="absolute scale-[85%] top-4 gap-2 flex flex-col p-4 right-0 rounded-[8px] z-50 w-[300px] bg-white" style={{
                 boxShadow:'0px 0px 12px 0px #00000026'
             }}>
                 <div className="text-[16px] text-[#2E2E2E] font-medium">Images</div>

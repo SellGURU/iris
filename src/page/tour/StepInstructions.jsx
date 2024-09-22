@@ -47,7 +47,7 @@ export const StepInstructions = ({
               onClickHandler={onSkip}
               ClassName="border-none text-sm"
             >
-              Skip the tour{" "}
+              Skip the Tour{" "}
               
             </ButtonSecondary>
           )}
