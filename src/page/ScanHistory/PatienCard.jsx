@@ -229,7 +229,7 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                                                     onaccepted(array)
                                                 }                                       
                                         }} htmlFor={patientHistory.scan_id}>
-                                            <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan reports</h2>
+                                            <h2 className="font-normal text-[14px] text-[#2E2E2E]">Scan Reports</h2>
                                         </label>
                                     </div>
                                     <div className="text-[#7E7E7E] font-[300]">
