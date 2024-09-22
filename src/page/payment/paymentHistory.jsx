@@ -155,79 +155,78 @@ export const PaymentHistory = () => {
                         <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={"text-2xl font-medium "}>Scan Remaining</h1>
-                                {/* <ButtonPrimary onClickHandler={() => {
-                                    window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
-                                }} className={"text-[14px]"}>Upgrade</ButtonPrimary> */}
+                                <h1 className={"text-xl font-medium "}>Scan Remaining</h1>
+
                             </div>
                             <div className={"space-y-6 flex-col px-6 py-4"}>
                                 <span className="font-nomral text-[#7E7E7E]">Usage</span>
                                 <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
-                                {/* <div className={"flex items-center justify-between  "}>
-                                    <div>
-                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Name</h1>
-                                        <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().name}</p>
-                                    </div>
-                                    <div>
-                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cycle</h1>
-                                        <p className={"text-xl font-medium"}>{appContext.package.getPackage().getInformation().cycle}</p>
-                                    </div>
-                                    <div>
-                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>Package Cost</h1>
-                                        <p className={"text-xl font-medium"}>{'$'+appContext.package.getPackage().getInformation().cost}</p>
-                                    </div>
-                                </div> */}
+
                                 <div className="w-full">
-                                    {/* <div className={"space-y-0"}>
-                                        <h1 className={"font-normal text-base text-[#7E7E7E]"}>{appContext.package.getPackage().getInformation().useage} Usage</h1>
-                                        {appContext.package.getPackage().getInformation().useage == 0?
-                                            <p className={"text-lg font-normal text-[#444444]"}>{appContext.package.getPackage().getInformation().bundle} Bundle</p>
-                                        :
-                                            <p className={`text-lg ${appContext.package.getPackage().getPercentUsage() >=80?'text-[#FF001F]':' text-[#444444] '} font-normal `}>{appContext.package.getPackage().getRemining()} out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
-                                        }
-                                    </div> */}
+
                                     <div className={`h-[20px] relative w-[93%]  rounded-[8px] bg-[#E1E1E1] `}>
                                         <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
                                             width:appContext.package.getPackage().getPercentRemining()+'%'
                                         }}></div>
                                     </div>
                                 </div>
-                                <div className=" font-normal text-[#7E7E7E]">Expire date: {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000).toDateString().substring(3)}</div>
+                                <div className=" font-normal text-[#7E7E7E]">Expire Date: {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000).toDateString().substring(3)}</div>
                             </div>
                         </div>
-                        <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
+
+                        <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
+                            <div
+                                className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
+                                <h1 className={"text-xl font-medium "}>Transaction History</h1>
+
+                            </div>
+                               <div className="overflow-auto max-h-[225px]" >
+                                    <table className="min-w-full bg-white ">
+                                    <thead className="border-b  text-[16px]">
+                                        <tr className="w-full  text-[#2E2E2E] font-medium">
+                                        <th className="py-2 px-4 font-medium">Billing Date</th>
+                                        <th className="py-2 px-4  font-medium">Number of Scan</th>
+                                        <th className="py-2 px-4 font-medium">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="">
+                                        {transactions.map((transaction, index) => (
+                                        <tr key={index}className="pt-2">
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]">{formatDate(transaction.payDateTime)}</td>
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
+                                        </tr>
+                                        ))}
+                                    </tbody>
+                                    </table>
+                                </div>                            
+                        </div>                        
+                        {/* <div className={` w-full  ${!showMoreautoPlay&& 'h-[302px] '}  rounded-md `}>
                           
                             <div className="border p-4 rounded-lg">
-      <h2 className="text-lg font-bold mb-4">Transaction History</h2>
-      <div className="overflow-auto max-h-[225px]" >
-        <table className="min-w-full bg-white ">
-          <thead className="border-b  text-xl">
-            <tr className="w-full bg-[#F5F5F5] text-[#2E2E2E] font-medium">
-              <th className="py-2 px-4 font-medium">Billing Date</th>
-              <th className="py-2 px-4  font-medium">Number of Scan</th>
-              <th className="py-2 px-4 font-medium">Price</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {transactions.map((transaction, index) => (
-              <tr key={index}className="pt-2">
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{formatDate(transaction.payDateTime)}</td>
-                <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
-                <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-                            {/* <PaymentMethod></PaymentMethod>                 */}
-                            <div className={ "px-6 flex items-center justify-between py-4"}>
-                                {/* <div onClick={() => {
-                                    setSHowMoreAutoPlay(!showMoreautoPlay)
-                                }} className={"font-medium cursor-pointer text-xl flex items-center gap-2 justify-start"}>Turn on Autopay
-                                <span><img className={`${!showMoreautoPlay&& 'rotate-180'}`} src="./arrow-down.svg" alt="" /></span>
+                                <h2 className="text-lg font-bold mb-4">Transaction History</h2>
+                                <div className="overflow-auto max-h-[225px]" >
+                                    <table className="min-w-full bg-white ">
+                                    <thead className="border-b  text-xl">
+                                        <tr className="w-full bg-[#F5F5F5] text-[#2E2E2E] font-medium">
+                                        <th className="py-2 px-4 font-medium">Billing Date</th>
+                                        <th className="py-2 px-4  font-medium">Number of Scan</th>
+                                        <th className="py-2 px-4 font-medium">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="">
+                                        {transactions.map((transaction, index) => (
+                                        <tr key={index}className="pt-2">
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]">{formatDate(transaction.payDateTime)}</td>
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]">{transaction.subScansAllowed}</td>
+                                            <td className="py-3 px-4 text-center text-[#2E2E2E]"> {transaction.priceSymbol} {transaction.subPrice}</td>
+                                        </tr>
+                                        ))}
+                                    </tbody>
+                                    </table>
                                 </div>
-                                <Switch /> */}
+                            </div>
+                            <div className={ "px-6 flex items-center justify-between py-4"}>
                             </div>
                             {showMoreautoPlay &&
                                 <div className="px-6 text-[#444444] mb-6 text-[16px]">
@@ -235,7 +234,7 @@ export const PaymentHistory = () => {
                                 </div>
                             }
 
-                        </div>
+                        </div> */}
                     </div>
                     {/* <div className={"w-full mt-16 space-y-5"}>
                         <h1 className={"text-2xl font-medium text-[#2E2E2E]"}>Invoice</h1>
