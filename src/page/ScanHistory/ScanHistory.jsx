@@ -257,7 +257,7 @@ export const ScanHistory = () => {
                     <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
                         <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
                     </div>
-                    <div className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-8 items-center">
+                    <div className="flex  xl:w-[280px] justify-evenly relative z-[20] text-[12px] gap-8 items-center">
                         <div onClick={() => {
                             setShowFilter(true)
                         }} data-tooltip-id="my-tooltip" data-tooltip-content="Filter your scan history by specific criteria." className="flex items-center gap-3 cursor-pointer">
