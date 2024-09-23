@@ -67,14 +67,6 @@ const ShowReport = (props) => {
                                         <Link underline="hover"  className="text-primary-color" href="/">
                                             Home
                                         </Link>
-                                        <Link
-                                            underline="hover"
-                                            href="/#/facecamera"
-                                            
-                                            className="text-primary-color" 
-                                        >
-                                            Face Scanner
-                                        </Link>
                                         <Typography className="text-primary-color" >View Report</Typography>
                                     </Breadcrumbs>                
                                     <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>

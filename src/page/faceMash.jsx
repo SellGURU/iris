@@ -33,6 +33,11 @@ const FaceMesh = () => {
     const [showService,setShowService] = useState(false)
     const [showPermision,setShowPermision] = useState(false)
     const navigate = useNavigate();
+    useEffect(() => {
+        if(patientID == 1){
+            navigate('/')
+        }
+    },[])
     const [orgs,] = useLocalStorage("orgData")
     // const sex = useSelector(selectSex);
     // const id = useSelector(selectPatientID);
@@ -450,7 +455,11 @@ const FaceMesh = () => {
     };
     const faceMesh = CustFaceMash();
     faceMesh.onResults(onResultsFaceMesh);
-
+    // useEffect(() => {
+    //     if(patientID == '1'){
+    //         navigate()
+    //     }
+    // })
     const img_source_select = async () => {
         setIsCameraStart(true)
         const constraints = {
