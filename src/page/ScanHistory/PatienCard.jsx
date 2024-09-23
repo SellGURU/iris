@@ -238,27 +238,11 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                                     </div>
 
                                     <div className="flex gap-3 items-center">
-                                        <RWebShare data={{
+                                        {/* <RWebShare data={{
                                             text: "iris",
                                             url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.scan_id,
                                             title: "iris",
                                         }}>
-                                            {/* <div
-                                                onClick={() => {
-                                                    if (navigator.share) {
-                                                        navigator.share({
-                                                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + patientHistory.htmlId
-                                                        })
-                                                            .then(() => console.log('Successful share'))
-                                                            .catch((error) => console.log('Error sharing', error));
-                                                    } else {
-                                                        console.log('Web Share API is not supported in this browser.');
-                                                    }
-                                                }}
-                                                className="bg-[#F9F9FB] cursor-pointer  border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]"
-                                            >
-                                                <div className="shareIcon-purple"></div>
-                                            </div> */}
                                             <Button 
                                                 onClick={() => {
                                                     if (navigator.share) {
@@ -273,11 +257,8 @@ export const PatienCard = ({index, patient,onaccepted,activeResult,result}) => {
                                                 }} theme="iris-secondary-small">
                                                 <div className="shareIcon-purple"></div>
                                             </Button>
-                                        </RWebShare>
-                                        {/* <div onClick={() => download(patientHistory.htmlId)}
-                                            className="bg-[#F9F9FB] cursor-pointer border border-[#544BF0] w-[36px] h-[32px] flex justify-center items-center rounded-[6px]">
-                                            <div className="downloadIcon-purple"></div>
-                                        </div> */}
+                                        </RWebShare> */}
+
                                         <Button onClick={() => download(patientHistory.scan_id)} theme="iris-secondary-small">
                                             <div className="downloadIcon-purple"></div>
                                         </Button>

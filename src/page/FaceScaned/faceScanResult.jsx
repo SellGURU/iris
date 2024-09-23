@@ -170,8 +170,8 @@ const FaceScanResult =() => {
                 <div className="w-full justify-between px-12 flex mt-[46px] items-center">
                    <div className="md:flex justify-start items-center">
                         <div className="text-[#444444] text-[18px] mr-[230px]">Client ID: {patientID}</div>
-                        <div className="text-[#7E7E7E] text-[16px] mr-8 flex items-center justify-center"><p>Date:</p> <p className={"text-[13px]"}>{date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</p></div>
-                        <div className="text-[#7E7E7E] text-[16px] flex items-center justify-center"><p>Time:</p> <p className={"text-[13px]"}>{date.getHours()}:{date.getMinutes()}</p></div>
+                        <div className="text-[#7E7E7E] text-[14px] mr-8 flex items-center justify-center"><p>Date:</p> <p className={"text-[14px] ml-1 mt-[2px]"}>{date.getDate()+"   "+date.toLocaleString('default', { month: 'long' })+"   "+date.getFullYear()}</p></div>
+                        <div className="text-[#7E7E7E] text-[14px] flex items-center justify-center"><p>Time:</p> <p className={"text-[14px] ml-1 mt-[2px]"}>{date.getHours()}:{date.getMinutes()}</p></div>
                    </div>
                    <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
                         <Button onClick={() => {
@@ -181,20 +181,12 @@ const FaceScanResult =() => {
                             {/* <img className="mr-2" src={'./fi_plus-blue.svg'} /> */}
                             Add Comment
                         </Button>                    
-                       <RWebShare data={{
+                       {/* <RWebShare data={{
                            text: "iris",
                            url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId,
                            title: "iris",
                        }}>
-                           {/* <button onClick={() => {
-                               navigator.share({
-                                   url: 'https://iris.ainexus.com/v1/golden_ratios/' + fileId
-                               })
-                           }}
-                                   className="w-[122px] border border-[#544BF0]  text-[#544BF0] text-[18px] h-[52px] rounded-[12px] bg-[#544BF00A] flex justify-center items-center">
-                               <img className="mr-2" src="share2.svg" alt=""/>
-                               Share
-                           </button> */}
+
 
                            <Button  onClick={() => {
                                navigator.share({
@@ -204,7 +196,7 @@ const FaceScanResult =() => {
                                <img className="mr-2" src="share2.svg" alt=""/>
                                Share                            
                            </Button>
-                       </RWebShare>
+                       </RWebShare> */}
                        <Button onClick={download} theme="iris">
                            <img className="mr-2" src="print.svg" alt=""/>
                            Finish 
