@@ -163,7 +163,9 @@ const FaceScanResult =() => {
                </div>
                 <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-4">Face Scan Completed</div>
                 <div className="flex justify-center">
-                    <div className="text-justify text-[18px] text-[#444444] w-[600px] md:max-w-[850px] mb-4">
+                    <div className="text-justify text-[18px] text-[#444444] w-[600px] md:max-w-[850px] mb-4" style={{
+                                            textAlignLast:'center'
+                                        }}>
                         Here is the preview of your report. Use the top-right buttons to download the PDF or share the document. To remove the report or return to the home page, use the buttons at the bottom.
                     </div>
                 </div>
