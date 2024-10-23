@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { Button } from "symphony-ui";
-import {RWebShare} from "react-web-share";
+// import {RWebShare} from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 const ShowReport = (props) => {
