@@ -10,13 +10,14 @@ import Link from "@mui/material/Link";
 import { Button } from "symphony-ui";
 import { RWebShare } from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import Nose from "../../components/overallAnalysisReport/Nose";
+import Chin from "../../components/overallAnalysisReport/Chin";
 
 const OverallAnalysisReport = (props) => {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
-  const [isOpen, setIsOpen] = useState(false);
 
   useConstructor(() => {
     Application.getScanDetails({
@@ -294,7 +295,7 @@ const OverallAnalysisReport = (props) => {
                           Normal
                         </div>
                         <div className="flex gap-1 items-center">
-                          <div className="w-4 h-4 bg-[#544BF0] rounded-full"></div>
+                          <div className="w-4 h-4 bg-primary-color rounded-full"></div>
                           No Action Required
                         </div>
                       </div>
@@ -304,32 +305,9 @@ const OverallAnalysisReport = (props) => {
               </div>
 
               {/* /////////////////////////////////Categories section/////////////////////// */}
-              <div>
-                <img
-                  onClick={() => setIsOpen(!isOpen)}
-                  className={`transition-transform ${
-                    !isOpen ? "rotate-180" : ""
-                  }`}
-                  src="./arrow-down.svg"
-                  alt=""
-                />
-                {isOpen && (
-                  <div style={{ marginTop: "10px", backgroundColor: "red" }}>This is space 1</div>
-                )}
-              </div>
-
-              <div className="w-full justify-center flex flex-col gap-4 items-start mt-10">
-                <div className="w-full flex flex-row gap-2 items-start justify-center">
-                  <div className="flex flex-col items-center justify-center w-[12%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl">
-                    <img
-                      src="/image/icon_nose.png"
-                      alt="icon_nose"
-                      className="w-10 h-10"
-                    />
-                    Nose
-                  </div>
-                  <div className="flex flex-row items-start justify-start w-full p-8 gap-3 rounded-xl bg-[#F5F5F5] font-normal text-sm"></div>
-                </div>
+              <div className="w-full justify-center flex flex-col items-start mt-10">
+                <Nose/>
+                <Chin/>
               </div>
             </div>
           )}
