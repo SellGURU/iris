@@ -6,7 +6,7 @@ const Chin = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row gap-2 items-start justify-center">
+      <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
             src="/image/icon_hair.png"

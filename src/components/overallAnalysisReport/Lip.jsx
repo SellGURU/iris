@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Nose = () => {
+const Lip = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -9,44 +9,66 @@ const Nose = () => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon_nose.png"
-            alt="icon_nose"
+            src="/image/icon_lips.png"
+            alt="icon_lips"
             className="w-10 h-10"
           />
-          Nose
+          Lip
         </div>
-        <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <div className="flex flex-row w-full">
-              Intercanthal Line of Nasal Tip =1.0D
+        <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          <div className="flex flex-row w-full gap-[69px]">
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <div className="flex flex-row w-full">
+                Vertical Height of Lips(middle) =0.618D
+              </div>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Height: 0.643 (104%)</p>
+                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+              </div>
             </div>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Dist: 1.125 (113%)</p>
-              <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <p>Central Fullness of Lower Lips =1.0D</p>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Width: 0.962 (96%)</p>
+                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <p>Upper Lip to Menton of chin =1.618D</p>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Dist: 1.355(84%)</p>
+                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <p>Width of Lips =1.618D</p>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Width:1.359(84%)</p>
+                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Alar Base of Nose =1.0D</p>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Width: 0.962 (96%)</p>
-              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+          <div className="flex flex-row w-full gap-[69px]">
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <div className="flex flex-row w-full">
+                Upper Lip Height/Lower Lip Height =0.618
+              </div>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Ratio: 0.507(82%)</p>
+                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Nasal Tip Height from Columella Base =0.618D</p>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Dist: 0.609 (99%)</p>
-              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Lenght of Nose from Eylas =1.618D</p>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Lenght: 1.519 (94%)</p>
-              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+              <p>Lower Lip Height / Philitral Column Width = 1.0</p>
+              <div className="flex flex-row w-full justify-between items-center">
+                <p>Ratio: 1.224(122%)</p>
+                <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -71,7 +93,7 @@ const Nose = () => {
             />
             <div className="text-left text-sm font-normal">
               Left Philtral Colum to Contralateral commissure/
-              <br/>
+              <br />
               Lips Width
             </div>
             <div className="text-[10px] font-light self-center">Normal</div>
@@ -90,7 +112,7 @@ const Nose = () => {
             />
             <div className="text-left text-sm font-normal">
               Right Philtral Colum to Contralateral commissure/
-              <br/>
+              <br />
               Lips Width
             </div>
             <div className="text-[10px] font-light self-center">Normal</div>
@@ -125,4 +147,4 @@ const Nose = () => {
   );
 };
 
-export default Nose;
+export default Lip;

@@ -12,6 +12,12 @@ import { RWebShare } from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Nose from "../../components/overallAnalysisReport/Nose";
 import Chin from "../../components/overallAnalysisReport/Chin";
+import Lip from "../../components/overallAnalysisReport/Lip";
+import Cheek from "../../components/overallAnalysisReport/Cheek";
+import Forehead from "../../components/overallAnalysisReport/Forehead";
+import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
+import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
+import Other from "../../components/overallAnalysisReport/Other";
 
 const OverallAnalysisReport = (props) => {
   const [searchParams] = useSearchParams();
@@ -306,8 +312,14 @@ const OverallAnalysisReport = (props) => {
 
               {/* /////////////////////////////////Categories section/////////////////////// */}
               <div className="w-full justify-center flex flex-col items-start mt-10">
-                <Nose/>
-                <Chin/>
+                <Nose />
+                <Chin />
+                <Lip />
+                <Cheek />
+                <Forehead />
+                <Eyebrow />
+                <PhiltralColumn />
+                <Other />
               </div>
             </div>
           )}
