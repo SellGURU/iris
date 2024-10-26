@@ -242,6 +242,7 @@ const FaceMesh = () => {
         toast.dismiss()
     }, [status]);
     const onResultsFaceMesh = (results) => {
+        
         let landmarks;
         const img = document.createElement("img");
 

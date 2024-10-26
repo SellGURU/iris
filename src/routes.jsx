@@ -21,6 +21,7 @@ import Compare from "./page/compare/index.jsx";
 import ChangePassword from "./page/ChangePassword.jsx";
 import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
+import TestReport from "./page/testReport/testReport.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -94,7 +95,7 @@ export const route = [
             <ShowReport></ShowReport>
           </IsLogin>
         ),
-      },      
+      },
 
       {
         path: "compare/:id",
@@ -120,6 +121,7 @@ export const route = [
           </IsLogin>
         ),
       },
+
       {
         path: "tour",
         element: (
@@ -137,7 +139,7 @@ export const route = [
         <ShowReport smallReport={true}></ShowReport>
       </IsLogin>
     ),
-  },  
+  },
   {
     path: "/SignUp",
     element: <SignUp />,
@@ -147,5 +149,9 @@ export const route = [
       { path: "getnumber", element: <GetCode /> },
       { path: "test", element: <h1>test</h1> },
     ],
+  },
+  {
+    path: "/testr",
+    element: <TestReport />,
   },
 ];
