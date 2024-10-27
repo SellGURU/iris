@@ -41,11 +41,10 @@ const useFaceMesh = (initialImageSrc = null) => {
 
     const drawNoseEyesLips = (canvas, context, landmarks) => {
         const points = {
-            nose: [1, 2, 5, 6, 195, 197],
+            nose: [1, 2, 5, 6,10,11, 195, 197],
             leftEye: [33],
             rightEye: [362, 263],
             lips: [61, 409],
-            forehead: [10], // Added forehead point (adjust index as needed)
 
         };
         const colors = {

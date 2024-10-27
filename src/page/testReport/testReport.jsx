@@ -2,23 +2,22 @@
 import { useState, useRef } from "react";
 
 const TestReport = () => {
-  const [resolvedFile, setResolvedFile] = useState(""); // For storing the base64 image data
-  const [imageLoaded, setImageLoaded] = useState(false); // Track when the image is fully loaded
-  const imgRef = useRef(null); // Ref to the image element
-  const canvasRef = useRef(null); // Ref to the canvas element for showing face mesh results
+  const [resolvedFile, setResolvedFile] = useState("");
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const imgRef = useRef(null);
+  const canvasRef = useRef(null);
 
   const faceMesh = new FaceMesh({
     locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.1/${file}`,
   });
 
-  // Function to handle image upload
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onloadend = () => setResolvedFile(reader.result); // Save the base64 image data to state
+    reader.onloadend = () => setResolvedFile(reader.result);
     if (file) {
-      reader.readAsDataURL(file); // Convert the uploaded image to base64 format
-      setImageLoaded(false); // Reset the image loaded flag until the image fully loads
+      reader.readAsDataURL(file);
+      setImageLoaded(false);
     }
   };
 
@@ -46,25 +45,21 @@ const TestReport = () => {
     return canvas;
   };
 
-  // Function to analyze the uploaded image with face mesh
   const analyzeImage = async () => {
     const img = imgRef.current;
     if (img && imageLoaded) {
       try {
         const resizedCanvas = resizeImage(img, 648, 900);
-        await faceMesh.send({ image: resizedCanvas }); // Send resized image to FaceMesh
+        await faceMesh.send({ image: resizedCanvas });
       } catch (error) {
         console.error("FaceMesh error:", error);
       }
-    } else {
-      console.error("Image reference is not valid or loaded.");
     }
   };
 
-  // Updated function to draw facial landmarks with click detection
   const drawNoseEyesLips = (canvas, context, landmarks) => {
     const points = {
-      nose: [1, 2, 5, 6, 195, 197],
+      nose: [1, 2, 5, 6, 10, 11, 195, 197],
       leftEye: [33],
       rightEye: [362, 263],
       lips: [61, 409],
@@ -99,20 +94,22 @@ const TestReport = () => {
 
     canvas.onclick = (event) => {
       const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const x = (event.clientX - rect.left) * scaleX;
+      const y = (event.clientY - rect.top) * scaleY;
 
       circles.forEach((circle) => {
         const dx = x - circle.x;
         const dy = y - circle.y;
         if (dx * dx + dy * dy <= circle.radius * circle.radius) {
+          console.log("Circle detected");
           alert(`${circle.feature} point ${circle.index} clicked!`);
         }
       });
     };
   };
 
-  // Function to handle face mesh results
   const onResultsFaceMesh = (results) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -124,13 +121,11 @@ const TestReport = () => {
         const canvasWidth = imgElement.naturalWidth;
         const canvasHeight = imgElement.naturalHeight;
 
-        // Adjust the canvas dimensions based on the uploaded image dimensions
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
 
-        // Draw the resized image on the canvas with consistent dimensions
         context.drawImage(results.image, 0, 0, canvasWidth, canvasHeight);
-        drawNoseEyesLips(canvas, context, landmarks); // Draw the facial landmarks
+        drawNoseEyesLips(canvas, context, landmarks);
       });
     }
   };
@@ -160,7 +155,7 @@ const TestReport = () => {
                   ref={imgRef}
                   src={resolvedFile}
                   alt="Uploaded face"
-                  style={{ display: 'none' }} // Hide the image element; only use it to get dimensions
+                  style={{ display: 'none' }}
                   onLoad={() => {
                     setImageLoaded(true);
                     const imgElement = imgRef.current;
@@ -173,7 +168,7 @@ const TestReport = () => {
                   ref={canvasRef}
                   width="648"
                   height="900"
-                  style={{ width: '648px', height: '900px', border: '1px solid black' }} // Scaled display size
+                  style={{ width: '648px', height: '900px', border: '1px solid black' }}
                   className="face-mesh-canvas"
               ></canvas>
             </div>
