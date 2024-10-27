@@ -153,7 +153,7 @@ export const route = [
   },
   {
     path: "/testr",
-    // element: <TestReport />,
-    element: <FaceMeshViwe />,
+    element: <TestReport />,
+    // element: <FaceMeshViwe />,
   },
 ];

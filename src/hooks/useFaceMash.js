@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { FaceMesh } from "@mediapipe/face_mesh";
 
 const useFaceMesh = (initialImageSrc = null) => {
     const [resolvedFile, setResolvedFile] = useState(initialImageSrc || "");
@@ -7,6 +6,7 @@ const useFaceMesh = (initialImageSrc = null) => {
     const imgRef = useRef(null);
     const canvasRef = useRef(null);
 
+    // eslint-disable-next-line no-undef
     const faceMesh = useRef(new FaceMesh({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.1/${file}`,
     })).current;

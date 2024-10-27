@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useFaceMesh from "../../hooks/useFaceMesh";
+import useFaceMesh from "../../hooks/useFaceMash.js";
 
 const FaceMeshView = ({ imageSrc }) => {
     const {
