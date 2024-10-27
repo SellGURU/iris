@@ -26,30 +26,29 @@ const TestReport = () => {
       setImageLoaded(false); // Reset the image loaded flag until the image fully loads
     }
   };
-const resizeImage = (img, maxWidth, maxHeight) => {
-  const canvas = document.createElement("canvas");
-  let width = img.width;
-  let height = img.height;
-
-  // Resize to maintain aspect ratio within maxWidth and maxHeight
-  if (width > height) {
-    if (width > maxWidth) {
-      height = Math.round((height *= maxWidth / width));
-      width = maxWidth;
+  const resizeImage = (img, maxWidth, maxHeight) => {
+    const canvas = document.createElement("canvas");
+    let width = img.width;
+    let height = img.height;
+    // Resize to maintain aspect ratio within maxWidth and maxHeight
+    if (width > height) {
+      if (width > maxWidth) {
+        height = Math.round((height *= maxWidth / width));
+        width = maxWidth;
+      }
+    } else {
+      if (height > maxHeight) {
+        width = Math.round((width *= maxHeight / height));
+        height = maxHeight;
+      }
     }
-  } else {
-    if (height > maxHeight) {
-      width = Math.round((width *= maxHeight / height));
-      height = maxHeight;
-    }
-  }
 
-  canvas.width = width;
-  canvas.height = height;
-  canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
 
-  return canvas;
-};
+    return canvas;
+  };
   // Function to analyze the uploaded image with face mesh
   const analyzeImage = async () => {
     const img = imgRef.current; // Get the image element from the reference
@@ -57,7 +56,7 @@ const resizeImage = (img, maxWidth, maxHeight) => {
       try {
         const resizedCanvas = resizeImage(img, 420, 420); // Restrict dimensions to 640x640 max
         console.log("tes ",resizedCanvas);
-        
+
         await faceMesh.send({ image: resizedCanvas }); // Send resized image to FaceMesh
       } catch (error) {
         console.error("FaceMesh error:", error); // Catch and log any errors
@@ -67,94 +66,48 @@ const resizeImage = (img, maxWidth, maxHeight) => {
     }
   };
 // Updated function to add click detection for circles
-  const drawFacePattern = (canvas, context, landmarks) => {
-    const connections = [
-      // Connections between points for the facial pattern
-      [10, 151],
-      [151, 9],
-      [9, 8],
-      [8, 168],
-      [168, 197],
-      [197, 5],
-      [5, 4],
-      [4, 1],
-      [1, 0],
-      [0, 2],
-      [2, 164],
-      [164, 165],
-      [165, 199],
-      [199, 200],
-      [200, 18],
-      [18, 17],
-      [33, 246],
-      [246, 161],
-      [161, 160],
-      [160, 159],
-      [159, 158],
-      [158, 33],
-      [78, 191],
-      [191, 80],
-      [80, 81],
-      [81, 82],
-      [82, 13],
-      [13, 312],
-      [312, 311],
-      [311, 310],
-      [310, 415],
-      [415, 308],
-      [308, 78],
-    ];
-
-    const highlightPoints = [10, 151, 9, 8, 197, 5, 164, 0]; // Key points for circles
-    const cheekHighlightPoints = [234, 93, 132]; // Points to define the cheek area
+  const drawNoseEyesLips = (canvas, context, landmarks) => {
+    // Define nose, left eye, right eye, and lips points
+    const nosePoints = [1, 2, 5, 6, 195, 197];
+    const leftEyePoints = [33, ];
+    const rightEyePoints = [362, 263, ];
+    const lipsPoints = [61,  409, ];
 
     // Array to store circle positions and radii for click detection
     const circles = [];
 
-    // Draw connections
-    connections.forEach(([start, end]) => {
-      const from = landmarks[start];
-      const to = landmarks[end];
-      context.beginPath();
-      context.moveTo(from.x * canvas.width, from.y * canvas.height);
-      context.lineTo(to.x * canvas.width, to.y * canvas.height);
-      context.strokeStyle = "#FFFFFF";
-      context.lineWidth = 1;
-      context.stroke();
-    });
+    // Helper function to draw circles on specified points and store them for click detection
+    const drawCircles = (points, color, feature) => {
+      points.forEach((index) => {
+        const point = landmarks[index];
+        const x = point.x * canvas.width;
+        const y = point.y * canvas.height;
+        const radius = 3;
 
-    // Draw circles on key points
-    highlightPoints.forEach((index) => {
-      const point = landmarks[index];
-      const x = point.x * canvas.width;
-      const y = point.y * canvas.height;
-      const radius = 5;
+        // Draw the circle
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI);
+        context.fillStyle = color;
+        context.fill();
 
-      // Draw the circle
-      context.beginPath();
-      context.arc(x, y, radius, 0, 2 * Math.PI);
-      context.fillStyle = "#FF4C4C";
-      context.fill();
+        // Store circle details for click detection
+        circles.push({ x, y, radius, feature, index });
+      });
+    };
 
-      // Store circle details for click detection
-      circles.push({ x, y, radius, index });
-    });
+    // Draw nose points in red
+    drawCircles(nosePoints, "#FF4C4C", "nose");
 
-    // Highlight cheek areas
-    context.beginPath();
-    cheekHighlightPoints.forEach((index, i) => {
-      const point = landmarks[index];
-      if (i === 0) {
-        context.moveTo(point.x * canvas.width, point.y * canvas.height);
-      } else {
-        context.lineTo(point.x * canvas.width, point.y * canvas.height);
-      }
-    });
-    context.closePath();
-    context.fillStyle = "rgba(255, 100, 100, 0.5)";
-    context.fill();
+    // Draw left eye points in blue
+    drawCircles(leftEyePoints, "#4C4CFF", "leftEye");
 
-    // Add click event listener
+    // Draw right eye points in green
+    drawCircles(rightEyePoints, "#4CFF4C", "rightEye");
+
+    // Draw lips points in pink
+    drawCircles(lipsPoints, "#FF69B4", "lips");
+
+    // Add click event listener to canvas
     canvas.onclick = (event) => {
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -165,25 +118,46 @@ const resizeImage = (img, maxWidth, maxHeight) => {
         const dx = x - circle.x;
         const dy = y - circle.y;
         if (dx * dx + dy * dy <= circle.radius * circle.radius) {
-          // Circle was clicked; you can trigger an action here
-          alert(`Circle at point ${circle.index} clicked!`);
+          // Circle was clicked; trigger an action based on the feature type
+          if (circle.feature === "nose") {
+            alert(`Nose point ${circle.index} clicked!`);
+          } else if (circle.feature === "leftEye") {
+            alert(`Left eye point ${circle.index} clicked!`);
+          } else if (circle.feature === "rightEye") {
+            alert(`Right eye point ${circle.index} clicked!`);
+          } else if (circle.feature === "lips") {
+            alert(`Lips point ${circle.index} clicked!`);
+          }
         }
       });
     };
   };
 
-// Add this function to the face mesh results handler
+// Update your results handler to call drawNoseEyesLips instead of the full face pattern
   const onResultsFaceMesh = (results) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     if (results.multiFaceLandmarks) {
       results.multiFaceLandmarks.forEach((landmarks) => {
-        context.drawImage(results.image, 0, 0, canvas.width, canvas.height); // Draw the result image
-        drawFacePattern(canvas, context, landmarks); // Call the function to draw the pattern
+        context.drawImage(results.image, 0, 0, 100, 100); // Draw the input image resized to 100x100
+        drawNoseEyesLips(canvas, context, landmarks); // Only draw the nose, eyes, and lips pattern
       });
     }
   };
+
+// Add this function to the face mesh results handler
+//   const onResultsFaceMesh = (results) => {
+//     const canvas = canvasRef.current;
+//     const context = canvas.getContext("2d");
+//     context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+//     if (results.multiFaceLandmarks) {
+//       results.multiFaceLandmarks.forEach((landmarks) => {
+//         context.drawImage(results.image, 0, 0, canvas.width, canvas.height); // Draw the result image
+//         drawFacePattern(canvas, context, landmarks); // Call the function to draw the pattern
+//       });
+//     }
+//   };
 
   // Simplified function to handle face mesh results and display them on a single canvas
 //   const onResultsFaceMesh = (results) => {
@@ -274,56 +248,58 @@ const resizeImage = (img, maxWidth, maxHeight) => {
 //       context.stroke();
 //     }
 //   };
-faceMesh.onResults(onResultsFaceMesh);
+  faceMesh.onResults(onResultsFaceMesh);
   return (
-    <>
-      <div className="container">
-        <h1>Face Mesh Scanner</h1>
-        <button onClick={analyzeImage}>Analyze Image</button>
-        <p>
-          Upload an image of your face to analyze with FaceMesh and display the
-          results.
-        </p>
+      <>
+        <div className="container">
+          <h1>Face Mesh Scanner</h1>
+          <button onClick={analyzeImage}>Analyze Image</button>
+          <p>
+            Upload an image of your face to analyze with FaceMesh and display the
+            results.
+          </p>
 
-        {/* Image Upload Section */}
-        {!resolvedFile && (
-          <div className="upload-section">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="file-input"
-            />
-          </div>
-        )}
+          {/* Image Upload Section */}
+          {!resolvedFile && (
+              <div className="upload-section">
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="file-input"
+                />
+              </div>
+          )}
 
-        {/* Show the uploaded image and the canvas for results */}
-        {resolvedFile && (
-          <div className="image-preview">
-            {/* Image is displayed for the user */}
-            <img
-              ref={imgRef}
-              src={resolvedFile}
-              alt="Uploaded face"
-              onLoad={() => {
-                setImageLoaded(true);
-                const imgElement = imgRef.current;
-                const canvas = canvasRef.current;
-                canvas.width = imgElement.naturalWidth;
-                canvas.height = imgElement.naturalHeight;
-              }}
-            />
-            {/* Canvas is used to display the face mesh results */}
-            <canvas
-              ref={canvasRef}
-              width="420"
-              height="420"
-              className="face-mesh-canvas"
-            ></canvas>
-          </div>
-        )}
-      </div>
-    </>
+          {/* Show the uploaded image and the canvas for results */}
+          {resolvedFile && (
+              <div className="image-preview">
+                {/* Image is displayed for the user */}
+                <img
+                    ref={imgRef}
+                    src={resolvedFile}
+                    width="100"
+                    height={"100"}
+                    alt="Uploaded face"
+                    onLoad={() => {
+                      setImageLoaded(true);
+                      const imgElement = imgRef.current;
+                      const canvas = canvasRef.current;
+                      canvas.width = imgElement.naturalWidth;
+                      canvas.height = imgElement.naturalHeight;
+                    }}
+                />
+                {/* Canvas is used to display the face mesh results */}
+                <canvas
+                    ref={canvasRef}
+                    width="150"
+                    height="150"
+                    className="face-mesh-canvas"
+                ></canvas>
+              </div>
+          )}
+        </div>
+      </>
   );
 };
 
