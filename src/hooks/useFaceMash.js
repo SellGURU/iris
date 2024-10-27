@@ -45,12 +45,15 @@ const useFaceMesh = (initialImageSrc = null) => {
             leftEye: [33],
             rightEye: [362, 263],
             lips: [61, 409],
+            forehead: [10], // Added forehead point (adjust index as needed)
+
         };
         const colors = {
             nose: "#FF4C4C",
             leftEye: "#4C4CFF",
             rightEye: "#4CFF4C",
             lips: "#FF69B4",
+            forehead: "#FF69B4",
         };
 
         Object.entries(points).forEach(([feature, indices]) => {
