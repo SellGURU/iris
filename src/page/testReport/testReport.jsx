@@ -77,7 +77,7 @@ const TestReport = () => {
         const point = landmarks[index];
         const x = point.x * canvas.width;
         const y = point.y * canvas.height;
-        const radius = 3;
+        const radius = 8;
 
         context.beginPath();
         context.arc(x, y, radius, 0, 2 * Math.PI);
