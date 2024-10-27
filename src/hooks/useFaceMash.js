@@ -1,64 +1,41 @@
 import { useState, useRef, useEffect } from "react";
 import { FaceMesh } from "@mediapipe/face_mesh";
 
-const useFaceMesh = () => {
-    const [resolvedFile, setResolvedFile] = useState("");
+const useFaceMesh = (initialImageSrc = null) => {
+    const [resolvedFile, setResolvedFile] = useState(initialImageSrc || "");
     const [imageLoaded, setImageLoaded] = useState(false);
-    const [clickedFeature, setClickedFeature] = useState(null);
-
     const imgRef = useRef(null);
     const canvasRef = useRef(null);
 
-    const faceMesh = new FaceMesh({
+    const faceMesh = useRef(new FaceMesh({
         locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.1/${file}`,
-    });
+    })).current;
 
     useEffect(() => {
         faceMesh.onResults(onResultsFaceMesh);
-    }, []);
+        if (initialImageSrc) {
+            setResolvedFile(initialImageSrc); // Set the initial image if provided
+        }
+    }, [initialImageSrc]);
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => setResolvedFile(reader.result);
-        if (file) reader.readAsDataURL(file);
-    };
-
-    const resizeImage = (img, maxWidth, maxHeight) => {
-        const canvas = document.createElement("canvas");
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-            if (width > maxWidth) {
-                height = Math.round((height *= maxWidth / width));
-                width = maxWidth;
-            }
-        } else {
-            if (height > maxHeight) {
-                width = Math.round((width *= maxHeight / height));
-                height = maxHeight;
-            }
+        if (file) {
+            reader.readAsDataURL(file);
+            setImageLoaded(false);
         }
-
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-
-        return canvas;
     };
 
     const analyzeImage = async () => {
         const img = imgRef.current;
         if (img && imageLoaded) {
             try {
-                const resizedCanvas = resizeImage(img, 420, 420);
-                await faceMesh.send({ image: resizedCanvas });
+                await faceMesh.send({ image: img });
             } catch (error) {
                 console.error("FaceMesh error:", error);
             }
-        } else {
-            console.error("Image reference is not valid or loaded.");
         }
     };
 
@@ -75,9 +52,8 @@ const useFaceMesh = () => {
             rightEye: "#4CFF4C",
             lips: "#FF69B4",
         };
-        const circles = [];
 
-        const drawCircles = (indices, color, feature) => {
+        Object.entries(points).forEach(([feature, indices]) => {
             indices.forEach((index) => {
                 const point = landmarks[index];
                 const x = point.x * canvas.width;
@@ -86,30 +62,10 @@ const useFaceMesh = () => {
 
                 context.beginPath();
                 context.arc(x, y, radius, 0, 2 * Math.PI);
-                context.fillStyle = color;
+                context.fillStyle = colors[feature];
                 context.fill();
-
-                circles.push({ x, y, radius, feature });
             });
-        };
-
-        Object.entries(points).forEach(([feature, indices]) =>
-            drawCircles(indices, colors[feature], feature)
-        );
-
-        canvas.onclick = (event) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-
-            circles.forEach((circle) => {
-                const dx = x - circle.x;
-                const dy = y - circle.y;
-                if (dx * dx + dy * dy <= circle.radius * circle.radius) {
-                    setClickedFeature(circle.feature);
-                }
-            });
-        };
+        });
     };
 
     const onResultsFaceMesh = (results) => {
@@ -119,7 +75,14 @@ const useFaceMesh = () => {
 
         if (results.multiFaceLandmarks) {
             results.multiFaceLandmarks.forEach((landmarks) => {
-                context.drawImage(results.image, 0, 0, 100, 100);
+                const imgElement = imgRef.current;
+                const canvasWidth = imgElement.naturalWidth;
+                const canvasHeight = imgElement.naturalHeight;
+
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+
+                context.drawImage(imgElement, 0, 0, canvasWidth, canvasHeight);
                 drawNoseEyesLips(canvas, context, landmarks);
             });
         }
@@ -133,7 +96,6 @@ const useFaceMesh = () => {
         analyzeImage,
         imageLoaded,
         setImageLoaded,
-        clickedFeature,
     };
 };
 
