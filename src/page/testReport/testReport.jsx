@@ -66,103 +66,124 @@ const resizeImage = (img, maxWidth, maxHeight) => {
       console.error("Image reference is not valid or loaded.");
     }
   };
-const drawFacePattern = (canvas, context, landmarks) => {
-  const connections = [
-    // Connections between points for the facial pattern
-    [10, 151],
-    [151, 9],
-    [9, 8], // Between forehead and nose
-    [8, 168],
-    [168, 197],
-    [197, 5], // Left side of the face
-    [5, 4],
-    [4, 1],
-    [1, 0],
-    [0, 2],
-    [2, 164],
-    [164, 165], // Jawline connections
-    [165, 199],
-    [199, 200],
-    [200, 18],
-    [18, 17], // Chin and jawline
-    // Eye area connections
-    [33, 246],
-    [246, 161],
-    [161, 160],
-    [160, 159],
-    [159, 158],
-    [158, 33],
-    // Lips (you can add more specific lip points for finer control)
-    [78, 191],
-    [191, 80],
-    [80, 81],
-    [81, 82],
-    [82, 13],
-    [13, 312],
-    [312, 311],
-    [311, 310],
-    [310, 415],
-    [415, 308],
-    [308, 78],
-  ];
+// Updated function to add click detection for circles
+  const drawFacePattern = (canvas, context, landmarks) => {
+    const connections = [
+      // Connections between points for the facial pattern
+      [10, 151],
+      [151, 9],
+      [9, 8],
+      [8, 168],
+      [168, 197],
+      [197, 5],
+      [5, 4],
+      [4, 1],
+      [1, 0],
+      [0, 2],
+      [2, 164],
+      [164, 165],
+      [165, 199],
+      [199, 200],
+      [200, 18],
+      [18, 17],
+      [33, 246],
+      [246, 161],
+      [161, 160],
+      [160, 159],
+      [159, 158],
+      [158, 33],
+      [78, 191],
+      [191, 80],
+      [80, 81],
+      [81, 82],
+      [82, 13],
+      [13, 312],
+      [312, 311],
+      [311, 310],
+      [310, 415],
+      [415, 308],
+      [308, 78],
+    ];
 
-  const highlightPoints = [10, 151, 9, 8, 197, 5, 164, 0]; // Key points for circles
-  const cheekHighlightPoints = [234, 93, 132]; // Points to define the cheek area
+    const highlightPoints = [10, 151, 9, 8, 197, 5, 164, 0]; // Key points for circles
+    const cheekHighlightPoints = [234, 93, 132]; // Points to define the cheek area
 
-  // Draw connections
-  connections.forEach(([start, end]) => {
-    const from = landmarks[start];
-    const to = landmarks[end];
+    // Array to store circle positions and radii for click detection
+    const circles = [];
+
+    // Draw connections
+    connections.forEach(([start, end]) => {
+      const from = landmarks[start];
+      const to = landmarks[end];
+      context.beginPath();
+      context.moveTo(from.x * canvas.width, from.y * canvas.height);
+      context.lineTo(to.x * canvas.width, to.y * canvas.height);
+      context.strokeStyle = "#FFFFFF";
+      context.lineWidth = 1;
+      context.stroke();
+    });
+
+    // Draw circles on key points
+    highlightPoints.forEach((index) => {
+      const point = landmarks[index];
+      const x = point.x * canvas.width;
+      const y = point.y * canvas.height;
+      const radius = 5;
+
+      // Draw the circle
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI);
+      context.fillStyle = "#FF4C4C";
+      context.fill();
+
+      // Store circle details for click detection
+      circles.push({ x, y, radius, index });
+    });
+
+    // Highlight cheek areas
     context.beginPath();
-    context.moveTo(from.x * canvas.width, from.y * canvas.height);
-    context.lineTo(to.x * canvas.width, to.y * canvas.height);
-    context.strokeStyle = "#FFFFFF"; // White color for the lines
-    context.lineWidth = 1;
-    context.stroke();
-  });
-
-  // Draw circles on key points
-  highlightPoints.forEach((index) => {
-    const point = landmarks[index];
-    context.beginPath();
-    context.arc(
-      point.x * canvas.width,
-      point.y * canvas.height,
-      5,
-      0,
-      2 * Math.PI
-    ); // Circle of radius 5
-    context.fillStyle = "#FF4C4C"; // Red color for circles
+    cheekHighlightPoints.forEach((index, i) => {
+      const point = landmarks[index];
+      if (i === 0) {
+        context.moveTo(point.x * canvas.width, point.y * canvas.height);
+      } else {
+        context.lineTo(point.x * canvas.width, point.y * canvas.height);
+      }
+    });
+    context.closePath();
+    context.fillStyle = "rgba(255, 100, 100, 0.5)";
     context.fill();
-  });
 
-  // Highlight cheek areas
-  context.beginPath();
-  cheekHighlightPoints.forEach((index, i) => {
-    const point = landmarks[index];
-    if (i === 0) {
-      context.moveTo(point.x * canvas.width, point.y * canvas.height);
-    } else {
-      context.lineTo(point.x * canvas.width, point.y * canvas.height);
-    }
-  });
-  context.closePath();
-  context.fillStyle = "rgba(255, 100, 100, 0.5)"; // Light red with transparency
-  context.fill();
-};
+    // Add click event listener
+    canvas.onclick = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // Check if the click is within any of the circles
+      circles.forEach((circle) => {
+        const dx = x - circle.x;
+        const dy = y - circle.y;
+        if (dx * dx + dy * dy <= circle.radius * circle.radius) {
+          // Circle was clicked; you can trigger an action here
+          alert(`Circle at point ${circle.index} clicked!`);
+        }
+      });
+    };
+  };
 
 // Add this function to the face mesh results handler
-const onResultsFaceMesh = (results) => {
-  const canvas = canvasRef.current;
-  const context = canvas.getContext("2d");
-  context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-  if (results.multiFaceLandmarks) {
-    results.multiFaceLandmarks.forEach((landmarks) => {
-      context.drawImage(results.image, 0, 0, canvas.width, canvas.height); // Draw the result image
-      drawFacePattern(canvas, context, landmarks); // Call the function to draw the pattern
-    });
-  }
-};
+  const onResultsFaceMesh = (results) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    if (results.multiFaceLandmarks) {
+      results.multiFaceLandmarks.forEach((landmarks) => {
+        context.drawImage(results.image, 0, 0, canvas.width, canvas.height); // Draw the result image
+        drawFacePattern(canvas, context, landmarks); // Call the function to draw the pattern
+      });
+    }
+  };
 
   // Simplified function to handle face mesh results and display them on a single canvas
 //   const onResultsFaceMesh = (results) => {
