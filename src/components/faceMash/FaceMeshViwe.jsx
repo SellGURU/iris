@@ -20,7 +20,7 @@ const FaceMeshView = ({ imageSrc,className,onClick }) => {
     return (
         <div className="container">
             {resolvedFile && (
-                <div className="image-preview" style={{ width: '600px', height: '900px' }}>
+                <div className={className} style={{ width: '200px', height: '200px' }}>
                     <img
                         ref={imgRef}
                         src={resolvedFile}
@@ -30,7 +30,7 @@ const FaceMeshView = ({ imageSrc,className,onClick }) => {
                     />
                     <canvas
                         ref={canvasRef}
-                        style={{ width: '600px', height: '900px', border: '1px solid black' }}
+                        style={{ width: '100%', height: '100%', border: '1px solid black' }}
                         className="face-mesh-canvas"
                     ></canvas>
                 </div>

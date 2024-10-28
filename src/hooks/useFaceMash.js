@@ -117,8 +117,6 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
                 const dx = x - circle.x;
                 const dy = y - circle.y;
                 if (dx * dx + dy * dy <= circle.radius * circle.radius) {
-                    console.log(`Circle detected at feature: ${circle.feature}, index: ${circle.index}`);
-                    alert(`${circle.feature} point ${circle.index} clicked!`);
                     onClickHandler(circle.feature)
                 }
             });
