@@ -42,21 +42,21 @@ const Other = () => {
           </div>
 
           <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
+            <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Angle: 13 degrees</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
+            <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Offset: 0.667 mm</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
+            <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Dist: 0.653(106%)</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>

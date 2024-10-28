@@ -11,7 +11,7 @@ import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { Tooltip } from 'react-tooltip'
 import { useConstructor } from "../../help.js";
-import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
+// import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
 import {PatientContext} from '../../context/context.jsx';
@@ -66,7 +66,7 @@ export const ScanHistory = () => {
     ]
     const [imageBy,setImageBy] = useState('any')
     // console.log(patients)
-    let [partyId] = useLocalStorage("partyid");
+    // let [partyId] = useLocalStorage("partyid");
     const filterModalRefrence = useRef(null)
     const sortRefrence = useRef(null)
     const [showFilter,setShowFilter] = useState(false)

@@ -51,7 +51,16 @@
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   mask-position: center;
-  @apply w-4 h-4 rotate-180 bg-[#544BF0];
+  @apply w-5 h-5 rotate-180 bg-[#544BF0];
+}
+
+.arowUpIcon-purple{
+  mask-image: url(/arrow-down.svg);
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-5 h-5 bg-[#544BF0];
 }
 
 .downloadIcon-purple{
@@ -181,4 +190,8 @@
 }
 input {
 @apply fill-transparent
+}
+
+.shadow-box {
+  box-shadow: 0px 0px 12px 0px #00000026;
 }

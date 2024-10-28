@@ -22,6 +22,7 @@ import ChangePassword from "./page/ChangePassword.jsx";
 import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
 import OverallAnalysisReport from "./page/FaceScaned/overallAnalysisReport.jsx";
+import { ScanHistoryCompare } from "./page/compare/scanHistoryCompare.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -104,7 +105,15 @@ export const route = [
             <OverallAnalysisReport></OverallAnalysisReport>
           </IsLogin>
         ),
-      },       
+      },    
+      {
+        path: "scanHistoryCompare",
+        element: (
+          <IsLogin>
+            <ScanHistoryCompare></ScanHistoryCompare>
+          </IsLogin>
+        ),
+      },   
       {
         path: "compare/:id",
         element: (
