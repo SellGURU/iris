@@ -21,9 +21,8 @@ import Compare from "./page/compare/index.jsx";
 import ChangePassword from "./page/ChangePassword.jsx";
 import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
-import TestReport from "./page/testReport/testReport.jsx";
-import FaceMeshViwe from "./components/faceMash/FaceMeshViwe.jsx";
 import FaceMeshContainer from "./page/testReport/testReport.jsx";
+import OverallAnalysisReport from "./page/FaceScaned/overallAnalysisReport.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -98,7 +97,15 @@ export const route = [
           </IsLogin>
         ),
       },
-
+      // mina added
+      {
+        path: "overallAnalysisReport",
+        element: (
+          <IsLogin>
+            <OverallAnalysisReport></OverallAnalysisReport>
+          </IsLogin>
+        ),
+      },
       {
         path: "compare/:id",
         element: (
@@ -123,7 +130,6 @@ export const route = [
           </IsLogin>
         ),
       },
-
       {
         path: "tour",
         element: (
@@ -141,7 +147,7 @@ export const route = [
         <ShowReport smallReport={true}></ShowReport>
       </IsLogin>
     ),
-  },
+  },  
   {
     path: "/SignUp",
     element: <SignUp />,
