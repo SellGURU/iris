@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useFaceMesh from "../../hooks/useFaceMash.js";
 
-const FaceMeshView = ({ imageSrc,className,onClick }) => {
+const FaceMeshView = ({ imageSrc,onClick,width="500px",height="500px",...props }) => {
     const {
         resolvedFile,
         imgRef,
@@ -20,7 +20,7 @@ const FaceMeshView = ({ imageSrc,className,onClick }) => {
     return (
         <div className="container">
             {resolvedFile && (
-                <div className={className} style={{ width: '200px', height: '200px' }}>
+                <div {...props} style={{ width: width, height: height }}>
                     <img
                         ref={imgRef}
                         src={resolvedFile}
