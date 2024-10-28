@@ -23,6 +23,7 @@ import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
 import TestReport from "./page/testReport/testReport.jsx";
 import FaceMeshViwe from "./components/faceMash/FaceMeshViwe.jsx";
+import FaceMeshContainer from "./page/testReport/testReport.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -153,7 +154,7 @@ export const route = [
   },
   {
     path: "/testr",
-    element: <TestReport />,
+    element: <FaceMeshContainer />,
     // element: <FaceMeshViwe />,
   },
 ];

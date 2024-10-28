@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import useFaceMesh from "../../hooks/useFaceMash.js";
 
-const FaceMeshView = ({ imageSrc }) => {
+const FaceMeshView = ({ imageSrc,className,onClick }) => {
     const {
         resolvedFile,
-        handleImageUpload,
         imgRef,
         canvasRef,
         analyzeImage,
         imageLoaded,
         setImageLoaded,
-    } = useFaceMesh(imageSrc);
+    } = useFaceMesh(imageSrc,onClick);
 
     useEffect(() => {
         if (imageLoaded) {
@@ -20,17 +19,6 @@ const FaceMeshView = ({ imageSrc }) => {
 
     return (
         <div className="container">
-            {!resolvedFile && (
-                <div className="upload-section">
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="file-input"
-                    />
-                </div>
-            )}
-
             {resolvedFile && (
                 <div className="image-preview" style={{ width: '600px', height: '900px' }}>
                     <img
