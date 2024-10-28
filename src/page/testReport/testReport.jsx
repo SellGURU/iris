@@ -205,7 +205,7 @@ const FaceMeshContainer = () => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      setBase64Image(reader.result); // Set base64 string to state
+      setBase64Image(reader.result);
     };
 
     if (file) {
@@ -226,12 +226,11 @@ const FaceMeshContainer = () => {
             </div>
         )}
 
-        {/* Pass the base64 image to FaceMeshView */}
         {base64Image && (
             <FaceMeshView
-                imageSrc={base64Image} // Pass base64 string as imageSrc
+                imageSrc={base64Image}
                 className=""
-                onClick={(point) => console.log(point)} // Handle point click events
+                onClick={(point) => console.log(point)}
             />
         )}
       </div>
