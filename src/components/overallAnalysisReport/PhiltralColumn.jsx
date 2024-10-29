@@ -9,7 +9,7 @@ const PhiltralColumn = () => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon_eye.png"
+            src="/image/icon-philtral-column.png"
             alt="icon_philtral-column"
             className="w-10 h-10"
           />
@@ -48,7 +48,7 @@ const PhiltralColumn = () => {
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">
-        <Button theme="iris" onClick={() => setIsOpen(!isOpen)}>
+        <Button theme="iris-small" onClick={() => setIsOpen(!isOpen)}>
           <img
             className={`transition-transform ${!isOpen ? "rotate-180" : ""}`}
             src="/arrow-white2.svg"

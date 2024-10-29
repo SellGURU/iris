@@ -52,7 +52,7 @@ const Nose = () => {
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">
-        <Button theme="iris" onClick={() => setIsOpen(!isOpen)}>
+        <Button theme="iris-small" onClick={() => setIsOpen(!isOpen)}>
           <img
             className={`transition-transform ${!isOpen ? "rotate-180" : ""}`}
             src="/arrow-white2.svg"

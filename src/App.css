@@ -96,6 +96,16 @@
   @apply w-6 h-6 bg-white;
 }
 
+.filterIcon-white {
+  mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  margin-right: 6px;
+  mask-image: url(filter-2.svg);
+  @apply w-4 h-4 bg-white;
+}
+
 .pelusicon{
   mask-image: url(/fi_plus-blue.svg);
   mask-size: 100%;
