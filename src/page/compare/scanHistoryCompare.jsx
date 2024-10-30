@@ -63,98 +63,106 @@ export const ScanHistoryCompare = () => {
           {/* /////////////////////////////////Clients sections/////////////////////// */}
           <div className="flex flex-col gap-8 w-full">
             {/* /////////////////////////////////Client 1 section/////////////////////// */}
-            <div className="flex gap-12 rounded-lg items-center justify-start border px-10 py-8 shadow-box">
-              <div className="flex items-center self-start gap-5">
-                <span className="text-base font-normal text-[#7E7E7E]">1</span>
-                <img
-                  className="rounded-[8px] w-[62px] h-[53px] border-[#0000001A] border"
-                  src="/image/client-01.png"
-                  alt=""
-                />
+            <div className="flex gap-8 flex-col rounded-lg justify-start border px-10 py-8 shadow-box">
+              <div className="flex flex-row items-center justify-center gap-8">
+                <div className="flex items-center self-start gap-5">
+                  <span className="text-base font-normal text-[#7E7E7E]">
+                    1
+                  </span>
+                  <img
+                    className="rounded-[8px] w-[62px] h-[53px] border-[#0000001A] border"
+                    src="/image/client-01.png"
+                    alt=""
+                  />
+                </div>
+                <div className="w-full flex flex-col items-start justify-center gap-6">
+                  <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
+                    <div className="text-[20px] font-bold">
+                      Client ID: 11223344
+                    </div>
+
+                    <div className="flex gap-2 text-base font-medium items-center justify-between">
+                      <Button theme="iris-tertiary-small">
+                        Show comments (0)
+                        <div className="arowDownIcon-purple ml-2"></div>
+                      </Button>
+                      <Button theme="iris-secondary-small">
+                        <img src="./icons/close.svg" className="mr-2" alt="" />
+                        Cancel
+                      </Button>
+                      <Button theme="iris-small">
+                        <img className="mr-2" src="camera.svg" alt="" />
+                        New Scan
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col w-full gap-6">
+                    <div className="flex justify-between items-center w-full">
+                      <div className="flex justify-start items-center font-medium text-base">
+                        Scan reports
+                      </div>
+                      <div className="text-[#7E7E7E] text-base font-normal">
+                        Date: 12 April 2024
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <Button theme="iris-secondary-small">
+                          <div className="shareIcon-purple"></div>
+                        </Button>
+                        <Button theme="iris-secondary-small">
+                          <div className="downloadIcon-purple"></div>
+                        </Button>
+                        <Button theme="iris-secondary-small">
+                          View Reports
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center w-full">
+                      <div className="flex justify-start items-center font-medium text-base">
+                        Scan reports
+                      </div>
+                      <div className="text-[#7E7E7E] text-base font-normal">
+                        Date: 12 April 2024
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <Button theme="iris-secondary-small">
+                          <div className="shareIcon-purple"></div>
+                        </Button>
+                        <Button theme="iris-secondary-small">
+                          <div className="downloadIcon-purple"></div>
+                        </Button>
+                        <Button theme="iris-secondary-small">
+                          View Reports
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex justify-start items-center font-medium text-base">
+                      Scan reports
+                    </div>
+                    <div className="text-[#7E7E7E] text-base font-normal">
+                      Date: 12 April 2024
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <Button theme="iris-secondary-small">
+                        <div className="shareIcon-purple"></div>
+                      </Button>
+                      <Button theme="iris-secondary-small">
+                        <div className="downloadIcon-purple"></div>
+                      </Button>
+                      <Button theme="iris-secondary-small">View Reports</Button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
-                  <div className="text-[20px] font-bold">
-                    Client ID: 11223344
-                  </div>
 
-                  <div className="flex gap-2 text-base font-medium items-center justify-between">
-                    <Button theme="iris-tertiary-small">
-                      Show comments (0)
-                      <div className="arowDownIcon-purple ml-2"></div>
-                    </Button>
-                    <Button theme="iris-secondary-small">
-                      <img src="./icons/close.svg" className="mr-2" alt="" />
-                      Cancel
-                    </Button>
-                    <Button theme="iris-small">
-                      <img className="mr-2" src="camera.svg" alt="" />
-                      New Scan
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col w-full gap-6">
-                  <div className="flex justify-between items-center w-full">
-                    <div className="flex justify-start items-center font-medium text-base">
-                      Scan reports
-                    </div>
-                    <div className="text-[#7E7E7E] text-base font-normal">
-                      Date: 12 April 2024
-                    </div>
-                    <div className="flex gap-2 items-center">
-                      <Button theme="iris-secondary-small">
-                        <div className="shareIcon-purple"></div>
-                      </Button>
-                      <Button theme="iris-secondary-small">
-                        <div className="downloadIcon-purple"></div>
-                      </Button>
-                      <Button theme="iris-secondary-small">View Reports</Button>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-between items-center w-full">
-                    <div className="flex justify-start items-center font-medium text-base">
-                      Scan reports
-                    </div>
-                    <div className="text-[#7E7E7E] text-base font-normal">
-                      Date: 12 April 2024
-                    </div>
-                    <div className="flex gap-2 items-center">
-                      <Button theme="iris-secondary-small">
-                        <div className="shareIcon-purple"></div>
-                      </Button>
-                      <Button theme="iris-secondary-small">
-                        <div className="downloadIcon-purple"></div>
-                      </Button>
-                      <Button theme="iris-secondary-small">View Reports</Button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center w-full">
-                  <div className="flex justify-start items-center font-medium text-base">
-                    Scan reports
-                  </div>
-                  <div className="text-[#7E7E7E] text-base font-normal">
-                    Date: 12 April 2024
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <Button theme="iris-secondary-small">
-                      <div className="shareIcon-purple"></div>
-                    </Button>
-                    <Button theme="iris-secondary-small">
-                      <div className="downloadIcon-purple"></div>
-                    </Button>
-                    <Button theme="iris-secondary-small">View Reports</Button>
-                  </div>
-                </div>
-
-                <div className="flex w-full justify-center">
-                  <div className="text-primary-color flex justify-center items-center cursor-pointer font-medium text-center mt-4">
-                    See Less
-                    <div className="arowUpIcon-purple ml-1"></div>
-                  </div>
+              <div className="flex w-full justify-center">
+                <div className="text-primary-color flex justify-center items-center cursor-pointer font-medium text-center mt-4">
+                  See Less
+                  <div className="arowUpIcon-purple ml-1"></div>
                 </div>
               </div>
             </div>
