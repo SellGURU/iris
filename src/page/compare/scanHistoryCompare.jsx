@@ -1,5 +1,4 @@
 import { SearchBox } from "../../components/searchBox/SearchBox";
-import Pageination from "../../components/pagenation/Pagenation";
 import { Button } from "symphony-ui";
 import { Tooltip } from "react-tooltip";
 import NoseCompare from "../../components/scanHistoryCompare/NoseCompare";
@@ -74,7 +73,7 @@ export const ScanHistoryCompare = () => {
                 />
               </div>
               <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#0000004D]">
+                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
                   <div className="text-[20px] font-bold">
                     Client ID: 11223344
                   </div>
@@ -368,7 +367,7 @@ export const ScanHistoryCompare = () => {
                 />
               </div>
               <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#0000004D]">
+                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
                   <div className="text-[20px] font-bold">
                     Client ID: 11223343
                   </div>
@@ -422,7 +421,7 @@ export const ScanHistoryCompare = () => {
                 />
               </div>
               <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#0000004D]">
+                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
                   <div className="text-[20px] font-bold">
                     Client ID: 11223343
                   </div>
@@ -476,7 +475,7 @@ export const ScanHistoryCompare = () => {
                 />
               </div>
               <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#0000004D]">
+                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
                   <div className="text-[20px] font-bold">
                     Client ID: 11223342
                   </div>
@@ -530,7 +529,7 @@ export const ScanHistoryCompare = () => {
                 />
               </div>
               <div className="w-full flex flex-col items-start justify-center gap-6">
-                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#0000004D]">
+                <div className="flex justify-between w-full pb-6 gap-8 border-b border-b-[#00000033]">
                   <div className="text-[20px] font-bold">
                     Client ID: 11223342
                   </div>
@@ -574,9 +573,26 @@ export const ScanHistoryCompare = () => {
             </div>
           </div>
 
-          <div className="w-full flex justify-between">
-            <Pageination />
-            <div className="w-[180px]"></div>
+          {/* /////////////////////////////////Pagination section/////////////////////// */}
+          <hr className="h-[1px] bg-[#00000033] w-full mb-2" />
+          <div className="flex items-center justify-center relative">
+            <p className="text-[#7E7E7E] font-normal text-base absolute left-6">
+              Show{" "}
+              <span className="text-[#544BF0] underline underline-offset-2">
+                5
+              </span>{" "}
+              rows per page.
+            </p>
+            <div className="flex items-center justify-center gap-[26px] text-xl relative">
+              <div className="arrow-left-disable"></div>
+              <div className="px-2 font-bold text-white bg-primary-color rounded">
+                1
+              </div>
+              <div className="px-[6px] font-normal text-[#7E7E7E]">2</div>
+              <div className="px-[6px] font-normal text-[#7E7E7E]">3</div>
+              <div className="px-[6px] font-normal text-[#7E7E7E]">4</div>
+              <div className="arrow-right-purple"></div>
+            </div>
           </div>
         </div>
       </div>

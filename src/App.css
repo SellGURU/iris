@@ -96,6 +96,26 @@
   @apply w-6 h-6 bg-white;
 }
 
+.arrow-left-disable{
+  mask-image: url(/arrow-left.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-6 h-6 bg-[#7E7E7E];
+}
+
+.arrow-right-purple{
+  mask-image: url(/arrow-right.svg);
+  mask-size: 100%;
+  cursor: pointer;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  @apply w-6 h-6 bg-primary-color;
+}
+
 .filterIcon-white {
   mask-size: 100%;
   -webkit-mask-repeat: no-repeat;
