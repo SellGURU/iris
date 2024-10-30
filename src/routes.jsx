@@ -23,6 +23,7 @@ import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
 import OverallAnalysisReport from "./page/FaceScaned/overallAnalysisReport.jsx";
 import { ScanHistoryCompare } from "./page/compare/scanHistoryCompare.jsx";
+import FacialAnalysisReport from "./page/FaceScaned/facialAnalysisReport.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -96,7 +97,7 @@ export const route = [
             <ShowReport></ShowReport>
           </IsLogin>
         ),
-      }, 
+      },
       // mina added
       {
         path: "overallAnalysisReport",
@@ -105,7 +106,7 @@ export const route = [
             <OverallAnalysisReport></OverallAnalysisReport>
           </IsLogin>
         ),
-      },    
+      },
       {
         path: "scanHistoryCompare",
         element: (
@@ -113,7 +114,15 @@ export const route = [
             <ScanHistoryCompare></ScanHistoryCompare>
           </IsLogin>
         ),
-      },   
+      },
+      {
+        path: "facialAnalysisReport",
+        element: (
+          <IsLogin>
+            <FacialAnalysisReport></FacialAnalysisReport>
+          </IsLogin>
+        ),
+      },
       {
         path: "compare/:id",
         element: (
@@ -155,7 +164,7 @@ export const route = [
         <ShowReport smallReport={true}></ShowReport>
       </IsLogin>
     ),
-  },  
+  },
   {
     path: "/SignUp",
     element: <SignUp />,
