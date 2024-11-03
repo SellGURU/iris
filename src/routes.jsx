@@ -23,7 +23,7 @@ import FaceAnalyse from "./page/FaceAnalyse.jsx";
 import InformationSiginup from "./page/informationSiginup.jsx";
 import OverallAnalysisReport from "./page/FaceScaned/overallAnalysisReport.jsx";
 import { ScanHistoryCompare } from "./page/compare/scanHistoryCompare.jsx";
-import FacialAnalysisReport from "./page/FaceScaned/facialAnalysisReport.jsx";
+// import FacialAnalysisReport from "./page/FaceScaned/facialAnaly";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -115,14 +115,14 @@ export const route = [
           </IsLogin>
         ),
       },
-      {
-        path: "facialAnalysisReport",
-        element: (
-          <IsLogin>
-            <FacialAnalysisReport></FacialAnalysisReport>
-          </IsLogin>
-        ),
-      },
+      // {
+      //   path: "facialAnalysisReport",
+      //   element: (
+      //     <IsLogin>
+      //       <FacialAnalysisReport></FacialAnalysisReport>
+      //     </IsLogin>
+      //   ),
+      // },
       {
         path: "compare/:id",
         element: (
