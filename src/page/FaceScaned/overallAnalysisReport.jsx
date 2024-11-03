@@ -20,6 +20,7 @@ import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColum
 import Other from "../../components/overallAnalysisReport/Other";
 
 const OverallAnalysisReport = (props) => {
+  const [activeTab, setActiveTab] = useState("overall");
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState(new Date());
@@ -100,7 +101,6 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-
               <div className="w-full justify-between mb-4 flex mt-5 items-center">
                 <div className="md:flex justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
@@ -151,176 +151,386 @@ const OverallAnalysisReport = (props) => {
               </div>
 
               <div className="w-full justify-center my-8 flex items-center gap-8">
-                <div className="text-[#7E7E7E] font-normal text-lg">
+                <Button
+                  theme={
+                    activeTab === "facial"
+                      ? "iris-secondary"
+                      : "iris-secondary-Button-container"
+                  }
+                  onClick={() => setActiveTab("facial")}
+                >
                   Facial Analysis
-                </div>
-                <Button theme="iris-secondary">Overall Analysis</Button>
+                </Button>
+                <Button
+                  theme={
+                    activeTab === "overall"
+                      ? "iris-secondary"
+                      : "iris-secondary-Button-container"
+                  }
+                  onClick={() => setActiveTab("overall")}
+                >
+                  Overall Analysis
+                </Button>
               </div>
-
-              {/* /////////////////////////////////Summary section/////////////////////// */}
-              <div className="w-full justify-center flex flex-row gap-6 items-start">
-                <div className="flex flex-col w-1/2">
-                  <img
-                    src="/image/faceOverall-01.png"
-                    alt="face-image"
-                    className="max-h-[917px] rounded-3xl border-2 border-primary-color"
-                  />
-                </div>
-
-                <div className="flex flex-col w-1/2 gap-4">
-                  <div className="flex flex-row w-full gap-6 items-center justify-center">
+              {activeTab === "overall" ? (
+                <>
+                  {/* /////////////////////////////////Summary section/////////////////////// */}
+                  <div className="w-full justify-center flex flex-row gap-6 items-start">
                     <div className="flex flex-col w-1/2">
                       <img
-                        src="/image/faceOverall-02.png"
+                        src="/image/faceOverall-01.png"
                         alt="face-image"
-                        className="max-h-[380px] rounded-3xl border-2 border-primary-color"
+                        className="max-h-[917px] rounded-3xl border-2 border-primary-color"
                       />
                     </div>
-                    <div className="flex flex-col w-1/2">
-                      <img
-                        src="/image/faceOverall-03.png"
-                        alt="face-image"
-                        className="max-h-[380px] rounded-3xl border-2 border-primary-color"
-                      />
+
+                    <div className="flex flex-col w-1/2 gap-4">
+                      <div className="flex flex-row w-full gap-6 items-center justify-center">
+                        <div className="flex flex-col w-1/2">
+                          <img
+                            src="/image/faceOverall-02.png"
+                            alt="face-image"
+                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
+                          />
+                        </div>
+                        <div className="flex flex-col w-1/2">
+                          <img
+                            src="/image/faceOverall-03.png"
+                            alt="face-image"
+                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col p-8 rounded-3xl bg-[#f8f8f8]">
+                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-4">
+                          Measurements Summary
+                          <div className="text-[#7E7E7E] font-normal text-sm">
+                            2024/02/02
+                          </div>
+                        </div>
+
+                        <div className="text-[##444444] font-normal text-sm mb-6">
+                          Here, you can view a summary of an individual's health
+                          status and make the necessary decisions for improving
+                          or managing their health.
+                        </div>
+
+                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                          Feminine Face Assessment
+                          <div className="text-[#7E7E7E] font-normal text-sm">
+                            Intercanthal Distance D - 33 mm
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1 mb-6">
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              1.Eyebrows height
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right side is 1mm higher
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              2.Lash line
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right side is higher
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              3.Inter Limbal Opening
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right eye is bigger
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              4.Apex of cheek
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right side is 3mm higher
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              5.Alar base of nose
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right and Left side alighned
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              6.Upper lip vermillion
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right and Left side alighned
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              7.Transcommissure line
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right side is 1mm lower
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              8.Lower lip vermilion
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right and Left side alighned
+                            </div>
+                          </div>
+
+                          <div className="flex flex-row w-full text-base text-left gap-6">
+                            <div className="flex flex-col w-1/2 font-medium">
+                              9.Chin border
+                            </div>
+                            <div className="flex flex-col w-1/2 font-normal">
+                              Right and Left side alighned
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
+                          Color Guide
+                          <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
+                            <div className="flex gap-1 items-center">
+                              <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+                              Action Needed
+                            </div>
+                            <div className="flex gap-1 items-center">
+                              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+                              Normal
+                            </div>
+                            <div className="flex gap-1 items-center">
+                              <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+                              No Action Required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col p-8 rounded-3xl bg-[#f8f8f8]">
-                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-4">
-                      Measurements Summary
-                      <div className="text-[#7E7E7E] font-normal text-sm">
-                        2024/02/02
-                      </div>
-                    </div>
+                  {/* /////////////////////////////////Categories section/////////////////////// */}
+                  <div className="w-full justify-center flex flex-col items-start mt-10">
+                    <Nose />
+                    <Chin />
+                    <Lip />
+                    <Cheek />
+                    <Forehead />
+                    <Eyebrow />
+                    <PhiltralColumn />
+                    <Other />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="w-full justify-center flex flex-row gap-6 items-stretch">
+                    <img
+                      src="/image/faceOverall-05.png"
+                      alt="face-image"
+                      className="flex flex-col w-1/2 rounded-3xl border-2 border-primary-color"
+                    />
 
-                    <div className="text-[##444444] font-normal text-sm mb-6">
-                      Here, you can view a summary of an individual's health
-                      status and make the necessary decisions for improving or
-                      managing their health.
-                    </div>
-
-                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
-                      Feminine Face Assessment
-                      <div className="text-[#7E7E7E] font-normal text-sm">
-                        Intercanthal Distance D - 33 mm
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-1 mb-6">
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          1.Eyebrows height
-                        </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right side is 1mm higher
+                    <div className="flex flex-col w-1/2 gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
+                      <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                        Face Measurements Summary
+                        <div className="text-[#7E7E7E] font-normal text-sm">
+                          2024/02/02
                         </div>
                       </div>
+                      <div className="flex flex-col gap-5 font-normal text-base">
+                        <div className="flex flex-col">
+                          <p>1. Face Width</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: The widest part of the face, measured
+                            across the cheekbones.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">
+                              Measurement: 14.8 cm
+                            </p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                No Action Requred
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          2.Lash line
+                        <div className="flex flex-col">
+                          <p>2. Face Height</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: From the hairline to the chin.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">
+                              Measurement: 19.3 cm
+                            </p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Normal
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right side is higher
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          3.Inter Limbal Opening
+                        <div className="flex flex-col">
+                          <p>3. Jawline Width</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: Distance between the angles of the jaw.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">
+                              Measurement: 11.5 cm
+                            </p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Action Needed
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right eye is bigger
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          4.Apex of cheek
+                        <div className="flex flex-col">
+                          <p>4. Nose Length</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: From the bridge of the nose to the tip.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">Measurement: 5.2 cm</p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Action Needed
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right side is 3mm higher
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          5.Alar base of nose
+                        <div className="flex flex-col">
+                          <p>5. Eye Distance</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: Distance between the inner corners of
+                            the eyes.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">Measurement: 3.1 cm</p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                No Action Requred
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right and Left side alighned
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          6.Upper lip vermillion
+                        <div className="flex flex-col">
+                          <p>6. Lip Width</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: Distance between the corners of the
+                            lips when at rest.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">Measurement: 5.8 cm</p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Normal
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right and Left side alighned
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          7.Transcommissure line
+                        <div className="flex flex-col">
+                          <p>7. Forehead Height</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: Distance from the hairline to the brow.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">Measurement: 6.8 cm</p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Action Needed
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right side is 1mm lower
-                        </div>
-                      </div>
 
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          8.Lower lip vermilion
-                        </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right and Left side alighned
-                        </div>
-                      </div>
-
-                      <div className="flex flex-row w-full text-base text-left gap-6">
-                        <div className="flex flex-col w-1/2 font-medium">
-                          9.Chin border
-                        </div>
-                        <div className="flex flex-col w-1/2 font-normal">
-                          Right and Left side alighned
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
-                      Color Guide
-                      <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
-                        <div className="flex gap-1 items-center">
-                          <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-                          Action Needed
-                        </div>
-                        <div className="flex gap-1 items-center">
-                          <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-                          Normal
-                        </div>
-                        <div className="flex gap-1 items-center">
-                          <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-                          No Action Required
+                        <div className="flex flex-col">
+                          <p>8. Symmetry</p>
+                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
+                            Description: Overall facial symmetry score.
+                          </p>
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <p className="decorated-dot">
+                              Left-to-Right Symmetry: 92%
+                            </p>
+                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
+                              <div className="text-[10px] font-light self-center">
+                                Normal
+                              </div>
+                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
+                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
+                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
+                                <div className="w-1/3 h-full bg-primary-color"></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* /////////////////////////////////Categories section/////////////////////// */}
-              <div className="w-full justify-center flex flex-col items-start mt-10">
-                <Nose />
-                <Chin />
-                <Lip />
-                <Cheek />
-                <Forehead />
-                <Eyebrow />
-                <PhiltralColumn />
-                <Other />
-              </div>
+                </>
+              )}
             </div>
           )}
         </div>
