@@ -18,6 +18,7 @@ import Forehead from "../../components/overallAnalysisReport/Forehead";
 import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
 import Other from "../../components/overallAnalysisReport/Other";
+import SummaryBox from "./boxs/SummaryBox";
 
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("overall");
@@ -70,6 +71,59 @@ const OverallAnalysisReport = (props) => {
     // console.log(pdf.replace("data:text/html;base64,",''))
     // document.getElementById("mydiv").innerHTML = decodedHTML;
   };
+  const data = {
+    "Facial Analysis":[
+        {
+          title:"1. Face Width",
+          description:'The widest part of the face, measured across the cheekbones.',
+          Measurement: '14.8 cm',
+          status:'No Action Requred'
+        },
+        {
+          title:"2. Face Height",
+          description:'From the hairline to the chin.',
+          Measurement: '19.3 cm',
+          status:'Normal'
+        },
+        {
+          title:"3. Jawline Width",
+          description:'Distance between the angles of the jaw.',
+          Measurement: ' 11.5 cm',
+          status:'Action Needed'
+        },
+        {
+          title:"4. Nose Length",
+          description:'From the bridge of the nose to the tip.',
+          Measurement: '5.2 cm',
+          status:'Action Needed'
+        },
+        {
+          title:"5. Eye Distance",
+          description:'Distance between the inner corners of the eyes.',
+          Measurement: '3.1 cm',
+          status:'No Action Requred'
+        },
+        {
+          title:"6. Lip Width",
+          description:'Distance between the corners of the lips when at rest.',
+          Measurement: '5.8 cm',
+          status:'Normal'
+        },
+        {
+          title:"7. Forehead Height",
+          description:' Distance from the hairline to the brow.',
+          Measurement: '6.8 cm',
+          status:'Action Needed'
+        },        
+        {
+          title:"8. Symmetry",
+          description:'Overall facial symmetry score.',
+          Measurement: '',
+          'Left-to-Right Symmetry': '92%',
+          status:'Action Needed'
+        }                                                    
+    ]
+  }
   return (
     <>
       <div>
@@ -341,190 +395,35 @@ const OverallAnalysisReport = (props) => {
                 </>
               ) : (
                 <>
-                  <div className="w-full justify-center flex flex-row gap-6 items-stretch">
-                    <img
+                  <div className="w-full justify-center flex gap-6 items-stretch">
+                    {/* <img
                       src="/image/faceOverall-05.png"
                       alt="face-image"
                       className="flex flex-col w-1/2 rounded-3xl border-2 border-primary-color"
-                    />
+                    /> */}
 
-                    <div className="flex flex-col w-1/2 gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
+                    <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
                       <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         Face Measurements Summary
                         <div className="text-[#7E7E7E] font-normal text-sm">
                           2024/02/02
                         </div>
                       </div>
-                      <div className="flex flex-col gap-5 font-normal text-base">
-                        <div className="flex flex-col">
-                          <p>1. Face Width</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: The widest part of the face, measured
-                            across the cheekbones.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">
-                              Measurement: 14.8 cm
-                            </p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                No Action Requred
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      <div className="w-full flex">
+                        <img
+                          src="/image/faceOverall-05.png"
+                          alt="face-image"
+                          className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
+                        />
+                        <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
+                          {data['Facial Analysis'].map((el) => {
+                            return (
+                              <>
+                                <SummaryBox data={el}></SummaryBox>
+                              </>
+                            )
+                          })}
 
-                        <div className="flex flex-col">
-                          <p>2. Face Height</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: From the hairline to the chin.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">
-                              Measurement: 19.3 cm
-                            </p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Normal
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>3. Jawline Width</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: Distance between the angles of the jaw.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">
-                              Measurement: 11.5 cm
-                            </p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Action Needed
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>4. Nose Length</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: From the bridge of the nose to the tip.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">Measurement: 5.2 cm</p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Action Needed
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>5. Eye Distance</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: Distance between the inner corners of
-                            the eyes.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">Measurement: 3.1 cm</p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                No Action Requred
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>6. Lip Width</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: Distance between the corners of the
-                            lips when at rest.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">Measurement: 5.8 cm</p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Normal
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>7. Forehead Height</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: Distance from the hairline to the brow.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">Measurement: 6.8 cm</p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Action Needed
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col">
-                          <p>8. Symmetry</p>
-                          <p className="text-[#7E7E7E] mt-2 decorated-dot">
-                            Description: Overall facial symmetry score.
-                          </p>
-                          <div className="flex flex-row items-center justify-between w-full">
-                            <p className="decorated-dot">
-                              Left-to-Right Symmetry: 92%
-                            </p>
-                            <div className="flex flex-col items-start justify-start gap-2 w-[45%]">
-                              <div className="text-[10px] font-light self-center">
-                                Normal
-                              </div>
-                              <div className="w-full h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                                <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                                <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                                <div className="w-1/3 h-full bg-primary-color"></div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
