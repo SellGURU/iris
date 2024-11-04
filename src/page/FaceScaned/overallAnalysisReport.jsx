@@ -139,10 +139,10 @@ const OverallAnalysisReport = (props) => {
                 </Typography>
               </Breadcrumbs>
               {/* /////////////////////////////////Header section/////////////////////// */}
-              <div className="text-center text-[28px] text-[#2E2E2E] font-medium mb-2 mt-4">
+              <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-4">
                 Face Scan Completed
               </div>
-              <div className="flex justify-center">
+              <div className=" justify-center hidden">
                 <div
                   className="text-justify text-lg text-[#444444] w-[600px] md:w-[850px] md:max-w-[850px] mb-4"
                   style={{
@@ -155,8 +155,8 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full justify-between mb-4 flex mt-5 items-center">
-                <div className="md:flex justify-start items-center">
+              <div className="w-full justify-between  flex mt-2 items-center">
+                <div className="invisible justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
                   </div>
@@ -204,7 +204,7 @@ const OverallAnalysisReport = (props) => {
                 </div>
               </div>
 
-              <div className="w-full justify-center my-8 flex items-center gap-8">
+              <div className="w-full justify-center my-1 flex items-center gap-8">
                 <Button
                   theme={
                     activeTab === "facial"
@@ -230,16 +230,16 @@ const OverallAnalysisReport = (props) => {
                 <>
                   {/* /////////////////////////////////Summary section/////////////////////// */}
                   <div className="w-full justify-center flex flex-row gap-6 items-start">
-                    <div className="flex flex-col w-1/2">
+                    {/* <div className="flex flex-col w-1/2">
                       <img
                         src="/image/faceOverall-01.png"
                         alt="face-image"
                         className="max-h-[917px] rounded-3xl border-2 border-primary-color"
                       />
-                    </div>
+                    </div> */}
 
-                    <div className="flex flex-col w-1/2 gap-4">
-                      <div className="flex flex-row w-full gap-6 items-center justify-center">
+                    <div className="flex flex-col w-full gap-4">
+                      {/* <div className="flex flex-row w-full gap-6 items-center justify-center">
                         <div className="flex flex-col w-1/2">
                           <img
                             src="/image/faceOverall-02.png"
@@ -254,129 +254,152 @@ const OverallAnalysisReport = (props) => {
                             className="max-h-[380px] rounded-3xl border-2 border-primary-color"
                           />
                         </div>
-                      </div>
+                      </div> */}
 
-                      <div className="flex flex-col p-8 rounded-3xl bg-[#f8f8f8]">
-                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-4">
-                          Measurements Summary
-                          <div className="text-[#7E7E7E] font-normal text-sm">
-                            2024/02/02
+                      <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
+                        <div className="w-[40%]">
+                          <div className="flex justify-between gap-2">
+                            <img
+                                src="/image/faceOverall-01.png"
+                                alt="face-image"
+                                className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                              />
+                            <img
+                              src="/image/faceOverall-02.png"
+                              alt="face-image"
+                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                            />         
+                            <img
+                              src="/image/faceOverall-03.png"
+                              alt="face-image"
+                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                            />                                                 
                           </div>
+                          <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
+                            Measurements Summary
+                            <div className="text-[#7E7E7E] font-normal text-sm">
+                              2024/02/02
+                            </div>
+                          </div>
+                            <div className="text-[##444444] font-normal text-sm mb-6">
+                              Here, you can view a summary of an individual's health
+                              status and make the necessary decisions for improving
+                              or managing their health.
+                            </div>
+
                         </div>
+                        <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
+                        <div className="flex-grow ">
 
-                        <div className="text-[##444444] font-normal text-sm mb-6">
-                          Here, you can view a summary of an individual's health
-                          status and make the necessary decisions for improving
-                          or managing their health.
-                        </div>
+                            <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
+                              Feminine Face Assessment
+                              <div className="text-[#7E7E7E] font-normal text-sm">
+                                Intercanthal Distance D - 33 mm
+                              </div>
+                            </div>
 
-                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
-                          Feminine Face Assessment
-                          <div className="text-[#7E7E7E] font-normal text-sm">
-                            Intercanthal Distance D - 33 mm
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  1.Eyebrows height
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right side is 1mm higher
+                                </div>
+                              </div>
 
-                        <div className="flex flex-col gap-1 mb-6">
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              1.Eyebrows height
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right side is 1mm higher
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  2.Lash line
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right side is higher
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              2.Lash line
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right side is higher
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  3.Inter Limbal Opening
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right eye is bigger
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              3.Inter Limbal Opening
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right eye is bigger
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  4.Apex of cheek
+                                </div>
+                                <div className="flex flex-col text-[14px]  w-1/2 font-normal">
+                                  Right side is 3mm higher
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              4.Apex of cheek
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right side is 3mm higher
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  5.Alar base of nose
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right and Left side alighned
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              5.Alar base of nose
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right and Left side alighned
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  6.Upper lip vermillion
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right and Left side alighned
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              6.Upper lip vermillion
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right and Left side alighned
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  7.Transcommissure line
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right side is 1mm lower
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              7.Transcommissure line
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right side is 1mm lower
-                            </div>
-                          </div>
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col text-[14px] w-1/2 font-medium">
+                                  8.Lower lip vermilion
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right and Left side alighned
+                                </div>
+                              </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              8.Lower lip vermilion
+                              <div className="flex flex-row w-full text-base text-left gap-6">
+                                <div className="flex flex-col w-1/2 font-medium">
+                                  9.Chin border
+                                </div>
+                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
+                                  Right and Left side alighned
+                                </div>
+                              </div>
                             </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right and Left side alighned
-                            </div>
-                          </div>
 
-                          <div className="flex flex-row w-full text-base text-left gap-6">
-                            <div className="flex flex-col w-1/2 font-medium">
-                              9.Chin border
-                            </div>
-                            <div className="flex flex-col w-1/2 font-normal">
-                              Right and Left side alighned
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
-                          Color Guide
-                          <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
-                            <div className="flex gap-1 items-center">
-                              <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-                              Action Needed
-                            </div>
-                            <div className="flex gap-1 items-center">
-                              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-                              Normal
-                            </div>
-                            <div className="flex gap-1 items-center">
-                              <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-                              No Action Required
+                            <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
+                              Color Guide
+                              <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
+                                <div className="flex gap-1 items-center">
+                                  <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+                                  Action Needed
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                  <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+                                  Normal
+                                </div>
+                                <div className="flex gap-1 items-center">
+                                  <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+                                  No Action Required
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                          
                       </div>
                     </div>
                   </div>
@@ -406,7 +429,23 @@ const OverallAnalysisReport = (props) => {
                       <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         Face Measurements Summary
                         <div className="text-[#7E7E7E] font-normal text-sm">
-                          2024/02/02
+                          <div className="flex justify-end items-center">
+                            <div className="text-[#444444] text-sm font-normal mr-[80px]">
+                              Client ID: 123456789
+                            </div>
+                            <div className="text-[#7E7E7E] font-normal text-sm mr-8">
+                              Date:{" "}
+                              {date.getDate() +
+                                "   " +
+                                date.toLocaleString("default", { month: "long" }) +
+                                "   " +
+                                date.getFullYear()}
+                            </div>
+                            <div className="text-[#7E7E7E] font-normal text-sm">
+                              Time: {date.getHours()}:{date.getMinutes()}
+                            </div>                           
+                          </div>
+                          {/* 2024/02/02 */}
                         </div>
                       </div>
                       <div className="w-full flex">
