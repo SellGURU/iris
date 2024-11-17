@@ -19,6 +19,7 @@ import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
 import Other from "../../components/overallAnalysisReport/Other";
 import SummaryBox from "./boxs/SummaryBox";
+import ScanData from '../../api/Data/scan.json';
 
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("overall");
@@ -260,17 +261,17 @@ const OverallAnalysisReport = (props) => {
                         <div className="w-[40%]">
                           <div className="flex justify-between gap-2">
                             <img
-                                src="/image/faceOverall-01.png"
+                                src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
                                 alt="face-image"
                                 className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
                               />
                             <img
-                              src="/image/faceOverall-02.png"
+                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
                               alt="face-image"
                               className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
                             />         
                             <img
-                              src="/image/faceOverall-03.png"
+                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
                               alt="face-image"
                               className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
                             />                                                 
@@ -300,83 +301,84 @@ const OverallAnalysisReport = (props) => {
 
                             <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   1.Eyebrows height
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is 1mm higher
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {/* Right side is 1mm higher */}
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   2.Lash line
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is higher
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lash_line.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col min-w-[174px] w-[180px] font-medium">
                                   3.Inter Limbal Opening
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right eye is bigger
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.inter_limbal_opening.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   4.Apex of cheek
                                 </div>
-                                <div className="flex flex-col text-[14px]  w-1/2 font-normal">
-                                  Right side is 3mm higher
+                                <div className="flex flex-col text-[14px]   font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.apex_of_cheek.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   5.Alar base of nose
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   6.Upper lip vermillion
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.upper_lip_vermillion.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px] font-medium">
                                   7.Transcommissure line
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is 1mm lower
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.transcommissure_line.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col text-[14px] w-1/2 font-medium">
+                                <div className="flex flex-col text-[14px] w-[180px] font-medium">
                                   8.Lower lip vermilion
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lower_lip_vermillion.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   9.Chin border
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.chin_border.symmetry_text}
                                 </div>
                               </div>
                             </div>
