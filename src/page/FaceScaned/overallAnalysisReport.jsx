@@ -19,6 +19,7 @@ import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
 import Other from "../../components/overallAnalysisReport/Other";
 import SummaryBox from "./boxs/SummaryBox";
+import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
 // import ScanData from '../../api/Data/scan.json';
 import {PatientContext} from '../../context/context.jsx'
 const OverallAnalysisReport = (props) => {
@@ -28,7 +29,19 @@ const OverallAnalysisReport = (props) => {
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
   const {report} = useContext(PatientContext)
+  const [activePart,setActivePart] = useState("")
   // console.log(report)
+  const resolveActivePartName =() => {
+    if(activePart == ''){
+      return ' Face Measurements Summary'
+    }
+    return activePart +' Measurements Summary'    
+    // return ""
+  }
+  const resolveChangePart = (name)=>{
+    setActivePart(name)
+  }
+
   const ScanData = report
   useConstructor(() => {
     Application.getScanDetails({
@@ -80,51 +93,89 @@ const OverallAnalysisReport = (props) => {
           title:"1. Face Width",
           description:'The widest part of the face, measured across the cheekbones.',
           Measurement: '14.8 cm',
-          status:'No Action Requred'
+          status:'No Action Requred',
+          category:""
         },
         {
           title:"2. Face Height",
           description:'From the hairline to the chin.',
           Measurement: '19.3 cm',
-          status:'Normal'
+          status:'Normal',
+          category:""
         },
         {
           title:"3. Jawline Width",
           description:'Distance between the angles of the jaw.',
           Measurement: ' 11.5 cm',
-          status:'Action Needed'
+          status:'Action Needed',
+          category:""
         },
         {
           title:"4. Nose Length",
           description:'From the bridge of the nose to the tip.',
           Measurement: '5.2 cm',
-          status:'Action Needed'
+          status:'Action Needed',
+          category:""
         },
         {
           title:"5. Eye Distance",
           description:'Distance between the inner corners of the eyes.',
           Measurement: '3.1 cm',
-          status:'No Action Requred'
+          status:'No Action Requred',
+          category:""
         },
         {
           title:"6. Lip Width",
           description:'Distance between the corners of the lips when at rest.',
           Measurement: '5.8 cm',
-          status:'Normal'
+          status:'Normal',
+          category:""
         },
         {
           title:"7. Forehead Height",
           description:' Distance from the hairline to the brow.',
           Measurement: '6.8 cm',
-          status:'Action Needed'
+          status:'Action Needed',
+          category:""
         },        
         {
           title:"8. Symmetry",
           description:'Overall facial symmetry score.',
           Measurement: '',
           'Left-to-Right Symmetry': '92%',
-          status:'Action Needed'
-        }                                                    
+          status:'Action Needed',
+          category:""
+        },
+        {
+          title:"1. Forehead Width",
+          description:'The widest part of the face, measured across the cheekbones.',
+          Measurement: '19.3 cm',
+          'Left-to-Right Symmetry': '',
+          status:'Action Needed',
+          category:"Forehead"
+        },
+        {
+          title:"2. Forehead Height",
+          description:'The widest part of the face, measured across the cheekbones',
+          Measurement: '19.3 cm',
+          status:'Normal',
+          category:"Forehead"
+        },             
+        {
+          title:"1. Nose Width",
+          description:'The widest part of the face, measured across the cheekbones.',
+          Measurement: '12.3 cm',
+          'Left-to-Right Symmetry': '',
+          status:'Action Needed',
+          category:"Nose"
+        },
+        {
+          title:"2. Nose Height",
+          description:'The widest part of the face, measured across the cheekbones',
+          Measurement: '30.3 cm',
+          status:'Normal',
+          category:"Nose"
+        },                                                                     
     ]
   }
   return (
@@ -230,7 +281,7 @@ const OverallAnalysisReport = (props) => {
                 </Button>
               </div>
               {activeTab === "overall" ? (
-                <>
+                <div id="mydiv">
                   {/* /////////////////////////////////Summary section/////////////////////// */}
                   <div className="w-full justify-center flex flex-row gap-6 items-start">
                     {/* <div className="flex flex-col w-1/2">
@@ -265,17 +316,17 @@ const OverallAnalysisReport = (props) => {
                             <img
                                 src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
                                 alt="face-image"
-                                className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                                className=" w-[150px] rounded-3xl border-2 border-primary-color"
                               />
                             <img
                               src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
                               alt="face-image"
-                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
                             />         
                             <img
                               src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
                               alt="face-image"
-                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
                             />                                                 
                           </div>
                           <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
@@ -420,7 +471,7 @@ const OverallAnalysisReport = (props) => {
                     <PhiltralColumn data={ScanData} />
                     <Other data={ScanData}  />
                   </div>
-                </>
+                </div>
               ) : (
                 <>
                   <div className="w-full justify-center flex gap-6 items-stretch">
@@ -432,7 +483,14 @@ const OverallAnalysisReport = (props) => {
 
                     <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
                       <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
-                        Face Measurements Summary
+                        <div className="flex justify-start items-center gap-4">
+                          {activePart !='' &&
+                            <img className="cursor-pointer" onClick={() => {
+                            setActivePart("")
+                            }} src="./icons/back2.svg" alt="" />
+                           }
+                          {resolveActivePartName()}
+                        </div>
                         <div className="text-[#7E7E7E] font-normal text-sm">
                           <div className="flex justify-end items-center">
                             <div className="text-[#444444] text-sm font-normal mr-[80px]">
@@ -454,13 +512,19 @@ const OverallAnalysisReport = (props) => {
                         </div>
                       </div>
                       <div className="w-full flex">
-                        <img
+                        <div className="relative z-20">
+                          <FaceMeshView imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                            console.log(e)
+                            resolveChangePart(e)
+                          }}></FaceMeshView>
+                        </div>
+                        {/* <img
                           src="/image/faceOverall-05.png"
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
-                        />
+                        /> */}
                         <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
-                          {data['Facial Analysis'].map((el) => {
+                          {data['Facial Analysis'].filter(cat =>cat.category== activePart).map((el) => {
                             return (
                               <>
                                 <SummaryBox data={el}></SummaryBox>

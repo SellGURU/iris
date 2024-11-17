@@ -69,18 +69,25 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
 
     const drawNoseEyesLips = (canvas, context, landmarks) => {
         const points = {
-            nose: [1, 2, 5, 6, 10, 11, 195, 197],
-            leftEye: [33],
-            rightEye: [362, 263],
-            lips: [61, 409],
+            Nose: [197],
+            Chin:[200],
+            Cheek:[50],
+            Forehead:[10],
+            Eyebrow:[300],
+            "Philtral Column":[280],
+            // leftEye: [33],
+            Eye: [362],
+            Lips: [61],
         };
-
-        const whiteCircleIndices = [10, 151, 234, 93];
+// , 151, 234, 93
+        const whiteCircleIndices = [];
         const colors = {
-            nose: "#FF4C4C",
-            leftEye: "#4C4CFF",
-            rightEye: "#4CFF4C",
-            lips: "#FF69B4",
+            Nose: "#FFFFFF",
+            Eye: "#FFFFFF",
+            lip: "#FFFFFF",
+            Chin:"#FFFFFF",
+            Forehead:"#FFFFFF",
+            Eyebrow:"#FFFFFF"
         };
 
         const circles = [];
@@ -90,11 +97,12 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
                 const point = landmarks[index];
                 const x = point.x * canvas.width;
                 const y = point.y * canvas.height;
-                const radius = 8;
+                const radius = 3;
 
                 context.beginPath();
                 context.arc(x, y, radius, 0, 2 * Math.PI);
                 context.fillStyle = color;
+                
                 context.fill();
 
                 circles.push({ x, y, radius, feature, index });
