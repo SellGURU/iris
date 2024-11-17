@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 import { useConstructor } from "../../help";
 import Application from "../../api/Application";
-import { useSearchParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -31,6 +31,15 @@ const OverallAnalysisReport = (props) => {
   const {report} = useContext(PatientContext)
   const [activePart,setActivePart] = useState("")
   // console.log(report)
+  const navigate = useNavigate()
+  const ScanData = report
+  console.log(ScanData.data)
+
+  if(ScanData.data == undefined){
+    navigate('/')
+    return ''
+  }
+
   const resolveActivePartName =() => {
     if(activePart == ''){
       return ' Face Measurements Summary'
@@ -42,7 +51,7 @@ const OverallAnalysisReport = (props) => {
     setActivePart(name)
   }
 
-  const ScanData = report
+ 
   useConstructor(() => {
     Application.getScanDetails({
       scanCode: searchParams.get("scanId"),
@@ -62,12 +71,14 @@ const OverallAnalysisReport = (props) => {
     // downloadLink.href = pdf;
     // downloadLink.download = 'download.html';
     // downloadLink.click();
-    var mywindow = window.open("", "PRINT", "height=400,width=600");
+    var mywindow = window.open("", "PRINT", "height=1500,width=1500");
     // // console.log(document.getElementById('reported'))
-    mywindow.document.write(
-      "<html><head><title>" + document.title + "</title>"
-    );
-    mywindow.document.write("</head><body >");
+    //  const tailwindCDN = '<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">';
+    // mywindow.document.write(
+    //   "<html><head><title>" + document.title + "</title>"
+    // );
+    mywindow.document.write("<html><head><title>" + document.title + "</title> <link href=`https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css` rel=`stylesheet`></head>");    
+    mywindow.document.write("<body >");
     mywindow.document.write("<h1>" + document.title + "</h1>");
     mywindow.document.write(document.getElementById("mydiv").innerHTML);
     mywindow.document.write("</body></html>");
@@ -75,8 +86,9 @@ const OverallAnalysisReport = (props) => {
     mywindow.document.close(); // necessary for IE >= 10
     mywindow.focus(); // necessary for IE >= 10*/
 
-    mywindow.print();
+    // mywindow.print();
     mywindow.close();
+    window.print()
     // window.frames["reported"].focus();
     // window.frames["reported"].print();
     // document.getElementById("mydiv").contentWindow.print();
@@ -184,14 +196,17 @@ const OverallAnalysisReport = (props) => {
         <div className={`${isLoading && "hidden"}`}>
           {!props?.smallReport && (
             <div className="px-12">
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" className="text-primary-color" href="/">
-                  Home
-                </Link>
-                <Typography className="text-primary-color">
-                  View Report
-                </Typography>
-              </Breadcrumbs>
+              <div className="print:hidden">
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link underline="hover" className="text-primary-color" href="/">
+                    Home
+                  </Link>
+                  <Typography className="text-primary-color">
+                    View Report
+                  </Typography>
+                </Breadcrumbs>
+
+              </div>
               {/* /////////////////////////////////Header section/////////////////////// */}
               <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-4">
                 Face Scan Completed
@@ -209,7 +224,7 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full justify-between  flex mt-2 items-center">
+              <div className="w-full print:hidden justify-between  flex mt-2 items-center">
                 <div className="invisible justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
@@ -258,7 +273,7 @@ const OverallAnalysisReport = (props) => {
                 </div>
               </div>
 
-              <div className="w-full justify-center my-1 flex items-center gap-8">
+              <div className="w-full justify-center print:hidden my-1 flex items-center gap-8">
                 <Button
                   theme={
                     activeTab === "facial"
@@ -281,7 +296,7 @@ const OverallAnalysisReport = (props) => {
                 </Button>
               </div>
               {activeTab === "overall" ? (
-                <div id="mydiv">
+                <div id="mydiv" className="print:min-w-[1600px] print:scale-50 print:ml-[-400px] print:mt-[-300px]">
                   {/* /////////////////////////////////Summary section/////////////////////// */}
                   <div className="w-full justify-center flex flex-row gap-6 items-start">
                     {/* <div className="flex flex-col w-1/2">
