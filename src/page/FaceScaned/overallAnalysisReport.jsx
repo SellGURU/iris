@@ -3,7 +3,7 @@
 import { useConstructor } from "../../help";
 import Application from "../../api/Application";
 import { useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -19,15 +19,17 @@ import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
 import Other from "../../components/overallAnalysisReport/Other";
 import SummaryBox from "./boxs/SummaryBox";
-import ScanData from '../../api/Data/scan.json';
-
+// import ScanData from '../../api/Data/scan.json';
+import {PatientContext} from '../../context/context.jsx'
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("overall");
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
-
+  const {report} = useContext(PatientContext)
+  // console.log(report)
+  const ScanData = report
   useConstructor(() => {
     Application.getScanDetails({
       scanCode: searchParams.get("scanId"),
@@ -408,14 +410,15 @@ const OverallAnalysisReport = (props) => {
 
                   {/* /////////////////////////////////Categories section/////////////////////// */}
                   <div className="w-full justify-center flex flex-col items-start mt-10">
-                    <Nose />
-                    <Chin />
-                    <Lip />
-                    <Cheek />
-                    <Forehead />
-                    <Eyebrow />
-                    <PhiltralColumn />
-                    <Other />
+                    <Nose data={ScanData} />
+                    {/* <div>{ScanData.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}</div> */}
+                    <Chin data={ScanData} />
+                    <Lip data={ScanData} />
+                    <Cheek data={ScanData}  />
+                    <Forehead data={ScanData}  />
+                    <Eyebrow data={ScanData} />
+                    <PhiltralColumn data={ScanData} />
+                    <Other data={ScanData}  />
                   </div>
                 </>
               ) : (

@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Cheek = () => {
+const Cheek = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,36 +17,35 @@ const Cheek = () => {
           Cheek
         </div>
         <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+          <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
             <div className="flex flex-row w-full">
-              Width of cheek from Medial Canthus =1.618D
+              Width of cheek from Medial Canthus ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_cheek_from_medial_canthus.ideal_distance}D
             </div>
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full mt-2 justify-between items-center">
               <p>Left:</p>
-              <p>1.397(86%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_cheek_from_medial_canthus.side.left.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_cheek_from_medial_canthus.side.left.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
             <div className="flex flex-row w-full justify-between items-center">
               <p>Right:</p>
-              <p>1.353(84%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_cheek_from_medial_canthus.side.right.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_cheek_from_medial_canthus.side.right.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
           </div>
 
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>
+          <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
+            <p className="w-full">
               Apex of cheek
-              <br />
-              =1.618D
+              ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.apex_of_cheek.ideal_distance}D
             </p>
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full mt-2 justify-between items-center">
               <p>Left:</p>
-              <p>1.151(72%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.apex_of_cheek.side.left.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.apex_of_cheek.side.left.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
             <div className="flex flex-row w-full justify-between items-center">
               <p>Right:</p>
-              <p>1.193(74%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.apex_of_cheek.side.right.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.apex_of_cheek.side.right.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
           </div>

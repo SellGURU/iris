@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Forehead = () => {
+const Forehead = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,18 +18,18 @@ const Forehead = () => {
           Forehead
         </div>
         <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+          <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
             <div className="flex flex-row w-full">
-              Height of Forhead to Hairline =1.618D
+              Height of Forhead to Hairline ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.ideal_distance}D
             </div>
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full mt-4 justify-between items-center">
               <p>Left:</p>
-              <p>1.356(84%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
             <div className="flex flex-row w-full justify-between items-center">
               <p>Right:</p>
-              <p>1.309(81%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.right.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.right.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
           </div>

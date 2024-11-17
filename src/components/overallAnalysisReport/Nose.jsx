@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Nose = () => {
+const Nose = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,34 +19,34 @@ const Nose = () => {
         <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
           <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
             <div className="flex flex-row w-full">
-              Intercanthal Line of Nasal Tip =1.0D
+              Intercanthal Line of Nasal Tip ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.intercanthal_to_nasal_tip.ideal_distance}D
             </div>
             <div className="flex flex-row w-full justify-between items-center">
-              <p>Dist: 1.125 (113%)</p>
+              <p>Dist: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.intercanthal_to_nasal_tip.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.intercanthal_to_nasal_tip.percent}%)</p>
               <div className="w-4 h-4 bg-primary-color rounded-full"></div>
             </div>
           </div>
 
           <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Alar Base of Nose =1.0D</p>
+            <p>Alar Base of Nose ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.alar_base_of_nose.ideal_distance}D</p>
             <div className="flex flex-row w-full justify-between items-center">
-              <p>Width: 0.962 (96%)</p>
+              <p>Width: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.alar_base_of_nose.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.alar_base_of_nose.percent}%)</p>
               <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
             </div>
           </div>
 
           <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Nasal Tip Height from Columella Base =0.618D</p>
+            <p>Nasal Tip Height from Columella Base ={data.data.pose_analysis[0].current_image_analysis.measurements.measurements_in_profile.nasal_tip_from_base_of_columella.ideal_distance}D</p>
             <div className="flex flex-row w-full justify-between items-center">
-              <p>Dist: 0.609 (99%)</p>
+              <p>Dist: {data.data.pose_analysis[0].current_image_analysis.measurements.measurements_in_profile.nasal_tip_from_base_of_columella.ratio} ( {data.data.pose_analysis[0].current_image_analysis.measurements.measurements_in_profile.nasal_tip_from_base_of_columella.percent}%)</p>
               <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
             </div>
           </div>
 
           <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Lenght of Nose from Eylas =1.618D</p>
+            <p>Lenght of Nose from Eylas ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ideal_distance}D</p>
             <div className="flex flex-row w-full justify-between items-center">
-              <p>Lenght: 1.519 (94%)</p>
+              <p>Lenght: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.percent}%)</p>
               <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
             </div>
           </div>

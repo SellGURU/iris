@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Other = () => {
+const Other = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -37,28 +38,28 @@ const Other = () => {
             </div>
 
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Medial Canthus to Medial Brow =0.618D</p>
+              <p>Medial Canthus to Medial Brow ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.medial_canthus_to_medial_brow.ideal_distance}D</p>
             </div>
           </div>
 
           <div className="flex flex-row w-full gap-[69px]">
             <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Angle: 13 degrees</p>
+                <p>Angle: {data.data.pose_analysis[0].current_image_analysis.measurements.measurements_in_profile.forehead_curve.ratio} degrees</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
             <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Offset: 0.667 mm</p>
+                <p>Offset:  {data.data.pose_analysis[0].current_image_analysis.measurements.measurements_in_profile.steiners_line.ratio}  mm</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
             <div className="flex flex-col items-start justify-start w-[20%]">
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: 0.653(106%)</p>
+                <p>Dist: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.medial_canthus_to_medial_brow.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.medial_canthus_to_medial_brow.percent}%)</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>

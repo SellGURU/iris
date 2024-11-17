@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Lip = () => {
+const Lip = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,42 +19,42 @@ const Lip = () => {
         </div>
         <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
           <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+            <div className="flex flex-col items-start justify-between w-[24%] h-[7vh]">
               <div className="flex flex-row w-full">
-                Vertical Height of Lips(middle) =0.618D
+                Vertical Height of Lips(middle) ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.ideal_distance}D
               </div>
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Height: 0.643 (104%)</p>
+                <p>Height: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.percent}%)</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Central Fullness of Lower Lips =1.0D</p>
+              <p>Central Fullness of Lower Lips ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.ideal_distance}D</p>
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Width: 0.962 (96%)</p>
+                <p>Width: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.percent}%)</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
             </div>
 
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+            {/* <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
               <p>Upper Lip to Menton of chin =1.618D</p>
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Dist: 1.355(84%)</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Width of Lips =1.618D</p>
+              <p>Width of Lips ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.ideal_distance}D</p>
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Width:1.359(84%)</p>
+                <p>Width:{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.percent}%)</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-row w-full gap-[69px]">
+          {/* <div className="flex flex-row w-full gap-[69px]">
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
               <div className="flex flex-row w-full">
                 Upper Lip Height/Lower Lip Height =0.618
@@ -70,7 +72,7 @@ const Lip = () => {
                 <div className="w-4 h-4 bg-primary-color rounded-full"></div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

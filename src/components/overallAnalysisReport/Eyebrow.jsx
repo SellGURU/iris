@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Eyebrow = () => {
+const Eyebrow = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +19,7 @@ const Eyebrow = () => {
         <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
           <div className="flex flex-row w-full gap-[69px]">
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Eyebrow Lenght =1.618D</p>
+              <p>Eyebrow Lenght ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.ideal_distance}D</p>
             </div>
 
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
@@ -50,19 +51,19 @@ const Eyebrow = () => {
             <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Left:</p>
-                <p>-0.276 mm</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.side.left.ratio}mm</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Right:</p>
-                <p>1.671 mm</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.side.right.ratio} mm</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
 
             <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
               <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: 0.866(87%)</p>
+                <p>Dist: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.distance_between_medial_eyebrows.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.distance_between_medial_eyebrows.percent}%)</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
             </div>
@@ -70,12 +71,12 @@ const Eyebrow = () => {
             <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Left:</p>
-                <p>-0.276 mm</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.tail_of_eyebrow.side.left.ratio}mm</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Right:</p>
-                <p>1.671 mm</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.tail_of_eyebrow.side.right.ratio} mm</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
@@ -83,12 +84,12 @@ const Eyebrow = () => {
             <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Left:</p>
-                <p>13 degrees</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.slope_of_eyebrow.side.left.ratio} degrees</p>
                 <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
               </div>
               <div className="flex flex-row w-full justify-between items-center">
                 <p>Right:</p>
-                <p>15 degrees</p>
+                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.slope_of_eyebrow.side.right.ratio} degrees</p>
                 <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
               </div>
             </div>
