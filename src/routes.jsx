@@ -24,6 +24,8 @@ import InformationSiginup from "./page/informationSiginup.jsx";
 import OverallAnalysisReport from "./page/FaceScaned/overallAnalysisReport.jsx";
 import { ScanHistoryCompare } from "./page/compare/scanHistoryCompare.jsx";
 // import FacialAnalysisReport from "./page/FaceScaned/facialAnaly";
+import TestReport from "./page/testReport/testReport.jsx";
+import FaceMeshViwe from "./components/faceMash/FaceMeshViwe.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -123,6 +125,7 @@ export const route = [
       //     </IsLogin>
       //   ),
       // },
+
       {
         path: "compare/:id",
         element: (
@@ -147,6 +150,7 @@ export const route = [
           </IsLogin>
         ),
       },
+
       {
         path: "tour",
         element: (
@@ -174,5 +178,10 @@ export const route = [
       { path: "getnumber", element: <GetCode /> },
       { path: "test", element: <h1>test</h1> },
     ],
+  },
+  {
+    path: "/testr",
+    // element: <TestReport />,
+    element: <FaceMeshViwe />,
   },
 ];
