@@ -20,7 +20,8 @@ const ShowReport = (props) => {
             scanCode: searchParams.get("scanId"),
             orgCode: JSON.parse(orgs).orgCode,
             orgSCode: JSON.parse(orgs).orgSCode,
-            client_id: searchParams.get("clientId")
+            client_id: searchParams.get("clientId"),
+            rdataKey:'analysis'
         }).then((res) => {
             console.log(res)
             setIsLoading(false)
