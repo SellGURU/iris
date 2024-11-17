@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import { useState, useRef, useEffect } from "react";
-import { FaceMesh } from "@mediapipe/face_mesh";
+// import { FaceMesh } from "@mediapipe/face_mesh";
 
 const useFaceMesh = (initialImageSrc = null) => {
     const [resolvedFile, setResolvedFile] = useState(initialImageSrc || "");
