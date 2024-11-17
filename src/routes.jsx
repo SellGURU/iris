@@ -26,6 +26,7 @@ import { ScanHistoryCompare } from "./page/compare/scanHistoryCompare.jsx";
 // import FacialAnalysisReport from "./page/FaceScaned/facialAnaly";
 import TestReport from "./page/testReport/testReport.jsx";
 import FaceMeshViwe from "./components/faceMash/FaceMeshViwe.jsx";
+import FaceMeshContainer from "./page/testReport/testReport.jsx";
 export const route = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
@@ -150,7 +151,6 @@ export const route = [
           </IsLogin>
         ),
       },
-
       {
         path: "tour",
         element: (
@@ -168,7 +168,7 @@ export const route = [
         <ShowReport smallReport={true}></ShowReport>
       </IsLogin>
     ),
-  },
+  },  
   {
     path: "/SignUp",
     element: <SignUp />,
@@ -181,7 +181,7 @@ export const route = [
   },
   {
     path: "/testr",
-    // element: <TestReport />,
-    element: <FaceMeshViwe />,
+    element: <FaceMeshContainer />,
+    // element: <FaceMeshViwe />,
   },
 ];
