@@ -122,6 +122,7 @@ const UploadFaceMash = () => {
             frontal_current:resolvedFile.split(',')[1],
             orgSCode: JSON.parse(orgs).orgSCode,
             orgCode:JSON.parse(orgs).orgCode,
+            rdataKey:"analysis"
         }).then(res => {
             console.log(res)
             if(res.data.data){

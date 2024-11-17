@@ -83,7 +83,7 @@ export const route = [
         ),
       },
       {
-        path: "result",
+        path: "resultOld",
         element: (
           <IsLogin>
             <FaceScaned></FaceScaned>
@@ -100,7 +100,7 @@ export const route = [
       },
       // mina added
       {
-        path: "overallAnalysisReport",
+        path: "result",
         element: (
           <IsLogin>
             <OverallAnalysisReport></OverallAnalysisReport>
