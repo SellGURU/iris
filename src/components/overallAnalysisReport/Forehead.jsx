@@ -11,7 +11,7 @@ const Forehead = ({data}) => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon_face.png"
+            src="/image/Forehead.svg"
             alt="icon_forehead"
             className="w-10 h-10"
           />
