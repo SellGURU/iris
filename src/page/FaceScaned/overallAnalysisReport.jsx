@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
-import { useConstructor } from "../../help";
+// import { useConstructor } from "../../help";
 import Application from "../../api/Application";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -25,11 +25,18 @@ import {PatientContext} from '../../context/context.jsx'
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("overall");
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [date, setDate] = useState(new Date());
+  const [isLoading, ] = useState(false);
+  const [date, ] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
-  const {report} = useContext(PatientContext)
+  const {report,patientID} = useContext(PatientContext)
+  const [textComment,setTextComment] = useState('') 
   const [activePart,setActivePart] = useState("")
+  const updateComment=() => {
+      // let patients= JSON.parse(localStorage.getItem("patients"))
+      // let patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+      // setComment(patients[patientIndex].comments);
+  }    
+  const [isShowAddComment, setIsShowAddComment] = useState(false); 
   // console.log(report)
   const navigate = useNavigate()
   const ScanData = report
@@ -51,21 +58,21 @@ const OverallAnalysisReport = (props) => {
     setActivePart(name)
   }
 
- 
-  useConstructor(() => {
-    Application.getScanDetails({
-      scanCode: searchParams.get("scanId"),
-      orgCode: JSON.parse(orgs).orgCode,
-      orgSCode: JSON.parse(orgs).orgSCode,
-      client_id: searchParams.get("clientId"),
-    }).then((res) => {
-      console.log(res);
-      setIsLoading(false);
-      setDate(new Date(res.data.data.timestamp));
-      var decodedHTML = window.atob(res.data.data.html_file);
-      document.getElementById("mydiv").innerHTML = decodedHTML;
-    });
-  });
+
+  // useConstructor(() => {
+  //   Application.getScanDetails({
+  //     scanCode: searchParams.get("scanId"),
+  //     orgCode: JSON.parse(orgs).orgCode,
+  //     orgSCode: JSON.parse(orgs).orgSCode,
+  //     client_id: searchParams.get("clientId"),
+  //   }).then((res) => {
+  //     console.log(res);
+  //     setIsLoading(false);
+  //     setDate(new Date(res.data.data.timestamp));
+  //     var decodedHTML = window.atob(res.data.data.html_file);
+  //     document.getElementById("mydiv").innerHTML = decodedHTML;
+  //   });
+  // });
   const download = () => {
     // const downloadLink = document.createElement("a");
     // downloadLink.href = pdf;
@@ -99,6 +106,39 @@ const OverallAnalysisReport = (props) => {
     // console.log(pdf.replace("data:text/html;base64,",''))
     // document.getElementById("mydiv").innerHTML = decodedHTML;
   };
+  const formHandler = () => {
+      if(textComment.length>0){
+          Application.addComment({
+              client_id:patientID,
+              orgCode: JSON.parse(orgs).orgCode,
+              orgSCode: JSON.parse(orgs).orgSCode,
+              comment_text: textComment                
+          }).then(() => {
+          })
+          const patients= JSON.parse(localStorage.getItem("patients"))
+          console.log(patients)
+          const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+          console.log(patientIndex)
+          const newComment = {
+              cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+              cText: textComment ,
+              cTextDateTime: new Date().toISOString()
+          };
+          if(patients[patientIndex]){
+              if (patients[patientIndex].comments) {
+                  patients[patientIndex].comments.push(newComment);
+              } else {
+                  patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+              }
+          }
+          localStorage.setItem("patients", JSON.stringify(patients));
+          setIsShowAddComment(false)
+          updateComment()
+          setTextComment("")
+      }else {
+          setIsShowAddComment(false)
+      }
+  } 
   const data = {
     "Facial Analysis":[
         {
@@ -242,7 +282,9 @@ const OverallAnalysisReport = (props) => {
                   </div>
                 </div>
                 <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
-                  <Button theme="iris-tertiary">
+                  <Button onClick={() => {
+                    setIsShowAddComment(true)
+                  }} theme="iris-tertiary">
                     <div className="pelusicon tirtryIconHover bg-primary-color" />
                     Add Comment
                   </Button>
@@ -272,7 +314,34 @@ const OverallAnalysisReport = (props) => {
                   </Button>
                 </div>
               </div>
+                {isShowAddComment &&
+                    <div className="mb-2">
+                        <div className={"w-full px-12 flex items-center justify-center"}>
+                            <div className={" px-5 pt-5 w-full flex items-end gap-5 justify-end border-b pb-2"}>
+                                <input value={textComment} onChange={(el) => {
+                                    setTextComment(el.target.value)
+                                }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                    formHandler()                                       
+                                }} className={"!text-xs !px-4 !py-2.5"}>
+                                    Add Comment
+                                </ButtonPrimary> */}
+                                <div className="w-full flex justify-end">
+                                    <Button disabled={textComment.length == 0} onClick={() => {
+                                        formHandler()
+                                    }} theme="iris-small">
+                                        {textComment.length>0?
+                                        'Save'
+                                        :
+                                        'Add Comment'
+                                        }
+                                    </Button>
 
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                }
               <div className="w-full justify-center print:hidden my-1 flex items-center gap-8">
                 <Button
                   theme={
@@ -347,7 +416,12 @@ const OverallAnalysisReport = (props) => {
                           <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                             Measurements Summary
                             <div className="text-[#7E7E7E] font-normal text-sm">
-                              2024/02/02
+                            { Number(date.getMonth()+1) +
+                              " /" +
+                              date.getDate()
+                              +
+                              " /" +
+                              date.getFullYear()}
                             </div>
                           </div>
                             <div className="text-[##444444] font-normal text-sm mb-6">
