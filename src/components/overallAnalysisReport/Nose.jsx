@@ -44,9 +44,9 @@ const Nose = ({data}) => {
           </div>
 
           <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Lenght of Nose from Eylas ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ideal_distance}D</p>
+            <p>Length of Nose from Eylas ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ideal_distance}D</p>
             <div className="flex flex-row w-full justify-between items-center">
-              <p>Lenght: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.percent}%)</p>
+              <p>Length: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.length_of_nose_from_eyelash_line.percent}%)</p>
               <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
             </div>
           </div>

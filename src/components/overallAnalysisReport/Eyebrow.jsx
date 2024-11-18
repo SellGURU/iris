@@ -19,7 +19,7 @@ const Eyebrow = ({data}) => {
         <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
           <div className="flex flex-row w-full gap-[69px]">
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Eyebrow Lenght ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.ideal_distance}D</p>
+              <p>Eyebrow Length ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.ideal_distance}D</p>
             </div>
 
             <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
