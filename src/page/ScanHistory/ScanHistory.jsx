@@ -17,7 +17,7 @@ import PackageApi from "../../api/package.js";
 import {PatientContext} from '../../context/context.jsx';
 import Package from "../../model/Package.js";
 import { toast } from "react-toastify";
-
+import CompareSection from "../../components/scanHistoryCompare/CompareSection";
 export const ScanHistory = () => {
     // const {patients2,addPatient} = useContext(PatientContext);
     const closeCamera= () => {
@@ -345,15 +345,18 @@ export const ScanHistory = () => {
                                         setActiveResult(patient.client_info.clientCode)
                                     }}
                                 />
-                                {activeResult == patient.client_info.clientCode &&
-                                    <div className="w-full mt-0">
-                                        {results.map((el) => {
-                                            return (
-                                                <iframe className="h-[350px] w-full rounded-[12px] p-2"
-                                                        style={{boxShadow: '0px 0px 12px 0px #00000026'}}
-                                                        src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>
-                                            )
-                                        })}</div>
+                                {activeResult == patient.client_info.clientCode && results.length ==2 &&
+                                    <div>
+                                        <CompareSection clientId={activeResult} results={results}></CompareSection>
+                                    </div>
+                                    // <div className="w-full mt-0">
+                                    //     {results.map((el) => {
+                                    //         return (
+                                    //             <iframe className="h-[350px] w-full rounded-[12px] p-2"
+                                    //                     style={{boxShadow: '0px 0px 12px 0px #00000026'}}
+                                    //                     src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>
+                                    //         )
+                                    //     })}</div>
                                 }
                             </>
                         );
