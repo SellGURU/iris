@@ -86,11 +86,14 @@ const CompareSection = ({results,clientId}) => {
           {/* /////////////////////////////////Header Client 1 section/////////////////////// */}
           <div className="grid grid-cols-6 grid-rows-2 gap-x-2 gap-y-[10px] w-full">
             <div className="bg-[#F5F5F5] rounded-xl col-span-2 row-span-2 h-full flex flex-row items-center justify-center px-5 gap-4">
-              <img
-                src={data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input}
-                alt="face-image"
-                className="max-h-[175px] h-[175px] w-32 rounded-3xl border-2 border-primary-color"
-              />
+              <div className="max-h-[175px] object-center h-[175px] w-[230px] overflow-hidden  rounded-3xl border-2 border-primary-color">
+                <img
+                  src={data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input}
+                  alt="face-image"
+                  className=" w-full h-full object-cover object-center"
+                />
+
+              </div>
               <div className="flex flex-col h-full items-start justify-between w-full pt-[22px] pb-6">
                 <div className="flex flex-col w-full">
                   <div className="flex flex-row items-center justify-between w-full text-xl font-medium">
