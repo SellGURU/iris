@@ -3,7 +3,7 @@
 // import { useConstructor } from "../../help";
 import Application from "../../api/Application";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
@@ -40,8 +40,34 @@ const OverallAnalysisReport = (props) => {
   // console.log(report)
   const navigate = useNavigate()
   const ScanData = report
-  console.log(ScanData.data)
+  const resolveArrayMeasurments = () => {
+    // console.log(ScanData.data)
+    const allData = []
+    Object.keys(ScanData.data.pose_analysis[0].current_image_analysis.measurements).map(key => {
 
+      const resolved = Object.entries(ScanData.data.pose_analysis[0].current_image_analysis.measurements[key]).filter((el) =>el[0] !='measurements_list').map(([key, value]) => ({
+        key, 
+        ...value, 
+      }));
+      allData.push(...resolved)
+    })
+    return allData
+  }
+  const resolveFacialData = () => {
+    if(activePart == ''){
+      return resolveArrayMeasurments()
+    }
+    return resolveArrayMeasurments().filter((el => el.category ==activePart))
+  }
+  const resolveAllCategories = () => {
+    return Array.from(new Set(resolveArrayMeasurments().map(item => item.category)));
+  }
+  useEffect(() => {
+    resolveArrayMeasurments()
+    // console.log(
+    //   resolveAllCategories()
+    // )
+  },[])
   if(ScanData.data == undefined){
     navigate('/')
     return ''
@@ -139,97 +165,7 @@ const OverallAnalysisReport = (props) => {
           setIsShowAddComment(false)
       }
   } 
-  const data = {
-    "Facial Analysis":[
-        {
-          title:"1. Face Width",
-          description:'The widest part of the face, measured across the cheekbones.',
-          Measurement: '14.8 cm',
-          status:'No Action Requred',
-          category:""
-        },
-        {
-          title:"2. Face Height",
-          description:'From the hairline to the chin.',
-          Measurement: '19.3 cm',
-          status:'Normal',
-          category:""
-        },
-        {
-          title:"3. Jawline Width",
-          description:'Distance between the angles of the jaw.',
-          Measurement: ' 11.5 cm',
-          status:'Action Needed',
-          category:""
-        },
-        {
-          title:"4. Nose Length",
-          description:'From the bridge of the nose to the tip.',
-          Measurement: '5.2 cm',
-          status:'Action Needed',
-          category:""
-        },
-        {
-          title:"5. Eye Distance",
-          description:'Distance between the inner corners of the eyes.',
-          Measurement: '3.1 cm',
-          status:'No Action Requred',
-          category:""
-        },
-        {
-          title:"6. Lip Width",
-          description:'Distance between the corners of the lips when at rest.',
-          Measurement: '5.8 cm',
-          status:'Normal',
-          category:""
-        },
-        {
-          title:"7. Forehead Height",
-          description:' Distance from the hairline to the brow.',
-          Measurement: '6.8 cm',
-          status:'Action Needed',
-          category:""
-        },        
-        {
-          title:"8. Symmetry",
-          description:'Overall facial symmetry score.',
-          Measurement: '',
-          'Left-to-Right Symmetry': '92%',
-          status:'Action Needed',
-          category:""
-        },
-        {
-          title:"1. Forehead Width",
-          description:'The widest part of the face, measured across the cheekbones.',
-          Measurement: '19.3 cm',
-          'Left-to-Right Symmetry': '',
-          status:'Action Needed',
-          category:"Forehead"
-        },
-        {
-          title:"2. Forehead Height",
-          description:'The widest part of the face, measured across the cheekbones',
-          Measurement: '19.3 cm',
-          status:'Normal',
-          category:"Forehead"
-        },             
-        {
-          title:"1. Nose Width",
-          description:'The widest part of the face, measured across the cheekbones.',
-          Measurement: '12.3 cm',
-          'Left-to-Right Symmetry': '',
-          status:'Action Needed',
-          category:"Nose"
-        },
-        {
-          title:"2. Nose Height",
-          description:'The widest part of the face, measured across the cheekbones',
-          Measurement: '30.3 cm',
-          status:'Normal',
-          category:"Nose"
-        },                                                                     
-    ]
-  }
+
   return (
     <>
       <div>
@@ -550,15 +486,27 @@ const OverallAnalysisReport = (props) => {
 
                   {/* /////////////////////////////////Categories section/////////////////////// */}
                   <div className="w-full justify-center flex flex-col items-start mt-10">
-                    <Nose data={ScanData} />
+                    {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
+                      <Nose data={resolveArrayMeasurments().filter((el) =>el.category =='nose')} />
+                    }
                     {/* <div>{ScanData.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}</div> */}
-                    <Chin data={ScanData} />
-                    <Lip data={ScanData} />
-                    <Cheek data={ScanData}  />
-                    <Forehead data={ScanData}  />
-                    <Eyebrow data={ScanData} />
-                    <PhiltralColumn data={ScanData} />
-                    <Other data={ScanData}  />
+                    {resolveArrayMeasurments().filter((el) =>el.category =='chin').length > 0 &&
+                    <Chin data={resolveArrayMeasurments().filter((el) =>el.category =='chin')} />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='lips').length > 0 &&
+                      <Lip data={resolveArrayMeasurments().filter((el) =>el.category =='lips')} />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='cheeks').length > 0 &&
+                      <Cheek data={resolveArrayMeasurments().filter((el) =>el.category =='cheeks')}  />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='forehead').length > 0 &&
+                      <Forehead data={resolveArrayMeasurments().filter((el) =>el.category =='forehead')}  />
+                    }
+                     {resolveArrayMeasurments().filter((el) =>el.category =='eyebrows').length > 0 &&
+                      <Eyebrow data={resolveArrayMeasurments().filter((el) =>el.category =='eyebrows')} />
+                     }
+                    {/* <PhiltralColumn data={ScanData} />
+                    <Other data={ScanData}  /> */}
                   </div>
                 </div>
               ) : (
@@ -613,10 +561,10 @@ const OverallAnalysisReport = (props) => {
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                         /> */}
                         <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
-                          {data['Facial Analysis'].filter(cat =>cat.category== activePart).map((el) => {
+                          {resolveFacialData().slice(0,8).map((el,index) => {
                             return (
                               <>
-                                <SummaryBox data={el}></SummaryBox>
+                                <SummaryBox data={el} indexNum={index}></SummaryBox>
                               </>
                             )
                           })}

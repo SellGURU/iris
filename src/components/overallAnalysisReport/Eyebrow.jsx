@@ -16,84 +16,29 @@ const Eyebrow = ({data}) => {
           />
           Eyebrow
         </div>
-        <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Eyebrow Length ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.ideal_distance}D</p>
-            </div>
+        <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          {data.map((el) => {
+            return (
+              <>
+              <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
+                <div className="flex flex-row w-full">
+                  {el.key} ={el.measured_distance}D
+                </div>
+                <div className="flex flex-row w-full mt-2 justify-between items-center">
+                  <p>Left:</p>
+                  <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
+                  <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>
+                <div className="flex flex-row w-full justify-between items-center">
+                  <p>Right:</p>
+                  <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
+                  <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>
+              </div>           
+              </>
+            )
+          })}          
 
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Medial Eyebrows Distance =1.0D</p>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>
-                Eyebrow Tail Higher than Medical Brow
-                <br />
-                Positive + : higher
-                <br />
-                Negative - : lower
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <div>
-                Eyebrow Slope
-                <br />
-                Feminine 10-20
-                <br />
-                Masculine 0-10
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.side.left.ratio}mm</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.eyebrow_length.side.right.ratio} mm</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.distance_between_medial_eyebrows.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.distance_between_medial_eyebrows.percent}%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.tail_of_eyebrow.side.left.ratio}mm</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.tail_of_eyebrow.side.right.ratio} mm</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.slope_of_eyebrow.side.left.ratio} degrees</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>{data.data.pose_analysis[0].current_image_analysis.measurements.isolated_measures_of_beauty.slope_of_eyebrow.side.right.ratio} degrees</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

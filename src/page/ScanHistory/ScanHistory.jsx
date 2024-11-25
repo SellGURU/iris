@@ -16,6 +16,7 @@ import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
 import {PatientContext} from '../../context/context.jsx';
 import Package from "../../model/Package.js";
+import { toast } from "react-toastify";
 
 export const ScanHistory = () => {
     // const {patients2,addPatient} = useContext(PatientContext);
@@ -64,7 +65,7 @@ export const ScanHistory = () => {
     const sorts =[
         "Any","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
     ]
-    const [imageBy,setImageBy] = useState('any')
+    const [imageBy,setImageBy] = useState('all')
     // console.log(patients)
     // let [partyId] = useLocalStorage("partyid");
     const filterModalRefrence = useRef(null)
@@ -96,21 +97,16 @@ export const ScanHistory = () => {
             }
         }
     })
-    useConstructor(() => {
-        if(patients.length > 0){
-            if(!patients[0].client_info){
-                localStorage.clear()
-            }
-        }
+    const getPatients = () => {
         Application.getScanList({
             orgCode: JSON.parse(orgs).orgCode,
             orgSCode: JSON.parse(orgs).orgSCode,
-            scanTypeStr:"any",
+            scanTypeStr:imageBy.trim(),
             fromDateStr:"",
             toDateStr:"",
             pageNo:"1",
-            pageSize:"5"
         }).then((res) => {
+            toast.dismiss()
             if(res.data){
                 if(res.data.status == 'fail'){
                     console.log(res.data)
@@ -124,7 +120,15 @@ export const ScanHistory = () => {
 
                 }
             }
-        })
+        })        
+    }
+    useConstructor(() => {
+        if(patients.length > 0){
+            if(!patients[0].client_info){
+                localStorage.clear()
+            }
+        }
+        getPatients()
 
         PackageApi.getIrisSub({
             email:getEmail,
@@ -176,23 +180,24 @@ export const ScanHistory = () => {
     const navigate = useNavigate()
     const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
     useEffect(() => {
+        toast.loading("pending ...")
+        getPatients()
+        // if(imageBy!= 'any'){
+        //     setPatientList(patients.filter(el =>{
+        //         if(el.result){
+        //             if(el.result.filter((e) =>e.imageMode == imageBy).length>0){
+        //                 return true
+        //             }else{
+        //                 return false
+        //             }
 
-        if(imageBy!= 'any'){
-            setPatientList(patients.filter(el =>{
-                if(el.result){
-                    if(el.result.filter((e) =>e.imageMode == imageBy).length>0){
-                        return true
-                    }else{
-                        return false
-                    }
-
-                }
-                return false
+        //         }
+        //         return false
                 
-            }))
-        }else {
-            setPatientList(patients)
-        }
+        //     }))
+        // }else {
+        //     setPatientList(patients)
+        // }
     },[imageBy])   
     
     // useEffect(() => {

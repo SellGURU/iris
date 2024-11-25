@@ -1,14 +1,14 @@
 {
     "msg": "success",
     "data": {
-        "irisOrgStaff": 276,
+        "irisOrgStaff": 271,
         "success": true,
-        "orgCodeStr": "opvHl6wQ+00sQW/P92/PeQ==",
-        "orgSCodeStr": "I6SOuLGlWbFail138/6mNw==",
-        "irisOrgParty": 10162,
+        "orgCodeStr": "DVpx1GU1cIoC8+caID0UVw==",
+        "orgSCodeStr": "uMaJwoGRwjupLVh/61o/Iw==",
+        "irisOrgParty": 10835,
         "error_threshold": 10,
-        "irisPatientCode": "tZvUSFYnHBtKBJ2bLtDPWQ==",
-        "request_id": "32438f62-5290-42a9-a592-74c2fcfe98f2",
+        "irisPatientCode": "OV6QgVcmRDOckmw1RuS9Ww==",
+        "request_id": "88564b7c-9bbe-492f-8fac-24fd556b35d6",
         "pose_analysis": [
             {
                 "baseline_image_analysis": null,
@@ -256,6 +256,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1.618,
                                 "text": "Width of chin at pogonion / intercanthal distance",
+                                "category": "chin",
                                 "measurement_id": 4,
                                 "measured_distance": 50.268,
                                 "percent": 91.376,
@@ -266,6 +267,7 @@
                                 "problematic": true,
                                 "ideal_distance": 1.618,
                                 "text": "Width of lips / Intercanthal ",
+                                "category": "lips",
                                 "measurement_id": 3,
                                 "measured_distance": 48.767,
                                 "percent": 88.648,
@@ -276,6 +278,7 @@
                                 "problematic": true,
                                 "ideal_distance": 1,
                                 "text": "Central fullness of lower lip / intercanthal distance",
+                                "category": "lips",
                                 "measurement_id": 7,
                                 "measured_distance": 28.931,
                                 "percent": 85.092,
@@ -286,6 +289,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1,
                                 "text": "Alar base of nose / Intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 6,
                                 "measured_distance": 33.681,
                                 "percent": 99.061,
@@ -309,6 +313,7 @@
                                 "gender": "masculine",
                                 "ideal_distance": 1.618,
                                 "text": "Apex of cheek / intercanthal distance",
+                                "category": "cheeks",
                                 "measurement_id": 9
                             },
                             "chin_width_at_menton": {
@@ -316,6 +321,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1.618,
                                 "text": "Chin width at menton / intercanthal distance",
+                                "category": "chin",
                                 "measurement_id": 8,
                                 "measured_distance": null,
                                 "percent": 93.937,
@@ -351,6 +357,7 @@
                                 "gender": "masculine",
                                 "ideal_distance": 1.618,
                                 "text": "Eyebrow length / intercanthal distance",
+                                "category": "eyebrows",
                                 "measurement_id": 1
                             },
                             "distance_between_medial_eyebrows": {
@@ -358,6 +365,7 @@
                                 "problematic": true,
                                 "ideal_distance": 1,
                                 "text": "Medial eyebrows distance / intercanthal distance",
+                                "category": "eyebrows",
                                 "measurement_id": 5,
                                 "measured_distance": 27.361,
                                 "percent": 80.475,
@@ -368,6 +376,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1.618,
                                 "text": "Intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 0,
                                 "measured_distance": 34,
                                 "percent": 1,
@@ -391,6 +400,7 @@
                                 "gender": "neutral",
                                 "ideal_distance": 1.618,
                                 "text": "Width of cheek from medial canthus / intercanthal distance",
+                                "category": "cheeks",
                                 "measurement_id": 2
                             }
                         },
@@ -417,6 +427,7 @@
                                 "gender": "masculine",
                                 "ideal_distance": "0 - 10",
                                 "text": "Slope of the eyebrow from medial to the peak is 10-20 degrees",
+                                "category": "eyebrows",
                                 "measurement_id": 24
                             },
                             "tail_of_eyebrow": {
@@ -437,6 +448,7 @@
                                 "gender": "masculine",
                                 "ideal_distance": null,
                                 "text": "Tail of the eyebrow height vs. height of the medial brow",
+                                "category": "eyebrows",
                                 "measurement_id": 23
                             }
                         },
@@ -459,6 +471,7 @@
                                 "gender": "neutral",
                                 "ideal_distance": 0.618,
                                 "text": "Philtral column to contralateral commissure / lips width",
+                                "category": "lips",
                                 "measurement_id": 18
                             },
                             "height_of_forehead": {
@@ -479,6 +492,7 @@
                                 "gender": "neutral",
                                 "ideal_distance": 1.618,
                                 "text": "Height of forehead from eyebrow / intercanthal distance",
+                                "category": "forehead",
                                 "measurement_id": 10
                             },
                             "upper_lip_to_lower_lip_ratio": {
@@ -486,6 +500,7 @@
                                 "problematic": true,
                                 "ideal_distance": 0.618,
                                 "text": "The height of the upper lip / height of lower lip",
+                                "category": "lips",
                                 "measurement_id": 19,
                                 "measured_distance": 0,
                                 "percent": 85.607,
@@ -496,6 +511,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1,
                                 "text": "Intercanthal line to nose tip / intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 13,
                                 "measured_distance": 35.991,
                                 "percent": 105.855,
@@ -506,6 +522,7 @@
                                 "problematic": true,
                                 "ideal_distance": 1.618,
                                 "text": "Nose length from supratarsal fold / intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 11,
                                 "measured_distance": 49.208,
                                 "percent": 89.45,
@@ -528,6 +545,7 @@
                                 "problematic": true,
                                 "ideal_distance": 0.618,
                                 "text": "Medial canthus to medial brow / intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 14,
                                 "measured_distance": 14.446,
                                 "percent": 68.749,
@@ -551,6 +569,7 @@
                                 "gender": "neutral",
                                 "ideal_distance": 1.618,
                                 "text": "Philtral column to ipsilateral commisure / philtral columns width",
+                                "category": "lips",
                                 "measurement_id": 17
                             },
                             "upper_lip_to_menton_of_chin": {
@@ -558,6 +577,7 @@
                                 "problematic": true,
                                 "ideal_distance": 1.618,
                                 "text": "Upper lip  to menton of chin / intercanthal distance",
+                                "category": "chin",
                                 "measurement_id": 12,
                                 "measured_distance": 40.977,
                                 "percent": 74.488,
@@ -568,6 +588,7 @@
                                 "problematic": false,
                                 "ideal_distance": 1,
                                 "text": "Height of lower lip / philtral columns width",
+                                "category": "lips",
                                 "measurement_id": 16,
                                 "measured_distance": 14.564,
                                 "percent": 99.896,
@@ -578,6 +599,7 @@
                                 "problematic": true,
                                 "ideal_distance": 0.618,
                                 "text": "Vertical height of lips / intercanthal distance",
+                                "category": "lips",
                                 "measurement_id": 15,
                                 "measured_distance": 18.29,
                                 "percent": 87.047,
@@ -590,6 +612,7 @@
                                 "problematic": true,
                                 "ideal_distance": 2,
                                 "text": "Steiner's line",
+                                "category": "chin",
                                 "measurement_id": 22,
                                 "measured_distance": 3.851,
                                 "percent": 128.513,
@@ -600,6 +623,7 @@
                                 "problematic": false,
                                 "ideal_distance": 0.618,
                                 "text": "Nasal tip height from the columella base / intercanthal distance",
+                                "category": "nose",
                                 "measurement_id": 21,
                                 "measured_distance": 21.857,
                                 "percent": 104.021,
@@ -615,6 +639,7 @@
                                 "problematic": false,
                                 "ideal_distance": "12 - 14",
                                 "text": "Forehead curve",
+                                "category": "forehead",
                                 "measurement_id": 20,
                                 "measured_distance": 13.832,
                                 "percent": 100,
@@ -632,7 +657,7 @@
                 "pose_name": "frontal"
             }
         ],
-        "timestamp": 1731828221666
+        "timestamp": 1732523107542
     },
     "status": "success"
 }

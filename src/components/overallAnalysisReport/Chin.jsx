@@ -16,25 +16,22 @@ const Chin = ({data}) => {
           />
           Chin
         </div>
-        <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <div className="flex flex-row w-full">
-              Width of chin at pogonion ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_chin_at_pogonion.ideal_distance}D
-            </div>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Width: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_chin_at_pogonion.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_chin_at_pogonion.percent}%)</p>
-              <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-            </div>
-          </div>
-
-          {/* <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-            <p>Width of chin at pogonion =1.618D</p>
-            <div className="flex flex-row w-full justify-between items-center">
-              <p>Width: 1.339 (83%)</p>
-              <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-            </div>
-          </div> */}
-
+        <div className="flex flex-row items-start flex-wrap justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          {data.map((el) => {
+            return (
+              <>
+              <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+                <div className="flex flex-row w-full">
+                  {el.key} ={el.measured_distance}D
+                </div>
+                <div className="flex flex-row w-full justify-between items-center">
+                  <p>Dist: {el.ratio} ({el.percent} %)</p>
+                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>
+              </div>             
+              </>
+            )
+          })}
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

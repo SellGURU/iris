@@ -6,10 +6,12 @@ axios.interceptors.response.use((response) => {
     }
     if(response.status == '403') {
         localStorage.clear()
+        window.location.reload(); 
     }
     if(response?.data?.detail?.error == '403_Forbidden'){
         // console.log("invalid token")
         localStorage.clear()
+        window.location.reload(); 
     }
     return response;
 }, (error) => {

@@ -17,62 +17,22 @@ const Lip = ({data}) => {
           />
           Lip
         </div>
-        <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[24%] h-[7vh]">
-              <div className="flex flex-row w-full">
-                Vertical Height of Lips(middle) ={data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.ideal_distance}D
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Height: {data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.vertical_height_of_lips.percent}%)</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Central Fullness of Lower Lips ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.ideal_distance}D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Width: {data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.central_fullness_of_lower_lip.percent}%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            {/* <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Upper Lip to Menton of chin =1.618D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: 1.355(84%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div> */}
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Width of Lips ={data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.ideal_distance}D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Width:{data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.ratio}({data.data.pose_analysis[0].current_image_analysis.measurements.horizontal.width_of_lips.percent}%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full">
-                Upper Lip Height/Lower Lip Height =0.618
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Ratio: 0.507(82%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Lower Lip Height / Philitral Column Width = 1.0</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Ratio: 1.224(122%)</p>
-                <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-              </div>
-            </div>
-          </div> */}
+        <div className="flex flex-row items-start flex-wrap justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          {data.map((el) => {
+            return (
+              <>
+              <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+                <div className="flex flex-row w-full">
+                  {el.key} ={el.measured_distance}D
+                </div>
+                <div className="flex flex-row w-full justify-between items-center">
+                  <p>Dist: {el.ratio} ({el.percent} %)</p>
+                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>
+              </div>             
+              </>
+            )
+          })}
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

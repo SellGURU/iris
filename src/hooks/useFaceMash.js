@@ -69,25 +69,26 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
 
     const drawNoseEyesLips = (canvas, context, landmarks) => {
         const points = {
-            Nose: [197],
-            Chin:[200],
-            Cheek:[50],
-            Forehead:[10],
-            Eyebrow:[300],
-            "Philtral Column":[280],
+            nose: [197],
+            chin:[200],
+            cheeks:[50],
+            forehead:[10],
+            eyebrows:[300],
+            // "Philtral Column":[280],
             // leftEye: [33],
-            Eye: [362],
-            Lips: [61],
+            // Eye: [362],
+            lips: [61],
         };
 // , 151, 234, 93
         const whiteCircleIndices = [];
         const colors = {
-            Nose: "#FFFFFF",
-            Eye: "#FFFFFF",
-            lip: "#FFFFFF",
-            Chin:"#FFFFFF",
-            Forehead:"#FFFFFF",
-            Eyebrow:"#FFFFFF"
+            nose: "#FFFFFF",
+            // Eye: "#FFFFFF",
+            lips: "#FFFFFF",
+            cheeks:"#FFFFF",
+            chin:"#FFFFFF",
+            forehead:"#FFFFFF",
+            eyebrows:"#FFFFFF"
         };
 
         const circles = [];
