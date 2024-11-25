@@ -9,12 +9,22 @@ import Link from '@mui/material/Link';
 import { Button } from "symphony-ui";
 // import {RWebShare} from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
-
+// import ScanData from '../../api/Data/scan.json';
+import Nose from "../../components/overallAnalysisReport/Nose";
+import Chin from "../../components/overallAnalysisReport/Chin";
+import Lip from "../../components/overallAnalysisReport/Lip";
+import Cheek from "../../components/overallAnalysisReport/Cheek";
+import Forehead from "../../components/overallAnalysisReport/Forehead";
+import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
+import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
+import Other from "../../components/overallAnalysisReport/Other";
+// import SummaryBox from "./boxs/SummaryBox";
 const ShowReport = (props) => {
     const [searchParams] = useSearchParams();
     const [isLoading,setIsLoading] = useState(true)
     const [date,setDate] = useState(new Date())
     const [orgs,] = useLocalStorage("orgData")
+    const [ScanData,setScanData] = useState(null)
     useConstructor(() => {
         Application.getScanDetails({
             scanCode: searchParams.get("scanId"),
@@ -25,6 +35,7 @@ const ShowReport = (props) => {
         }).then((res) => {
             console.log(res)
             setIsLoading(false)
+            setScanData(res.data)
             setDate(new Date(res.data.data.timestamp))
             var decodedHTML = window.atob(res.data.data.html_file);
             document.getElementById("mydiv").innerHTML = decodedHTML;
@@ -58,6 +69,7 @@ const ShowReport = (props) => {
         // console.log(pdf.replace("data:text/html;base64,",''))
         // document.getElementById("mydiv").innerHTML = decodedHTML;
     }    
+    const [activeTab, setActiveTab] = useState("overall");
     return (
         <>
             <div>
@@ -130,7 +142,287 @@ const ShowReport = (props) => {
 
                    </div>
                 </div>
-                <div id="mydiv" className="px-12"></div>
+                {!isLoading &&
+                <div className="w-full px-4">
+                    <div className="w-full justify-center print:hidden my-1 flex items-center gap-8">
+                        <Button
+                        theme={
+                            activeTab === "facial"
+                            ? "iris-secondary"
+                            : "iris-secondary-Button-container"
+                        }
+                        onClick={() => setActiveTab("facial")}
+                        >
+                        Facial Analysis
+                        </Button>
+                        <Button
+                        theme={
+                            activeTab === "overall"
+                            ? "iris-secondary"
+                            : "iris-secondary-Button-container"
+                        }
+                        onClick={() => setActiveTab("overall")}
+                        >
+                        Overall Analysis
+                        </Button>
+                    </div>
+                    {activeTab === "overall" ? (
+                        <div id="mydiv" className="print:min-w-[1600px] print:scale-50 print:ml-[-400px] print:mt-[-300px]">
+                        {/* /////////////////////////////////Summary section/////////////////////// */}
+                        <div className="w-full justify-center flex flex-row gap-6 items-start">
+                            {/* <div className="flex flex-col w-1/2">
+                            <img
+                                src="/image/faceOverall-01.png"
+                                alt="face-image"
+                                className="max-h-[917px] rounded-3xl border-2 border-primary-color"
+                            />
+                            </div> */}
+    
+                            <div className="flex flex-col w-full gap-4">
+                            {/* <div className="flex flex-row w-full gap-6 items-center justify-center">
+                                <div className="flex flex-col w-1/2">
+                                <img
+                                    src="/image/faceOverall-02.png"
+                                    alt="face-image"
+                                    className="max-h-[380px] rounded-3xl border-2 border-primary-color"
+                                />
+                                </div>
+                                <div className="flex flex-col w-1/2">
+                                <img
+                                    src="/image/faceOverall-03.png"
+                                    alt="face-image"
+                                    className="max-h-[380px] rounded-3xl border-2 border-primary-color"
+                                />
+                                </div>
+                            </div> */}
+    
+                            <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
+                                <div className="w-[40%]">
+                                <div className="flex justify-between gap-2">
+                                    <img
+                                        src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
+                                        alt="face-image"
+                                        className=" w-[150px] rounded-3xl border-2 border-primary-color"
+                                    />
+                                    <img
+                                    src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
+                                    alt="face-image"
+                                    className=" w-[150px] rounded-3xl border-2 border-primary-color"
+                                    />         
+                                    <img
+                                    src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
+                                    alt="face-image"
+                                    className=" w-[150px] rounded-3xl border-2 border-primary-color"
+                                    />                                                 
+                                </div>
+                                <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
+                                    Measurements Summary
+                                    <div className="text-[#7E7E7E] font-normal text-sm">
+                                    { Number(date.getMonth()+1) +
+                                    " /" +
+                                    date.getDate()
+                                    +
+                                    " /" +
+                                    date.getFullYear()}
+                                    </div>
+                                </div>
+                                    <div className="text-[##444444] font-normal text-sm mb-6">
+                                   {`
+                                    Here, you can view a summary of an individual's health
+                                    status and make the necessary decisions for improving
+                                    or managing their health.                                   
+                                   `} 
+                                    </div>
+    
+                                </div>
+                                <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
+                                <div className="flex-grow ">
+    
+                                    <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
+                                    Feminine Face Assessment
+                                    <div className="text-[#7E7E7E] font-normal text-sm">
+                                        Intercanthal Distance D - 33 mm
+                                    </div>
+                                    </div>
+    
+                                    <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        1.Eyebrows height
+                                        </div>
+                                        <div className="flex flex-col text-[14px]  font-normal">
+                                        {/* Right side is 1mm higher */}
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        2.Lash line
+                                        </div>
+                                        <div className="flex flex-col text-[14px]  font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lash_line.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col min-w-[174px] w-[180px] font-medium">
+                                        3.Inter Limbal Opening
+                                        </div>
+                                        <div className="flex flex-col text-[14px] font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.inter_limbal_opening.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        4.Apex of cheek
+                                        </div>
+                                        <div className="flex flex-col text-[14px]   font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.apex_of_cheek.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        5.Alar base of nose
+                                        </div>
+                                        <div className="flex flex-col text-[14px]  font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        6.Upper lip vermillion
+                                        </div>
+                                        <div className="flex flex-col text-[14px]  font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.upper_lip_vermillion.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px] font-medium">
+                                        7.Transcommissure line
+                                        </div>
+                                        <div className="flex flex-col text-[14px] font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.transcommissure_line.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col text-[14px] w-[180px] font-medium">
+                                        8.Lower lip vermilion
+                                        </div>
+                                        <div className="flex flex-col text-[14px] font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lower_lip_vermillion.symmetry_text}
+                                        </div>
+                                    </div>
+    
+                                    <div className="flex flex-row w-full text-base text-left gap-6">
+                                        <div className="flex flex-col w-[180px]  font-medium">
+                                        9.Chin border
+                                        </div>
+                                        <div className="flex flex-col text-[14px]  font-normal">
+                                        {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.chin_border.symmetry_text}
+                                        </div>
+                                    </div>
+                                    </div>
+    
+                                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
+                                    Color Guide
+                                    <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
+                                        <div className="flex gap-1 items-center">
+                                        <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
+                                        Action Needed
+                                        </div>
+                                        <div className="flex gap-1 items-center">
+                                        <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+                                        Normal
+                                        </div>
+                                        <div className="flex gap-1 items-center">
+                                        <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+                                        No Action Required
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            </div>
+                        </div>
+    
+                        {/* /////////////////////////////////Categories section/////////////////////// */}
+                        <div className="w-full justify-center flex flex-col items-start mt-10">
+                            <Nose data={ScanData} />
+                            {/* <div>{ScanData.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}</div> */}
+                            <Chin data={ScanData} />
+                            <Lip data={ScanData} />
+                            <Cheek data={ScanData}  />
+                            <Forehead data={ScanData}  />
+                            <Eyebrow data={ScanData} />
+                            <PhiltralColumn data={ScanData} />
+                            <Other data={ScanData}  />
+                        </div>
+                        </div>
+                    ) : (
+                        <>
+                        {/* <div className="w-full justify-center flex gap-6 items-stretch">
+    
+                            <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
+                            <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                                <div className="flex justify-start items-center gap-4">
+                                {activePart !='' &&
+                                    <img className="cursor-pointer" onClick={() => {
+                                    setActivePart("")
+                                    }} src="./icons/back2.svg" alt="" />
+                                }
+                                {resolveActivePartName()}
+                                </div>
+                                <div className="text-[#7E7E7E] font-normal text-sm">
+                                <div className="flex justify-end items-center">
+                                    <div className="text-[#444444] text-sm font-normal mr-[80px]">
+                                    Client ID: 123456789
+                                    </div>
+                                    <div className="text-[#7E7E7E] font-normal text-sm mr-8">
+                                    Date:{" "}
+                                    {date.getDate() +
+                                        "   " +
+                                        date.toLocaleString("default", { month: "long" }) +
+                                        "   " +
+                                        date.getFullYear()}
+                                    </div>
+                                    <div className="text-[#7E7E7E] font-normal text-sm">
+                                    Time: {date.getHours()}:{date.getMinutes()}
+                                    </div>                           
+                                </div>
+                                </div>
+                            </div>
+                            <div className="w-full flex">
+                                <div className="relative z-20">
+                                <FaceMeshView imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                                    console.log(e)
+                                    resolveChangePart(e)
+                                }}></FaceMeshView>
+                                </div>
+                                <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
+                                {data['Facial Analysis'].filter(cat =>cat.category== activePart).map((el) => {
+                                    return (
+                                    <>
+                                        <SummaryBox data={el}></SummaryBox>
+                                    </>
+                                    )
+                                })}
+    
+                                </div>
+                            </div>
+                            </div>
+                        </div> */}
+                        </>
+                    )}
+
+                </div>
+                }
 
             </div>
         </>

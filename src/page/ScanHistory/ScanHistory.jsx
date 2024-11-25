@@ -104,7 +104,12 @@ export const ScanHistory = () => {
         }
         Application.getScanList({
             orgCode: JSON.parse(orgs).orgCode,
-            orgSCode: JSON.parse(orgs).orgSCode
+            orgSCode: JSON.parse(orgs).orgSCode,
+            scanTypeStr:"any",
+            fromDateStr:"",
+            toDateStr:"",
+            pageNo:"1",
+            pageSize:"5"
         }).then((res) => {
             if(res.data){
                 if(res.data.status == 'fail'){
