@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Status =({status}) => {
+const Status =({status,isFull}) => {
     const resolvePosition =() => {
        if(status == 'No Action Requred'){
         return 'right-8'
@@ -11,7 +11,7 @@ const Status =({status}) => {
     }
     return (
         <>
-                <div className="flex relative flex-col items-start justify-start gap-2 w-[45%]">
+                <div className="flex relative flex-col items-start justify-start gap-2 w-[45%]" style={{width:isFull?'100%':'45%'}}>
 
                     <div className="w-full  h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
                         <div className="w-1/3 h-full bg-[#FF3E5D]"></div>

@@ -6,8 +6,8 @@ import LipCompare from "./LipCompare";
 import CheekCompare from "./CheekCompare";
 import ForeheadCompare from "./ForeheadCompare";
 import EyebrowCompare from "./EyebrowCompare";
-import PhiltralColumnCompare from "./PhiltralColumnCompare";
-import OtherCompare from "./OtherCompare";
+// import PhiltralColumnCompare from "./PhiltralColumnCompare";
+// import OtherCompare from "./OtherCompare";
 import { useEffect, useState } from "react";
 import Application from "../../api/Application"
 import { useLocalStorage } from "@uidotdev/usehooks";
@@ -87,7 +87,7 @@ const CompareSection = ({results,clientId}) => {
           <div className="grid grid-cols-6 grid-rows-2 gap-x-2 gap-y-[10px] w-full">
             <div className="bg-[#F5F5F5] rounded-xl col-span-2 row-span-2 h-full flex flex-row items-center justify-center px-5 gap-4">
               <img
-                src={data[0].data.pose_analysis[0].current_image_analysis.images.input}
+                src={data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input}
                 alt="face-image"
                 className="max-h-[175px] h-[175px] w-32 rounded-3xl border-2 border-primary-color"
               />
@@ -209,49 +209,44 @@ const CompareSection = ({results,clientId}) => {
 
               <div className="flex items-center justify-between w-1/4 text-sm">
                 {/* Sat 2024/02/02 */}
-                {formatDate(data[0].data.timestamp)}
+                {formatDate(data[0]?.data.timestamp)}
                 <div className="arowDownIcon-purple"></div>
               </div>
 
               <div className="border-l-[#E1E1E1] border-l h-full"></div>
 
               <div className="flex items-center justify-between w-1/4 text-sm">
-                {formatDate(data[1].data.timestamp)}
+                {formatDate(data[1]?.data.timestamp)}
                 <div className="arowDownIcon-purple"></div>
               </div>
 
-              <div className="border-l-[#E1E1E1] border-l h-full"></div>
+              {/* <div className="border-l-[#E1E1E1] border-l h-full"></div>
 
               <div className="flex opacity-45 items-center justify-between w-1/4 text-sm">
                 Sat 2024/02/02
                 <div className="arowDownIcon-purple"></div>
-              </div>
+              </div> */}
             </div>
           </div>
 
           {/* /////////////////////////////////Nose Client 1 section/////////////////////// */}
-          <NoseCompare />
+          <NoseCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'nose')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'nose')} />
 
           {/* /////////////////////////////////Chin Client 1 section/////////////////////// */}
-          <ChinCompare />
+          <ChinCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'chin')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'chin')} />
 
           {/* /////////////////////////////////Lip Client 1 section/////////////////////// */}
-          <LipCompare />
+          <LipCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'lips')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'lips')} />
 
           {/* /////////////////////////////////Cheek Client 1 section/////////////////////// */}
-          <CheekCompare />
+          <CheekCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'cheeks')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'cheeks')} />
 
           {/* /////////////////////////////////Forehead Client 1 section/////////////////////// */}
-          <ForeheadCompare />
+          <ForeheadCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'forehead')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'forehead')} />
 
           {/* /////////////////////////////////Eyebrow Client 1 section/////////////////////// */}
-          <EyebrowCompare />
+          <EyebrowCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'eyebrows')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'eyebrows')} />
 
-          {/* /////////////////////////////////Philtral Column Client 1 section/////////////////////// */}
-          <PhiltralColumnCompare />
-
-          {/* /////////////////////////////////Other Client 1 section/////////////////////// */}
-          <OtherCompare />
         </div>
        } 
     </>
