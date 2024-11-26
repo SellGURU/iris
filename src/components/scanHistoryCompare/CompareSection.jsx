@@ -22,6 +22,7 @@ const CompareSection = ({results,clientId ,lastScan}) => {
   const [isLoading,setIsLoading] = useState(true)
   const [data,setData] = useState([])
   const [activeCategories,setActiveCategpris] = useState([])
+  const [isShowimages,setIsShowImages] = useState(true)
   const resolveArrayMeasurments = (ScanData) => {
       // console.log(ScanData.data)
       const allData = []
@@ -147,7 +148,9 @@ const CompareSection = ({results,clientId ,lastScan}) => {
                       Filter
                     </Button>
                     {isShowFilter &&
-                      <FilterModal setActiveCategory={setActiveCategpris} activeCategories={activeCategories} refrence={filterModalRefrence} categories={resolveAllCategories()}></FilterModal>
+                      <FilterModal setShowImagesOrgin={setIsShowImages} isShowImages={isShowimages} onClose={() => {
+                        setIsShowFilter(false)
+                      }} setActiveCategory={setActiveCategpris} activeCategories={activeCategories} refrence={filterModalRefrence} categories={resolveAllCategories()}></FilterModal>
                     }
                   </div>
                   <div className="text-lg font-normal">{clientId}</div>

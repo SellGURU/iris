@@ -1,26 +1,39 @@
 /* eslint-disable react/prop-types */
 import { Checkbox,Switch } from '@mui/material';
-// import { Button } from 'symphony-ui';
+import { Button } from 'symphony-ui';
 
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-const FilterModal = ({refrence,categories,activeCategories,setActiveCategory}) => {
+import { useEffect, useState } from 'react';
+const FilterModal = ({refrence,categories,setShowImagesOrgin,activeCategories,setActiveCategory,onClose,isShowImages}) => {
+    const [mycategories,setmyCategories] = useState(activeCategories)
+    const [showImages,setShowImages] = useState(isShowImages)
     const onchangeCategory = (el) => {
-        if(activeCategories.includes(el)){
-            setActiveCategory(activeCategories.filter(val =>val!=el))
+        if(mycategories.includes(el)){
+            setmyCategories(mycategories.filter(val =>val!=el))
         }else {
-            const newvals = activeCategories
+            const newvals = mycategories
             newvals.push(el)
-            setActiveCategory([...newvals])
+            setmyCategories([...newvals])
         }
     }
     const onChangeAll = () => {
-        if(categories.length == activeCategories.length){
-            setActiveCategory([])
+        if(categories.length == mycategories.length){
+            setmyCategories([])
         }else {
-            setActiveCategory([...categories])
+            setmyCategories([...categories])
         }
     }
+    const onSubmit = () => {
+        setActiveCategory([...mycategories])
+        setShowImagesOrgin(showImages)
+    }
+    useEffect(() => {
+        setmyCategories(activeCategories)
+    },[activeCategories])
+    useEffect(() => {
+        setShowImages(isShowImages)
+    },[isShowImages])
     return (
         <>
             <div ref={refrence} className="absolute scale-[85%] top-4 gap-2 flex flex-col p-4 right-0 rounded-[8px] z-50 w-[300px] bg-white" style={{
@@ -32,10 +45,10 @@ const FilterModal = ({refrence,categories,activeCategories,setActiveCategory}) =
                         <div className='grid grid-cols-2'>
                             <FormControlLabel onChange={() => {
                                 onChangeAll()
-                            }} value="all" control={<Checkbox checked={categories.length == activeCategories.length} />} label="All" />
+                            }} value="all" control={<Checkbox checked={categories.length == mycategories.length} />} label="All" />
                             {categories.map((el) => {
                                 return (
-                                    <FormControlLabel onChange={() => onchangeCategory(el)} key={el} value={el} control={<Checkbox checked={activeCategories.includes(el)} />} label={el} />
+                                    <FormControlLabel onChange={() => onchangeCategory(el)} key={el} value={el} control={<Checkbox checked={mycategories.includes(el)} />} label={el} />
                                 )
                             })}
 
@@ -45,12 +58,15 @@ const FilterModal = ({refrence,categories,activeCategories,setActiveCategory}) =
                 <div className='w-full border border-b border-[#0000004D]'></div>
                 <div className='flex justify-between items-center'>
                     <div className="text-[16px] text-[#2E2E2E] font-semibold">Show Images</div>
-                    <Switch ></Switch>
+                    <Switch checked={showImages} onChange={() => {
+                        setShowImages(!showImages)
+                    }}></Switch>
                 </div>
-                {/* <div className='w-full flex justify-between items-center mt-4'>
+                <div className='w-full flex justify-between items-center mt-4'>
                     <Button onClick={() => {
                         // setShowFilter(false)
                         // setImageBy("any")
+                        onClose()
                     }} theme='iris-secondary-small'>
                         <div className='w-[100px]'>
                             Clear Filter
@@ -59,12 +75,14 @@ const FilterModal = ({refrence,categories,activeCategories,setActiveCategory}) =
                     <Button onClick={() => {
                         // setShowFilter(false)
                         // setImageBy(filterImagBy)
+                        onSubmit()
+                        onClose()
                     }} theme='iris-small'>
                         <div className='w-[100px]'>
                             Apply Filter
                         </div>
                     </Button>
-                </div>    */}
+                </div>   
             </div>
         </>
     )
