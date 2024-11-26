@@ -3,20 +3,31 @@
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Forehead = ({data}) => {
+const ContentViewBox = ({data,category}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const resolveIcon =() => {
+    switch(category){
+        case 'forehead': return '/image/Forehead.svg'
+        case 'chin': return '/image/Chin.svg'
+        case 'cheeks': return '/image/Cheek.svg'
+        case 'eyebrows': return '/image/Eyebrow.svg'
+        case 'lips': return '/image/Lip.svg'
+        case 'nose': return '/image/Nose.svg'
+    }
+  }
   return (
     <>
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
-        <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
+        <div className="flex flex-col items-center justify-center w-[14%] min-w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/Forehead.svg"
+            src={resolveIcon()}
             alt="icon_forehead"
             className="w-10 h-10"
           />
-          Forehead
+          {/* Forehead */}
+          {category}
         </div>
-        <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+        <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
           {data.map((el) => {
             return (
               <>
@@ -126,4 +137,4 @@ const Forehead = ({data}) => {
   );
 };
 
-export default Forehead;
+export default ContentViewBox;

@@ -10,18 +10,21 @@ import Link from "@mui/material/Link";
 import { Button } from "symphony-ui";
 import { RWebShare } from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import Nose from "../../components/overallAnalysisReport/Nose";
-import Chin from "../../components/overallAnalysisReport/Chin";
-import Lip from "../../components/overallAnalysisReport/Lip";
-import Cheek from "../../components/overallAnalysisReport/Cheek";
-import Forehead from "../../components/overallAnalysisReport/Forehead";
-import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
-import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
-import Other from "../../components/overallAnalysisReport/Other";
+// import Nose from "../../components/overallAnalysisReport/Nose";
+// import Chin from "../../components/overallAnalysisReport/Chin";
+// import Lip from "../../components/overallAnalysisReport/Lip";
+// import Cheek from "../../components/overallAnalysisReport/Cheek";
+// import Forehead from "../../components/overallAnalysisReport/Forehead";
+// import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
+// import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
+// import Other from "../../components/overallAnalysisReport/Other";
 import SummaryBox from "./boxs/SummaryBox";
 import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
 // import ScanData from '../../api/Data/scan.json';
 import {PatientContext} from '../../context/context.jsx'
+import PrintReport from "../../components/PrintReport/index.jsx";
+import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
+// import ContentBox from "../../components/overallAnalysisReport/ContentBox.jsx";
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("overall");
   const [searchParams] = useSearchParams();
@@ -110,18 +113,49 @@ const OverallAnalysisReport = (props) => {
     // mywindow.document.write(
     //   "<html><head><title>" + document.title + "</title>"
     // );
-    mywindow.document.write("<html><head><title>" + document.title + "</title> <link href=`https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css` rel=`stylesheet`></head>");    
-    mywindow.document.write("<body >");
-    mywindow.document.write("<h1>" + document.title + "</h1>");
-    mywindow.document.write(document.getElementById("mydiv").innerHTML);
-    mywindow.document.write("</body></html>");
+    mywindow.document.write(`
+        <html>
+            <head>
+            <title>${document.title}</title>
+            <!-- Link to Tailwind CSS -->
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+            <style>
+                @media print {
+                body {
+                    background-color: white !important;
+                }
+                .bg-gray-100 {
+                    background-color: #f3f4f6 !important; /* Tailwind Gray 100 */
+                }
+                .bg-blue-500 {
+                    background-color: #3b82f6 !important; /* Tailwind Blue 500 */
+                }
+                .no-split {
+                page-break-inside: avoid; /* Prevents splitting the element */
+                break-inside: avoid;     /* For modern browsers */
+                }                    
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }                    
+                }
+            </style>            
+            </head>
+            <body>
+            ${document.getElementById("printDiv")?.innerHTML}
+            </body>
+        </html>
+        `);
 
     mywindow.document.close(); // necessary for IE >= 10
-    mywindow.focus(); // necessary for IE >= 10*/
+    mywindow.onload = () => {
+        mywindow.focus(); // necessary for IE >= 10*/
 
-    // mywindow.print();
-    mywindow.close();
-    window.print()
+        mywindow.print();
+        mywindow.close();
+
+    }
+    // window.print()
     // window.frames["reported"].focus();
     // window.frames["reported"].print();
     // document.getElementById("mydiv").contentWindow.print();
@@ -313,22 +347,6 @@ const OverallAnalysisReport = (props) => {
                     </div> */}
 
                     <div className="flex flex-col w-full gap-4">
-                      {/* <div className="flex flex-row w-full gap-6 items-center justify-center">
-                        <div className="flex flex-col w-1/2">
-                          <img
-                            src="/image/faceOverall-02.png"
-                            alt="face-image"
-                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
-                          />
-                        </div>
-                        <div className="flex flex-col w-1/2">
-                          <img
-                            src="/image/faceOverall-03.png"
-                            alt="face-image"
-                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
-                          />
-                        </div>
-                      </div> */}
 
                       <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
                         <div className="w-[40%]">
@@ -486,10 +504,23 @@ const OverallAnalysisReport = (props) => {
 
                   {/* /////////////////////////////////Categories section/////////////////////// */}
                   <div className="w-full justify-center flex flex-col items-start mt-10">
-                    {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
+                    {/* {resolveAllCategories().map((value,index) => {
+                        return (
+                            <div className="mt-2 w-full" key={index}>
+                                <ContentBox images={['/image/faceOverall-04.png']} category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)} icon={'/image/Nose.svg'} key={index}></ContentBox>
+                            </div>
+                        )
+                    })}   */}
+                      {resolveAllCategories().map((value,index) => {
+                          return (
+                            <ContentViewBox key={index}  category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}></ContentViewBox>
+                          )
+                      })}
+
+                    {/* {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
                       <Nose data={resolveArrayMeasurments().filter((el) =>el.category =='nose')} />
                     }
-                    {/* <div>{ScanData.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}</div> */}
+      
                     {resolveArrayMeasurments().filter((el) =>el.category =='chin').length > 0 &&
                     <Chin data={resolveArrayMeasurments().filter((el) =>el.category =='chin')} />
                     }
@@ -504,9 +535,8 @@ const OverallAnalysisReport = (props) => {
                     }
                      {resolveArrayMeasurments().filter((el) =>el.category =='eyebrows').length > 0 &&
                       <Eyebrow data={resolveArrayMeasurments().filter((el) =>el.category =='eyebrows')} />
-                     }
-                    {/* <PhiltralColumn data={ScanData} />
-                    <Other data={ScanData}  /> */}
+                     } */}
+
                   </div>
                 </div>
               ) : (
@@ -575,6 +605,10 @@ const OverallAnalysisReport = (props) => {
                   </div>
                 </>
               )}
+              <div id="printDiv" className="w-full hidden print:visible">
+                <PrintReport ScanData={ScanData}  categories={resolveAllCategories()} resolveArrayMeasurments={resolveArrayMeasurments}></PrintReport>
+
+              </div>
             </div>
           )}
         </div>
@@ -601,6 +635,7 @@ const OverallAnalysisReport = (props) => {
             </div>
           </div>
         </div>
+        
         <div id="mydiv" className="px-12"></div>
       </div>
     </>

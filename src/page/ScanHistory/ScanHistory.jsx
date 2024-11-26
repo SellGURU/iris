@@ -290,7 +290,7 @@ export const ScanHistory = () => {
                             }
                         </div>
                     </div>
-                    {patientList.sort((a, b) => {
+                    {patientList?.sort((a, b) => {
                         if (filterType == 'Maximum Scan') {
                             if (a.scans.length >= b.scans.length) {
                                 return -1

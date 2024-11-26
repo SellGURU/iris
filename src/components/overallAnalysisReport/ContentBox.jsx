@@ -1,38 +1,73 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
-// import Status from "../../page/FaceScaned/boxs/Status";
-const Nose = ({data}) => {
-  // const resolveStatus = (value) => {
-  //     if(value.problematic == false) {
-  //         return 'No Action Requred'
-  //     }
-  //     return 'Action Needed'
-  // }  
-  const [isOpen, setIsOpen] = useState(false);
+import Status from "../../page/FaceScaned/boxs/Status";
+const ContentBox = ({data,category,images}) => {
+  const resolveStatus = (value) => {
+      if(value.problematic == false) {
+          return 'No Action Requred'
+      }
+      return 'Action Needed'
+  }  
+  const resolveIcon =() => {
+    switch(category){
+        case 'forehead': return '/image/Forehead.svg'
+        case 'chin': return '/image/Chin.svg'
+        case 'cheeks': return '/image/Cheek.svg'
+        case 'eyebrows': return '/image/Eyebrow.svg'
+        case 'lips': return '/image/Lip.svg'
+        case 'nose': return '/image/Nose.svg'
+    }
+  }  
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <>
-      <div className="w-full flex flex-row gap-2 items-stretch justify-center">
-        <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl  text-white font-medium text-xl min-h-[128px]" style={{width:'14%',minHeight:'128px',backgroundColor:'#544BF0'}}>
+      <div className="w-full no-split flex flex-row gap-2 items-stretch justify-center">
+        <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl  text-white font-medium text-xl min-h-[128px]" style={{width:'14%',minWidth:'14%',minHeight:'128px',backgroundColor:'#544BF0'}}>
           <img
-            src="/image/Nose.svg"
+            // src="/image/Nose.svg"
+            src={resolveIcon()}
             alt="icon_nose"
             className="w-10 h-10"
           />
-          Nose
+          {/* Nose */}
+          <div className="text-xs mb-2">
+            {category}
+
+          </div>
         </div>
-        <div className="flex flex-row items-start flex-wrap justify-start w-full p-8  rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]" style={{gap:'69px',minHeight:'128px',backgroundColor:'#F5F5F5'}}>
+        <div className="flex flex-row items-start flex-grow flex-wrap justify-start  p-8  rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]" style={{gap:'69px',minHeight:'128px',backgroundColor:'#F5F5F5'}}>
           {data.map((el) => {
             return (
               <>
-              <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-                <div className="flex flex-row w-full">
-                  {el.key} ={el.measured_distance}D
+              <div className="flex flex-col items-start justify-between w-[40%] h-[7vh]" style={{width:'100%',height:'7vh'}}>
+                <div className="flex flex-row  " >
+                    <div className="" >
+                        {el.key}
+                    </div>
+                   ={el.measured_distance}D
                 </div>
-                <div className="flex flex-row w-full justify-between items-center">
-                  <p>Dist: {el.ratio} ({el.percent} %)</p>
-                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
-                </div>
+                {
+                    el.side ?
+                    <>
+                        <div className="flex flex-row w-full mt-2 justify-between items-center">
+                        <p>Left:</p>
+                        <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
+                        <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                        </div>
+                        <div className="flex flex-row w-full justify-between items-center">
+                        <p>Right:</p>
+                        <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
+                        <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                        </div>                    
+                    </>
+                    :
+                    <div className="flex flex-row w-full justify-between items-center">
+                    <p>Dist: {el.ratio} ({el.percent} %)</p>
+                    <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                    </div>
+
+                }
               </div>             
               </>
             )
@@ -84,21 +119,24 @@ const Nose = ({data}) => {
 
       {isOpen && (
         <div className="w-full flex flex-row items-start justify-start gap-4 mb-8">
-          {/* {images.map((el,index) => {
+          {images.map((el,index) => {
             return (
               <div key={index} className="flex flex-col items-start justify-start gap-3 w-[23%]">
                 <img
                   src={el}
                   alt="face-image"
+                  style={{
+                    maxHeight:'312px'
+                  }}
                   className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
                 />
                 <div className="mt-6 w-full">
-                  <Status isFull status={resolveStatus()}></Status>
+                  <Status isFull status={resolveStatus(true)}></Status>
 
                 </div>
               </div>
             )
-          })} */}
+          })}
 {/* 
           <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
             <img
@@ -143,4 +181,4 @@ const Nose = ({data}) => {
   );
 };
 
-export default Nose;
+export default ContentBox;
