@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
-
+// import Status from "../../page/FaceScaned/boxs/Status";
 const Nose = ({data}) => {
+  // const resolveStatus = (value) => {
+  //     if(value.problematic == false) {
+  //         return 'No Action Requred'
+  //     }
+  //     return 'Action Needed'
+  // }  
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -78,25 +84,22 @@ const Nose = ({data}) => {
 
       {isOpen && (
         <div className="w-full flex flex-row items-start justify-start gap-4 mb-8">
-          <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
-            <img
-              src="/image/faceOverall-04.png"
-              alt="face-image"
-              className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
-            />
-            <div className="text-left text-sm font-normal">
-              Left Philtral Colum to Contralateral commissure/
-              <br/>
-              Lips Width
-            </div>
-            <div className="text-[10px] font-light self-center">Normal</div>
-            <div className="w-[96%] h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-              <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-              <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-              <div className="w-1/3 h-full bg-primary-color"></div>
-            </div>
-          </div>
+          {/* {images.map((el,index) => {
+            return (
+              <div key={index} className="flex flex-col items-start justify-start gap-3 w-[23%]">
+                <img
+                  src={el}
+                  alt="face-image"
+                  className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
+                />
+                <div className="mt-6 w-full">
+                  <Status isFull status={resolveStatus()}></Status>
 
+                </div>
+              </div>
+            )
+          })} */}
+{/* 
           <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
             <img
               src="/image/faceOverall-04.png"
@@ -133,7 +136,7 @@ const Nose = ({data}) => {
               <div className="w-1/3 h-full bg-[#03DAC5]"></div>
               <div className="w-1/3 h-full bg-primary-color"></div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>

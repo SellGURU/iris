@@ -6,17 +6,58 @@ import LipCompare from "./LipCompare";
 import CheekCompare from "./CheekCompare";
 import ForeheadCompare from "./ForeheadCompare";
 import EyebrowCompare from "./EyebrowCompare";
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import useModalAutoClose from "../../hooks/useModalAutoClose";
 // import PhiltralColumnCompare from "./PhiltralColumnCompare";
 // import OtherCompare from "./OtherCompare";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import Application from "../../api/Application"
 import { useLocalStorage } from "@uidotdev/usehooks";
+import FilterModal from "./FilterModal";
 
 const CompareSection = ({results,clientId}) => {
   console.log(results)
   const [orgs,] = useLocalStorage("orgData")
   const [isLoading,setIsLoading] = useState(true)
   const [data,setData] = useState([])
+  const [activeCategories,setActiveCategpris] = useState([])
+  const resolveArrayMeasurments = (ScanData) => {
+      // console.log(ScanData.data)
+      const allData = []
+      Object.keys(ScanData?.data?.pose_analysis[0]?.current_image_analysis.measurements).map(key => {
+
+      const resolved = Object.entries(ScanData?.data?.pose_analysis[0]?.current_image_analysis.measurements[key]).filter((el) =>el[0] !='measurements_list').map(([key, value]) => ({
+          key, 
+          ...value, 
+      }));
+      allData.push(...resolved)
+      })
+      return allData
+  }  
+  function calculateAverage(arr) {
+      if (arr.length === 0) return 0; // Handle empty array
+      const sum = arr.reduce((a, b) => a + b, 0);
+      return sum / arr.length;
+  }
+  const resolvePercent = (category) => {
+    const resalved = []
+    const vals1 = resolveArrayMeasurments(data[0]).filter(el =>el.category == category)
+    const vals2 = resolveArrayMeasurments(data[1]).filter(el =>el.category == category)
+    vals1.forEach((el,index) => {
+      if(el.side) {
+        resalved.push(Math.abs(el.side.left.percent - vals2[index].side.left.percent)) 
+        resalved.push(Math.abs(el.side.right.percent - vals2[index].side.right.percent))
+      }else {
+        resalved.push(Math.abs(el.percent - vals2[index].percent)) 
+
+      }
+    })
+    return calculateAverage(resalved).toFixed(2)
+  }
+  const resolveAllCategories = () => {
+    return Array.from(new Set(resolveArrayMeasurments(data[0]).map(item => item.category)));
+  }   
   useEffect(() => {
     const values = []
     setIsLoading(true)
@@ -34,11 +75,16 @@ const CompareSection = ({results,clientId}) => {
     })
   },[results])
   useEffect(() => {
-    console.log(data)
-    if(data.length == 2){
+    if(data.length == 2 && data[0]!=undefined && data[1]!= undefined){
       setIsLoading(false)
+      
     }
   })
+  useEffect(() => {
+    if(!isLoading){
+      setActiveCategpris(resolveAllCategories())
+    }
+  },[isLoading])
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -48,19 +94,15 @@ const CompareSection = ({results,clientId}) => {
       .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
     return `${dayName} ${formattedDate}`;
   };
-  const resolveArrayMeasurments = (ScanData) => {
-      // console.log(ScanData.data)
-      const allData = []
-      Object.keys(ScanData.data.pose_analysis[0].current_image_analysis.measurements).map(key => {
-
-      const resolved = Object.entries(ScanData.data.pose_analysis[0].current_image_analysis.measurements[key]).filter((el) =>el[0] !='measurements_list').map(([key, value]) => ({
-          key, 
-          ...value, 
-      }));
-      allData.push(...resolved)
-      })
-      return allData
-  }  
+  const filterModalRefrence = useRef(null)
+ 
+  const [isShowFilter,setIsShowFilter] = useState(false)
+    useModalAutoClose({
+        refrence:filterModalRefrence,
+        close:() =>{
+            setIsShowFilter(false)
+        }
+    })  
   return (
     <>
       <div className={`${!isLoading && "hidden"}`}>
@@ -84,7 +126,7 @@ const CompareSection = ({results,clientId}) => {
       {!isLoading &&
         <div className="flex flex-col w-full gap-2">
           {/* /////////////////////////////////Header Client 1 section/////////////////////// */}
-          <div className="grid grid-cols-6 grid-rows-2 gap-x-2 gap-y-[10px] w-full">
+          <div className="grid grid-cols-5 grid-rows-2 gap-x-2 gap-y-[10px] w-full">
             <div className="bg-[#F5F5F5] rounded-xl col-span-2 row-span-2 h-full flex flex-row items-center justify-center px-5 gap-4">
               <div className="max-h-[175px] object-center h-[175px] w-[230px] overflow-hidden  rounded-3xl border-2 border-primary-color">
                 <img
@@ -96,12 +138,17 @@ const CompareSection = ({results,clientId}) => {
               </div>
               <div className="flex flex-col h-full items-start justify-between w-full pt-[22px] pb-6">
                 <div className="flex flex-col w-full">
-                  <div className="flex flex-row items-center justify-between w-full text-xl font-medium">
+                  <div className="flex relative flex-row items-center justify-between w-full text-xl font-medium">
                     Client ID:
-                    <Button theme="iris-small">
+                    <Button onClick={() => {
+                      setIsShowFilter(true)
+                    }} theme="iris-small">
                       <div className="filterIcon-white"></div>
                       Filter
                     </Button>
+                    {isShowFilter &&
+                      <FilterModal setActiveCategory={setActiveCategpris} activeCategories={activeCategories} refrence={filterModalRefrence} categories={resolveAllCategories()}></FilterModal>
+                    }
                   </div>
                   <div className="text-lg font-normal">{clientId}</div>
                 </div>
@@ -122,64 +169,68 @@ const CompareSection = ({results,clientId}) => {
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Nose
-                <span className="text-[#7E7E7E] font-normal text-sm">
+                {/* <span className="text-[#7E7E7E] font-normal text-sm">
                   Progress : Initial Stage
-                </span>
+                </span> */}
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('nose')} text={`${resolvePercent('nose')}%`} />
+              </div>
+              {/* <img className="w-[50px]" src="/image/circle-chart.png" alt="" /> */}
             </div>
 
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Chin
-                <span className="text-[#7E7E7E] font-normal text-sm">
+                {/* <span className="text-[#7E7E7E] font-normal text-sm">
                   Progress : Intermediate
-                </span>
+                </span> */}
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('chin')} text={`${resolvePercent('chin')}%`} />
+              </div>
             </div>
 
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Lip
-                <span className="text-[#7E7E7E] font-normal text-sm">
-                  Progress : Initial Stage
-                </span>
+
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('lips')} text={`${resolvePercent('lips')}%`} />
+              </div>
             </div>
 
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Cheek
-                <span className="text-[#7E7E7E] font-normal text-sm">
-                  Progress : Final Stage
-                </span>
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('cheeks')} text={`${resolvePercent('cheeks')}%`} />
+              </div>
             </div>
 
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Forhead
-                <span className="text-[#7E7E7E] font-normal text-sm">
-                  Progress : Initial Stage
-                </span>
+
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('forehead')} text={`${resolvePercent('forehead')}%`} />
+              </div>
             </div>
 
             <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Eyebrow
-                <span className="text-[#7E7E7E] font-normal text-sm">
-                  Progress : Final Stage
-                </span>
+
               </div>
-              <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
+              <div className="w-[50px] h-[50px]">
+                <CircularProgressbar  value={resolvePercent('eyebrows')} text={`${resolvePercent('eyebrows')}%`} />
+              </div>
             </div>
 
-            <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
+            {/* <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Philtral Column
                 <span className="text-[#7E7E7E] font-normal text-sm">
@@ -187,9 +238,9 @@ const CompareSection = ({results,clientId}) => {
                 </span>
               </div>
               <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
-            </div>
+            </div> */}
 
-            <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
+            {/* <div className="bg-[#F5F5F5] rounded-xl col-span-1 h-24 flex flex-row items-center justify-between px-3 text-base font-medium">
               <div className="flex flex-col gap-1">
                 Other
                 <span className="text-[#7E7E7E] font-normal text-sm">
@@ -197,7 +248,7 @@ const CompareSection = ({results,clientId}) => {
                 </span>
               </div>
               <img className="w-[50px]" src="/image/circle-chart.png" alt="" />
-            </div>
+            </div> */}
           </div>
 
           {/* /////////////////////////////////Category Client 1 section/////////////////////// */}
@@ -233,22 +284,37 @@ const CompareSection = ({results,clientId}) => {
           </div>
 
           {/* /////////////////////////////////Nose Client 1 section/////////////////////// */}
-          <NoseCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'nose')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'nose')} />
-
+          {
+            activeCategories.includes("nose") &&
+              <NoseCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'nose')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'nose')} />
+          }
+          {
+            activeCategories.includes("chin") &&
+          
+            <ChinCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'chin')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'chin')} />
+          }
           {/* /////////////////////////////////Chin Client 1 section/////////////////////// */}
-          <ChinCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'chin')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'chin')} />
-
+          {
+            activeCategories.includes("lips") &&
+              <LipCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'lips')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'lips')} />
+          }
           {/* /////////////////////////////////Lip Client 1 section/////////////////////// */}
-          <LipCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'lips')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'lips')} />
-
+          {
+            activeCategories.includes("cheeks") &&
+              <CheekCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'cheeks')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'cheeks')} />
+          
+          }
           {/* /////////////////////////////////Cheek Client 1 section/////////////////////// */}
-          <CheekCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'cheeks')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'cheeks')} />
-
+          {
+            activeCategories.includes("forehead") &&
+            <ForeheadCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'forehead')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'forehead')} />
+          }
           {/* /////////////////////////////////Forehead Client 1 section/////////////////////// */}
-          <ForeheadCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'forehead')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'forehead')} />
-
+          {
+            activeCategories.includes("eyebrows") &&
+              <EyebrowCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'eyebrows')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'eyebrows')} />
+          }
           {/* /////////////////////////////////Eyebrow Client 1 section/////////////////////// */}
-          <EyebrowCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'eyebrows')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'eyebrows')} />
 
         </div>
        } 
