@@ -16,8 +16,8 @@ import Application from "../../api/Application"
 import { useLocalStorage } from "@uidotdev/usehooks";
 import FilterModal from "./FilterModal";
 
-const CompareSection = ({results,clientId}) => {
-  console.log(results)
+const CompareSection = ({results,clientId ,lastScan}) => {
+  // console.log(results)
   const [orgs,] = useLocalStorage("orgData")
   const [isLoading,setIsLoading] = useState(true)
   const [data,setData] = useState([])
@@ -153,12 +153,12 @@ const CompareSection = ({results,clientId}) => {
                   <div className="text-lg font-normal">{clientId}</div>
                 </div>
                 <div className="text-base font-normal text-[#7E7E7E]">
-                  Last Scan : {new Date(data[0].data.timestamp).toLocaleDateString("en-GB", {
+                  Last Scan : {new Date(lastScan).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "long",
                       year: "numeric",
                     })}
-                  <div>Time: {new Date(data[0].data.timestamp).toLocaleTimeString("en-GB", {
+                  <div>Time: {new Date(lastScan).toLocaleTimeString("en-GB", {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}</div>

@@ -61,6 +61,7 @@ export const ScanHistory = () => {
     const [orgs,] = useLocalStorage("orgData")
     const [results,setResults] = useState([])
     const [activeResult,setActiveResult] = useState(null)
+    const [lastUpdate,setLastUpdate] = useState(0)
     const [filterType,setFilterType] = useState('Any')
     const sorts =[
         "Any","Newest Scan","Oldest Scan","Maximum Scan","Minimum Scan"
@@ -342,12 +343,15 @@ export const ScanHistory = () => {
                                     onaccepted={(e) => {
                                         setResults(e)
                                         console.log(e)
+                                        setLastUpdate(
+                                            Math.max(...patient.scans.map((e =>e.timestamp)))
+                                        )
                                         setActiveResult(patient.client_info.clientCode)
                                     }}
                                 />
                                 {activeResult == patient.client_info.clientCode && results.length ==2 &&
                                     <div>
-                                        <CompareSection clientId={activeResult} results={results}></CompareSection>
+                                        <CompareSection clientId={activeResult} lastScan={lastUpdate} results={results}></CompareSection>
                                     </div>
                                     // <div className="w-full mt-0">
                                     //     {results.map((el) => {
