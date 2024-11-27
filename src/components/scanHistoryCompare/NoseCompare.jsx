@@ -17,7 +17,6 @@ const NoseCompare = ({scan1,scan2,date1,date2,images}) => {
         </div>
         <div className="flex flex-col gap-2 w-full items-stretch justify-start">
           {scan1.map((el,index) => {
-            console.log(el)
             return (
               <RowDetail key={index} date1={date1} date2={date2} el={el} el2={scan2.filter(val =>val.key == el.key)[0]} images={images}></RowDetail>
             )
