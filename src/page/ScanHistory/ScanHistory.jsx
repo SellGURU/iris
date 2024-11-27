@@ -69,6 +69,8 @@ export const ScanHistory = () => {
     const [imageBy,setImageBy] = useState('all')
     // console.log(patients)
     // let [partyId] = useLocalStorage("partyid");
+    const [startDate,setStartDate] = useState(null)
+    const [endDate,setendDate] = useState(null)
     const filterModalRefrence = useRef(null)
     const sortRefrence = useRef(null)
     const [showFilter,setShowFilter] = useState(false)
@@ -80,12 +82,12 @@ export const ScanHistory = () => {
             setShowSort(false)
         }
     })
-    useModalAutoClose({
-        refrence:sortRefrence,
-        close:() =>{
-            setShowFilter(false)
-        }
-    })   
+    // useModalAutoClose({
+    //     refrence:sortRefrence,
+    //     close:() =>{
+    //         setShowFilter(false)
+    //     }
+    // })   
     let [getpass,] = useLocalStorage("password")
      let [getEmail,] = useLocalStorage("email")
     useEffect(() => {
@@ -137,7 +139,6 @@ export const ScanHistory = () => {
         }).then((res) => {
             console.log(res)
             if(res.data.data.subs_data.length> 0){
-                console.log(res.data.data.subs_data[0].iscan_brought)
                 let newPak = new Package({
                     name:'No available package',
                     cycle:'Yearly',
@@ -147,7 +148,6 @@ export const ScanHistory = () => {
                     discount:0,
                     options:[]                           
                 })
-                console.log(newPak)
                 Appcontext.package.updatePackage(newPak)
             }
         })
@@ -181,26 +181,42 @@ export const ScanHistory = () => {
     const navigate = useNavigate()
     const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
     useEffect(() => {
-        toast.loading("pending ...")
-        getPatients()
-        // if(imageBy!= 'any'){
-        //     setPatientList(patients.filter(el =>{
-        //         if(el.result){
-        //             if(el.result.filter((e) =>e.imageMode == imageBy).length>0){
-        //                 return true
-        //             }else{
-        //                 return false
-        //             }
+        if(imageBy!= 'all'){
+            setPatientList(patients.filter(el =>{
+                if(el.scans){
+                    if(el.scans.filter((e) =>e.scanType.includes(imageBy)).length>0){
+                        return true
+                    }else{
+                        return false
+                    }
 
-        //         }
-        //         return false
+                }
+                return false
                 
-        //     }))
-        // }else {
-        //     setPatientList(patients)
-        // }
+            }))
+        }else {
+            setPatientList(patients)
+        }
     },[imageBy])   
-    
+
+    useEffect(() => {
+        if(startDate!= null && endDate!= null){
+            setPatientList(patients.filter(el =>{
+                if(el.scans){
+                    if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
+                        return true
+                    }else{
+                        return false
+                    }
+
+                }
+                return false
+                
+            }))
+        }else {
+            setPatientList(patients)
+        }
+    },[startDate,endDate])   
     // useEffect(() => {
     //     if(filterType == 'Maximum Scan'){
 
@@ -270,7 +286,7 @@ export const ScanHistory = () => {
                             <Tooltip className="max-w-[240px] bg-white" id="my-tooltip"/>
                             {
                                 showFilter &&
-                                <FilterModal imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter}
+                                <FilterModal endDate={endDate} startDate={startDate} setEndDate={setendDate} setStartDate={setStartDate} imageBy={imageBy} setImageBy={setImageBy} setShowFilter={setShowFilter}
                                              refrence={sortRefrence}/>
                                 // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
                             }
