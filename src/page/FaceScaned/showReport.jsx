@@ -519,10 +519,12 @@ const ShowReport = (props) => {
 
                 </div>
                 }
-              <div id="printDiv" className="w-full hidden print:visible">
-                <PrintReport ScanData={ScanData}  categories={resolveAllCategories()} resolveArrayMeasurments={resolveArrayMeasurments}></PrintReport>
+                {!isLoading &&
+                <div id="printDiv" className="w-full hidden print:visible">
+                  <PrintReport ScanData={ScanData}  categories={resolveAllCategories()} resolveArrayMeasurments={resolveArrayMeasurments}></PrintReport>
 
-              </div>
+                </div>
+                }
             </div>
         </>
     )
