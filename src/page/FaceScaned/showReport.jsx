@@ -7,15 +7,17 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { Button } from "symphony-ui";
+import PrintReport from "../../components/PrintReport/index.jsx";
+import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
 // import {RWebShare} from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
 // import ScanData from '../../api/Data/scan.json';
-import Nose from "../../components/overallAnalysisReport/Nose";
-import Chin from "../../components/overallAnalysisReport/Chin";
-import Lip from "../../components/overallAnalysisReport/Lip";
-import Cheek from "../../components/overallAnalysisReport/Cheek";
-import Forehead from "../../components/overallAnalysisReport/Forehead";
-import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
+// import Nose from "../../components/overallAnalysisReport/Nose";
+// import Chin from "../../components/overallAnalysisReport/Chin";
+// import Lip from "../../components/overallAnalysisReport/Lip";
+// import Cheek from "../../components/overallAnalysisReport/Cheek";
+// import Forehead from "../../components/overallAnalysisReport/Forehead";
+// import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import SummaryBox from "./boxs/SummaryBox";
 import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
 // import SummaryBox from "./boxs/SummaryBox";
@@ -71,34 +73,73 @@ const ShowReport = (props) => {
     const resolveChangePart = (name)=>{
         setActivePart(name)
     }    
-    const download = () => {
-        // const downloadLink = document.createElement("a");
-        // downloadLink.href = pdf;
-        // downloadLink.download = 'download.html';
-        // downloadLink.click();
-        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
-        // // console.log(document.getElementById('reported'))
-        mywindow.document.write('<html><head><title>' + document.title  + '</title>');
-        mywindow.document.write('</head><body >');
-        mywindow.document.write('<h1>' + document.title  + '</h1>');
-        mywindow.document.write(document.getElementById('mydiv').innerHTML);
-        mywindow.document.write('</body></html>');
+    const resolveAllCategories = () => {
+      return Array.from(new Set(resolveArrayMeasurments().map(item => item.category)));
+    }    
+  const download = () => {
+    // const downloadLink = document.createElement("a");
+    // downloadLink.href = pdf;
+    // downloadLink.download = 'download.html';
+    // downloadLink.click();
+    var mywindow = window.open("", "PRINT", "height=1500,width=1500");
+    // // console.log(document.getElementById('reported'))
+    //  const tailwindCDN = '<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">';
+    // mywindow.document.write(
+    //   "<html><head><title>" + document.title + "</title>"
+    // );
+    mywindow.document.write(`
+        <html>
+            <head>
+            <title>${document.title}</title>
+            <!-- Link to Tailwind CSS -->
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+            <style>
+                @media print {
+                body {
+                    background-color: white !important;
+                }
+                .bg-gray-100 {
+                    background-color: #f3f4f6 !important; /* Tailwind Gray 100 */
+                }
+                .bg-blue-500 {
+                    background-color: #3b82f6 !important; /* Tailwind Blue 500 */
+                }
+                .no-split {
+                page-break-inside: avoid; /* Prevents splitting the element */
+                break-inside: avoid;     /* For modern browsers */
+                }                    
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }                    
+                }
+            </style>            
+            </head>
+            <body>
+            ${document.getElementById("printDiv")?.innerHTML}
+            </body>
+        </html>
+        `);
 
-        mywindow.document.close(); // necessary for IE >= 10
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.onload = () => {
         mywindow.focus(); // necessary for IE >= 10*/
 
         mywindow.print();
         mywindow.close();
-        // window.frames["reported"].focus();
-        // window.frames["reported"].print();
-        // document.getElementById("mydiv").contentWindow.print();
+
+    }
+    // window.print()
+    // window.frames["reported"].focus();
+    // window.frames["reported"].print();
+    // document.getElementById("mydiv").contentWindow.print();
     // document.getElementById('reported').contentWindow.print();
-        // return false;        
-        return true;
-        // var decodedHTML = window.atob(pdf.replace("data:text/html;base64,",''));
-        // console.log(pdf.replace("data:text/html;base64,",''))
-        // document.getElementById("mydiv").innerHTML = decodedHTML;
-    }    
+    // return false;
+    return true;
+    // var decodedHTML = window.atob(pdf.replace("data:text/html;base64,",''));
+    // console.log(pdf.replace("data:text/html;base64,",''))
+    // document.getElementById("mydiv").innerHTML = decodedHTML;
+  };
     const [activeTab, setActiveTab] = useState("overall");
     return (
         <>
@@ -382,10 +423,14 @@ const ShowReport = (props) => {
 
                   {/* /////////////////////////////////Categories section/////////////////////// */}
                   <div className="w-full justify-center flex flex-col items-start mt-10">
-                    {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
+                      {resolveAllCategories().map((value,index) => {
+                          return (
+                            <ContentViewBox key={index}  category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}></ContentViewBox>
+                          )
+                      })}     
+                    {/* {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
                       <Nose data={resolveArrayMeasurments().filter((el) =>el.category =='nose')} />
                     }
-                    {/* <div>{ScanData.data.pose_analysis[0].current_image_analysis.measurements.vertical.height_of_forehead.side.left.ratio}</div> */}
                     {resolveArrayMeasurments().filter((el) =>el.category =='chin').length > 0 &&
                     <Chin data={resolveArrayMeasurments().filter((el) =>el.category =='chin')} />
                     }
@@ -400,7 +445,7 @@ const ShowReport = (props) => {
                     }
                      {resolveArrayMeasurments().filter((el) =>el.category =='eyebrows').length > 0 &&
                       <Eyebrow data={resolveArrayMeasurments().filter((el) =>el.category =='eyebrows')} />
-                     }
+                     } */}
                     {/* <PhiltralColumn data={ScanData} />
                     <Other data={ScanData}  /> */}
                   </div>
@@ -474,7 +519,10 @@ const ShowReport = (props) => {
 
                 </div>
                 }
+              <div id="printDiv" className="w-full hidden print:visible">
+                <PrintReport ScanData={ScanData}  categories={resolveAllCategories()} resolveArrayMeasurments={resolveArrayMeasurments}></PrintReport>
 
+              </div>
             </div>
         </>
     )
