@@ -192,7 +192,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
             {categories.map((value,index) => {
                 return (
                     <div className="mt-2 w-full" key={index}>
-                        <ContentBox images={['/image/faceOverall-04.png']} category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}  key={index}></ContentBox>
+                        <ContentBox  category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}  key={index}></ContentBox>
                     </div>
                 )
             })}

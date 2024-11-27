@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { Button } from "symphony-ui";
 import Status from "../../page/FaceScaned/boxs/Status";
-const ContentBox = ({data,category,images}) => {
-  const resolveStatus = (value) => {
-      if(value.problematic == false) {
-          return 'No Action Requred'
-      }
+const ContentBox = ({data,category}) => {
+  const resolveStatus = (checked) => {
+      if(checked == false){
+      return 'No Action Requred'
+      }else {
       return 'Action Needed'
-  }  
+      }
+  }   
   const resolveIcon =() => {
     switch(category){
         case 'forehead': return '/image/Forehead.svg'
@@ -119,7 +120,7 @@ const ContentBox = ({data,category,images}) => {
 
       {isOpen && (
         <div className="w-full flex flex-row items-start justify-start gap-4 mb-8">
-          {images.map((el,index) => {
+          {/* {images.map((el,index) => {
             return (
               <div key={index} className="flex flex-col items-start justify-start gap-3 w-[23%]">
                 <img
@@ -136,7 +137,67 @@ const ContentBox = ({data,category,images}) => {
                 </div>
               </div>
             )
-          })}
+          })} */}
+        <div className="w-full flex flex-row flex-wrap mt-3 items-start justify-start gap-5 mb-8">
+         {data.map(el => {
+          return (
+            <>
+            {
+              el.side ?
+              <>
+                  <div className="flex flex-col  items-start justify-start gap-3  ">
+                    <div style={{height:'230px',width:'260px'}} className="overflow-hidden  rounded-3xl border-2 border-primary-color">
+                        <img
+                        src={el.side.left.thumbnail }
+                        alt="face-image"
+                        className="object-cover w-full h-full"
+                        />
+
+                    </div>
+                    <div className="w-[260px] mt-4" style={{width:'260px'}}>
+                      <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                    </div>
+                  </div>
+                  <div className="flex  flex-col items-start justify-start gap-3 ">
+                    <div style={{height:'230px',width:'260px'}} className=" overflow-hiddenrounded-3xl border-2 border-primary-color">
+                        <img
+                        src={el.side.right.thumbnail}
+                        alt="face-image"
+                        className="object-cover w-full h-full"
+                        />
+
+                    </div>
+                    <div className=" mt-4" style={{width:'260px'}}>
+                      <Status isFull status={resolveStatus(el.side.right.problematic)}></Status>
+                    </div>
+                  </div>
+              </>
+              :
+
+            <div className="flex flex-col items-start justify-start gap-3 ">
+              <div style={{height:'230px',width:'260px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                  <img
+                  src={el.side? el.side.left.thumbnail : el.thumbnail}
+                  alt="face-image"
+                  className="object-cover w-full h-full"
+                  />
+
+              </div>
+              <div style={{width:'260px'}} className="w-[260px] mt-4">
+                {el.side ?
+                <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                :
+                <Status isFull status={resolveStatus(el.problematic)}></Status>
+                }
+
+              </div>
+            </div>
+            } 
+            
+            </>
+          )
+         })}
+        </div>          
 {/* 
           <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
             <img

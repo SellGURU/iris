@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button } from "symphony-ui";
-
+import Status from "../../page/FaceScaned/boxs/Status";
 const ContentViewBox = ({data,category}) => {
   const [isOpen, setIsOpen] = useState(false);
   const resolveIcon =() => {
@@ -15,6 +15,13 @@ const ContentViewBox = ({data,category}) => {
         case 'nose': return '/image/Nose.svg'
     }
   }
+    const resolveStatus = (checked) => {
+        if(checked == false){
+        return 'No Action Requred'
+        }else {
+        return 'Action Needed'
+        }
+    }     
   return (
     <>
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
@@ -74,63 +81,65 @@ const ContentViewBox = ({data,category}) => {
       </div>
 
       {isOpen && (
-        <div className="w-full flex flex-row items-start justify-start gap-4 mb-8">
-          <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
-            <img
-              src="/image/faceOverall-04.png"
-              alt="face-image"
-              className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
-            />
-            <div className="text-left text-sm font-normal">
-              Left Philtral Colum to Contralateral commissure/
-              <br />
-              Lips Width
-            </div>
-            <div className="text-[10px] font-light self-center">Normal</div>
-            <div className="w-[96%] h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-              <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-              <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-              <div className="w-1/3 h-full bg-primary-color"></div>
-            </div>
-          </div>
+        <div className="w-full flex flex-row flex-wrap items-start justify-start gap-5 mb-8">
+         {data.map(el => {
+          return (
+            <>
+            {
+              el.side ?
+              <>
+                  <div className="flex flex-col  items-start justify-start gap-3  ">
+                    <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                        <img
+                        src={el.side.left.thumbnail }
+                        alt="face-image"
+                        className="object-cover w-full h-full"
+                        />
 
-          <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
-            <img
-              src="/image/faceOverall-04.png"
-              alt="face-image"
-              className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
-            />
-            <div className="text-left text-sm font-normal">
-              Right Philtral Colum to Contralateral commissure/
-              <br />
-              Lips Width
-            </div>
-            <div className="text-[10px] font-light self-center">Normal</div>
-            <div className="w-[96%] h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-              <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-              <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-              <div className="w-1/3 h-full bg-primary-color"></div>
-            </div>
-          </div>
+                    </div>
+                    <div className="w-[260px] mt-4">
+                      <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                    </div>
+                  </div>
+                  <div className="flex  flex-col items-start justify-start gap-3 ">
+                    <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                        <img
+                        src={el.side.right.thumbnail}
+                        alt="face-image"
+                        className="object-cover w-full h-full"
+                        />
 
-          <div className="flex flex-col items-start justify-start gap-3 w-[23%]">
-            <img
-              src="/image/faceOverall-04.png"
-              alt="face-image"
-              className="max-h-[917px] w-full rounded-3xl border-2 border-primary-color"
-            />
-            <div className="text-left text-sm font-normal">
-              Height of Upper Lip/
-              <br />
-              Height of Lower Lip
+                    </div>
+                    <div className="w-[260px] mt-4">
+                      <Status isFull status={resolveStatus(el.side.right.problematic)}></Status>
+                    </div>
+                  </div>
+              </>
+              :
+
+            <div className="flex flex-col items-start justify-start gap-3 ">
+              <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                  <img
+                  src={el.side? el.side.left.thumbnail : el.thumbnail}
+                  alt="face-image"
+                  className="object-cover w-full h-full"
+                  />
+
+              </div>
+              <div className="w-[260px] mt-4">
+                {el.side ?
+                <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                :
+                <Status isFull status={resolveStatus(el.problematic)}></Status>
+                }
+
+              </div>
             </div>
-            <div className="text-[10px] font-light self-center">Normal</div>
-            <div className="w-[96%] h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-              <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-              <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-              <div className="w-1/3 h-full bg-primary-color"></div>
-            </div>
-          </div>
+            } 
+            
+            </>
+          )
+         })}
         </div>
       )}
     </>

@@ -13,12 +13,12 @@ const Status =({status,isFull}) => {
         <>
                 <div className="flex relative flex-col items-start justify-start gap-2 w-[45%]" style={{width:isFull?'100%':'45%'}}>
 
-                    <div className="w-full  h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden">
-                        <div className="w-1/3 h-full bg-[#FF3E5D]"></div>
-                        <div className="w-1/3 h-full bg-[#03DAC5]"></div>
-                        <div className="w-1/3 h-full bg-primary-color"></div>
+                    <div className="w-full  h-3 rounded-[21px] flex flex-row items-center self-center overflow-hidden" style={{borderRadius:'21px'}}>
+                        <div className="w-1/3 h-full bg-[#FF3E5D]" style={{backgroundColor:'#FF3E5D'}}></div>
+                        <div className="w-1/3 h-full bg-[#03DAC5]" style={{backgroundColor:'#03DAC5'}}></div>
+                        <div className="w-1/3 h-full bg-primary-color" style={{backgroundColor:'#544BF0'}}></div>
                     </div>
-                    <div className={`absolute flex items-end gap-1 top-[-24px] ${resolvePosition()} `}>
+                    <div className={`absolute flex items-end gap-1 top-[-24px] ${resolvePosition()} `} style={{top:'-24px'}}>
 
                         {status == 'Action Needed' ?
                         <>
