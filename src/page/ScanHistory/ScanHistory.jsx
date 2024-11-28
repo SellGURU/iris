@@ -109,20 +109,24 @@ export const ScanHistory = () => {
             toDateStr:"",
             pageNo:"1",
         }).then((res) => {
-            toast.dismiss()
-            if(res.data){
-                if(res.data.status == 'fail'){
-                    console.log(res.data)
-                }else if(!res.data.detail){
-                    if(res.data.length>0){
-                        setPatinets(res.data)
-                        setPatientList(res.data)
-                        localStorage.setItem("patients", JSON.stringify(res.data));
-
+            // console.log(res.data == 'Internal Server Error')
+            if(res.data != 'Internal Server Error'){
+                if(res.data){
+                    if(res.data.status == 'fail'){
+                        console.log(res.data)
+                    }else if(!res.data.detail){
+                        if(res.data.length>0){
+                            setPatinets(res.data)
+                            setPatientList(res.data)
+                            localStorage.setItem("patients", JSON.stringify(res.data));
+    
+                        }
+    
                     }
-
                 }
+
             }
+            toast.dismiss()
         })        
     }
     useConstructor(() => {
@@ -138,7 +142,7 @@ export const ScanHistory = () => {
             password:getpass
         }).then((res) => {
             console.log(res)
-            if(res.data.data.subs_data.length> 0){
+            if(res.data?.data?.subs_data?.length> 0){
                 let newPak = new Package({
                     name:'No available package',
                     cycle:'Yearly',
