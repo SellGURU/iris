@@ -144,7 +144,8 @@ const CompareSection = ({results,clientId ,lastScan}) => {
                     <Button onClick={() => {
                       setIsShowFilter(true)
                     }} theme="iris-small">
-                      <div className="filterIcon-white"></div>
+                      <img src="./filter-2.svg" className="mr-1" alt="" />
+                      {/* <div className="filterIcon-white"></div> */}
                       Filter
                     </Button>
                     {isShowFilter &&
