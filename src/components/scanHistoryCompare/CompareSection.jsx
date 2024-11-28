@@ -26,7 +26,7 @@ const CompareSection = ({results,clientId ,lastScan}) => {
   const resolveArrayMeasurments = (ScanData) => {
       // console.log(ScanData.data)
       const allData = []
-      Object.keys(ScanData?.data?.pose_analysis[0]?.current_image_analysis.measurements).map(key => {
+      Object.keys(ScanData?.data?.pose_analysis[0]?.current_image_analysis?.measurements?ScanData?.data?.pose_analysis[0]?.current_image_analysis?.measurements:{}).map(key => {
 
       const resolved = Object.entries(ScanData?.data?.pose_analysis[0]?.current_image_analysis.measurements[key]).filter((el) =>el[0] !='measurements_list').map(([key, value]) => ({
           key, 
@@ -46,9 +46,9 @@ const CompareSection = ({results,clientId ,lastScan}) => {
     const vals1 = resolveArrayMeasurments(data[0]).filter(el =>el.category == category)
     const vals2 = resolveArrayMeasurments(data[1]).filter(el =>el.category == category)
     vals1.forEach((el,index) => {
-      if(el.side) {
-        resalved.push(Math.abs(el.side.left.percent - vals2[index].side.left.percent)) 
-        resalved.push(Math.abs(el.side.right.percent - vals2[index].side.right.percent))
+      if(el.side && vals2.filter(er => er.key == el.key).length>0 ) {
+        resalved.push(Math.abs(el.side.left.percent - vals2.filter(er => er.key == el.key)[0].side.left.percent)) 
+        resalved.push(Math.abs(el.side.right.percent - vals2.filter(er => er.key == el.key)[0].side.right.percent))
       }else {
         resalved.push(Math.abs(el.percent - vals2[index].percent)) 
 
@@ -62,6 +62,7 @@ const CompareSection = ({results,clientId ,lastScan}) => {
   useEffect(() => {
     const values = []
     setIsLoading(true)
+    setData([undefined,undefined])
     results.forEach(el => {
       Application.getScanDetails({
           scanCode: el,
@@ -79,6 +80,8 @@ const CompareSection = ({results,clientId ,lastScan}) => {
     if(data.length == 2 && data[0]!=undefined && data[1]!= undefined){
       setIsLoading(false)
       
+    }else {
+      setIsLoading(true)
     }
   })
   useEffect(() => {
@@ -124,7 +127,7 @@ const CompareSection = ({results,clientId ,lastScan}) => {
 
           </div>
       </div>   
-      {!isLoading &&
+      {!isLoading&& data[0]!=undefined && data[1]!=undefined &&
         <div className="flex flex-col w-full gap-2">
           {/* /////////////////////////////////Header Client 1 section/////////////////////// */}
           <div className="grid grid-cols-5 grid-rows-2 gap-x-2 gap-y-[10px] w-full">

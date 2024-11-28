@@ -249,7 +249,7 @@ export const PatienCard = ({
                           onChange={() => {
                             if (!accepted.includes(patientHistory.scan_id)) {
                               const array = accepted;
-                              if (accepted.length >= 3) {
+                              if (accepted.length >= 2) {
                                 array.shift();
                               }
                               setAccepted([...array, patientHistory.scan_id]);
@@ -270,7 +270,7 @@ export const PatienCard = ({
                         onClick={() => {
                           if (!accepted.includes(patientHistory.scan_id)) {
                             const array = accepted;
-                            if (accepted.length >= 3) {
+                            if (accepted.length >= 2) {
                               array.shift();
                             }
                             setAccepted([...array, patientHistory.scan_id]);
