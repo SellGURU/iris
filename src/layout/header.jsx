@@ -239,7 +239,7 @@ const Header = () => {
                         <div className="logoutIcon w-[18px]"></div>
                         <h1 className="cursor-pointer" onClick={() => {
                             localStorage.clear()
-                            window.open("/login")
+                            window.open("/#/login")
                             // navigate('/login')
                         }}>Logout</h1>
                     </div>                   
