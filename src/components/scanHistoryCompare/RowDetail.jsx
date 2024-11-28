@@ -7,7 +7,7 @@ const RowDetail = ({el,el2,images,date1,date2}) => {
     const [isOpen, setIsOpen] = useState(0);
     const resolveStatus = (checked) => {
         if(checked == false){
-        return 'No Action Requred'
+        return 'No Action Required'
         }else {
         return 'Action Needed'
         }

@@ -17,7 +17,7 @@ const ContentViewBox = ({data,category}) => {
   }
     const resolveStatus = (checked) => {
         if(checked == false){
-        return 'No Action Requred'
+        return 'No Action Required'
         }else {
         return 'Action Needed'
         }
