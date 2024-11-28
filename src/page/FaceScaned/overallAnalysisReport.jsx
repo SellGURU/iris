@@ -580,7 +580,7 @@ const OverallAnalysisReport = (props) => {
                       </div>
                       <div className="w-full flex">
                         <div className="relative z-20">
-                          <FaceMeshView imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                          <FaceMeshView dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
                             console.log(e)
                             resolveChangePart(e)
                           }}></FaceMeshView>

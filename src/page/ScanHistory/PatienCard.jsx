@@ -27,6 +27,11 @@ export const PatienCard = ({
       });
     }
   });
+  useEffect(() => {
+    if(result.length == 2){
+      setIsShowMore(true)
+    }
+  },[result])
   // useEffect(() => {
   //   const timerId = setInterval(() => {
   //     setCurrentDateTime(new Date());  // Update the current date and time every minute

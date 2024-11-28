@@ -4,10 +4,18 @@ import Status from "./Status"
 const SummaryBox =({data,indexNum}) => {
     console.log(data)
     const resolveStatus = () => {
-        if(data.problematic == false) {
-            return 'No Action Requred'
+        if(data.side) {
+            if(data.side.left.problematic == false) {
+                return 'No Action Required'
+            }
+            return 'Action Needed'            
+        }else {
+            if(data.problematic == false) {
+                return 'No Action Required'
+            }
+            return 'Action Needed'
+
         }
-        return 'Action Needed'
     }
     return (
         <>

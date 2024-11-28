@@ -1,7 +1,16 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import useFaceMesh from "../../hooks/useFaceMash.js";
 import ClipLoader from "react-spinners/ClipLoader";
-const FaceMeshView = ({ imageSrc,onClick,width="500px",height="500px",...props }) => {
+const FaceMeshView = ({ imageSrc,dataValues,onClick,width="500px",height="500px",...props }) => {
+    const [colors,setColors] = useState({
+        nose: "#FFFFFF",
+        lips: "#FFFFFF",
+        cheeks:"#FFFFF",
+        chin:"#FFFFFF",
+        forehead:"#FFFFFF",
+        eyebrows:"#FFFFFF"
+    })
     const {
         resolvedFile,
         imgRef,
@@ -9,7 +18,7 @@ const FaceMeshView = ({ imageSrc,onClick,width="500px",height="500px",...props }
         analyzeImage,
         imageLoaded,
         setImageLoaded,
-    } = useFaceMesh(imageSrc,onClick);
+    } = useFaceMesh(imageSrc,onClick,colors);
 
     useEffect(() => {
         if (imageLoaded) {
@@ -17,10 +26,44 @@ const FaceMeshView = ({ imageSrc,onClick,width="500px",height="500px",...props }
         }
     }, [imageLoaded, analyzeImage]);
     const [isLoading,setIsLoading] = useState(true)
+    const resolveColorFormData = (category) => {
+        let values = []
+        dataValues.filter(el => el.category == category).forEach(e => {
+            if(e.side){
+                values.push(e.side.left.problematic)
+            }else {
+                values.push(e.problematic)
+            }
+        })
+        if(values.filter((el) =>el == true).length > 0){
+            return "#e30b2c"
+        }
+        return '#FFFFFF'
+        // console.log(values.)
+    }
     useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 2000);
+        // resolveColorFormData("nose")
+        if(!isLoading){
+            setColors(
+            {
+                nose:  resolveColorFormData("nose"),
+                lips:resolveColorFormData("lips"),
+                cheeks:resolveColorFormData("cheeks"),
+                chin:resolveColorFormData("chin"),
+                forehead:resolveColorFormData("forehead"),
+                eyebrows:resolveColorFormData("eyebrows")
+            }
+            )
+
+        }
+    },[isLoading])
+    useEffect(() => {
+        if(dataValues.length > 0){
+            setTimeout(() => {
+                setIsLoading(false)
+            }, 2000);
+            
+        }
     })
     return (
         <div className="container rounded-lg">

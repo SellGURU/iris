@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { useState, useRef, useEffect } from "react";
 
-const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
+const useFaceMesh = (initialImageSrc = null,onClickHandler,colorsData) => {
     const [resolvedFile, setResolvedFile] = useState(initialImageSrc || "");
     const [imageLoaded, setImageLoaded] = useState(false);
     const imgRef = useRef(null);
@@ -19,7 +19,7 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
         if (initialImageSrc) {
             setResolvedFile(initialImageSrc); // Set the initial image if provided
         }
-    }, [initialImageSrc]);
+    }, [initialImageSrc,colorsData]);
 
     // const handleImageUpload = (event) => {
     //     const file = event.target.files[0];
@@ -81,15 +81,16 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler) => {
         };
 // , 151, 234, 93
         const whiteCircleIndices = [];
-        const colors = {
-            nose: "#FFFFFF",
-            // Eye: "#FFFFFF",
-            lips: "#FFFFFF",
-            cheeks:"#FFFFF",
-            chin:"#FFFFFF",
-            forehead:"#FFFFFF",
-            eyebrows:"#FFFFFF"
-        };
+        // const colors = {
+        //     nose: "#FFFFFF",
+        //     // Eye: "#FFFFFF",
+        //     lips: "#FFFFFF",
+        //     cheeks:"#FFFFF",
+        //     chin:"#FFFFFF",
+        //     forehead:"#FFFFFF",
+        //     eyebrows:"#FFFFFF"
+        // };
+        const colors=colorsData
 
         const circles = [];
 
