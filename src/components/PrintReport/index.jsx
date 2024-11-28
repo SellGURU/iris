@@ -11,6 +11,10 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
             {/* {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
                 <Nose data={resolveArrayMeasurments().filter((el) =>el.category =='nose')} />
             } */}
+            <div className="w-full mb-4 flex justify-between items-end">
+                <img className="w-24" src="/image/login/IRIS.svg" alt="" />
+                <div className="flex-grow border-b-2 border-b-blue-700 h-3"></div>
+            </div>
             <div>
             <div className="flex flex-col w-full gap-4">
 
