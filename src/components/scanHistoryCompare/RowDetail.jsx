@@ -88,7 +88,7 @@ const RowDetail = ({el,el2,images,date1,date2}) => {
                   }}>
                     <img
                       className={`transition-transform ${
-                        el.key == !isOpen ? "rotate-180" : ""
+                        el.key != isOpen ? "rotate-180" : ""
                       }`}
                       src="/arrow-white2.svg"
                       alt="arrow-icon"
