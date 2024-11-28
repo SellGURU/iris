@@ -2,7 +2,7 @@
 import { useConstructor } from "../../help"
 import Application from "../../api/Application"
 import { useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -140,6 +140,11 @@ const ShowReport = (props) => {
     // console.log(pdf.replace("data:text/html;base64,",''))
     // document.getElementById("mydiv").innerHTML = decodedHTML;
   };
+    useEffect(() => {
+      if(searchParams.get("mode") == 'print' && !isLoading){
+        download()
+      }
+    })
     const [activeTab, setActiveTab] = useState("overall");
     return (
         <>

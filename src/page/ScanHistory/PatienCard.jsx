@@ -322,7 +322,12 @@ export const PatienCard = ({
                                         </RWebShare> */}
 
                       <Button
-                        onClick={() => download(patientHistory.scan_id)}
+                        onClick={() =>{
+                          navigate(
+                            `/showReport/?scanId=${patientHistory.scan_id}&clientId=${patient.client_info.clientCode}&mode=print`
+                          );                          
+                        }
+                        }
                         theme="iris-secondary-small"
                       >
                         <div className="downloadIcon-purple"></div>
