@@ -26,7 +26,7 @@ import PrintReport from "../../components/PrintReport/index.jsx";
 import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
 // import ContentBox from "../../components/overallAnalysisReport/ContentBox.jsx";
 const OverallAnalysisReport = (props) => {
-  const [activeTab, setActiveTab] = useState("overall");
+  const [activeTab, setActiveTab] = useState("facial");
   const [searchParams] = useSearchParams();
   const [isLoading, ] = useState(false);
   const [date, ] = useState(new Date());
@@ -218,12 +218,12 @@ const OverallAnalysisReport = (props) => {
 
               </div>
               {/* /////////////////////////////////Header section/////////////////////// */}
-              <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-4">
+              <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-0">
                 Face Scan Completed
               </div>
               <div className=" justify-center hidden">
                 <div
-                  className="text-justify text-lg text-[#444444] w-[600px] md:w-[850px] md:max-w-[850px] mb-4"
+                  className="text-justify text-lg text-[#444444] w-[600px] md:w-[850px] md:max-w-[850px] mb-2"
                   style={{
                     textAlignLast: "center",
                   }}
@@ -234,7 +234,7 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full print:hidden justify-between  flex mt-2 items-center">
+              <div className="w-full print:hidden justify-between  flex mt-[-16px] items-center">
                 <div className="invisible justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
@@ -312,7 +312,7 @@ const OverallAnalysisReport = (props) => {
                         </div>                    
                     </div>
                 }
-              <div className="w-full justify-center print:hidden my-1 flex items-center gap-8">
+              <div className="w-full justify-center print:hidden mb-1 flex items-center gap-8">
                 <Button
                   theme={
                     activeTab === "facial"
@@ -548,8 +548,8 @@ const OverallAnalysisReport = (props) => {
                       className="flex flex-col w-1/2 rounded-3xl border-2 border-primary-color"
                     /> */}
 
-                    <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                      <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                    <div className="flex  flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
+                      <div className="w-full text-[#444444]  flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         <div className="flex justify-start items-center gap-4">
                           {activePart !='' &&
                             <img className="cursor-pointer" onClick={() => {
@@ -580,7 +580,7 @@ const OverallAnalysisReport = (props) => {
                       </div>
                       <div className="w-full flex">
                         <div className="relative z-20">
-                          <FaceMeshView dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                          <FaceMeshView width="296px" height="377px" dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
                             console.log(e)
                             resolveChangePart(e)
                           }}></FaceMeshView>
@@ -590,7 +590,7 @@ const OverallAnalysisReport = (props) => {
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                         /> */}
-                        <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
+                        <div className="grid grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
                           {resolveFacialData().slice(0,8).map((el,index) => {
                             return (
                               <>

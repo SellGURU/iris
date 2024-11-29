@@ -229,7 +229,7 @@ input {
 .decorated-dot::before {
   content: "•";
   color: inherit;
-  font-size: 26px; 
+  font-size: 15px; 
   vertical-align: top;
   @apply mx-2; 
 }

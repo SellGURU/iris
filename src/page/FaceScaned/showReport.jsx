@@ -145,7 +145,7 @@ const ShowReport = (props) => {
         download()
       }
     })
-    const [activeTab, setActiveTab] = useState("overall");
+    const [activeTab, setActiveTab] = useState("facial");
     return (
         <>
             <div>
@@ -465,7 +465,7 @@ const ShowReport = (props) => {
                     /> */}
 
                     <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                      <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                      <div className="w-full text-[#444444] flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         <div className="flex justify-start items-center gap-4">
                           {activePart !='' &&
                             <img className="cursor-pointer" onClick={() => {
@@ -496,7 +496,7 @@ const ShowReport = (props) => {
                       </div>
                       <div className="w-full flex">
                         <div className="relative z-20">
-                          <FaceMeshView dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                          <FaceMeshView width="296px" height="377px" dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
                             console.log(e)
                             resolveChangePart(e)
                           }}></FaceMeshView>
@@ -506,7 +506,7 @@ const ShowReport = (props) => {
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                         /> */}
-                        <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
+                        <div className="grid grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
                           {resolveFacialData().slice(0,8).map((el,index) => {
                             return (
                               <>

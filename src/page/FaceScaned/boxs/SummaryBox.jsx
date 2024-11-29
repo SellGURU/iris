@@ -20,11 +20,11 @@ const SummaryBox =({data,indexNum}) => {
     return (
         <>
             <div className="flex flex-col">
-            <p><span className="font-bold">{indexNum+1}_</span>{data.key}</p>
-            <p className="text-[#7E7E7E] h-[54px] text-[14px] mt-2 decorated-dot">
+            <p><span className=" text-[#2E2E2E]">{indexNum+1} . </span>{data.key}</p>
+            <p className="text-[#7E7E7E] h-[34px] text-[14px] mt-2 decorated-dot">
                 Description: {data.text}
             </p>
-            <div className="flex flex-row items-center mt-4 justify-between w-full">
+            <div className="flex flex-row items-center mt-0 justify-between w-full">
                 <p className="decorated-dot ">
                     {data.measured_distance ?
                     <>
