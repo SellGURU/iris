@@ -37,11 +37,11 @@ const ContentBox = ({data,category}) => {
 
           </div>
         </div>
-        <div className="flex flex-row items-start flex-grow flex-wrap justify-start  p-8  rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]" style={{gap:'69px',minHeight:'128px',backgroundColor:'#F5F5F5'}}>
+        <div className="flex flex-row items-start flex-grow flex-wrap justify-start  p-4 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]" style={{gap:'16px',backgroundColor:'#F5F5F5'}}>
           {data.map((el) => {
             return (
               <>
-              <div className="flex flex-col items-start justify-between w-[40%] h-[7vh]" style={{width:'100%',height:'7vh'}}>
+              <div className="flex flex-col items-start justify-between " style={{width:'100%'}}>
                 <div className="flex flex-row  " >
                     <div className="" >
                         {el.key}
@@ -51,19 +51,19 @@ const ContentBox = ({data,category}) => {
                 {
                     el.side ?
                     <>
-                        <div className="flex flex-row w-full mt-2 justify-between items-center">
+                        <div className="flex flex-row w-full mt-2 justify-start gap-1 items-center">
                         <p>Left:</p>
                         <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
                         <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                         </div>
-                        <div className="flex flex-row w-full justify-between items-center">
+                        <div className="flex flex-row w-full justify-start gap-1 items-center">
                         <p>Right:</p>
                         <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
                         <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                         </div>                    
                     </>
                     :
-                    <div className="flex flex-row w-full justify-between items-center">
+                    <div className="flex flex-row w-full justify-start gap-1 items-center">
                     <p>Dist: {el.ratio} ({el.percent} %)</p>
                     <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                     </div>
@@ -174,7 +174,7 @@ const ContentBox = ({data,category}) => {
               </>
               :
 
-            <div className="flex flex-col items-start justify-start gap-3 ">
+            <div className="flex flex-col items-start no-split justify-start gap-3 ">
               <div style={{height:'230px',width:'260px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
                   <img
                   src={el.side? el.side.left.thumbnail : el.thumbnail}

@@ -15,10 +15,11 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                 <img className="w-24" src="/image/login/IRIS.svg" alt="" />
                 <div className="flex-grow border-b-2 border-b-blue-700 h-3"></div>
             </div>
+            <div className="text-sm mb-4">AI NEXUS Face Analysis. All measurements estimated in 3D.</div>
             <div>
             <div className="flex flex-col w-full gap-4">
 
-                <div className="  p-8 pb-0 rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
+                <div className="  p-4 pb-0 rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
                 <div className="w-[100%]" style={{width:'100%'}}>
                     <div className="flex justify-between gap-2">
                     <div className="overflow-hidden" style={{width:'30%'}}>
@@ -26,7 +27,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                             src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
                             alt="face-image"
                             // style={{width:'100'}}
-                            className="  rounded-3xl w-full h-full object-cover object-top border-2 border-blue-500"
+                            className="  rounded-xl w-full h-full object-cover object-top border-2 border-blue-500"
                             />
 
                     </div>
@@ -35,7 +36,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                             src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
                             alt="face-image"
                             // style={{width:'100'}}
-                            className="  rounded-3xl w-full h-full object-fill object-top border-2 border-blue-500"
+                            className="  rounded-xl w-full h-full object-fill object-top border-2 border-blue-500"
                             />
 
                     </div>
@@ -44,7 +45,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                             src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
                             alt="face-image"
                             // style={{width:'100'}}
-                            className="  rounded-3xl w-full h-full object-fill object-top border-2 border-blue-500"
+                            className="  rounded-xl w-full h-full object-fill object-top border-2 border-blue-500"
                             />
 
                     </div>                                        
@@ -77,7 +78,12 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                     </div>
 
                 </div>
-                <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
+                {/* <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div> */}
+
+                    
+                </div>
+
+                 <div className="  p-4  rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
                 <div className="flex-grow ">
 
                     <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
@@ -171,26 +177,25 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                         </div>
                     </div>
 
-                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
-                        Color Guide
-                        <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
+                    <div className="w-full flex flex-row text-2xl font-medium items-center justify-end">
+                        {/* Color Guide */}
+                        <div className="text-[#7E7E7E] font-normal  flex justify-end flex-row gap-6" style={{fontSize:'12px'}}>
                         <div className="flex gap-1 items-center">
-                            <div className="w-4 h-4 bg-red-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                             Action Needed
                         </div>
                         <div className="flex gap-1 items-center">
-                            <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             Normal
                         </div>
                         <div className="flex gap-1 items-center">
-                            <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                             No Action Required
                         </div>
                         </div>
                     </div>
-                    </div>
-                    
                 </div>
+                 </div>
             </div>                
             </div>
             {categories.map((value,index) => {
