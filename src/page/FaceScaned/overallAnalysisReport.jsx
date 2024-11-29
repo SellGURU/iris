@@ -1,66 +1,161 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
-import { useConstructor } from "../../help";
+// import { useConstructor } from "../../help";
 import Application from "../../api/Application";
-import { useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import { Button } from "symphony-ui";
 import { RWebShare } from "react-web-share";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import Nose from "../../components/overallAnalysisReport/Nose";
-import Chin from "../../components/overallAnalysisReport/Chin";
-import Lip from "../../components/overallAnalysisReport/Lip";
-import Cheek from "../../components/overallAnalysisReport/Cheek";
-import Forehead from "../../components/overallAnalysisReport/Forehead";
-import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
-import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
-import Other from "../../components/overallAnalysisReport/Other";
+// import Nose from "../../components/overallAnalysisReport/Nose";
+// import Chin from "../../components/overallAnalysisReport/Chin";
+// import Lip from "../../components/overallAnalysisReport/Lip";
+// import Cheek from "../../components/overallAnalysisReport/Cheek";
+// import Forehead from "../../components/overallAnalysisReport/Forehead";
+// import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
+// import PhiltralColumn from "../../components/overallAnalysisReport/PhiltralColumn";
+// import Other from "../../components/overallAnalysisReport/Other";
 import SummaryBox from "./boxs/SummaryBox";
-
+import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
+// import ScanData from '../../api/Data/scan.json';
+import {PatientContext} from '../../context/context.jsx'
+import PrintReport from "../../components/PrintReport/index.jsx";
+import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
+// import ContentBox from "../../components/overallAnalysisReport/ContentBox.jsx";
 const OverallAnalysisReport = (props) => {
-  const [activeTab, setActiveTab] = useState("overall");
+  const [activeTab, setActiveTab] = useState("facial");
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [date, setDate] = useState(new Date());
+  const [isLoading, ] = useState(false);
+  const [date, ] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
+  const {report,patientID} = useContext(PatientContext)
+  const [textComment,setTextComment] = useState('') 
+  const [activePart,setActivePart] = useState("")
+  const updateComment=() => {
+      // let patients= JSON.parse(localStorage.getItem("patients"))
+      // let patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+      // setComment(patients[patientIndex].comments);
+  }    
+  const [isShowAddComment, setIsShowAddComment] = useState(false); 
+  // console.log(report)
+  const navigate = useNavigate()
+  const ScanData = report
+  const resolveArrayMeasurments = () => {
+    // console.log(ScanData.data)
+    const allData = []
+    Object.keys(ScanData.data.pose_analysis[0].current_image_analysis.measurements).map(key => {
 
-  useConstructor(() => {
-    Application.getScanDetails({
-      scanCode: searchParams.get("scanId"),
-      orgCode: JSON.parse(orgs).orgCode,
-      orgSCode: JSON.parse(orgs).orgSCode,
-      client_id: searchParams.get("clientId"),
-    }).then((res) => {
-      console.log(res);
-      setIsLoading(false);
-      setDate(new Date(res.data.data.timestamp));
-      var decodedHTML = window.atob(res.data.data.html_file);
-      document.getElementById("mydiv").innerHTML = decodedHTML;
-    });
-  });
+      const resolved = Object.entries(ScanData.data.pose_analysis[0].current_image_analysis.measurements[key]).filter((el) =>el[0] !='measurements_list').map(([key, value]) => ({
+        key, 
+        ...value, 
+      }));
+      allData.push(...resolved)
+    })
+    return allData
+  }
+  const resolveFacialData = () => {
+    if(activePart == ''){
+      return resolveArrayMeasurments()
+    }
+    return resolveArrayMeasurments().filter((el => el.category ==activePart))
+  }
+  const resolveAllCategories = () => {
+    return Array.from(new Set(resolveArrayMeasurments().map(item => item.category)));
+  }
+  useEffect(() => {
+    resolveArrayMeasurments()
+    // console.log(
+    //   resolveAllCategories()
+    // )
+  },[])
+  if(ScanData.data == undefined){
+    navigate('/')
+    return ''
+  }
+
+  const resolveActivePartName =() => {
+    if(activePart == ''){
+      return ' Face Measurements Summary'
+    }
+    return activePart +' Measurements Summary'    
+    // return ""
+  }
+  const resolveChangePart = (name)=>{
+    setActivePart(name)
+  }
+
+
+  // useConstructor(() => {
+  //   Application.getScanDetails({
+  //     scanCode: searchParams.get("scanId"),
+  //     orgCode: JSON.parse(orgs).orgCode,
+  //     orgSCode: JSON.parse(orgs).orgSCode,
+  //     client_id: searchParams.get("clientId"),
+  //   }).then((res) => {
+  //     console.log(res);
+  //     setIsLoading(false);
+  //     setDate(new Date(res.data.data.timestamp));
+  //     var decodedHTML = window.atob(res.data.data.html_file);
+  //     document.getElementById("mydiv").innerHTML = decodedHTML;
+  //   });
+  // });
   const download = () => {
     // const downloadLink = document.createElement("a");
     // downloadLink.href = pdf;
     // downloadLink.download = 'download.html';
     // downloadLink.click();
-    var mywindow = window.open("", "PRINT", "height=400,width=600");
+    var mywindow = window.open("", "PRINT", "height=1500,width=1500");
     // // console.log(document.getElementById('reported'))
-    mywindow.document.write(
-      "<html><head><title>" + document.title + "</title>"
-    );
-    mywindow.document.write("</head><body >");
-    mywindow.document.write("<h1>" + document.title + "</h1>");
-    mywindow.document.write(document.getElementById("mydiv").innerHTML);
-    mywindow.document.write("</body></html>");
+    //  const tailwindCDN = '<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">';
+    // mywindow.document.write(
+    //   "<html><head><title>" + document.title + "</title>"
+    // );
+    mywindow.document.write(`
+        <html>
+            <head>
+            <title>${document.title}</title>
+            <!-- Link to Tailwind CSS -->
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+            <style>
+                @media print {
+                body {
+                    background-color: white !important;
+                }
+                .bg-gray-100 {
+                    background-color: #f3f4f6 !important; /* Tailwind Gray 100 */
+                }
+                .bg-blue-500 {
+                    background-color: #3b82f6 !important; /* Tailwind Blue 500 */
+                }
+                .no-split {
+                page-break-inside: avoid; /* Prevents splitting the element */
+                break-inside: avoid;     /* For modern browsers */
+                }                    
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }                    
+                }
+            </style>            
+            </head>
+            <body>
+            ${document.getElementById("printDiv")?.innerHTML}
+            </body>
+        </html>
+        `);
 
     mywindow.document.close(); // necessary for IE >= 10
-    mywindow.focus(); // necessary for IE >= 10*/
+    mywindow.onload = () => {
+        mywindow.focus(); // necessary for IE >= 10*/
 
-    mywindow.print();
-    mywindow.close();
+        mywindow.print();
+        mywindow.close();
+
+    }
+    // window.print()
     // window.frames["reported"].focus();
     // window.frames["reported"].print();
     // document.getElementById("mydiv").contentWindow.print();
@@ -71,80 +166,64 @@ const OverallAnalysisReport = (props) => {
     // console.log(pdf.replace("data:text/html;base64,",''))
     // document.getElementById("mydiv").innerHTML = decodedHTML;
   };
-  const data = {
-    "Facial Analysis":[
-        {
-          title:"1. Face Width",
-          description:'The widest part of the face, measured across the cheekbones.',
-          Measurement: '14.8 cm',
-          status:'No Action Requred'
-        },
-        {
-          title:"2. Face Height",
-          description:'From the hairline to the chin.',
-          Measurement: '19.3 cm',
-          status:'Normal'
-        },
-        {
-          title:"3. Jawline Width",
-          description:'Distance between the angles of the jaw.',
-          Measurement: ' 11.5 cm',
-          status:'Action Needed'
-        },
-        {
-          title:"4. Nose Length",
-          description:'From the bridge of the nose to the tip.',
-          Measurement: '5.2 cm',
-          status:'Action Needed'
-        },
-        {
-          title:"5. Eye Distance",
-          description:'Distance between the inner corners of the eyes.',
-          Measurement: '3.1 cm',
-          status:'No Action Requred'
-        },
-        {
-          title:"6. Lip Width",
-          description:'Distance between the corners of the lips when at rest.',
-          Measurement: '5.8 cm',
-          status:'Normal'
-        },
-        {
-          title:"7. Forehead Height",
-          description:' Distance from the hairline to the brow.',
-          Measurement: '6.8 cm',
-          status:'Action Needed'
-        },        
-        {
-          title:"8. Symmetry",
-          description:'Overall facial symmetry score.',
-          Measurement: '',
-          'Left-to-Right Symmetry': '92%',
-          status:'Action Needed'
-        }                                                    
-    ]
-  }
+  const formHandler = () => {
+      if(textComment.length>0){
+          Application.addComment({
+              client_id:patientID,
+              orgCode: JSON.parse(orgs).orgCode,
+              orgSCode: JSON.parse(orgs).orgSCode,
+              comment_text: textComment                
+          }).then(() => {
+          })
+          const patients= JSON.parse(localStorage.getItem("patients"))
+          console.log(patients)
+          const patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
+          console.log(patientIndex)
+          const newComment = {
+              cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
+              cText: textComment ,
+              cTextDateTime: new Date().toISOString()
+          };
+          if(patients[patientIndex]){
+              if (patients[patientIndex].comments) {
+                  patients[patientIndex].comments.push(newComment);
+              } else {
+                  patients[patientIndex].comments = [newComment]; // Initialize the comment array if it does not exist
+              }
+          }
+          localStorage.setItem("patients", JSON.stringify(patients));
+          setIsShowAddComment(false)
+          updateComment()
+          setTextComment("")
+      }else {
+          setIsShowAddComment(false)
+      }
+  } 
+
   return (
     <>
       <div>
         <div className={`${isLoading && "hidden"}`}>
           {!props?.smallReport && (
             <div className="px-12">
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link underline="hover" className="text-primary-color" href="/">
-                  Home
-                </Link>
-                <Typography className="text-primary-color">
-                  View Report
-                </Typography>
-              </Breadcrumbs>
+              <div className="print:hidden">
+                <Breadcrumbs aria-label="breadcrumb">
+                  <Link underline="hover" className="text-primary-color" href="/">
+                    Home
+                  </Link>
+                  <Typography className="text-primary-color">
+                    View Report
+                  </Typography>
+                </Breadcrumbs>
+
+              </div>
               {/* /////////////////////////////////Header section/////////////////////// */}
-              <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-4">
+              <div className="text-center hidden text-[28px] text-[#2E2E2E] font-medium mb-2 mt-0">
                 Face Scan Completed
               </div>
               <div className=" justify-center hidden">
                 <div
-                  className="text-justify text-lg text-[#444444] w-[600px] md:w-[850px] md:max-w-[850px] mb-4"
+                  className="text-justify text-lg text-[#444444] w-[600px] md:w-[850px] md:max-w-[850px] mb-2"
                   style={{
                     textAlignLast: "center",
                   }}
@@ -155,7 +234,7 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full justify-between  flex mt-2 items-center">
+              <div className="w-full print:hidden justify-between  flex mt-[-16px] items-center">
                 <div className="invisible justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
@@ -173,7 +252,9 @@ const OverallAnalysisReport = (props) => {
                   </div>
                 </div>
                 <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
-                  <Button theme="iris-tertiary">
+                  <Button onClick={() => {
+                    setIsShowAddComment(true)
+                  }} theme="iris-tertiary">
                     <div className="pelusicon tirtryIconHover bg-primary-color" />
                     Add Comment
                   </Button>
@@ -203,8 +284,35 @@ const OverallAnalysisReport = (props) => {
                   </Button>
                 </div>
               </div>
+                {isShowAddComment &&
+                    <div className="mb-2">
+                        <div className={"w-full px-12 flex items-center justify-center"}>
+                            <div className={" px-5 pt-5 w-full flex items-end gap-5 justify-end border-b pb-2"}>
+                                <input value={textComment} onChange={(el) => {
+                                    setTextComment(el.target.value)
+                                }} placeholder={"Your comment ..."} className={" w-full border-none-focus  p-2  "}/>
+                                {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                    formHandler()                                       
+                                }} className={"!text-xs !px-4 !py-2.5"}>
+                                    Add Comment
+                                </ButtonPrimary> */}
+                                <div className="w-full flex justify-end">
+                                    <Button disabled={textComment.length == 0} onClick={() => {
+                                        formHandler()
+                                    }} theme="iris-small">
+                                        {textComment.length>0?
+                                        'Save'
+                                        :
+                                        'Add Comment'
+                                        }
+                                    </Button>
 
-              <div className="w-full justify-center my-1 flex items-center gap-8">
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                }
+              <div className="w-full justify-center print:hidden mb-1 flex items-center gap-8">
                 <Button
                   theme={
                     activeTab === "facial"
@@ -227,7 +335,7 @@ const OverallAnalysisReport = (props) => {
                 </Button>
               </div>
               {activeTab === "overall" ? (
-                <>
+                <div id="mydiv" className="print:min-w-[1600px] print:scale-50 print:ml-[-400px] print:mt-[-300px]">
                   {/* /////////////////////////////////Summary section/////////////////////// */}
                   <div className="w-full justify-center flex flex-row gap-6 items-start">
                     {/* <div className="flex flex-col w-1/2">
@@ -239,46 +347,35 @@ const OverallAnalysisReport = (props) => {
                     </div> */}
 
                     <div className="flex flex-col w-full gap-4">
-                      {/* <div className="flex flex-row w-full gap-6 items-center justify-center">
-                        <div className="flex flex-col w-1/2">
-                          <img
-                            src="/image/faceOverall-02.png"
-                            alt="face-image"
-                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
-                          />
-                        </div>
-                        <div className="flex flex-col w-1/2">
-                          <img
-                            src="/image/faceOverall-03.png"
-                            alt="face-image"
-                            className="max-h-[380px] rounded-3xl border-2 border-primary-color"
-                          />
-                        </div>
-                      </div> */}
 
                       <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
                         <div className="w-[40%]">
                           <div className="flex justify-between gap-2">
                             <img
-                                src="/image/faceOverall-01.png"
+                                src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
                                 alt="face-image"
-                                className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                                className=" w-[150px] rounded-3xl border-2 border-primary-color"
                               />
                             <img
-                              src="/image/faceOverall-02.png"
+                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
                               alt="face-image"
-                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
                             />         
                             <img
-                              src="/image/faceOverall-03.png"
+                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
                               alt="face-image"
-                              className="h-[202px] w-[176px] rounded-3xl border-2 border-primary-color"
+                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
                             />                                                 
                           </div>
                           <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                             Measurements Summary
                             <div className="text-[#7E7E7E] font-normal text-sm">
-                              2024/02/02
+                            { Number(date.getMonth()+1) +
+                              " /" +
+                              date.getDate()
+                              +
+                              " /" +
+                              date.getFullYear()}
                             </div>
                           </div>
                             <div className="text-[##444444] font-normal text-sm mb-6">
@@ -300,83 +397,84 @@ const OverallAnalysisReport = (props) => {
 
                             <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   1.Eyebrows height
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is 1mm higher
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {/* Right side is 1mm higher */}
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   2.Lash line
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is higher
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lash_line.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col min-w-[174px] w-[180px] font-medium">
                                   3.Inter Limbal Opening
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right eye is bigger
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.inter_limbal_opening.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   4.Apex of cheek
                                 </div>
-                                <div className="flex flex-col text-[14px]  w-1/2 font-normal">
-                                  Right side is 3mm higher
+                                <div className="flex flex-col text-[14px]   font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.apex_of_cheek.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   5.Alar base of nose
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   6.Upper lip vermillion
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.upper_lip_vermillion.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px] font-medium">
                                   7.Transcommissure line
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right side is 1mm lower
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.transcommissure_line.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col text-[14px] w-1/2 font-medium">
+                                <div className="flex flex-col text-[14px] w-[180px] font-medium">
                                   8.Lower lip vermilion
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px] font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lower_lip_vermillion.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-1/2 font-medium">
+                                <div className="flex flex-col w-[180px]  font-medium">
                                   9.Chin border
                                 </div>
-                                <div className="flex flex-col text-[14px] w-1/2 font-normal">
-                                  Right and Left side alighned
+                                <div className="flex flex-col text-[14px]  font-normal">
+                                  {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.chin_border.symmetry_text}
                                 </div>
                               </div>
                             </div>
@@ -406,16 +504,41 @@ const OverallAnalysisReport = (props) => {
 
                   {/* /////////////////////////////////Categories section/////////////////////// */}
                   <div className="w-full justify-center flex flex-col items-start mt-10">
-                    <Nose />
-                    <Chin />
-                    <Lip />
-                    <Cheek />
-                    <Forehead />
-                    <Eyebrow />
-                    <PhiltralColumn />
-                    <Other />
+                    {/* {resolveAllCategories().map((value,index) => {
+                        return (
+                            <div className="mt-2 w-full" key={index}>
+                                <ContentBox images={['/image/faceOverall-04.png']} category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)} icon={'/image/Nose.svg'} key={index}></ContentBox>
+                            </div>
+                        )
+                    })}   */}
+                      {resolveAllCategories().map((value,index) => {
+                          return (
+                            <ContentViewBox key={index}  category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}></ContentViewBox>
+                          )
+                      })}
+
+                    {/* {resolveArrayMeasurments().filter((el) =>el.category =='nose').length > 0 &&
+                      <Nose data={resolveArrayMeasurments().filter((el) =>el.category =='nose')} />
+                    }
+      
+                    {resolveArrayMeasurments().filter((el) =>el.category =='chin').length > 0 &&
+                    <Chin data={resolveArrayMeasurments().filter((el) =>el.category =='chin')} />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='lips').length > 0 &&
+                      <Lip data={resolveArrayMeasurments().filter((el) =>el.category =='lips')} />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='cheeks').length > 0 &&
+                      <Cheek data={resolveArrayMeasurments().filter((el) =>el.category =='cheeks')}  />
+                    }
+                    {resolveArrayMeasurments().filter((el) =>el.category =='forehead').length > 0 &&
+                      <Forehead data={resolveArrayMeasurments().filter((el) =>el.category =='forehead')}  />
+                    }
+                     {resolveArrayMeasurments().filter((el) =>el.category =='eyebrows').length > 0 &&
+                      <Eyebrow data={resolveArrayMeasurments().filter((el) =>el.category =='eyebrows')} />
+                     } */}
+
                   </div>
-                </>
+                </div>
               ) : (
                 <>
                   <div className="w-full justify-center flex gap-6 items-stretch">
@@ -425,9 +548,16 @@ const OverallAnalysisReport = (props) => {
                       className="flex flex-col w-1/2 rounded-3xl border-2 border-primary-color"
                     /> */}
 
-                    <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                      <div className="w-full flex flex-row text-2xl font-medium items-center justify-between mb-2">
-                        Face Measurements Summary
+                    <div className="flex  flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
+                      <div className="w-full text-[#444444]  flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                        <div className="flex justify-start items-center gap-4">
+                          {activePart !='' &&
+                            <img className="cursor-pointer" onClick={() => {
+                            setActivePart("")
+                            }} src="./icons/back2.svg" alt="" />
+                           }
+                          {resolveActivePartName()}
+                        </div>
                         <div className="text-[#7E7E7E] font-normal text-sm">
                           <div className="flex justify-end items-center">
                             <div className="text-[#444444] text-sm font-normal mr-[80px]">
@@ -449,16 +579,22 @@ const OverallAnalysisReport = (props) => {
                         </div>
                       </div>
                       <div className="w-full flex">
-                        <img
+                        <div className="relative z-20">
+                          <FaceMeshView width="296px" height="377px" dataValues={resolveArrayMeasurments()} imageSrc={ScanData.data.pose_analysis[0].current_image_analysis.images.input} onClick={(e) => {
+                            console.log(e)
+                            resolveChangePart(e)
+                          }}></FaceMeshView>
+                        </div>
+                        {/* <img
                           src="/image/faceOverall-05.png"
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
-                        />
-                        <div className="grid grid-cols-2 gap-1 gap-x-6 ml-6 font-normal text-base">
-                          {data['Facial Analysis'].map((el) => {
+                        /> */}
+                        <div className="grid grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
+                          {resolveFacialData().slice(0,8).map((el,index) => {
                             return (
                               <>
-                                <SummaryBox data={el}></SummaryBox>
+                                <SummaryBox data={el} indexNum={index}></SummaryBox>
                               </>
                             )
                           })}
@@ -469,6 +605,10 @@ const OverallAnalysisReport = (props) => {
                   </div>
                 </>
               )}
+              <div id="printDiv" className="w-full hidden print:visible">
+                <PrintReport ScanData={ScanData}  categories={resolveAllCategories()} resolveArrayMeasurments={resolveArrayMeasurments}></PrintReport>
+
+              </div>
             </div>
           )}
         </div>
@@ -495,7 +635,23 @@ const OverallAnalysisReport = (props) => {
             </div>
           </div>
         </div>
+   
         <div id="mydiv" className="px-12"></div>
+        <div className="w-full flex mt-[48px] pr-12 justify-end">
+            {/* <button onClick={() => {
+            navigate('/')
+            }}
+                    className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
+                Go to Home
+                <div className="ml-2 arrow-right-white" />
+            </button> */}
+            <Button theme="iris" onClick={() => {
+            navigate('/')
+            }}>
+                Go to Home
+                <div className="ml-2 arrow-right-white" />
+            </Button>
+        </div>        
       </div>
     </>
   );

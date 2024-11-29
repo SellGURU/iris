@@ -23,6 +23,7 @@ export const initialState = {
     photo: '',
     userName: "",
     loadingResult: false,
+    report:{},
     version: 1
 };
 
@@ -48,6 +49,8 @@ const patientReducer = (state, action) => {
             return {...state, userName: action.payload};
         case "SET_FILE":
             return {...state, fileId: action.payload};
+        case "SET_REPORT":
+            return {...state, report: action.payload};            
         default:
             return state;
     }
@@ -70,7 +73,9 @@ export const PatientProvider = ({children}) => {
     const setPhoto = useCallback((photo) => {
         dispatch({type: "SET_PHOTO", payload: photo});
     }, []);
-
+    const setReport = useCallback((data) => {
+        dispatch({type: "SET_REPORT", payload: data});
+    }, []);
     const setPatientID = useCallback((patientID) => {
         dispatch({type: "SET_PATIENT_ID", payload: patientID});
     }, []);
@@ -102,6 +107,7 @@ export const PatientProvider = ({children}) => {
             setPdf,
             setFile,
             setUserName,
+            setReport,
             setLoadingResult,
         }}>
             {children}

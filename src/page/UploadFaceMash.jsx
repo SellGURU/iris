@@ -33,6 +33,7 @@ const UploadFaceMash = () => {
         setPdf,
         setFile,
         setPhoto,
+        setReport,
         addPatient
     } = useContext(PatientContext);    
     const navigate = useNavigate();
@@ -122,6 +123,8 @@ const UploadFaceMash = () => {
             frontal_current:resolvedFile.split(',')[1],
             orgSCode: JSON.parse(orgs).orgSCode,
             orgCode:JSON.parse(orgs).orgCode,
+            rdataKey:"analysis",
+            scanType:"img_upload"
         }).then(res => {
             console.log(res)
             if(res.data.data){
@@ -129,6 +132,7 @@ const UploadFaceMash = () => {
                 setPdf('data:text/html;base64,' + res.data.data.html_file)
                 setPhoto(resolvedFile.split(',')[1])
                 setFile(res.data.data.request_id)
+                setReport(res.data)
                 const patient = {
                     id: patientID,
                     sex: sex,

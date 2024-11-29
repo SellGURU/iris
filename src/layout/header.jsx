@@ -109,7 +109,7 @@ const Header = () => {
                     {
                         Appcontext.package.getPackage().isExist()?
                             <div className="hidden md:flex justify-center items-center text-gray-400">
-                                <div>{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</div>
+                                <div>{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remain</div>
                                 {/* <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button> */}
                             </div>
                         :
@@ -239,7 +239,8 @@ const Header = () => {
                         <div className="logoutIcon w-[18px]"></div>
                         <h1 className="cursor-pointer" onClick={() => {
                             localStorage.clear()
-                            navigate('/login')
+                            window.open("/#/login")
+                            // navigate('/login')
                         }}>Logout</h1>
                     </div>                   
                 </div>

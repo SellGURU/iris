@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Eyebrow = () => {
+const Eyebrow = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -9,90 +10,46 @@ const Eyebrow = () => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon_eyebrow.png"
+            src="/image/Eyebrow.svg"
             alt="icon_eyebrow"
             className="w-10 h-10"
           />
           Eyebrow
         </div>
-        <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Eyebrow Lenght =1.618D</p>
-            </div>
+        <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          {data.map((el) => {
+            return (
+              <>
+              <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
+                <div className="flex flex-row w-full">
+                  {el.key} ={el.measured_distance}D
+                </div>
+                {el.side ?
+                <>
+                    <div className="flex flex-row w-full mt-2 justify-between items-center">
+                      <p>Left:</p>
+                      <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
+                      <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                    </div>
+                    <div className="flex flex-row w-full justify-between items-center">
+                      <p>Right:</p>
+                      <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
+                      <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                    </div>
+                </>
+                :
+                <>
+                <div className="flex flex-row w-full justify-between items-center">
+                  <p>Dist: {el.ratio} ({el.percent} %)</p>
+                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>                
+                </>
+                }
+              </div>           
+              </>
+            )
+          })}          
 
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Medial Eyebrows Distance =1.0D</p>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>
-                Eyebrow Tail Higher than Medical Brow
-                <br />
-                Positive + : higher
-                <br />
-                Negative - : lower
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <div>
-                Eyebrow Slope
-                <br />
-                Feminine 10-20
-                <br />
-                Masculine 0-10
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>-0.276 mm</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>1.671 mm</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: 0.866(87%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>-0.276 mm</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>1.671 mm</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-end w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Left:</p>
-                <p>13 degrees</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Right:</p>
-                <p>15 degrees</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

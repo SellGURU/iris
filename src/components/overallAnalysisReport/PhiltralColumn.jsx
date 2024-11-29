@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const PhiltralColumn = () => {
+const PhiltralColumn = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -9,39 +10,39 @@ const PhiltralColumn = () => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon-philtral-column.png"
+            src="/image/PhiltralColumn.svg"
             alt="icon_philtral-column"
             className="w-10 h-10"
           />
           Philtral Column
         </div>
         <div className="flex flex-row items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+          <div className="flex flex-col items-start justify-between w-[30%] h-[7vh]">
             <div className="flex flex-row w-full">
               to Ipsilateral Commissure =1.618 Philtre Width
             </div>
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row mt-4 w-full justify-between items-center">
               <p>Left:</p>
-              <p>1.333 (82%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_contralateral_commisure.side.left.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_ipsilateral_commisure.side.left.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
             <div className="flex flex-row w-full justify-between items-center">
               <p>Right:</p>
-              <p>1.254 (78%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_ipsilateral_commisure.side.right.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_ipsilateral_commisure.side.right.ratio}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
           </div>
 
-          <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+          <div className="flex flex-col items-start justify-between w-[30%] h-[7vh]">
             <p>to Contralateral Commissure =0.618 Lips Width</p>
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full mt-4 justify-between items-center">
               <p>Left:</p>
-              <p>0.658 (107%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_contralateral_commisure.side.left.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_contralateral_commisure.side.left.percent}%)</p>
               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
             </div>
             <div className="flex flex-row w-full justify-between items-center">
               <p>Right:</p>
-              <p>0.684 (111%)</p>
+              <p>{data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_contralateral_commisure.side.right.ratio} ({data.data.pose_analysis[0].current_image_analysis.measurements.vertical.philtral_column_to_contralateral_commisure.side.right.percent}%)</p>
               <div className="w-4 h-4 bg-primary-color rounded-full"></div>
             </div>
           </div>

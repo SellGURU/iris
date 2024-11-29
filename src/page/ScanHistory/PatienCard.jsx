@@ -27,6 +27,11 @@ export const PatienCard = ({
       });
     }
   });
+  useEffect(() => {
+    if(result.length == 2){
+      setIsShowMore(true)
+    }
+  },[result])
   // useEffect(() => {
   //   const timerId = setInterval(() => {
   //     setCurrentDateTime(new Date());  // Update the current date and time every minute
@@ -249,7 +254,7 @@ export const PatienCard = ({
                           onChange={() => {
                             if (!accepted.includes(patientHistory.scan_id)) {
                               const array = accepted;
-                              if (accepted.length >= 3) {
+                              if (accepted.length >= 2) {
                                 array.shift();
                               }
                               setAccepted([...array, patientHistory.scan_id]);
@@ -270,7 +275,7 @@ export const PatienCard = ({
                         onClick={() => {
                           if (!accepted.includes(patientHistory.scan_id)) {
                             const array = accepted;
-                            if (accepted.length >= 3) {
+                            if (accepted.length >= 2) {
                               array.shift();
                             }
                             setAccepted([...array, patientHistory.scan_id]);
@@ -322,7 +327,12 @@ export const PatienCard = ({
                                         </RWebShare> */}
 
                       <Button
-                        onClick={() => download(patientHistory.scan_id)}
+                        onClick={() =>{
+                          navigate(
+                            `/showReport/?scanId=${patientHistory.scan_id}&clientId=${patient.client_info.clientCode}&mode=print`
+                          );                          
+                        }
+                        }
                         theme="iris-secondary-small"
                       >
                         <div className="downloadIcon-purple"></div>

@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button } from "symphony-ui";
 
-const Lip = () => {
+const Lip = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -9,68 +11,45 @@ const Lip = () => {
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
         <div className="flex flex-col items-center justify-center w-[14%] py-6 gap-3 rounded-xl bg-primary-color text-white font-medium text-xl min-h-[128px]">
           <img
-            src="/image/icon_lips.png"
+            src="/image/Lip.svg"
             alt="icon_lips"
             className="w-10 h-10"
           />
           Lip
         </div>
-        <div className="flex flex-col items-start justify-start w-full p-8 gap-8 rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full">
-                Vertical Height of Lips(middle) =0.618D
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Height: 0.643 (104%)</p>
-                <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Central Fullness of Lower Lips =1.0D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Width: 0.962 (96%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Upper Lip to Menton of chin =1.618D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Dist: 1.355(84%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Width of Lips =1.618D</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Width:1.359(84%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-row w-full gap-[69px]">
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <div className="flex flex-row w-full">
-                Upper Lip Height/Lower Lip Height =0.618
-              </div>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Ratio: 0.507(82%)</p>
-                <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
-              <p>Lower Lip Height / Philitral Column Width = 1.0</p>
-              <div className="flex flex-row w-full justify-between items-center">
-                <p>Ratio: 1.224(122%)</p>
-                <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-row items-start flex-wrap justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+          {data.map((el) => {
+            return (
+              <>
+              <div className="flex flex-col items-start justify-between w-[20%] h-[7vh]">
+                <div className="flex flex-row w-full">
+                  {el.key} ={el.measured_distance}D
+                </div>
+                {el.side ?
+                <>
+                    <div className="flex flex-row w-full mt-2 justify-between items-center">
+                      <p>Left:</p>
+                      <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
+                      <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                    </div>
+                    <div className="flex flex-row w-full justify-between items-center">
+                      <p>Right:</p>
+                      <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
+                      <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                    </div>
+                </>
+                :
+                <>
+                <div className="flex flex-row w-full justify-between items-center">
+                  <p>Dist: {el.ratio} ({el.percent} %)</p>
+                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                </div>                
+                </>
+                }
+              </div>             
+              </>
+            )
+          })}
         </div>
       </div>
       <div className="w-full flex items-start justify-end -mt-6 mb-2">

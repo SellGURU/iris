@@ -51,6 +51,7 @@ const FaceMesh = () => {
         setPdf,
         setFile,
         setPhoto,
+        setReport,
         photo,
         addPatient
     } = useContext(PatientContext);
@@ -242,6 +243,7 @@ const FaceMesh = () => {
         toast.dismiss()
     }, [status]);
     const onResultsFaceMesh = (results) => {
+        
         let landmarks;
         const img = document.createElement("img");
 
@@ -782,11 +784,12 @@ const FaceMesh = () => {
         closeCamera()
         Analytics.analyticsImage({
             client_id:patientID.toString(),
-            error_threshold:errorThreshold,
+            error_threshold:errorThreshold?errorThreshold:10,
             frontal_current:globalGreenImages[0].split(",")[1],
             orgSCode: JSON.parse(orgs).orgSCode,
             orgCode:JSON.parse(orgs).orgCode,
-
+            rdataKey:"analysis",
+            scanType:"live"
         }).then(res => {
             console.log(res)
             if(res.data.status == '403'){
@@ -795,6 +798,7 @@ const FaceMesh = () => {
             }
             if(res.data.data){
                 appContext.package.usePackage()
+                setReport(res.data)
                 setPdf('data:text/html;base64,' + res.data.data.html_file)
                 setPhoto(globalGreenImages[0])
                 setFile(res.data.data.request_id)
