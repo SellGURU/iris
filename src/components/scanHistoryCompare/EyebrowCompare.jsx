@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import RowDetail from "./RowDetail";
 
-const EyebrowCompare = ({scan1,scan2,date1,date2,images}) => {
+const EyebrowCompare = ({scan1,scan2,date1,date2,images,isShowImages}) => {
 
 
   return (
@@ -18,7 +18,7 @@ const EyebrowCompare = ({scan1,scan2,date1,date2,images}) => {
         <div className="flex flex-col gap-2 w-full items-stretch justify-start">
           {scan1.map((el,index) => {
             return (
-              <RowDetail key={index} date1={date1} date2={date2} el={el} el2={scan2.filter(val =>val.key == el.key)[0]} images={images}></RowDetail>
+              <RowDetail isShowImages={isShowImages} key={index} date1={date1} date2={date2} el={el} el2={scan2.filter(val =>val.key == el.key)[0]} images={images}></RowDetail>
             )
           })}
         </div>

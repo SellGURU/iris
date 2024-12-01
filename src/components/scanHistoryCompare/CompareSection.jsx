@@ -293,33 +293,33 @@ const CompareSection = ({results,clientId ,lastScan}) => {
           {/* /////////////////////////////////Nose Client 1 section/////////////////////// */}
           {
             activeCategories.includes("nose") &&
-              <NoseCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'nose')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'nose')} />
+              <NoseCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'nose')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'nose')} />
           }
           {
             activeCategories.includes("chin") &&
           
-            <ChinCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'chin')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'chin')} />
+            <ChinCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'chin')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'chin')} />
           }
           {/* /////////////////////////////////Chin Client 1 section/////////////////////// */}
           {
             activeCategories.includes("lips") &&
-              <LipCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'lips')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'lips')} />
+              <LipCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'lips')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'lips')} />
           }
           {/* /////////////////////////////////Lip Client 1 section/////////////////////// */}
           {
             activeCategories.includes("cheeks") &&
-              <CheekCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'cheeks')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'cheeks')} />
+              <CheekCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'cheeks')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'cheeks')} />
           
           }
           {/* /////////////////////////////////Cheek Client 1 section/////////////////////// */}
           {
             activeCategories.includes("forehead") &&
-            <ForeheadCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'forehead')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'forehead')} />
+            <ForeheadCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'forehead')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'forehead')} />
           }
           {/* /////////////////////////////////Forehead Client 1 section/////////////////////// */}
           {
             activeCategories.includes("eyebrows") &&
-              <EyebrowCompare images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'eyebrows')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'eyebrows')} />
+              <EyebrowCompare isShowImages={isShowimages} images={[data[0]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input,data[1]?.data?.pose_analysis[0]?.current_image_analysis?.images?.input]} date1={formatDate(data[0].data.timestamp)} date2={formatDate(data[1].data.timestamp)} scan1={resolveArrayMeasurments(data[0]).filter((el) =>el.category == 'eyebrows')} scan2={resolveArrayMeasurments(data[1]).filter((el) =>el.category == 'eyebrows')} />
           }
           {/* /////////////////////////////////Eyebrow Client 1 section/////////////////////// */}
 

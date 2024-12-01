@@ -3,7 +3,7 @@ import { Button } from "symphony-ui";
 import Status from "../../page/FaceScaned/boxs/Status";
 import { useState } from "react";
 
-const RowDetail = ({el,el2,images,date1,date2}) => {
+const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
     const [isOpen, setIsOpen] = useState(0);
     const resolveStatus = (checked) => {
         if(checked == false){
@@ -160,6 +160,9 @@ const RowDetail = ({el,el2,images,date1,date2}) => {
 
                     </div>
 
+
+                    {isShowImages &&
+                    <>
                     <div className="border-l-[#E1E1E1] border-l h-full"></div>
                       {
                         el.side ?
@@ -211,62 +214,63 @@ const RowDetail = ({el,el2,images,date1,date2}) => {
 
                         </div>
                       </div>
-                      }
+                      }                    
+                        <div className="border-l-[#E1E1E1] border-l h-full"></div>
+                          
+                          {
+                            el2.side ?
+                            <div className="w-1/4">
+                              <div className="flex flex-col items-start justify-start gap-3  w-full">
+                                <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                                    <img
+                                    src={el2.side.left.thumbnail }
+                                    alt="face-image"
+                                    className="object-cover w-full h-full"
+                                    />
 
-                    <div className="border-l-[#E1E1E1] border-l h-full"></div>
-                      
-                      {
-                        el2.side ?
-                        <div className="w-1/4">
-                          <div className="flex flex-col items-start justify-start gap-3  w-full">
+                                </div>
+                                <div className="w-full mt-4">
+                                  <Status isFull status={resolveStatus(el2.side.left.problematic)}></Status>
+                                </div>
+                              </div>
+                              <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
+                                <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+                                    <img
+                                    src={el2.side.right.thumbnail}
+                                    alt="face-image"
+                                    className="object-cover w-full h-full"
+                                    />
+
+                                </div>
+                                <div className="w-full mt-4">
+                                  <Status isFull status={resolveStatus(el2.side.right.problematic)}></Status>
+                                </div>
+                              </div>
+                            </div> 
+                            :
+
+                          <div className="flex flex-col items-start justify-start gap-3 w-1/4">
                             <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
                                 <img
-                                src={el2.side.left.thumbnail }
+                                src={el2.side? el2.side.left.thumbnail : el2.thumbnail}
                                 alt="face-image"
                                 className="object-cover w-full h-full"
                                 />
 
                             </div>
                             <div className="w-full mt-4">
+                              {el2.side ?
                               <Status isFull status={resolveStatus(el2.side.left.problematic)}></Status>
+                              :
+                              <Status isFull status={resolveStatus(el2.problematic)}></Status>
+                              }
+
                             </div>
                           </div>
-                          <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
-                            <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
-                                <img
-                                src={el2.side.right.thumbnail}
-                                alt="face-image"
-                                className="object-cover w-full h-full"
-                                />
-
-                            </div>
-                            <div className="w-full mt-4">
-                              <Status isFull status={resolveStatus(el2.side.right.problematic)}></Status>
-                            </div>
-                          </div>
-                        </div> 
-                        :
-
-                      <div className="flex flex-col items-start justify-start gap-3 w-1/4">
-                        <div className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
-                            <img
-                            src={el2.side? el2.side.left.thumbnail : el2.thumbnail}
-                            alt="face-image"
-                            className="object-cover w-full h-full"
-                            />
-
-                        </div>
-                        <div className="w-full mt-4">
-                          {el2.side ?
-                          <Status isFull status={resolveStatus(el2.side.left.problematic)}></Status>
-                          :
-                          <Status isFull status={resolveStatus(el2.problematic)}></Status>
                           }
-
-                        </div>
-                      </div>
+                    </>
                       }
-                  </div>
+                    </div>
                 )}     
             </>
         }
