@@ -190,11 +190,13 @@ const ShowReport = (props) => {
                   </div>
                   <div className="text-[#7E7E7E] text-[14px] mr-8">
                     Date:{" "}
-                    {date.getDate() +
+                    {
+                      date.toLocaleString("default", { month: "long" })+
                       "   " +
-                      date.toLocaleString("default", { month: "long" }) +
+                      date.getDate() +
                       "   " +
-                      date.getFullYear()}
+                      date.getFullYear()
+                      }
                   </div>
                   <div className="text-[#7E7E7E] text-[14px]">
                     Time: {date.getHours()}:{date.getMinutes()}
@@ -336,7 +338,8 @@ const ShowReport = (props) => {
                         <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                           Measurements Summary
                           <div className="text-[#7E7E7E] font-normal text-sm">
-                            {Number(date.getMonth() + 1) +
+                            {Number(
+                              date.getMonth() + 1)+ 
                               " /" +
                               date.getDate() +
                               " /" +
@@ -562,14 +565,16 @@ const ShowReport = (props) => {
                       <div className="text-[#7E7E7E] font-normal text-sm">
                         <div className="flex justify-end items-center">
                           <div className="text-[#444444] text-sm font-normal mr-[80px]">
-                            Client ID: 123456789
+                            Client ID: {searchParams.get("clientId")}
                           </div>
                           <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                             Date:{" "}
-                            {`${date.getFullYear()}/${String(
-                              date.getMonth() + 1
-                            ).padStart(2, "0")}/${String(
+                            {`${date.getFullYear()}/
+                            ${String(
                               date.getDate()
+                            ).padStart(2, "0")}                            
+                            /${String(
+                              date.getMonth() + 1
                             ).padStart(2, "0")}`}
                           </div>
                           <div className="text-[#7E7E7E] font-normal text-sm">

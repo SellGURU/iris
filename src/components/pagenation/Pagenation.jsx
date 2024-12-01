@@ -31,7 +31,7 @@ const Pageination = ({ currentPage, totalPages, onPageChange }) => {
           key={page + 1}
           onClick={() => handlePageChange(page + 1)}
           className={`px-3 py-1 rounded ${
-            page + 1 === currentPage ? 'bg-blue-600 text-white' : 'text-gray-700 hover:text-gray-900'
+            page + 1 === currentPage ? ' bg-primary-color text-white' : 'text-gray-700 hover:text-gray-900'
           }`}
         >
           {page + 1}
