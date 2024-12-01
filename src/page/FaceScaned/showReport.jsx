@@ -361,7 +361,7 @@ const ShowReport = (props) => {
                         <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px] text-base font-medium">
-                              1.Eyebrows height
+                              1. Eyebrows height
                             </div>
                             <div className="flex flex-col text-[14px]  font-normal">
                               {/* Right side is 1mm higher */}
@@ -375,7 +375,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px] text-base font-medium  ">
-                              2.Lash line
+                              2. Lash line
                             </div>
                             <div className="flex flex-col text-[14px]  font-normal">
                               {
@@ -388,7 +388,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col min-w-[174px] w-[180px] text-base font-medium">
-                              3.Inter Limbal Opening
+                              3. Inter Limbal Opening
                             </div>
                             <div className="flex flex-col text-[14px] font-normal">
                               {
@@ -414,7 +414,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px]  text-base font-medium">
-                              5.Alar base of nose
+                              5. Alar base of nose
                             </div>
                             <div className="flex flex-col text-[14px]  font-normal">
                               {
@@ -427,7 +427,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px]  text-base font-medium">
-                              6.Upper lip vermillion
+                              6. Upper lip vermillion
                             </div>
                             <div className="flex flex-col text-[14px]  font-normal">
                               {
@@ -440,7 +440,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px] text-base font-medium">
-                              7.Transcommissure line
+                              7. Transcommissure line
                             </div>
                             <div className="flex flex-col text-[14px] font-normal">
                               {
@@ -453,7 +453,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col text-[14px] w-[180px] text-base font-medium">
-                              8.Lower lip vermilion
+                              8. Lower lip vermilion
                             </div>
                             <div className="flex flex-col text-[14px] font-normal">
                               {
@@ -466,7 +466,7 @@ const ShowReport = (props) => {
 
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px]  text-base font-medium">
-                              9.Chin border
+                              9. Chin border
                             </div>
                             <div className="flex flex-col text-[14px]  font-normal">
                               {
