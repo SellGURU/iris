@@ -160,26 +160,24 @@ export const ScanHistory = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage,setItemPerPage] = useState('5');
     let indexOfLastItem = currentPage * itemsPerPage;
-    let indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    let indexOfFirstItem =indexOfLastItem - itemsPerPage;
     const handlePageChange = (page) => {
         setCurrentPage(page);
+        // setlastItemIndex(page * itemsPerPage)
+        // setFirstItemIndex(page * itemsPerPage - itemsPerPage)
     };
     
     useEffect(() => {
 
         const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
-
         const indexOfLastItem = Math.min(
-            indexOfFirstItem + itemsPerPage,
+            Number(indexOfFirstItem) + Number(itemsPerPage),
             patients.length
         );
 
-        console.log("indexOfFirstItem", indexOfFirstItem);
-        console.log("indexOfLastItem", indexOfLastItem);
-
         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
         return () =>{}
-    }, [currentPage]);
+    }, [currentPage,itemsPerPage]);
 
 
     const navigate = useNavigate()
@@ -199,7 +197,7 @@ export const ScanHistory = () => {
                 
             }))
         }else {
-            setPatientList(patients)
+            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
         }
     },[imageBy])   
 
@@ -218,7 +216,7 @@ export const ScanHistory = () => {
                 
             }))
         }else {
-            setPatientList(patients)
+            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
         }
     },[startDate,endDate])   
     // useEffect(() => {

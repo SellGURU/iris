@@ -4,6 +4,10 @@ axios.interceptors.response.use((response) => {
     if(response.data.token){
         return response
     }
+    if(response.data.error == 'No user found with the provided token.'){
+        localStorage.clear()
+        window.location.reload(); 
+    }
     if(response.data.status == '403'){
         localStorage.clear()
         window.location.reload(); 
