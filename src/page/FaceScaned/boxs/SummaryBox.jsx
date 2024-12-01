@@ -24,7 +24,7 @@ const SummaryBox =({data,indexNum}) => {
             <p className="text-[#7E7E7E] h-[34px] text-[14px] mt-2 decorated-dot">
                 Description: {data.text}
             </p>
-            <div className="flex flex-row items-center mt-0 justify-between w-full">
+            <div className="flex flex-row items-center mt-1 justify-between w-full">
                 <p className="decorated-dot ">
                     {data.measured_distance ?
                     <>

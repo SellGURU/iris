@@ -96,14 +96,14 @@ const AccountInfo = () => {
                         </Link>
                         {editPanel != '' &&
                             <Link underline="hover"  className="text-primary-color" href="/#/account">
-                                My Account
+                                My Profile
                             </Link>                        
                         }
                         <Typography className="text-primary-color" >{editPanel== ''?'My Account':resolveComboText()}</Typography>
                     </Breadcrumbs>                
 
                 </div>                  
-                 <h1 className={"text-3xl font-medium"}>My Account</h1>
+                 <h1 className={"text-3xl font-medium"}>My Profile</h1>
                  <div className="text-[#606060] text-[18px] max-w-[830px] text-center">Welcome to your account page! Here, you can access and edit your user information. Keep your details up-to-date to ensure the best experience with our services.</div>
 
                 <div className="w-full flex gap-6 justify-between">

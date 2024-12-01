@@ -388,7 +388,7 @@ const OverallAnalysisReport = (props) => {
                         <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
                         <div className="flex-grow ">
 
-                            <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
+                            <div className="w-full flex text-[#444444]  text-2xl font-medium items-center justify-between mb-2">
                               Feminine Face Assessment
                               <div className="text-[#7E7E7E] font-normal text-sm">
                                 Intercanthal Distance D - 33 mm

@@ -237,8 +237,8 @@ const Header = () => {
                             navigate('/login')
                         }} className="mr-2" src="./logout.svg" alt=""/> */}
                         <img className="mr-2" src="./logout.svg"  alt="" />
-                        <div className="logoutIcon w-[18px]"></div>
-                        <h1 className="cursor-pointer" onClick={() => {
+                        {/* <div className="logoutIcon w-[18px]"></div> */}
+                        <h1 className="cursor-pointer text-primary-color" onClick={() => {
                             localStorage.clear()
                             window.open("/#/login")
                             // navigate('/login')
