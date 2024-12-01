@@ -61,7 +61,7 @@ export const PatienCard = ({
     const month = monthNames[dateObj.getMonth()]; // Get the month name
     const day = dateObj.getDate().toString(); // Get the day
 
-    return `${day} ${month} ${year}`;
+    return ` ${month} ${day} ${year}`;
   };
   const [isCompare, setIsCompare] = useState(false);
   // const {id , result,comment:initComment} = patient;
@@ -196,7 +196,7 @@ export const PatienCard = ({
               <span>
                 <div
                   data-mode={isShowComment ? "true" : "false"}
-                  className="arowDownIcon-purple ml-1"
+                  className="arowDownIcon-purple tirtryIconHover ml-1"
                 ></div>
               </span>
             </Button>

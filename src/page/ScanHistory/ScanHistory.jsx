@@ -230,21 +230,26 @@ export const ScanHistory = () => {
     const totalPages = Math.ceil(patients.length / itemsPerPage);
 
     const filterPatientsHandler = (e) => {
-        // console.log(patientList)
+        const searchValue = e.target.value.trim().toLowerCase();
+        const searchWords = searchValue.split(" "); // Split input into words
+    
         const filteredItem = patients.filter((el) => {
-            return el.client_info.clientCode.includes(e.target.value)
-            || el.client_info.lastName.includes(e.target.value)
-            || el.client_info.firstName.includes(e.target.value)
-            || (el.client_info.firstName +' '+el.client_info.lastName).includes(e.target.value)
-            || el.client_info.email.includes(e.target.value)
+            const patientData = [
+                el.client_info.clientCode.toLowerCase(),
+                el.client_info.lastName.toLowerCase(),
+                el.client_info.firstName.toLowerCase(),
+                el.client_info.email.toLowerCase(),
+            ].join(" "); // Combine all searchable fields into one string
+    
+            // Check if all search words are present in the patient data
+            return searchWords.every(word => patientData.includes(word));
         });
-        // console.log(patientList)
-        if (e.target.value.length <= 0) {
-            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    
+        if (searchValue.length <= 0) {
+            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
         } else {
             setPatientList([...filteredItem]);
         }
-        // console.log(filteredItem)
     };
 
     return (

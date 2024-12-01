@@ -34,7 +34,7 @@ const ContentViewBox = ({data,category}) => {
           {/* Forehead */}
           {category}
         </div>
-        <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-medium text-sm min-h-[128px]">
+        <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-normal text-[#2E2E2E]  text-sm min-h-[128px]">
           {data.map((el) => {
             return (
               <>
@@ -44,12 +44,12 @@ const ContentViewBox = ({data,category}) => {
                 </div>
                 {el.side ?
                 <>
-                    <div className="flex flex-row w-full mt-2 justify-between items-center">
+                    <div className="flex flex-row w-full mt-2 justify-between items-center text-sm font-medium">
                       <p>Left:</p>
                       <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
                       <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                     </div>
-                    <div className="flex flex-row w-full justify-between items-center">
+                    <div className="flex flex-row w-full justify-between items-center ext-sm font-medium">
                       <p>Right:</p>
                       <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
                       <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
@@ -58,7 +58,7 @@ const ContentViewBox = ({data,category}) => {
                 :
                 <>
                 <div className="flex flex-row w-full justify-between items-center">
-                  <p>Dist: {el.ratio} ({el.percent} %)</p>
+                  <p className="text-sm font-medium">Dist: {el.ratio} ({el.percent} %)</p>
                   <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                 </div>                
                 </>
