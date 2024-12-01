@@ -235,6 +235,7 @@ export const ScanHistory = () => {
             return el.client_info.clientCode.includes(e.target.value)
             || el.client_info.lastName.includes(e.target.value)
             || el.client_info.firstName.includes(e.target.value)
+            || (el.client_info.firstName +' '+el.client_info.lastName).includes(e.target.value)
             || el.client_info.email.includes(e.target.value)
         });
         // console.log(patientList)

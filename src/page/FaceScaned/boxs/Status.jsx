@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const Status =({status,isFull}) => {
     const resolvePosition =() => {
-       if(status == 'No Action Requred'){
+       if(status == 'No Action Required'){
         return 'right-8'
        }
         if(status == 'Normal'){
