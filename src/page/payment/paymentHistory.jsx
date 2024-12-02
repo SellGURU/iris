@@ -256,7 +256,7 @@ export const PaymentHistory = () => {
                                                 subprice_code:el.information.subCode,
                                                 orgCode: JSON.parse(orgs).orgCode,
                                                 orgSCode: JSON.parse(orgs).orgSCode,
-                                                email:localEmail
+                                                email:encryptTextResolver(localEmail)    
                                             }).then(res => {
                                                 console.log(res)
                                                 if(res.data.status == 'success'){
