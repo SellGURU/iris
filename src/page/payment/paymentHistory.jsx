@@ -13,7 +13,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import PackageApi from '../../api/package.js';
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { useConstructor } from "../../help.js";
+import { useConstructor,encryptTextResolver } from "../../help.js";
 
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
@@ -57,7 +57,7 @@ export const PaymentHistory = () => {
         PackageApi.getPymentHistory({
             orgCode: JSON.parse(orgs).orgCode,
             orgSCode: JSON.parse(orgs).orgSCode,
-            email: localEmail           
+            email: encryptTextResolver(localEmail)             
         }).then(res => {
             if(res.data.status!= 'fail'){
                 setTransactions(res.data.data)

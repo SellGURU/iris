@@ -34,42 +34,42 @@ const checkValidToken = () => {
         return true
     }
     // let response = true;
-    if(access!==undefined && access!==null) {
-        Package.getIrisSub().then(res => {
-            console.log(res)
-            // if(res.data.length>0) {
-            //     let newPak = new Package2({
-            //         name:'No available package',
-            //         cycle:'Yearly',
-            //         cost:0,
-            //         useage:res.data[0].sdiscount,
-            //         bundle:res.data[0].allowed_scans,
-            //         discount:0,
-            //         options:[]                           
-            //     })
-            //     console.log(newPak)
-            //     Appcontext.package.updatePackage(newPak)               
-            // }
-            if(res.data.data.subs_data.length> 0){
-                let newPak = new Package2({
-                    name:'No available package',
-                    cycle:'Yearly',
-                    cost:0,
-                    useage:res.data.data.subs_data[0].iscan_used,
-                    bundle:res.data.data.subs_data[0].iscan_brought,
-                    discount:0,
-                    options:[]                           
-                })
-                    // console.log(newPak)
-                Appcontext.package.updatePackage(newPak)
-            }            
-            if(res.data.status == '403'){
-                return false
-            }else {
-                return true
-            }
-        })
-    }
+    // if(access!==undefined && access!==null) {
+    //     Package.getIrisSub().then(res => {
+    //         console.log(res)
+    //         // if(res.data.length>0) {
+    //         //     let newPak = new Package2({
+    //         //         name:'No available package',
+    //         //         cycle:'Yearly',
+    //         //         cost:0,
+    //         //         useage:res.data[0].sdiscount,
+    //         //         bundle:res.data[0].allowed_scans,
+    //         //         discount:0,
+    //         //         options:[]                           
+    //         //     })
+    //         //     console.log(newPak)
+    //         //     Appcontext.package.updatePackage(newPak)               
+    //         // }
+    //         if(res.data.data.subs_data.length> 0){
+    //             let newPak = new Package2({
+    //                 name:'No available package',
+    //                 cycle:'Yearly',
+    //                 cost:0,
+    //                 useage:res.data.data.subs_data[0].iscan_used,
+    //                 bundle:res.data.data.subs_data[0].iscan_brought,
+    //                 discount:0,
+    //                 options:[]                           
+    //             })
+    //                 // console.log(newPak)
+    //             Appcontext.package.updatePackage(newPak)
+    //         }            
+    //         if(res.data.status == '403'){
+    //             return false
+    //         }else {
+    //             return true
+    //         }
+    //     })
+    // }
     else {
         return false
     }

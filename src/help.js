@@ -11,8 +11,9 @@ const useConstructor = (callBack = () => {}) => {
 };
 
   const encryptTextResolver= (text) => {
+    console.log(text)
     const secretKey = 'amir'
-    return CryptoJS.AES.encrypt(text, secretKey).toString();
+    return CryptoJS.AES.encrypt(text.trim(), secretKey).toString();
 
   };
 
