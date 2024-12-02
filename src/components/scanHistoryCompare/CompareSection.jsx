@@ -229,6 +229,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("nose")}
                   text={`${resolvePercent("nose")}%`}
@@ -248,6 +249,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("chin")}
                   text={`${resolvePercent("chin")}%`}
@@ -261,6 +263,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("lips")}
                   text={`${resolvePercent("lips")}%`}
@@ -274,6 +277,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("cheeks")}
                   text={`${resolvePercent("cheeks")}%`}
@@ -287,6 +291,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("forehead")}
                   text={`${resolvePercent("forehead")}%`}
@@ -300,6 +305,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <CircularProgressbar
                   styles={buildStyles({
                     pathColor: "#544BF0", // Optional: Change the path color
+                    textColor:"#000030"
                   })}
                   value={resolvePercent("eyebrows")}
                   text={`${resolvePercent("eyebrows")}%`}

@@ -370,7 +370,7 @@ export const PatienCard = ({
                 }}
                 className="text-[#544BF0] flex justify-center items-center cursor-pointer font-medium text-center mt-4"
               >
-                {isShowMore ? "ُShow Less" : "See More"}
+                {isShowMore ? "Show Less" : "See More"}
                 <span>
                   <div
                     data-mode={isShowMore ? "true" : "false"}

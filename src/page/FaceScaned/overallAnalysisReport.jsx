@@ -461,7 +461,7 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col text-[14px] w-[180px] ">
+                                <div className="flex flex-col text-[16px] w-[180px] ">
                                   8. Lower lip vermilion
                                 </div>
                                 <div className="flex flex-col text-[14px] font-normal">
@@ -565,9 +565,10 @@ const OverallAnalysisReport = (props) => {
                             </div>
                             <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                               Date:{" "}
-                              {date.getDate() +
-                                "   " +
+                              {
                                 date.toLocaleString("default", { month: "long" }) +
+                                "   " +
+                                date.getDate() +
                                 "   " +
                                 date.getFullYear()}
                             </div>

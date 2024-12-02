@@ -45,7 +45,7 @@ const FilterModal = ({refrence,categories,setShowImagesOrgin,activeCategories,se
                         <div className='grid grid-cols-2'>
                             <FormControlLabel onChange={() => {
                                 onChangeAll()
-                            }} value="all" control={<Checkbox checked={categories.length == mycategories.length} />} label="All" />
+                            }} value="all" control={<Checkbox  checked={categories.length == mycategories.length} />} label="All" />
                             {categories.map((el) => {
                                 return (
                                     <FormControlLabel onChange={() => onchangeCategory(el)} key={el} value={el} control={<Checkbox checked={mycategories.includes(el)} />} label={el} />
