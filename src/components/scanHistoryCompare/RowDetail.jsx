@@ -29,19 +29,25 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                       el.side
                       ?
                       <>
-                      <div className="flex items-center justify-start gap-2 w-full">
-                        <span className="">Left:</span>
-                        {el.side.left.measured_distance } ({el.side.left.percent} %)
+                      <div className="flex items-center justify-between gap-2 w-full">
+                        <div className="flex justify-start">
+                          <span className="">Left:</span>
+                          {el.side.left.measured_distance } ({el.side.left.percent} %)
+
+                        </div>
                         <div className={`w-4 h-4  ${el.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                       </div>
-                      <div className="flex items-center justify-start gap-2 w-full">
-                        <span className="">Right:</span>
-                        {el.side.right.measured_distance } ({el.side.right.percent} %)
+                      <div className="flex items-center justify-between gap-2 w-full">
+                        <div className="flex justify-start">
+                          <span className="">Right:</span>
+                          {el.side.right.measured_distance } ({el.side.right.percent} %)
+
+                        </div>
                         <div className={`w-4 h-4  ${el.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                       </div>                  
                       </>
                       :
-                        <div className="flex items-center justify-start gap-2 w-full">
+                        <div className="flex items-center justify-between gap-2 w-full">
                           Dist: {el.measured_distance}D ({el.percent}%)
                           <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                         </div>
@@ -57,19 +63,25 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                       el2.side
                       ?
                       <>
-                      <div className="flex items-center justify-start gap-2 w-full">
-                        <span className="">Left:</span>
-                        {el2.side.left.measured_distance } ({el2.side.left.percent} %)
+                      <div className="flex items-center justify-between gap-2 w-full">
+                        <div className=" flex justify-start">
+                          <span className="">Left:</span>
+                          {el2.side.left.measured_distance } ({el2.side.left.percent} %)
+
+                        </div>
                         <div className={`w-4 h-4  ${el2.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                       </div>
-                      <div className="flex items-center justify-start gap-2 w-full">
-                        <span className="">Right:</span>
-                        {el2.side.right.measured_distance } ({el2.side.right.percent} %)
+                      <div className="flex items-center justify-between gap-2 w-full">
+                        <div className="flex justify-start">
+                          <span className="">Right:</span>
+                          {el2.side.right.measured_distance } ({el2.side.right.percent} %)
+
+                        </div>
                         <div className={`w-4 h-4  ${el2.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                       </div>                  
                       </>
                       :
-                        <div className="flex items-center justify-start gap-2 w-full">
+                        <div className="flex items-center justify-between gap-2 w-full">
                           Dist: {el2.measured_distance}D ({el2.percent}%)
                           <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                         </div>

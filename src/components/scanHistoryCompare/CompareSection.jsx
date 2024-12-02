@@ -116,9 +116,9 @@ const CompareSection = ({ results, clientId, lastScan }) => {
     const date = new Date(timestamp);
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const dayName = daysOfWeek[date.getDay()];
-    const formattedDate = `${date.getFullYear()}/${(date.getMonth() + 1)
+    const formattedDate = `${date.getFullYear()}/${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
       .toString()
-      .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
+      .padStart(2, "0")}`;
     return `${dayName} ${formattedDate}`;
   };
   const filterModalRefrence = useRef(null);
@@ -202,7 +202,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 </div>
                 <div className="text-base font-normal text-[#7E7E7E]">
                   Last Scan :{" "}
-                  {new Date(lastScan).toLocaleDateString("en-GB", {
+                  {new Date(lastScan).toLocaleDateString("en-US", {
                     day: "2-digit",
                     month: "long",
                     year: "numeric",
@@ -341,14 +341,14 @@ const CompareSection = ({ results, clientId, lastScan }) => {
               <div className="flex items-center justify-between w-1/4 text-sm">
                 {/* Sat 2024/02/02 */}
                 {formatDate(data[0]?.data.timestamp)}
-                <div className="arowDownIcon-purple"></div>
+                {/* <div className="arowDownIcon-purple"></div> */}
               </div>
 
               <div className="border-l-[#E1E1E1] border-l h-full"></div>
 
               <div className="flex items-center justify-between w-1/4 text-sm">
                 {formatDate(data[1]?.data.timestamp)}
-                <div className="arowDownIcon-purple"></div>
+                {/* <div className="arowDownIcon-purple"></div> */}
               </div>
 
               {/* <div className="border-l-[#E1E1E1] border-l h-full"></div>

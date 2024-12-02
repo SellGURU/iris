@@ -426,7 +426,7 @@ const OverallAnalysisReport = (props) => {
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
                                 <div className="flex flex-col w-[180px] ">
-                                  4.Apex of cheek
+                                  4. Apex of cheek
                                 </div>
                                 <div className="flex flex-col text-[14px]   font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.apex_of_cheek.symmetry_text}
