@@ -166,25 +166,12 @@ export const ScanHistory = () => {
         // setlastItemIndex(page * itemsPerPage)
         // setFirstItemIndex(page * itemsPerPage - itemsPerPage)
     };
-    
-    useEffect(() => {
-
-        const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
-        const indexOfLastItem = Math.min(
-            Number(indexOfFirstItem) + Number(itemsPerPage),
-            patients.length
-        );
-
-        setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
-        return () =>{}
-    }, [currentPage,itemsPerPage]);
-
-
-    const navigate = useNavigate()
-    const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
-    useEffect(() => {
+     const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
+     const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
+     useEffect(() => {
+        let resolvedPationts = []
         if(imageBy!= 'all'){
-            setPatientList(patients.filter(el =>{
+            resolvedPationts = patients.filter(el =>{
                 if(el.scans){
                     if(el.scans.filter((e) =>e.scanType.includes(imageBy)).length>0){
                         return true
@@ -195,15 +182,12 @@ export const ScanHistory = () => {
                 }
                 return false
                 
-            }))
+            })
         }else {
-            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+            resolvedPationts = patients
         }
-    },[imageBy])   
-
-    useEffect(() => {
         if(startDate!= null && endDate!= null){
-            setPatientList(patients.filter(el =>{
+            resolvedPationts  = resolvedPationts.filter(el =>{
                 if(el.scans){
                     if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
                         return true
@@ -214,18 +198,72 @@ export const ScanHistory = () => {
                 }
                 return false
                 
-            }))
-        }else {
-            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+            })
+        }        
+        setTotoalPages(Math.ceil(resolvedPationts.length / itemsPerPage))
+        // console.log(resolvedPationts) 
+        const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+        const indexOfLastItem = Math.min(
+            Number(indexOfFirstItem) + Number(itemsPerPage),
+            resolvedPationts.length
+        );
+        // console.log(indexOfFirstItem ,indexOfLastItem )
+        setPatientList(resolvedPationts.slice(indexOfFirstItem, indexOfLastItem));
+        return () =>{}
+    }, [currentPage,itemsPerPage,patients,imageBy,startDate,endDate]);
+
+    useEffect(() => {
+        if(patientList.length == 0) {
+            setCurrentPage(1)
         }
-    },[startDate,endDate])   
+    },[patientList])
+
+    const navigate = useNavigate()
+   
+    // useEffect(() => {
+    //     if(imageBy!= 'all'){
+    //         setPatientList(patients.filter(el =>{
+    //             if(el.scans){
+    //                 if(el.scans.filter((e) =>e.scanType.includes(imageBy)).length>0){
+    //                     return true
+    //                 }else{
+    //                     return false
+    //                 }
+
+    //             }
+    //             return false
+                
+    //         }))
+    //     }else {
+    //         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    //     }
+    // },[imageBy])   
+
+    // useEffect(() => {
+    //     if(startDate!= null && endDate!= null){
+    //         setPatientList(patients.filter(el =>{
+    //             if(el.scans){
+    //                 if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
+    //                     return true
+    //                 }else{
+    //                     return false
+    //                 }
+
+    //             }
+    //             return false
+                
+    //         }))
+    //     }else {
+    //         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    //     }
+    // },[startDate,endDate])   
     // useEffect(() => {
     //     if(filterType == 'Maximum Scan'){
 
     //     }
     // })
     
-    const totalPages = Math.ceil(patients.length / itemsPerPage);
+   
 
     const filterPatientsHandler = (e) => {
         const searchValue = e.target.value.trim().toLowerCase();
