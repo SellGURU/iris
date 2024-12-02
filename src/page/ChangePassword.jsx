@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import Auth from "../api/Auth";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import {encryptTextResolver} from '../help.js';
 
 const ChangePassword = () => {
     const initialValues = {
@@ -30,10 +31,10 @@ const ChangePassword = () => {
     const submit = () => {
         Auth.changePassword({
             orgscode: JSON.parse(orgs).orgSCode,
-            email:JSON.parse(orgs).orgEmail,
-            current_password: form.values.CurrentPassword,
-            new_password: form.values.NewPassword,
-            new_cpassword: form.values.confirmPassword           
+            email:encryptTextResolver(JSON.parse(orgs).orgEmail),
+            current_password: encryptTextResolver(form.values.CurrentPassword),
+            new_password: encryptTextResolver(form.values.NewPassword),
+            new_cpassword: encryptTextResolver(form.values.confirmPassword)           
         }).then(res => {
             if(res.data.status == 'fail'){
                 alert(res.data.msg)

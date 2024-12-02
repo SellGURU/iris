@@ -11,6 +11,8 @@ import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import Package from "../model/Package.js";
 import {PatientContext} from '../context/context.jsx'
+import {encryptTextResolver} from '../help.js';
+
 
 const Login = () => {
   const passwordRef = useRef(null);
@@ -68,8 +70,8 @@ const Login = () => {
       // toast.loading('pending ...');
       localStorage.clear()
       Auth.login({
-        email: form.values.userName,
-        password: form.values.password,
+        email: encryptTextResolver(form.values.userName),
+        password: encryptTextResolver(form.values.password),
       })
         .then((res) => {
           // toast.dismis()

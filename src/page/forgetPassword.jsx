@@ -11,6 +11,7 @@ import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import VerificationInput from "react-verification-input";
 import { useSearchParams } from "react-router-dom";
+import {encryptTextResolver} from '../help.js';
 
 const Forget = () => {
     const passwordRef = useRef(null);
@@ -72,10 +73,10 @@ const Forget = () => {
         try {
             // toast.loading('pending ...')
             Auth.login({
-                username: form.values.userName,
-                password: form.values.password
+                username: encryptTextResolver(form.values.userName),
+                password: encryptTextResolver(form.values.password)
             }).then((res) => {
-                console.log(res)
+                // console.log(res)
                 if (res.data.access_token) {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
@@ -152,7 +153,7 @@ const Forget = () => {
                         // onSubmit()
                         // setStep(2)
                         Auth.forgetpass({
-                            email:form.values.email
+                            email:encryptTextResolver(form.values.email)
                         }).then(res => {
                             // toast.info(res.data.msg)
                         })
@@ -272,8 +273,8 @@ const Forget = () => {
                         <Button onClick={() => {
                             Auth.updatePassword({
                                 resetPassToken:searchParams.get("token"),
-                                new_password:form2.values.NewPassword,
-                                new_cpassword:form2.values.Confirmpassword
+                                new_password:encryptTextResolver(form2.values.NewPassword),
+                                new_cpassword:encryptTextResolver(form2.values.Confirmpassword)
                             })
                         }}  disabled={!form2.isValid || !form2.touched.NewPassword} theme="iris-large">
                             <div className="w-[280px]">

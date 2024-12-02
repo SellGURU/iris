@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import Select from "../components/select/index.jsx";
+import {encryptTextResolver} from '../help.js';
 
 const Register = () => {
   const passwordRef = useRef(null);
@@ -90,9 +91,9 @@ const Register = () => {
     try {
       // toast.loading("pending ...");
       Auth.signUp({
-        email: form.values.email,
-        password: form2.values.password,
-        cpassword:form2.values.confirm,
+        email: encryptTextResolver(form.values.email),
+        password: encryptTextResolver(form2.values.password),
+        cpassword:encryptTextResolver(form2.values.confirm),
         practiceName:form.values.PracticeName,
         firstName:form.values.firstName,
         lastName:form.values.lastName
