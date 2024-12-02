@@ -1,4 +1,5 @@
 import { useState } from "react";
+// import CryptoJS from 'crypto-js';
 
 const useConstructor = (callBack = () => {}) => {
   const [hasBeenCalled, setHasBeenCalled] = useState(false);
@@ -9,4 +10,10 @@ const useConstructor = (callBack = () => {}) => {
   setHasBeenCalled(true);
 };
 
-export {useConstructor}
+  const encryptTextResolver= (text) => {
+    const secretKey = 'amir'
+    return CryptoJS.AES.encrypt(text, secretKey).toString();
+
+  };
+
+export {useConstructor,encryptTextResolver}

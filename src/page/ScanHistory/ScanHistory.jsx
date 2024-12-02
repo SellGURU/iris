@@ -10,7 +10,7 @@ import FilterModal from '../modal/Filter.jsx';
 import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { Tooltip } from 'react-tooltip'
-import { useConstructor } from "../../help.js";
+import { useConstructor ,encryptTextResolver} from "../../help.js";
 // import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
@@ -138,10 +138,9 @@ export const ScanHistory = () => {
         getPatients()
 
         PackageApi.getIrisSub({
-            email:getEmail,
-            password:getpass
+            email:encryptTextResolver(getEmail +""),
+            // password:getpass
         }).then((res) => {
-            console.log(res)
             if(res.data?.data?.subs_data?.length> 0){
                 let newPak = new Package({
                     name:'No available package',
