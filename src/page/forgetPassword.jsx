@@ -36,8 +36,10 @@ const Forget = () => {
             NewPassword:""
         },
         validationSchema: Yup.object().shape({
-            NewPassword:  Yup.string().required('New password is required.').min(6, 'Current password must be at least 6 characters').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
-            Confirmpassword: Yup.string().required("Confirm password is required.").oneOf([Yup.ref('NewPassword')], 'Confirm password  must match'),
+            NewPassword:   Yup.string().required('New password is required.').min(6,'New password must be at least 6 characters.').max(15),
+            Confirmpassword:Yup
+        .string()
+        .oneOf([Yup.ref('NewPassword')], 'Passwords must match'),
         }),
         onSubmit: () => {
         }
