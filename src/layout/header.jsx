@@ -240,7 +240,8 @@ const Header = () => {
                         {/* <div className="logoutIcon w-[18px]"></div> */}
                         <h1 className="cursor-pointer text-primary-color" onClick={() => {
                             localStorage.clear()
-                            window.open("/#/login")
+                            // window.open("/#/login")
+                            window.location.reload();
                             // navigate('/login')
                         }}>Logout</h1>
                     </div>                   
