@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 axios.interceptors.response.use((response) => {
     if(response.data.token){
@@ -23,10 +24,20 @@ axios.interceptors.response.use((response) => {
     }
     return response;
 }, (error) => {
-    // console.log(error)
-    // toast.error(error.response?.data.detail) 
-    // if (error.response && error.response?.data) {
-    //     return Promise.reject(error.response?.data);
-    // }
-    return error
+    if(error.response.status ==401 || error.response.status ==498 ){
+        localStorage.clear()
+        window.location.reload(); 
+    }    
+    
+    if(error.response.data.detail){
+        if (error.response.data.detail && error.response.data.detail.toLowerCase().includes("successfully")) {
+            toast.success(error.response.data.detail)
+        }else {
+            toast.error(error.response.data.detail) 
+        }
+    }    
+    if (error.response && error.response.data) {
+        return Promise.reject(error.response.data);
+    }
+    return Promise.reject(error.message);
 });
