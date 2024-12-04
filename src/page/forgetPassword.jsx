@@ -277,6 +277,8 @@ const Forget = () => {
                                 resetPassToken:searchParams.get("token"),
                                 new_password:encryptTextResolver(form2.values.NewPassword),
                                 new_cpassword:encryptTextResolver(form2.values.Confirmpassword)
+                            }).finally(() => {
+                                navigate('/')
                             })
                         }}  disabled={!form2.isValid || !form2.touched.NewPassword} theme="iris-large">
                             <div className="w-[280px]">
