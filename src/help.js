@@ -33,7 +33,21 @@ const useConstructor = (callBack = () => {}) => {
     return `${ivBase64}:${encryptedText}`;
   };
 
-  const butiText = (text) =>{
-    return text.split("_").join(" ")
+  const butiText = (inputText) =>{
+    const prepositions = new Set(["at", "of", "in", "on", "with", "by", "to", "for", "from"]);
+
+    // Split the input text by underscores
+    const words = inputText.split("_");
+
+    // Capitalize words except for prepositions
+    const formattedWords = words.map(word => {
+      if (prepositions.has(word.toLowerCase())) {
+        return word.toLowerCase(); // Keep prepositions lowercase
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1); // Capitalize first letter of other words
+    });
+
+    // Join the words with spaces
+    return formattedWords.join(" ");
   }
 export {useConstructor,encryptTextResolver,butiText}
