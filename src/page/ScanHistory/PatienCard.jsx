@@ -77,9 +77,9 @@ export const PatienCard = ({
   const navigate = useNavigate();
   const [isShowMore, setIsShowMore] = useState(false);
   const updateComment = () => {
-    // let patients= JSON.parse(localStorage.getItem("patients"))
-    // let patientIndex = patients.findIndex(patient => patient.id === id);
-    // setComment(patients[patientIndex].comment);
+    let patients= JSON.parse(localStorage.getItem("patients"))
+    let patientIndex = patients.findIndex(patient => patient.id === patient.client_info.clientCode);
+    setComment(patients[patientIndex].comment);
   };
   // const dispatch = useDispatch();
   const download = (id) => {
