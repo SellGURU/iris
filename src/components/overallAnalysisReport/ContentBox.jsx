@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "symphony-ui";
 import Status from "../../page/FaceScaned/boxs/Status";
+import { butiText } from "../../help";
 const ContentBox = ({data,category}) => {
   const resolveStatus = (checked) => {
       if(checked == false){
@@ -44,7 +45,7 @@ const ContentBox = ({data,category}) => {
               <div className="flex flex-col items-start justify-between " style={{width:'100%'}}>
                 <div className="flex flex-row  " >
                     <div className="" >
-                        {el.key}
+                        {butiText(el.key)}
                     </div>
                    ={el.measured_distance}D
                 </div>

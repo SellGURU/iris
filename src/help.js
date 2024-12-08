@@ -33,4 +33,7 @@ const useConstructor = (callBack = () => {}) => {
     return `${ivBase64}:${encryptedText}`;
   };
 
-export {useConstructor,encryptTextResolver}
+  const butiText = (text) =>{
+    return text.split("_").join(" ")
+  }
+export {useConstructor,encryptTextResolver,butiText}

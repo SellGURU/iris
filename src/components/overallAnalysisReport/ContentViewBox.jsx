@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "symphony-ui";
 import Status from "../../page/FaceScaned/boxs/Status";
+import { butiText } from "../../help";
 const ContentViewBox = ({data,category}) => {
   const [isOpen, setIsOpen] = useState(false);
   const resolveIcon =() => {
@@ -40,7 +41,7 @@ const ContentViewBox = ({data,category}) => {
               <>
               <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
                 <div className="flex flex-row w-full">
-                  {el.key} ={el.measured_distance}D
+                  {butiText(el.key)} = {el.measured_distance}D
                 </div>
                 {el.side ?
                 <>

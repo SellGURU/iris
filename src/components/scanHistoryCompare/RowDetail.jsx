@@ -2,6 +2,7 @@
 import { Button } from "symphony-ui";
 import Status from "../../page/FaceScaned/boxs/Status";
 import { useState } from "react";
+import { butiText } from "../../help";
 
 const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
     const [isOpen, setIsOpen] = useState(0);
@@ -18,7 +19,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
             <>
                 <div className="flex flex-row gap-12 items-start justify-start w-full px-6 py-[6px] rounded-xl bg-[#F5F5F5] text-sm min-h-14 relative">
                   <div className="w-1/4 font-medium h-full flex items-center">
-                    {el.key}
+                    {butiText(el.key)}
                   </div>
 
                   <div className="border-l-[#E1E1E1] border-l h-full"></div>

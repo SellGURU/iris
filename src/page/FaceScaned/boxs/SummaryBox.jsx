@@ -1,3 +1,4 @@
+import { butiText } from "../../../help"
 import Status from "./Status"
 
 /* eslint-disable react/prop-types */
@@ -20,7 +21,7 @@ const SummaryBox =({data,indexNum}) => {
     return (
         <>
             <div className="flex flex-col">
-            <p><span className=" text-[#2E2E2E]">{indexNum+1} . </span>{data.key}</p>
+            <p><span className=" text-[#2E2E2E]">{indexNum+1} . </span>{butiText(data.key)}</p>
             <p className="text-[#7E7E7E] h-[34px] text-[14px] mt-2 decorated-dot">
                 Description: {data.text}
             </p>
