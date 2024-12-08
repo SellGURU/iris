@@ -155,7 +155,7 @@ export const PaymentHistory = () => {
                         <div className={" w-full mb-8 lg:mb-0 relative h-[302px] border  rounded-md "}>
                             <div
                                 className={"bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"}>
-                                <h1 className={"text-xl font-medium "}>Scan Remaining</h1>
+                                <h1 className={"text-xl font-medium "}>Scans Remaining</h1>
 
                             </div>
                             <div className={"space-y-6 flex-col px-6 py-4"}>
