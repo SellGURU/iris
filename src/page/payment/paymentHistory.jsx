@@ -160,7 +160,7 @@ export const PaymentHistory = () => {
                             </div>
                             <div className={"space-y-6 flex-col px-6 py-4"}>
                                 <span className="font-nomral text-[#7E7E7E]">Usage</span>
-                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scans remained</p>
+                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scan{appContext.package.getPackage().getInformation().bundle > 1 && 's'} remain</p>
 
                                 <div className="w-full">
 

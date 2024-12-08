@@ -2,7 +2,7 @@ import {IoMenu} from "react-icons/io5";
 import ButtonPrimary from "../components/button/buttonPrimery";
 import {AiOutlineUser} from "react-icons/ai";
 import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
-import {createRef, useContext, useRef, useState} from "react";
+import {createRef, useContext, useEffect, useRef, useState} from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {toast} from "react-toastify";
@@ -22,11 +22,9 @@ const Header = () => {
     const [showSideBar, setShowSideBar] = useState(false)
     const menuRef = createRef(null)
     const Appcontext = useContext(PatientContext)
-    const username = useSelector(selectUserName)
     const [showModal,setSHowModal] = useState(false)
     const [menu,setMenu] = useState('')
-    let [email,] = useLocalStorage("email")
-    let [pass,] = useLocalStorage("password")    
+
     const [showModalBox,setSowModalBox] = useState(false)
     // PackageApi.getCurrentPackage({
     //     email:email,
@@ -93,6 +91,13 @@ const Header = () => {
             setSowModalBox(false)
         }
     })
+    const [reminedpak,setReminedpak] = useState(Appcontext.package.getPackage().getRemining())
+    subscribe("updatePackage",() => {
+        setReminedpak(Appcontext.package.getPackage().getRemining())
+    })
+    useEffect(() => {
+        setReminedpak(Appcontext.package.getPackage().getRemining())
+    },[Appcontext.package.getPackage().getRemining()])
     return (
         <div className="">
             <div
@@ -109,7 +114,7 @@ const Header = () => {
                     {
                         Appcontext.package.getPackage().isExist()?
                             <div className="hidden md:flex justify-center items-center text-gray-400">
-                                <div>{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remain</div>
+                                <div>{reminedpak} Scan{reminedpak > 1 && 's'} remain</div>
                                 {/* <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button> */}
                             </div>
                         :
