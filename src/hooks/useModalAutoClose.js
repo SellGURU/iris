@@ -10,7 +10,8 @@ const useModalAutoClose = (props) => {
         const handleClickOutside = (event) => {
         if (
             props.refrence.current &&
-            !props.refrence.current.contains(event.target)
+            !props.refrence.current.contains(event.target ) &&
+            !(props.buttonRefrence?.current?.contains(event.target) )
         ) {
             props.close()
         }

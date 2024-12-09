@@ -1318,7 +1318,7 @@ const FaceMesh = () => {
                                         <div className="text-primary-color text-[14px] cursor-pointer">
                                             single pose
                                         </div>
-                                        <Switch checked={status == 'one'?true:false} onChange={(e) => {
+                                        <Switch  checked={status == 'one'?true:false} onChange={(e) => {
                                             console.log(e.target.checked)
                                             if(e.target.checked){
                                                 setStatus('one')

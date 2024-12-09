@@ -72,12 +72,14 @@ export const ScanHistory = () => {
     const [startDate,setStartDate] = useState(null)
     const [endDate,setendDate] = useState(null)
     const filterModalRefrence = useRef(null)
+    const filterModalButtonRefrence = useRef(null)
     const sortRefrence = useRef(null)
     const [showFilter,setShowFilter] = useState(false)
     const [showMorePage,setShowMorePage] = useState(false)
     const [showSort,setShowSort] = useState(false) 
     useModalAutoClose({
         refrence:filterModalRefrence,
+        buttonRefrence:filterModalButtonRefrence,
         close:() =>{
             setShowSort(false)
         }
@@ -321,7 +323,7 @@ export const ScanHistory = () => {
                         <div
                             className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
                             <div onClick={() => {
-                                setShowFilter(true)
+                                setShowFilter(!showFilter)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Filter your scan history by specific criteria."
                                  className="flex items-center gap-2 cursor-pointer">
@@ -335,8 +337,8 @@ export const ScanHistory = () => {
                                              refrence={sortRefrence}/>
                                 // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
                             }
-                            <div onClick={() => {
-                                setShowSort(true)
+                            <div ref={filterModalButtonRefrence} onClick={() => {
+                                setShowSort(!showSort)
                                 setShowFilter(false)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra."
