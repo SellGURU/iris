@@ -183,8 +183,8 @@ const ShowReport = (props) => {
                 </div>
               </div>
 
-              <div className="w-full justify-between mb-4 flex mt-[46px] items-center">
-                <div className="md:flex justify-start items-center">
+              <div className="w-full his justify-between mb-4 flex mt-[46px] items-center">
+                <div className=" hidden justify-start items-center">
                   <div className="text-[#444444] text-[18px] mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
                   </div>

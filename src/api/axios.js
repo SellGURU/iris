@@ -1,32 +1,38 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const removeToken =() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("partyid")
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    localStorage.removeItem("orgData")
+    localStorage.removeItem("patients")
+    localStorage.removeItem("package")
+    window.location.reload(); 
+}
+
 axios.interceptors.response.use((response) => {
     if(response.data.token){
         return response
     }
     if(response.data.error == 'No user found with the provided token.'){
-        localStorage.clear()
-        window.location.reload(); 
+        removeToken()
     }
     if(response.data.status == '403'){
-        localStorage.clear()
-        window.location.reload(); 
+        removeToken()
     }    
     if(response.status == '403') {
-        localStorage.clear()
-        window.location.reload(); 
+        removeToken()
     }
     if(response?.data?.detail?.error == '403_Forbidden'){
         // console.log("invalid token")
-        localStorage.clear()
-        window.location.reload(); 
+        removeToken()
     }
     return response;
 }, (error) => {
     if(error.response.status ==403 ){
-        localStorage.clear()
-        window.location.reload(); 
+        removeToken()
     }    
     
     if(error.response.data.detail){

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 // import MenuBox from "../../components/menuBox"
 import { Button ,TextField} from "symphony-ui"
 import { PatientContext } from "../../context/context"
-import { useContext, useState } from "react"
+import { useContext,useEffect, useState } from "react"
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -86,6 +86,12 @@ const AccountInfo = () => {
             return 'Edit Address'
         }                     
     }
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+        }, 500);
+    },[])
     return (
         <>
             <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>

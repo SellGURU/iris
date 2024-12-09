@@ -244,7 +244,13 @@ const Header = () => {
                         <img className="mr-2" src="./logout.svg"  alt="" />
                         {/* <div className="logoutIcon w-[18px]"></div> */}
                         <h1 className="cursor-pointer text-primary-color" onClick={() => {
-                            localStorage.clear()
+                            localStorage.removeItem("token")
+                            localStorage.removeItem("partyid")
+                            localStorage.removeItem("email")
+                            localStorage.removeItem("password")
+                            localStorage.removeItem("orgData")
+                            localStorage.removeItem("patients")
+                            localStorage.removeItem("package")
                             // window.open("/#/login")
                             window.location.reload();
                             // navigate('/login')

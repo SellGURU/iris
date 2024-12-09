@@ -63,6 +63,12 @@ const Account = () => {
             })
         }
     })
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+        }, 3000);
+    },[])
     return (
         <>
             <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
