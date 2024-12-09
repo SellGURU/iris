@@ -5,15 +5,19 @@ import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useRef, useState ,useEffect} from "react";
 import { useFormik } from "formik";
+import Package from "../model/Package.js";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import Select from "../components/select/index.jsx";
 import {encryptTextResolver} from '../help.js';
+import {PatientContext} from '../context/context.jsx'
+import {useContext} from 'react';
 
 const Register = () => {
   const passwordRef = useRef(null);
+  const Appcontext = useContext(PatientContext)
   const [resolvedHight,setResolvedHight] = useState('80vh')
   const resolveHightImage = () => {
     if(document.getElementById("contentBox")){
@@ -71,9 +75,9 @@ const Register = () => {
     validationSchema: Yup.object().shape({
     password: Yup
       .string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters long.')
-      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),      
+      .required('Password is required.')
+      .min(6, 'Password must be at least 6 characters.')
+      .matches(/[a-zA-Z]/, 'Password should contain letters and numbers.'),      
     confirm: Yup
       .string()
       .oneOf([Yup.ref('password')], 'Passwords must match'),      
@@ -85,6 +89,10 @@ const Register = () => {
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
+  let [, seveParty] = useLocalStorage("partyid");
+  let [,saveEmail] = useLocalStorage("email")
+  let [,savePass] = useLocalStorage("password")
+  let [,saveOrg] = useLocalStorage("orgData")  
   //   console.log("isAccess l", isAccess);
   const onSubmit = () => {
     setIsPanding(true);
@@ -102,7 +110,63 @@ const Register = () => {
           if (res.data.status == 'success') {
             setIsPanding(false);
             // toast.info(res.data.msg);
-            navigate("/login");
+              Auth.login({
+                email: encryptTextResolver(form.values.email),
+                password: encryptTextResolver(form2.values.password),
+              })
+                .then((res) => {
+                  if (res.data.token!='') {
+                    setIsPanding(false);
+                    saveIsAccess(res.data.token);
+                    seveParty(res.data.party_id)
+                    saveEmail(form.values.email)
+                    savePass(form2.values.password)
+                    saveOrg(JSON.stringify(res.data.org_data))
+                    dispatch(setUserName("amin"));
+                    Appcontext.user.updateCustomInformation('account',{
+                        PracticeName:res.data.org_data.orgName,
+                        PhoneNumber:"",
+                        EmailAddress:res.data.org_data.orgEmail
+                    })         
+                    Appcontext.user.updateCustomInformation("personal",{
+                      FirstName:res.data.org_data.firstName,
+                      LastName:res.data.org_data.lastName,
+                      
+                    }) 
+                    Appcontext.user.updateCustomInformation("photo",
+                        `https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName              
+                    )             
+                    if(res.data.org_data.subs_data.length> 0){
+                        let newPak = new Package({
+                            name:'No available package',
+                            cycle:'Yearly',
+                            cost:0,
+                            useage:res.data.org_data.subs_data[0].iscan_used,
+                            bundle:res.data.org_data.subs_data[0].iscan_brought,
+                            discount:0,
+                            options:[]                           
+                        })
+                            // console.log(newPak)
+                        Appcontext.package.updatePackage(newPak)
+                    }
+                    // photo:`https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName
+                    // toast.
+                    navigate("/");
+                  } else {
+                    // console.log(res.msg);
+                    // toast.error(res.data.error) 
+                    // alert(res.msg)
+                    form.setFieldError("password", "The password is incorrect.");
+                    // setTimeout(() => {
+                    //   toast.pe
+                    // }, 3000);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err)
+                  // form.setFieldError("password", "The password is incorrect.");
+                  // toast.error(err.response?.data?.detail);
+                });
           } else if(res.data.status == 'fail'){
             // console.log(res);
             alert(res.data.msg)
@@ -235,6 +299,7 @@ const Register = () => {
               <div className="flex justify-start items-center">
                 <input
                   {...form.getFieldProps("accept")}
+                  checked={form.values.accept}
                   id="accept"
                   type="checkbox"
                 />

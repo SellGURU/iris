@@ -42,7 +42,7 @@ export const IsLogin = ({children}) => {
     useEffect(() => {
         const interval = setInterval(() => {
         checkOrg();
-        }, 5000);
+        }, 10000);
 
         // Cleanup interval on component unmount
         return () => clearInterval(interval);

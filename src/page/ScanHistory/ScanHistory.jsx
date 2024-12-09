@@ -116,8 +116,8 @@ export const ScanHistory = () => {
                         console.log(res.data)
                     }else if(!res.data.detail){
                         if(res.data.length>0){
-                            setPatinets(res.data)
-                            setPatientList(res.data)
+                            setPatinets([...res.data])
+                            setPatientList([...res.data])
                             localStorage.setItem("patients", JSON.stringify(res.data));
     
                         }
@@ -295,7 +295,7 @@ export const ScanHistory = () => {
                     <div className="w-full flex flex-col items-center gap-3 ">
                         <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
                         <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
-                            Scan history records past scanned documents, showing details like date, categorization,
+                            Scan Library records past scanned documents, showing details like date, categorization,
                             download options, and patient scan comparisons for easy reference and retrieval.
                         </p>
                     </div>
@@ -397,6 +397,9 @@ export const ScanHistory = () => {
                             <>
                                 <PatienCard
                                     index={i + 1}
+                                    loadPationts={() => {
+                                        getPatients()
+                                    }}
                                     key={Number(patient.client_info.clientCode)}
                                     patient={patient}
                                     activeResult={activeResult}

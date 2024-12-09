@@ -15,6 +15,7 @@ export const PatienCard = ({
   onaccepted,
   activeResult,
   result,
+  loadPationts,
 }) => {
   const { setPdf, setFile, setPhoto } = useContext(PatientContext);
 
@@ -152,9 +153,12 @@ export const PatienCard = ({
         patients[patientIndex].comments = [newComment];
         patient.comments = [newComment]; // Initialize the comment array if it does not exist
       }
-      localStorage.setItem("patients", JSON.stringify(patients));
+      // localStorage.setItem("patients", JSON.stringify(patients));
+      localStorage.removeItem("patients")
       setIsShowAddComment(false);
-      updateComment();
+      // updateComment();
+      setComment(patient.comments)
+      loadPationts()
       setTextComment("");
     } else {
       setIsShowAddComment(false);
