@@ -309,31 +309,40 @@ const ShowReport = (props) => {
 
                     <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
                       <div className="w-[40%]">
-                        <div className="flex justify-between gap-2">
-                          <img
-                            src={
-                              ScanData.data.pose_analysis[0]
-                                .current_image_analysis.images.input
-                            }
-                            alt="face-image"
-                            className=" w-[150px] rounded-3xl border-2 border-primary-color"
-                          />
-                          <img
-                            src={
-                              ScanData.data.pose_analysis[0]
-                                .current_image_analysis.images.aligned_annotated
-                            }
-                            alt="face-image"
-                            className=" w-[150px] rounded-3xl border-2 border-primary-color"
-                          />
-                          <img
-                            src={
-                              ScanData.data.pose_analysis[0]
-                                .current_image_analysis.images.aligned_symmetry
-                            }
-                            alt="face-image"
-                            className=" w-[150px] rounded-3xl border-2 border-primary-color"
-                          />
+                        <div className="flex w-full justify-between gap-2">
+                          <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                            <img
+                              src={
+                                ScanData.data.pose_analysis[0]
+                                  .current_image_analysis.images.input
+                              }
+                              alt="face-image"
+                              className="w-full object-cover h-full"
+                            />
+
+                          </div>
+                          <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                            <img
+                              src={
+                                ScanData.data.pose_analysis[0]
+                                  .current_image_analysis.images.aligned_annotated
+                              }
+                              alt="face-image"
+                              className="w-full h-full object-cover"
+                            />
+
+                          </div>
+                          <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                            <img
+                              src={
+                                ScanData.data.pose_analysis[0]
+                                  .current_image_analysis.images.aligned_symmetry
+                              }
+                              alt="face-image"
+                              className="w-full h-full object-cover"
+                            />
+
+                          </div>
                         </div>
                         <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                           Measurements Summary
@@ -361,7 +370,7 @@ const ShowReport = (props) => {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
                           <div className="flex flex-row w-full text-base text-left gap-6">
                             <div className="flex flex-col w-[180px] text-base font-medium">
                               1. Eyebrows height
@@ -488,10 +497,10 @@ const ShowReport = (props) => {
                               <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
                               Action Needed
                             </div>
-                            <div className="flex gap-1 items-center">
+                            {/* <div className="flex gap-1 items-center">
                               <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
                               Normal
-                            </div>
+                            </div> */}
                             <div className="flex gap-1 items-center">
                               <div className="w-4 h-4 bg-primary-color rounded-full"></div>
                               No Action Required
@@ -605,7 +614,7 @@ const ShowReport = (props) => {
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                         /> */}
-                      <div className="grid grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
+                      <div className="grid grid-cols-1 xl:grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
                         {resolveFacialData()
                           .slice(0, 8)
                           .map((el, index) => {
