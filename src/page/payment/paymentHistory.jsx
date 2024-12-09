@@ -14,10 +14,45 @@ import Link from '@mui/material/Link';
 import PackageApi from '../../api/package.js';
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useConstructor,encryptTextResolver } from "../../help.js";
-
+import Package2 from "../../model/Package.js";
+import { publish } from "../../utility/event.js";
 export const PaymentHistory = () => {
     const appContext = useContext(PatientContext)
+    
     let [org,] = useLocalStorage("orgData")
+    let [localEmail,] = useLocalStorage("email")    
+    const checkOrg =() => {
+        PackageApi.getIrisSub({
+            email:encryptTextResolver(localEmail +""),
+        }
+        ).then(res => {
+            // console.log(res)
+            if(res.data.data.subs_data.length> 0){
+                let newPak = new Package2({
+                    name:'No available package',
+                    cycle:'Yearly',
+                    cost:0,
+                    useage:res.data.data.subs_data[0].iscan_used,
+                    bundle:res.data.data.subs_data[0].iscan_brought,
+                    discount:0,
+                    options:[]                           
+                })
+                    // console.log(newPak)
+                appContext.package.updatePackage(newPak)
+                publish("updatePackage")
+            }            
+        })    
+    }    
+    const [packageCurrent,setPackageCurrent] = useState(appContext.package.getPackage())
+    useEffect(() => {
+        const interval = setInterval(() => {
+        checkOrg();
+        setPackageCurrent(appContext.package.getPackage())
+        }, 20000);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+    }, []);    
     const formatDate = (date) => {
         const dateObj = new Date(date);  // Ensure date is a Date object
         const year = dateObj.getFullYear();
@@ -33,7 +68,7 @@ export const PaymentHistory = () => {
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");
-    let [localEmail,] = useLocalStorage("email")    
+   
     const [orgs,] = useLocalStorage("orgData")    
     useConstructor(() => {
         // console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
@@ -64,6 +99,7 @@ export const PaymentHistory = () => {
             }
             // console.log(res)
         })
+        checkOrg()
     })
     
     const [packages,setPackages] = useState([
@@ -160,13 +196,13 @@ export const PaymentHistory = () => {
                             </div>
                             <div className={"space-y-6 flex-col px-6 py-4"}>
                                 <span className="font-nomral text-[#7E7E7E]">Usage</span>
-                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{appContext.package.getPackage().getRemining()} </span> out of {appContext.package.getPackage().getInformation().bundle} scan{appContext.package.getPackage().getInformation().bundle > 1 && 's'} remain</p>
+                                <p className="text-lg font-normal text-[#444444]"> <span className="font-bold">{packageCurrent.getRemining()} </span> out of {packageCurrent.getInformation().bundle} scan{packageCurrent.getInformation().bundle > 1 && 's'} remain</p>
 
                                 <div className="w-full">
 
                                     <div className={`h-[20px] relative w-[93%]  rounded-[8px] bg-[#E1E1E1] `}>
-                                        <div className={`absolute rounded-[8px]  h-[20px] ${appContext.package.getPackage().getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
-                                            width:appContext.package.getPackage().getPercentRemining()+'%'
+                                        <div className={`absolute rounded-[8px]  h-[20px] ${packageCurrent.getPercentUsage()>=80?'bg-[#FF001F]':'bg-[#544BF0]'}  `} style={{
+                                            width:packageCurrent.getPercentRemining()+'%'
                                         }}></div>
                                     </div>
                                 </div>

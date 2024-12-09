@@ -39,14 +39,14 @@ export const IsLogin = ({children}) => {
             }            
         })    
     }
-    useEffect(() => {
-        const interval = setInterval(() => {
-        checkOrg();
-        }, 10000);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //     checkOrg();
+    //     }, 15000);
 
-        // Cleanup interval on component unmount
-        return () => clearInterval(interval);
-    }, []);
+    //     // Cleanup interval on component unmount
+    //     return () => clearInterval(interval);
+    // }, []);
     // console.log(validToken)
     if(searchParams.get("fcode") =='resetstaffpass'){
         return <Navigate to={"/forgetpass?token="+searchParams.get("token")}/>
