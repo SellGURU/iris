@@ -190,7 +190,7 @@ export const PatienCard = ({
           </h2>
           <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div>
-          <div className="flex gap-2 items-center justify-between">
+          <div className="flex gap-2 min-w-[411px] items-center justify-between">
             <Button
               theme="iris-tertiary-small"
               onClick={() => setIsShowComment(!isShowComment)}
