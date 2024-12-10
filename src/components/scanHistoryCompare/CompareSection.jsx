@@ -122,10 +122,11 @@ const CompareSection = ({ results, clientId, lastScan }) => {
     return `${dayName} ${formattedDate}`;
   };
   const filterModalRefrence = useRef(null);
-
+  const filterModalRefrenceButton = useRef(null);
   const [isShowFilter, setIsShowFilter] = useState(false);
   useModalAutoClose({
     refrence: filterModalRefrence,
+    buttonRefrence:filterModalRefrenceButton,
     close: () => {
       setIsShowFilter(false);
     },
@@ -174,16 +175,20 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 <div className="flex flex-col w-full">
                   <div className="flex relative flex-row items-center justify-between w-full text-xl font-medium">
                     Client ID:
-                    <Button
-                      onClick={() => {
-                        setIsShowFilter(true);
-                      }}
-                      theme="iris-small"
-                    >
-                      <img src="./filter-2.svg" className="mr-1" alt="" />
-                      {/* <div className="filterIcon-white"></div> */}
-                      Filter
-                    </Button>
+                    <div ref={filterModalRefrenceButton}>
+                      <Button
+                        // itemRef={filterModalRefrenceButton}
+                        onClick={() => {
+                          setIsShowFilter(!isShowFilter);
+                        }}
+                        theme="iris-small"
+                      >
+                        <img src="./filter-2.svg" className="mr-1" alt="" />
+                        {/* <div className="filterIcon-white"></div> */}
+                        Filter
+                      </Button>
+
+                    </div>
                     {isShowFilter && (
                       <FilterModal
                         setShowImagesOrgin={setIsShowImages}

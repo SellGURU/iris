@@ -212,7 +212,9 @@ export const PaymentHistory = () => {
                                         }}></div>
                                     </div>
                                 </div>
-                                <div className=" font-normal text-[#7E7E7E]">Expire Date: {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000).toDateString().substring(3)}</div>
+                                {JSON.parse(org).subs_data[0]?.active_to &&
+                                    <div className=" font-normal text-[#7E7E7E]">Expire Date: {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000).toDateString().substring(3)}</div>
+                                }
                             </div>
                         </div>
 
