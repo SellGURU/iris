@@ -65,6 +65,12 @@ export const PaymentHistory = () => {
     
         return `${month} ${day} ${year}`;
     };    
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+        }, 500);
+    },[])      
     // console.log(appContext.package.getPackage())
     const navigate = useNavigate()
     let [localPartyId,] = useLocalStorage("partyid");

@@ -102,6 +102,12 @@ export const ScanHistory = () => {
             }
         }
     })
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+        }, 500);
+    },[])    
     const getPatients = () => {
         Application.getScanList({
             orgCode: JSON.parse(orgs).orgCode,
