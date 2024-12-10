@@ -20,6 +20,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 // import Eyebrow from "../../components/overallAnalysisReport/Eyebrow";
 import SummaryBox from "./boxs/SummaryBox";
 import FaceMeshView from "../../components/faceMash/FaceMeshViwe.jsx";
+import { set } from "react-hook-form";
 // import SummaryBox from "./boxs/SummaryBox";
 const ShowReport = (props) => {
   const [searchParams] = useSearchParams();
@@ -148,7 +149,9 @@ const ShowReport = (props) => {
   };
   useEffect(() => {
     if (searchParams.get("mode") == "print" && !isLoading) {
-      download();
+      setTimeout(() => {
+        download();
+      }, 500);
     }
   });
   const [activeTab, setActiveTab] = useState("facial");
