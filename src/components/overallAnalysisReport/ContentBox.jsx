@@ -47,7 +47,7 @@ const ContentBox = ({data,category}) => {
                     <div className="" >
                         {butiText(el.key)}
                     </div>
-                   ={el.measured_distance}D
+                   ={el.ideal_distance}D
                 </div>
                 {
                     el.side ?

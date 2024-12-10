@@ -41,7 +41,7 @@ const ContentViewBox = ({data,category}) => {
               <>
               <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">
                 <div className="flex flex-row w-full">
-                  {butiText(el.key)} = {el.measured_distance}D
+                  {butiText(el.key)} = {el.ideal_distance}D
                 </div>
                 {el.side ?
                 <>

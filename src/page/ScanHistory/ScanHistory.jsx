@@ -278,14 +278,15 @@ export const ScanHistory = () => {
     
         const filteredItem = patients.filter((el) => {
             const patientData = [
-                el.client_info.clientCode.toLowerCase(),
-                el.client_info.lastName.toLowerCase(),
                 el.client_info.firstName.toLowerCase(),
+                el.client_info.lastName.toLowerCase(),
                 el.client_info.email.toLowerCase(),
+                el.client_info.clientCode.toLowerCase(),
             ].join(" "); // Combine all searchable fields into one string
     
             // Check if all search words are present in the patient data
-            return searchWords.every(word => patientData.includes(word));
+            return patientData.includes(searchValue)
+            // return searchWords.every(word => patientData.includes(word));
         });
     
         if (searchValue.length <= 0) {
