@@ -14,6 +14,15 @@ import {PatientContext} from '../context/context.jsx'
 import {encryptTextResolver} from '../help.js';
 
 
+const removeToken =() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("partyid")
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    localStorage.removeItem("orgData")
+    localStorage.removeItem("patients")
+    localStorage.removeItem("package")
+}
 const Login = () => {
   const passwordRef = useRef(null);
   const Appcontext = useContext(PatientContext)
@@ -68,7 +77,7 @@ const Login = () => {
     try {
       // toast.loading("pending ...");
       // toast.loading('pending ...');
-      localStorage.clear()
+      removeToken()
       Auth.login({
         email: encryptTextResolver(form.values.userName),
         password: encryptTextResolver(form.values.password),

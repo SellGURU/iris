@@ -15,6 +15,16 @@ import {encryptTextResolver} from '../help.js';
 import {PatientContext} from '../context/context.jsx'
 import {useContext} from 'react';
 
+const removeToken =() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("partyid")
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    localStorage.removeItem("orgData")
+    localStorage.removeItem("patients")
+    localStorage.removeItem("package")
+
+}
 const Register = () => {
   const passwordRef = useRef(null);
   const Appcontext = useContext(PatientContext)
@@ -107,6 +117,7 @@ const Register = () => {
       })
         .then((res) => {
           if (res.data.status == 'success') {
+            removeToken()
             setIsPanding(false);
             // toast.info(res.data.msg);
               Auth.login({
