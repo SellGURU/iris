@@ -25,7 +25,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                   <div className="border-l-[#E1E1E1] border-l h-full"></div>
 
                   <div className="flex flex-col text-[#2E2E2E] items-start justify-between w-1/4 font-normal h-full">
-                    {el.ideal_distance}D
+                    {el.ideal_distance?el.ideal_distance+ 'D':'No Data'}
                   {
                       el.side
                       ?
@@ -59,7 +59,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                   <div className="border-l-[#E1E1E1] border-l h-full"></div>
 
                   <div className="flex flex-col items-start justify-between w-1/4 font-normal h-full">
-                    {el2.ideal_distance}D
+                    {el2.ideal_distance?el2.ideal_distance+ 'D':'No Data'}
                     {
                       el2.side
                       ?
