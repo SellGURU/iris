@@ -1319,7 +1319,7 @@ const FaceMesh = () => {
                                             How to scan face?
                                         </Link> */}
                                         <div className="text-primary-color text-[14px] cursor-pointer">
-                                            single pose
+                                            Single pose
                                         </div>
                                         <Switch  checked={status == 'one'?true:false} onChange={(e) => {
                                             console.log(e.target.checked)

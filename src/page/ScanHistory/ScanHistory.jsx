@@ -482,7 +482,8 @@ export const ScanHistory = () => {
 
 
                     <hr className="h-[1px] bg-gray-300 w-full my-5"/>
-                    {patientList == 0 ? (
+                    {patientList == 0 ? 
+                    (
                         <p className="text-center text-[12px] text-[#606060] font-medium">
                             No records found.{" "}
                             {patients.length == 0 &&
