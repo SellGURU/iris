@@ -67,6 +67,9 @@ const FaceMesh = () => {
             publish('openModal')
             setServiceMode('ziroBundle')
         }
+        return () => {
+            publish("closeModal")
+        };        
     })
     const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
