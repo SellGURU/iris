@@ -449,7 +449,7 @@ const AccountInfo = () => {
                 </div>
 
 
-                <div className="w-full  mt-6 mb-10">
+                <div className="w-full hidden mt-6 mb-10">
                   <div className="flex w-full justify-between items-center">
                     <div className="text-[24px] opacity-40 text-[#2E2E2E] font-bold">
                         Members:
