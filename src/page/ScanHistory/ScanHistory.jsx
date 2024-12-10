@@ -119,36 +119,39 @@ export const ScanHistory = () => {
         setIsLoading(true)
         setPatinets([])
         setPatientList([])
-        Application.getScanList({
-            orgCode: JSON.parse(orgs).orgCode,
-            orgSCode: JSON.parse(orgs).orgSCode,
-            scanTypeStr:imageBy.trim(),
-            fromDateStr:"",
-            toDateStr:"",
-            pageNo:"1",
-        }).then((res) => {
-            setIsLoading(false)
-            // console.log(res.data == 'Internal Server Error')
-            if(res.data != 'Internal Server Error'){
-                if(res.data){
-                    if(res.data.status == 'fail'){
-                        console.log(res.data)
-                    }else if(!res.data.detail){
-                        if(res.data.length>0){
-                            setPatinets([...res.data])
-                            setPatientList([...res.data])
-                            localStorage.setItem("patients", JSON.stringify(res.data));
-    
+        setTimeout(() => {
+            Application.getScanList({
+                orgCode: JSON.parse(orgs).orgCode,
+                orgSCode: JSON.parse(orgs).orgSCode,
+                scanTypeStr:imageBy.trim(),
+                fromDateStr:"",
+                toDateStr:"",
+                pageNo:"1",
+            }).then((res) => {
+                setIsLoading(false)
+                // console.log(res.data == 'Internal Server Error')
+                if(res.data != 'Internal Server Error'){
+                    if(res.data){
+                        if(res.data.status == 'fail'){
+                            console.log(res.data)
+                        }else if(!res.data.detail){
+                            if(res.data.length>0){
+                                setPatinets([...res.data])
+                                setPatientList([...res.data])
+                                localStorage.setItem("patients", JSON.stringify(res.data));
+        
+                            }
+        
                         }
-    
                     }
+    
                 }
-
-            }
-            toast.dismiss()
-        }).catch(() =>{
-            setIsLoading(false)
-        })        
+                toast.dismiss()
+            }).catch(() =>{
+                setIsLoading(false)
+            })        
+            
+        }, 1000);
     }
     useConstructor(() => {
         if(patients.length > 0){

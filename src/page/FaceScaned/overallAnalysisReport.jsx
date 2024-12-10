@@ -24,6 +24,7 @@ import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
 import {PatientContext} from '../../context/context.jsx'
 import PrintReport from "../../components/PrintReport/index.jsx";
 import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
+import { butiText } from "../../help.js";
 // import ContentBox from "../../components/overallAnalysisReport/ContentBox.jsx";
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("facial");
@@ -80,7 +81,7 @@ const OverallAnalysisReport = (props) => {
     if(activePart == ''){
       return ' Face Measurements Summary'
     }
-    return activePart +' Measurements Summary'    
+    return butiText(activePart)  +' Measurements Summary'    
     // return ""
   }
   const resolveChangePart = (name)=>{

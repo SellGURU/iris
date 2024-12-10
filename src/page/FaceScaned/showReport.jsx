@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useConstructor } from "../../help";
+import { butiText, useConstructor } from "../../help";
 import Application from "../../api/Application";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -73,7 +73,7 @@ const ShowReport = (props) => {
     if (activePart == "") {
       return " Face Measurements Summary";
     }
-    return activePart + " Measurements Summary";
+    return butiText(activePart) + " Measurements Summary";
     // return ""
   };
   const resolveChangePart = (name) => {
