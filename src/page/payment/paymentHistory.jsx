@@ -98,7 +98,7 @@ export const PaymentHistory = () => {
         PackageApi.getPymentHistory({
             orgCode: JSON.parse(orgs).orgCode,
             orgSCode: JSON.parse(orgs).orgSCode,
-            email: encryptTextResolver(localEmail)             
+            email: encryptTextResolver(localEmail +"")             
         }).then(res => {
             if(res.data.status!= 'fail'){
                 setTransactions(res.data.data)
