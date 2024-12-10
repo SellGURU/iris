@@ -76,7 +76,7 @@ const Register = () => {
     password: Yup
       .string()
       .required('Password is required.')
-      .min(6, 'Password must be at least 6 characters'),     
+      .min(6, 'Password must be at least 6 characters').max(15,'Password must not exceed 15 characters'),     
     confirm: Yup
       .string().required("Password is required.")
       .oneOf([Yup.ref('password')], 'Passwords must match'),      
