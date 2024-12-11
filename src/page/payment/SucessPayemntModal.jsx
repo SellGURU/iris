@@ -18,7 +18,9 @@ export const SucessPayemntModal = ({onClose}) => {
             Payment Successful!
           </h2>
           <p className="text-sm font-normal text-[#444444] text-center max-w-[383px] ">Thank you for your payment! Your transaction has been securely processed, and your payment history is saved in the app for easy reference.</p>
-          <p className="text-sm font-normal text-center max-w-[383px] text-[#444444]">If you have any questions or need further information, feel free to reach out to us at <span className="text-[#544BF0]">support@irisaesthetics.com</span></p>
+          <p className="text-sm font-normal text-center max-w-[383px] text-[#444444]">If you have any questions or need further information, feel free to reach out to us at<a href="mailto:support@irisaesthetics.com" className="text-[#544BF0] ml-1">
+    support@irisaesthetics.com
+  </a></p>
         </div>
 
         <img
