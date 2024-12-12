@@ -50,21 +50,21 @@ const ChangePassword = () => {
     return (
         <>
         <div className={" "}>
-            <div className={"h-[100px]  flex items-center justify-between px-10"}>
+            <div className={" h-[80px] xl:h-[100px]  flex items-center justify-between px-5 xl:px-10"}>
                 <img className={" w-auto h-auto h-h"} src={"/image/login/IRIS.svg"} alt="iris"/>
                 {/* <ButtonPrimary className={'invisible'}>Account</ButtonPrimary> */}
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">
-                <img className={"hidden md:block h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
-                    <div className="w-fit px-10 py-5 gap-5  flex flex-col">
-                        <h1 className={" font-medium text-2xl "}>Change Password</h1>
-                        <div className="text-[#444444] whitespace-pre-line flex items-center text-[14px] mb-[40px] w-[330px]">
+                <img className={"hidden md:block h-[430px] xl:h-[500px] 2xl:h-[630px]"} src={"image/login-pic.png"}/>
+                    <div className="w-fit px-10 py-5 gap-2 xl:gap-5  flex flex-col">
+                        <h1 className={" font-medium text-[22px] xl:text-2xl "}>Change Password</h1>
+                        <div className="text-[#444444] whitespace-pre-line flex items-center text-xs xl:text-[14px] mb-[25px] xl:mb-[40px] w-[330px]">
                             You can set a new password.
                             <br></br>
                             The password must be at least 8 character.</div>
                         <div>
                             <div className="grid relative w-[330px]">
-                                <label className="flex mb-2 text-xl font-medium" htmlFor="CurrentPassword">Current Password:</label>
+                                <label className="flex mb-2 text-lg xl:text-xl font-medium" htmlFor="CurrentPassword">Current Password:</label>
                                 <div className="relative">
                                     {/* {
                                         form.values.password.length == 0?
@@ -91,7 +91,7 @@ const ChangePassword = () => {
                                 }
                             </div>                    
                             <div className="grid relative mt-[40px] w-[330px]">
-                                <label className="flex mb-2 text-xl font-medium" htmlFor="NewPassword">New Password:</label>
+                                <label className="flex mb-2 text-lg xl:text-xl  font-medium" htmlFor="NewPassword">New Password:</label>
                                 <div className="relative">
                                     {/* {
                                         form.values.password.length == 0?
@@ -118,7 +118,7 @@ const ChangePassword = () => {
                                 }
                             </div>
                             <div className="grid relative mt-[40px] mb-[60px] w-[330px]">
-                                <label className="flex mb-2 text-xl font-medium" htmlFor="confirmPassword">Confirm New Password:</label>
+                                <label className="flex mb-2 text-lg xl:text-xl  font-medium" htmlFor="confirmPassword">Confirm New Password:</label>
                                 <div className="relative">
                                     {/* {
                                         form.values.password.length == 0?
