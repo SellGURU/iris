@@ -133,9 +133,8 @@ const Login = () => {
           }
         })
         .catch((err) => {
-          console.log(err)
-          form.setFieldError("password", "The password is incorrect.");
-          // toast.error(err.response?.data?.detail);
+          console.log(err);
+          form.setFieldError("password", err.data.detail);
         });
     } catch (error) {
       console.log(error);
