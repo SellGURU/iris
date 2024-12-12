@@ -17,7 +17,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
         <>
         {el!=undefined && el2!=undefined &&
             <>
-                <div className="flex flex-row gap-12 items-start justify-start w-full px-6 py-[6px] rounded-xl bg-[#F5F5F5] text-sm min-h-14 relative">
+                <div className="flex flex-row gap-7 xl:gap-12 items-start justify-start w-full px-3 xl:px-6 py-[6px] rounded-xl bg-[#F5F5F5] text-xs xl:text-sm min-h-14 relative">
                   <div className="w-1/4 font-medium h-full flex items-center">
                     {butiText(el.key)}
                   </div>
@@ -93,7 +93,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                   {/* <div className="border-l-[#E1E1E1] border-l h-full"></div> */}
 
 
-                  <div className="flex items-start justify-end absolute -bottom-1 right-0">
+                  <div className="flex items-start justify-end absolute bottom-0 xl:-bottom-1 right-0">
                     <Button theme="iris-small" onClick={() => { 
                         if(!el.key == isOpen){
                           setIsOpen(el.key)
@@ -181,7 +181,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                         el.side ?
                         <div className="w-1/4">
                           <div className="flex flex-col items-start justify-start gap-3  w-full">
-                            <div className=" overflow-hidden w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] rounded-3xl border-2 border-primary-color">
+                            <div className=" overflow-hidden w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] rounded-3xl border-2 border-primary-color">
                                 <img
                                 src={el.side.left.thumbnail }
                                 alt="face-image"
@@ -194,7 +194,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                             </div>
                           </div>
                           <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
-                            <div className="w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden  rounded-3xl border-2 border-primary-color">
+                            <div className="w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden  rounded-3xl border-2 border-primary-color">
                                 <img
                                 src={el.side.right.thumbnail}
                                 alt="face-image"
@@ -210,7 +210,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                         :
 
                       <div className="flex flex-col items-start justify-start gap-3 w-1/4">
-                        <div className="w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                        <div className="w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
                             <img
                             src={el.side? el.side.left.thumbnail : el.thumbnail}
                             alt="face-image"
@@ -234,7 +234,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                             el2.side ?
                             <div className="w-1/4">
                               <div className="flex flex-col items-start justify-start gap-3  w-full">
-                                <div className="w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden  rounded-3xl border-2 border-primary-color">
+                                <div className="w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden  rounded-3xl border-2 border-primary-color">
                                     <img
                                     src={el2.side.left.thumbnail }
                                     alt="face-image"
@@ -247,7 +247,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                                 </div>
                               </div>
                               <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
-                                <div className="w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                                <div className="w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
                                     <img
                                     src={el2.side.right.thumbnail}
                                     alt="face-image"
@@ -263,7 +263,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                             :
 
                           <div className="flex flex-col items-start justify-start gap-3 w-1/4">
-                            <div className="w-[200px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                            <div className="w-[180px] h-[250px] xl:w-[260px] xl:h-[320px] overflow-hidden rounded-3xl border-2 border-primary-color">
                                 <img
                                 src={el2.side? el2.side.left.thumbnail : el2.thumbnail}
                                 alt="face-image"

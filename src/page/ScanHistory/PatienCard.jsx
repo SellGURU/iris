@@ -165,7 +165,7 @@ export const PatienCard = ({
     }
   };
   return (
-    <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
+    <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px]  md:p-[32px]">
       <div className="flex items-start self-start gap-5 ">
         {index}
         <img
@@ -177,21 +177,22 @@ export const PatienCard = ({
         />
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
-        <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-          <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8">
+        <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
+          <h2 className="text-[14px] md:text-base xl:text-[18px] font-bold text-[#1A1919] flex gap-2 xl:gap-8">
             {" "}
             <div>
               {" "}
               {patient.client_info.firstName} {patient.client_info.lastName}
             </div>{" "}
-            <span className="text-base font-normal text-[#7E7E7E]">
+            <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
           </h2>
-          <div>{}</div>
-          <div className=" text-lg font-medium text-[#1A1919]"></div>
-          <div className="flex gap-2 min-w-[411px] items-center justify-between">
+          {/* <div>{}</div>
+          <div className=" text-lg font-medium text-[#1A1919]"></div> */}
+          <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
             <Button
+           
               theme="iris-tertiary-small"
               onClick={() => setIsShowComment(!isShowComment)}
             >
@@ -200,7 +201,7 @@ export const PatienCard = ({
               <span>
                 <div
                   data-mode={isShowComment ? "true" : "false"}
-                  className="arowDownIcon-purple tirtryIconHover ml-1"
+                  className="arowDownIcon-purple tirtryIconHover  xl:ml-1"
                 ></div>
               </span>
             </Button>
@@ -230,12 +231,12 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./icons/shapes.svg" className="mr-2" alt="" />
+                <img src="./icons/shapes.svg" className=" mr-[2px] xl:mr-2" alt="" />
                 Compare
               </Button>
             )}
             <Button onClick={clickHandler} theme="iris-small">
-              <img className="mr-2" src="camera.svg" alt="" />
+              <img className=" mr-[2px] xl:mr-2" src="camera.svg" alt="" />
               New Scan
             </Button>
           </div>
