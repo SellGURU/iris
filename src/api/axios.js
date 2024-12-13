@@ -34,16 +34,16 @@ axios.interceptors.response.use((response) => {
     if(error.response.status ==403 ){
         removeToken()
     }    
-    
-    if(error.response.data.detail){
+    // console.log(error)
+    if(error.response.data.detail && error.response.status !=406 ){
         if (error.response.data.detail && error.response.data.detail.toLowerCase().includes("successfully")) {
             toast.success(error.response.data.detail)
         }else {
             toast.error(error.response.data.detail) 
         }
     }    
-    if (error.response && error.response.data) {
-        return Promise.reject(error.response.data);
+    if (error.response.status && error.response.data) {
+        return Promise.reject(error.response);
     }
-    return Promise.reject(error.message);
+    return Promise.reject(error.response);
 });
