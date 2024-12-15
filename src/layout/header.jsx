@@ -231,7 +231,7 @@ const Header = () => {
                     }}
                         className={`flex cursor-pointer justify-start items-center mb-3 py-3 ${menu == 'Notifications'?'border-[#544BF0] border-b-2':'border-[#2E2E2E] border-b'}  text-black`}>
                         {/* <img className="mr-2 w-6 h-6" src={'./home-2.svg'} alt=""/> */}
-                        <img src="./icons/look.svg" className="mr-2 w-[14px]" alt="" />
+                        <img src="./image/look.svg" className="mr-2 w-[14px]" alt="" />
                         {/* <div className={`notification-icon ${menu == 'Change Paassword'?' activeIcon':''}`}></div> */}
                         <div className={`text-[16px] cursor-pointer font-normal text-[#2E2E2E] ${menu == 'Change Paassword' ? 'activeText':''}`}>Change Password</div>
                     </div>
