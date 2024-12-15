@@ -347,9 +347,9 @@ const ShowReport = (props) => {
 
                           </div>
                         </div>
-                        <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
+                        <div className="w-full mt-2 flex justify-between text-base xl:text-2xl font-medium items-center mb-4">
                           Measurements Summary
-                          <div className="text-[#7E7E7E] font-normal text-sm">
+                          <div className="text-[#7E7E7E] font-normal text-xs xl:text-sm">
                             {Number(
                               date.getMonth() + 1)+ 
                               " /" +
@@ -358,7 +358,7 @@ const ShowReport = (props) => {
                               date.getFullYear()}
                           </div>
                         </div>
-                        <div className="text-[##444444] font-normal text-sm mb-6">
+                        <div className="text-[##444444] font-normal text-xs xl:text-sm mb-6">
                           Here, you can view a summary of an individual's health
                           status and make the necessary decisions for improving
                           or managing their health.
@@ -561,7 +561,7 @@ const ShowReport = (props) => {
 
                   <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
                     <div className="w-full text-[#444444] flex flex-row text-2xl font-medium items-center justify-between mb-2">
-                      <div className="flex justify-start items-center gap-4">
+                      <div className="flex justify-start items-center gap-4 text-lg xl:text-2xl">
                         {activePart != "" && (
                           <img
                             className="cursor-pointer"

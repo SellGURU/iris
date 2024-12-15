@@ -45,22 +45,22 @@ const ContentViewBox = ({data,category}) => {
                 </div>
                 {el.side ?
                 <>
-                    <div className="flex flex-row w-full mt-2 justify-between items-center text-sm font-medium">
+                    <div className="flex flex-row w-full mt-2 justify-between items-center text-xs xl:text-sm font-medium">
                       <p>Left:</p>
                       <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
-                      <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                      <div className={`xl:w-4 xl:h-4 w-3 h-3 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                     </div>
-                    <div className="flex flex-row w-full justify-between items-center ext-sm font-medium">
+                    <div className=" mt-2 flex flex-row w-full justify-between items-center text-xs xl:text-sm font-medium">
                       <p>Right:</p>
                       <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
-                      <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                      <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                     </div>
                 </>
                 :
                 <>
                 <div className="flex flex-row w-full justify-between items-center">
-                  <p className="text-sm font-medium">Dist: {el.ratio} ({el.percent} %)</p>
-                  <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                  <p className="text-xs xl:text-sm font-medium">Dist: {el.ratio} ({el.percent} %)</p>
+                  <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                 </div>                
                 </>
                 }

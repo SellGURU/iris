@@ -161,7 +161,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
           {/* /////////////////////////////////Header Client 1 section/////////////////////// */}
           <div className="grid grid-cols-5 grid-rows-2 gap-x-2 gap-y-[10px] w-full">
             <div className="bg-[#F5F5F5] rounded-xl col-span-2 row-span-2 h-full flex flex-row items-center justify-center px-5 gap-4">
-              <div className="max-h-[175px] object-center h-[175px] w-[230px] overflow-hidden  rounded-3xl border-2 border-primary-color">
+              <div className="max-h-[175px] object-center h-[175px] w-[180px] xl:w-[230px] overflow-hidden  rounded-3xl border-2 border-primary-color">
                 <img
                   src={
                     data[0]?.data?.pose_analysis[0]?.current_image_analysis
@@ -173,7 +173,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
               </div>
               <div className="flex flex-col h-full items-start justify-between w-full pt-[22px] pb-6">
                 <div className="flex flex-col w-full">
-                  <div className="flex relative flex-row items-center justify-between w-full text-xl font-medium">
+                  <div className="flex relative flex-row items-center justify-between w-full text-base xl:text-xl font-medium">
                     Client ID:
                     <div ref={filterModalRefrenceButton}>
                       <Button
@@ -203,9 +203,9 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                       ></FilterModal>
                     )}
                   </div>
-                  <div className="text-lg font-normal">{clientId}</div>
+                  <div className=" text-base xl:text-lg font-normal">{clientId}</div>
                 </div>
-                <div className="text-base font-normal text-[#7E7E7E]">
+                <div className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
                   Last Scan :{" "}
                   {new Date(lastScan).toLocaleDateString("en-US", {
                     day: "2-digit",
@@ -341,7 +341,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
 
           {/* /////////////////////////////////Category Client 1 section/////////////////////// */}
           <div className="w-full flex flex-row gap-2 items-stretch justify-center">
-            <div className="flex flex-col items-center justify-center w-[10%] p-2 rounded-xl bg-primary-color text-white font-medium text-base xl:text-xl min-h-14">
+            <div className="flex flex-col items-center justify-center min-w-[100px]  w-[10%] p-2 rounded-xl bg-primary-color text-white font-medium text-base xl:text-xl min-h-14">
               Category
             </div>
             <div className="flex flex-row gap-12 items-start justify-start w-full px-6 py-4 rounded-xl bg-[#F5F5F5] font-medium min-h-14">

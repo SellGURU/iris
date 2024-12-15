@@ -177,8 +177,8 @@ const UploadFaceMash = () => {
 
                         </div>                         
                         <h1 className={"text-[28px] mt-[0px] md:mt-[-60px] font-medium"}>Face Scanner</h1>
-                        <p className={"text-[18px] flex justify-center items-center text-center gap-1 w-full px-24 text-[#444444] font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.{"  "}
-                            <Link2 href="/#/tour" underline="hover" className="text-primary-color  cursor-pointer">  How to scan a face?</Link2>
+                        <p className={" text-[15px]   xl:text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>Please upload photos of your face from the left, right, and front to ensure a complete analysis.{"  "}
+                            <Link2 href="/#/tour" underline="hover" className="text-primary-color block cursor-pointer">  How to scan a face?</Link2>
                             {/* <span onClick={() => {
                                 navigate('/tour')
                             }} className="cursor-pointer hidden md:block ml-1"><img src={"./icons/info-circle.svg"}/></span> */}
@@ -191,7 +191,7 @@ const UploadFaceMash = () => {
                         <div className="block md:flex justify-center w-[507px] md:w-full">
                             <div onClick={() => {
                                 document.getElementById('fileUploader').click()
-                            }} className="w-[507px]  relative overflow-hidden h-[430px] bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
+                            }} className="w-[507px]  h-[380px] xl:h-[430px]  relative overflow-hidden  bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
                                     <div className="grid grid-cols-1 ">
                                         <div className="flex self-center justify-center">
                                             <img className="w-[108px]  " src={"/image/cameraPluse.svg"} alt="camera"/>

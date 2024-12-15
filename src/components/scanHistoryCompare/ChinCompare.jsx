@@ -6,7 +6,7 @@ const ChinCompare = ({scan1,scan2,date1,date2,images,isShowImages}) => {
   return (
     <>
       <div className="w-full flex flex-row gap-2 items-stretch justify-center">
-        <div className="flex flex-col items-center justify-center w-[10%] p-2 gap-2 rounded-xl bg-primary-color text-white font-medium text-lg xl:text-xl min-h-14">
+        <div className="flex flex-col items-center justify-center min-w-[100px] w-[10%] p-2 gap-2 rounded-xl bg-primary-color text-white font-medium text-lg xl:text-xl min-h-14">
           <img
             src="/image/icon_hair.png"
             alt="icon_chin"
