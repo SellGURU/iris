@@ -112,7 +112,7 @@ const Account = () => {
                                 toast.success("update information")
                             }} theme="iris">
                                 <div className="flex justify-between items-center">
-                                    <img className="mr-2" src="./icons/save.svg" alt="" />
+                                    <img className="mr-2" src="./image/save.svg" alt="" />
                                     <div>Save</div>
                                 </div>
                             </Button>
@@ -141,7 +141,7 @@ const Account = () => {
                                     toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
-                                        <img className="mr-2" src="./icons/save.svg" alt="" />
+                                        <img className="mr-2" src="./image/save.svg" alt="" />
                                         <div>Save</div>
                                     </div>
                                 </Button>                                
@@ -168,7 +168,7 @@ const Account = () => {
                                     toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
-                                        <img className="mr-2" src="./icons/save.svg" alt="" />
+                                        <img className="mr-2" src="./image/save.svg" alt="" />
                                         <div>Save</div>
                                     </div>
                                 </Button>                                
@@ -192,7 +192,7 @@ const Account = () => {
                                 <h1 className={"text-[24px] font-medium"}>Password:</h1>
                                 <Button theme="iris">
                                     <div className="flex justify-between items-center">
-                                        <img className="mr-2" src="./icons/save.svg" alt="" />
+                                        <img className="mr-2" src="./image/save.svg" alt="" />
                                         <div>Save</div>
                                     </div>
                                 </Button>                                
@@ -220,7 +220,7 @@ const Account = () => {
                                     toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
-                                        <img className="mr-2" src="./icons/save.svg" alt="" />
+                                        <img className="mr-2" src="./image/save.svg" alt="" />
                                         <div>Save</div>
                                     </div>
                                 </Button>                                

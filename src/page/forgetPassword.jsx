@@ -177,7 +177,7 @@ const Forget = () => {
                 step == 1 &&
                 <div className="w-fit px-10 py-5 gap-5  flex flex-col">
                     <h1 className={" font-medium text-2xl "}>Forgot Password</h1>
-                    <div className="text-[#444444] flex items-center text-[14px] mb-[8px] w-[330px]">We sent a code to <span className="font-medium ml-1"> info@gmail.com</span> <span className="ml-4 flex items-center cursor-pointer"><img src="./icons/edit-2.svg" alt="" /> <span className="text-primary-color ml-2 ">Edit</span></span></div>
+                    <div className="text-[#444444] flex items-center text-[14px] mb-[8px] w-[330px]">We sent a code to <span className="font-medium ml-1"> info@gmail.com</span> <span className="ml-4 flex items-center cursor-pointer"><img src="./image/edit-2.svg" alt="" /> <span className="text-primary-color ml-2 ">Edit</span></span></div>
                     <div className="text-[#444444] flex items-center text-[14px] mb-[16px] w-[330px]">The code expires in <span className=" font-medium ml-1">05 : 00</span></div>
                     <div>
                         <h1 className={" font-medium text-2xl pb-2"}>Enter the Code:</h1>

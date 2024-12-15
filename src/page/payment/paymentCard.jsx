@@ -26,7 +26,7 @@ export const PaymentCard = ({pak,onselect}) => {
                 
                 {
                     isHoverd?
-                        <img className="absolute top-0" src="./icons/Oval6.svg" />
+                        <img className="absolute top-0" src="./image/Oval6.svg" />
                     :undefined
                 }
                 <h2 className={`text-[20px] ${isHoverd?' text-white':'text-[#2E2E2E]'} relative z-10  font-medium mt-12 `}>{pak.information.name}</h2>
@@ -44,15 +44,15 @@ export const PaymentCard = ({pak,onselect}) => {
                                 <>
                                     {
                                         el != ' '?
-                                        <p key={index} className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                                        <p key={index} className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./image/tick.svg" alt="" /></span>{el} </p>
                                     :
-                                        <p key={index} className={`text-[16px] invisible w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>{el} </p>
+                                        <p key={index} className={`text-[16px] invisible w-full text-left font-normal flex justify-start gap-2 items-center ${el ==''?'invisible':''} text-[#444444]`}> <span><img src="./image/tick.svg" alt="" /></span>{el} </p>
                                     }
                                 </>
                             )
                         })
                     }
-                    {pak.information.options.length <3 ? <p  className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center invisible text-[#444444]`}> <span><img src="./icons/tick.svg" alt="" /></span>item </p>:undefined}
+                    {pak.information.options.length <3 ? <p  className={`text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center invisible text-[#444444]`}> <span><img src="./image/tick.svg" alt="" /></span>item </p>:undefined}
                     {/* <p className={"text-[16px] w-full text-left font-normal flex justify-start gap-2 items-center text-[#444444]"}> <span><img src="./icons/tick.svg" alt="" /></span>use within 12 months</p> */}
                     {/* <p className={"text-xl font-normal text-[#444444]"}>Feature information </p> */}
                 </div>

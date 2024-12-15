@@ -219,7 +219,7 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./icons/close.svg" className="mr-2" alt="" />
+                <img src="./image/close.svg" className="mr-2" alt="" />
                 Cancel
               </Button>
             ) : (
@@ -231,7 +231,7 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./icons/shapes.svg" className=" mr-[2px] xl:mr-2" alt="" />
+                <img src="./image/shapes.svg" className=" mr-[2px] xl:mr-2" alt="" />
                 Compare
               </Button>
             )}

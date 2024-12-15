@@ -22,8 +22,8 @@ const Status =({status,isFull}) => {
 
                         {status == 'Action Needed' ?
                         <>
-                            <img className="" src="./icons/statusBarFlip.svg" alt="" />
-                            <div className="text-[10px] mt-[-14px] font-light self-center text-nowrap" style={{marginTop:'-14px'}}>
+                            <img className="" src="./image/statusBarFlip.svg" alt="" />
+                            <div className=" text-[8px] xl:text-[10px] mt-[-14px] font-light self-center text-nowrap" style={{marginTop:'-14px'}}>
                                 {status}
                             </div>        
                             <div className="w-4 h-4 absolute bottom-[-16px] flex justify-center items-center left-[-6px] border border-black rounded-full" style={{bottom:'-16px',left:'-6px'}}>
@@ -32,11 +32,11 @@ const Status =({status,isFull}) => {
                         </>
                         :
                         <>
-                            <div className="text-[10px] mt-[-14px] font-light self-center text-nowrap"  style={{marginTop:'-14px'}}>
+                            <div className="text-[8px] xl:text-[10px] mt-[-14px] font-light self-center text-nowrap"  style={{marginTop:'-14px'}}>
                                 {status}
                             </div>     
                   
-                            <img src="./icons/StatusBar.svg" alt="" />
+                            <img src="./image/StatusBar.svg" alt="" />
                             <div className="w-4 h-4 absolute bottom-[-16px] flex justify-center items-center right-[-6px] border border-black rounded-full" style={{bottom:'-16px',right:'-6px'}}>
                                 <div className="w-2 h-2 bg-black rounded-full"></div>
                             </div>

@@ -1213,7 +1213,7 @@ const FaceAnalyse = () => {
                     }}
                     theme="iris-large"
                   >
-                    <img className="mr-2" src="./icons/print.svg"></img>
+                    <img className="mr-2" src="./image/print.svg"></img>
                     Print or Save
                   </Button>
                   <Button
@@ -1248,7 +1248,7 @@ const FaceAnalyse = () => {
                     theme="iris-secondary-large"
                   >
                     <div className="flex justify-center items-center w-[150px]">
-                      <img className="mr-2" src="./icons/redo.svg" alt="" />
+                      <img className="mr-2" src="./image/redo.svg" alt="" />
                       Rescan
                     </div>
                   </Button>

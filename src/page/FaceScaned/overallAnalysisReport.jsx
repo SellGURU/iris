@@ -572,7 +572,7 @@ const OverallAnalysisReport = (props) => {
                           {activePart !='' &&
                             <img className="cursor-pointer" onClick={() => {
                             setActivePart("")
-                            }} src="./icons/back2.svg" alt="" />
+                            }} src="./image/back2.svg" alt="" />
                            }
                           {resolveActivePartName()}
                         </div>
