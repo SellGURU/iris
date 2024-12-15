@@ -144,7 +144,7 @@ const StaffActionModal = ({title,onClose,onSubmit,role,type,changeEmail}) => {
                                     <Button disabled={!inviteForm.isValid}   onClick={() => {
                                         setSuccessed(true)
                                     }} theme="iris">
-                                        <img src="./icons/tickWite.svg" className="mr-1" alt="" />
+                                        <img src="./image/tickWite.svg" className="mr-1" alt="" />
                                     Confirm
                                     </Button>
                                 </div>                                                         
@@ -198,7 +198,7 @@ const StaffActionModal = ({title,onClose,onSubmit,role,type,changeEmail}) => {
                                     <Button disabled={!inviteForm.isValid}   onClick={() => {
                                         setSuccessed(true)
                                     }} theme="iris">
-                                        <img src="./icons/tickWite.svg" className="mr-1" alt="" />
+                                        <img src="./image/tickWite.svg" className="mr-1" alt="" />
                                     Confirm
                                     </Button>
                                 </div>                     

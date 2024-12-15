@@ -152,7 +152,7 @@ const AccountInfo = () => {
                                             <div onClick={() => {
                                                 document.getElementById("imageUploader").click()
                                             }} className="flex justify-center absolute w-full h-full top-0 z-20 items-center">
-                                                <img className="" src="./icons/camera.svg" alt="" />
+                                                <img className="" src="./image/camera.svg" alt="" />
                                             </div>
                                             <div className="absolute w-full h-full bg-black top-0 rounded-full opacity-30"></div>
 
@@ -172,7 +172,7 @@ const AccountInfo = () => {
                                         setEditPanel("")
                                     }} theme="iris">
                                         <div className="flex justify-between items-center">
-                                            <img className="mr-2 cursor-pointer" src="./icons/save.svg" alt="" />
+                                            <img className="mr-2 cursor-pointer" src="./image/save.svg" alt="" />
                                             <div className="cursor-pointer">Save</div>
                                         </div>
                                     </Button>
@@ -252,7 +252,7 @@ const AccountInfo = () => {
                                             setEditPanel("")
                                         }} theme="iris">
                                             <div className="flex justify-between cursor-pointer items-center">
-                                                <img className="mr-2" src="./icons/save.svg" alt="" />
+                                                <img className="mr-2" src="./image/save.svg" alt="" />
                                                 <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
@@ -318,7 +318,7 @@ const AccountInfo = () => {
                                             setEditPanel("")
                                         }} theme="iris">
                                             <div className="flex cursor-pointer justify-between items-center">
-                                                <img className="mr-2" src="./icons/save.svg" alt="" />
+                                                <img className="mr-2" src="./image/save.svg" alt="" />
                                                 <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
@@ -459,7 +459,7 @@ const AccountInfo = () => {
                             setShowInviteMember(true)
                             publish("openModal");
                         }} theme="iris-tertiary-small">
-                            <img src="./icons/user-add.svg" className="mr-1" alt="" />
+                            <img src="./image/user-add.svg" className="mr-1" alt="" />
                             Invite member</Button>
                     </div>
                   </div>

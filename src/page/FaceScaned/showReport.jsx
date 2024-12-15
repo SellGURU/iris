@@ -568,7 +568,7 @@ const ShowReport = (props) => {
                             onClick={() => {
                               setActivePart("");
                             }}
-                            src="./icons/back2.svg"
+                            src="./image/back2.svg"
                             alt=""
                           />
                         )}

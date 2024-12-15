@@ -230,7 +230,7 @@ const UploadFaceMash = () => {
                                         // sendToAnalyze()
                                         analyzeFacemesh2()
                                         }} theme="iris">
-                                        <img className="mr-2" src="./icons/print.svg"></img>
+                                        <img className="mr-2" src="./image/print.svg"></img>
                                         Finish                       
                                     </Button>                  
                             </div>      

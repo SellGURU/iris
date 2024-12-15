@@ -63,7 +63,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
                 </div>
                 <div className="invisible">
                     <Button theme="iris">
-                        <img className="mr-1" src="./icons/user-minus.svg" alt="" />
+                        <img className="mr-1" src="./image/user-minus.svg" alt="" />
                         Remove                                
                     </Button>
                 </div>
@@ -97,7 +97,7 @@ const Staffs = ({onRemove,onChangeRole}) => {
                                 <Button disabled onClick={() => {
                                     onRemove(el.id)
                                 }} theme="iris">
-                                    <img className="mr-1" src="./icons/user-minus.svg" alt="" />
+                                    <img className="mr-1" src="./image/user-minus.svg" alt="" />
                                     Remove
                                     </Button>
                             </div>

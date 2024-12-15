@@ -1182,7 +1182,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris">
                                         <div className="flex justify-center items-center w-[100px] ">
-                                            <img className="mr-2" src="/icons/print.svg"></img>
+                                            <img className="mr-2" src="/image/print.svg"></img>
                                             Finish                     
                                         </div>
                                     </Button>         
@@ -1217,7 +1217,7 @@ const FaceMesh = () => {
                                         // }, 1000);
                                     }} theme="iris-secondary">
                                         <div className="flex justify-center items-center w-[100px]">
-                                            <img className="mr-2" src="./icons/redo.svg" alt="" />
+                                            <img className="mr-2" src="./image/redo.svg" alt="" />
                                             Rescan
                                         </div>
                                     </Button>                                                           
