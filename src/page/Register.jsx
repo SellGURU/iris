@@ -217,7 +217,7 @@ const Register = () => {
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full  lg:h-[75vh] mt-[8px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
 
         <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolvedHight}} />
         {step == 0?

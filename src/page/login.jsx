@@ -126,7 +126,7 @@ const Login = () => {
             // console.log(res.msg);
             // toast.error(res.data.error) 
             // alert(res.msg)
-            form.setFieldError("password", "The password is incorrect.");
+            // form.setFieldError("password", "The password is incorrect.");
             // setTimeout(() => {
             //   toast.pe
             // }, 3000);
@@ -134,7 +134,11 @@ const Login = () => {
         })
         .catch((err) => {
           console.log(err);
-          form.setFieldError("password", err.data.detail);
+          if(err.data.detail.includes("Password ")){
+            form.setFieldError("password", err.data.detail);
+          }else {
+            form.setFieldError("userName", err.data.detail);
+          }
         });
     } catch (error) {
       console.log(error);
