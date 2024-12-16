@@ -7,12 +7,12 @@ const SummaryBox =({data,indexNum}) => {
     const resolveStatus = () => {
         if(data.side) {
             if(data.side.left.problematic == false) {
-                return 'No Action Required'
+                return 'No Action Needed'
             }
             return 'Action Needed'            
         }else {
             if(data.problematic == false) {
-                return 'No Action Required'
+                return 'No Action Needed'
             }
             return 'Action Needed'
 

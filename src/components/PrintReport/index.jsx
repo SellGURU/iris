@@ -186,7 +186,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                         </div>
                         <div className="flex gap-1 items-center">
                             <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                            No Action Required
+                            No Action Needed
                         </div>
                         </div>
                     </div>

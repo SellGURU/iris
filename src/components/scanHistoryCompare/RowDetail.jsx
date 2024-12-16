@@ -8,7 +8,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
     const [isOpen, setIsOpen] = useState(0);
     const resolveStatus = (checked) => {
         if(checked == false){
-        return 'No Action Required'
+        return 'No Action Needed'
         }else {
         return 'Action Needed'
         }
@@ -162,7 +162,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                           </div>                                             
                         </>
                         :
-                          <div className="flex items-center justify-start gap-1 w-full text-nowrap text-[10px] xl:text-smfont-normal text-[#444444]">
+                          <div className="flex items-center justify-start gap-1 w-full text-nowrap text-[10px] xl:text-sm font-normal text-[#444444]">
                             <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
                             {resolveStatus(el2.problematic)}
                           </div>

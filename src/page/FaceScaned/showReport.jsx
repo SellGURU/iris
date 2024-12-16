@@ -506,7 +506,7 @@ const ShowReport = (props) => {
                             </div> */}
                             <div className="flex gap-1 items-center">
                               <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-                              No Action Required
+                              No Action Needed
                             </div>
                           </div>
                         </div>
