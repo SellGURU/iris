@@ -54,18 +54,38 @@ const ContentBox = ({data,category}) => {
                     <>
                         <div className="flex flex-row w-full mt-2 justify-start gap-1 items-center">
                         <p>Left:</p>
-                        <p>{el?.side?.left?.ratio}({el?.side?.left?.percent}%)</p>
+                        <p>{el.type =='ratio'? 
+                                <>
+                                {el?.side?.left?.ratio}
+                                </>
+                                :
+                                <>
+                                {el?.side?.left?.measured_distance}
+                                </>  
+                              }({el?.side?.left?.percent}%)</p>
                         <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                         </div>
                         <div className="flex flex-row w-full justify-start gap-1 items-center">
                         <p>Right:</p>
-                        <p>{el?.side?.right?.ratio}({el?.side?.right?.percent}%)</p>
+                      <p>
+                        {
+                          el.type == 'ratio'?
+                          <>
+                          {el?.side?.right?.ratio}
+                          </>
+                          :
+                          <>
+                          {el?.side?.right?.measured_distance}
+                          </>
+                        }
+                        
+                        ({el?.side?.right?.percent}%)</p>
                         <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                         </div>                    
                     </>
                     :
                     <div className="flex flex-row w-full justify-start gap-1 items-center">
-                    <p>Dist: {el.ratio} ({el.percent} %)</p>
+                    <p className="text-xs xl:text-sm font-medium">Dist: {el.type == "ratio" ?<>{el.ratio}</> :<>{el.measured_distance}</>}  ({el.percent} %)</p>
                     <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
                     </div>
 

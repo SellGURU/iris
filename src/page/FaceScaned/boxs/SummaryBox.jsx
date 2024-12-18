@@ -27,15 +27,25 @@ const SummaryBox =({data,indexNum}) => {
             </p>
             <div className="flex flex-row items-center mt-1 justify-between w-full">
                 <p className="decorated-dot text-xs xl:text-[14px] ">
-                    {data.measured_distance ?
+                    {data.type == 'ratio' ?
                     <>
-                        Measurement: {data.measured_distance}
+                        Measurement: 
+                        {data.side ?
+                        <>
+                            {data.side.left.ratio}
+                        </>
+                        :
+                        <>
+                        {data.ratio}
+                        </>
+                        }
                     </>
                     :
                     <>
                         Measurement: {data.ideal_distance}
                     </>
                     }
+                    {/* {data.unit} */}
                 </p>
                 <Status status={resolveStatus()}></Status>
             </div>
