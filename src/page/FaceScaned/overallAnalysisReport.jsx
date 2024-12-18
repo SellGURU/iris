@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 // import { useConstructor } from "../../help";
 import Application from "../../api/Application";
+import Explation from '../../components/explation/index.jsx';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -575,6 +576,7 @@ const OverallAnalysisReport = (props) => {
                             }} src="./image/back2.svg" alt="" />
                            }
                           {resolveActivePartName()}
+                          <Explation></Explation>
                         </div>
                         <div className="text-[#7E7E7E] font-normal text-sm">
                           <div className="flex justify-end items-center">

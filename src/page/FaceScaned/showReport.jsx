@@ -21,6 +21,7 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import SummaryBox from "./boxs/SummaryBox";
 import FaceMeshView from "../../components/faceMash/FaceMeshViwe.jsx";
 import { set } from "react-hook-form";
+import Explation from "../../components/explation/index.jsx";
 // import SummaryBox from "./boxs/SummaryBox";
 const ShowReport = (props) => {
   const [searchParams] = useSearchParams();
@@ -573,6 +574,7 @@ const ShowReport = (props) => {
                           />
                         )}
                         {resolveActivePartName()}
+                        <Explation></Explation>
                       </div>
                       <div className="text-[#7E7E7E] font-normal text-sm">
                         <div className="flex justify-end items-center">
