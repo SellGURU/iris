@@ -344,7 +344,7 @@ export const ScanHistory = () => {
                             <SearchBox className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
                         </div>
                         <div
-                            className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
+                            className="flex select-none xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
                             <div onClick={() => {
                                 setShowFilter(!showFilter)
                             }} data-tooltip-id="my-tooltip"
