@@ -1,5 +1,6 @@
 import React , {useRef} from "react";
 import useModalAutoClose from "../../hooks/useModalAutoClose";
+import { Button } from "symphony-ui";
 export const SucessPayemntModal = ({onClose}) => {
   const showModalRefrence = useRef(null);
   useModalAutoClose({
@@ -21,6 +22,11 @@ export const SucessPayemntModal = ({onClose}) => {
           <p className="text-sm font-normal text-center max-w-[383px] text-[#444444]">If you have any questions or need further information, feel free to reach out to us at<a href="mailto:support@irisaesthetics.com" className="text-[#544BF0] ml-1">
     support@irisaesthetics.com
   </a></p>
+        <Button theme="iris" onClick={() => {
+          onClose()
+        }}>
+          <div className="w-12">Got It</div>  
+        </Button>
         </div>
 
         <img
@@ -29,6 +35,7 @@ export const SucessPayemntModal = ({onClose}) => {
           alt=""
         />
       </div>
+     
     </div>
   );
 };

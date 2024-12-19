@@ -180,6 +180,9 @@ export const PaymentHistory = () => {
 
     if (payment === "true") {
       setShowModal(true);
+      setTimeout(() => {
+        checkOrg()
+      }, 200);
     }
   }, [location.search]);
   useEffect(()=>console.log(showModal),[showModal])
