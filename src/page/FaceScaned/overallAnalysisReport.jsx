@@ -599,12 +599,7 @@ const OverallAnalysisReport = (props) => {
                             </div>
                             <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                               Date:{" "}
-                              {
-                                date.toLocaleString("default", { month: "long" }) +
-                                "   " +
-                                date.getDate() +
-                                "   " +
-                                date.getFullYear()}
+                            {formatDate2(date)}
                             </div>
                             <div className="text-[#7E7E7E] font-normal text-sm">
                               Time: {date.getHours()}:{date.getMinutes()}

@@ -229,7 +229,7 @@ export const PaymentHistory = () => {
                     "bg-[#F5F5F5] px-3 py-4 rounded-md flex items-center justify-between"
                   }
                 >
-                  <h1 className={"text-xl font-medium "}>Scans Remaining</h1>
+                  <h1 className={"text-xl font-medium "}>Scans Left</h1>
                 </div>
                 <div className={"space-y-6 flex-col px-6 py-4"}>
                   <span className="font-nomral text-[#7E7E7E]">Usage</span>
