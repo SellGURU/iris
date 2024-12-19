@@ -420,11 +420,12 @@ const OverallAnalysisReport = (props) => {
                         <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
                         <div className="flex-grow ">
 
-                            <div className="w-full flex text-[#444444]  text-2xl font-medium items-center justify-between mb-2">
+                            <div className="w-full flex text-[#444444]  text-2xl font-medium items-center justify-start gap-2 mb-2">
                              {ScanData.data.pose_analysis[0].gender.charAt(0).toUpperCase()+ScanData.data.pose_analysis[0].gender.slice(1)} Face Assessment
                               {/* <div className="text-[#7E7E7E] font-normal text-sm">
                                 Intercanthal Distance D - 33 mm
                               </div> */}
+                              <Explation></Explation>
                             </div>
 
                             <div className="grid  grid-cols-1 xl:grid-cols-2  gap-y-3 mt-6 gap-1 mb-6">

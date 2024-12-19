@@ -230,7 +230,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 </div>
                 <Explation></Explation>
                 <div className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
-                  Last Scan :{" "}
+                  Last Scan:{" "}
                   {formatDate2(new Date(lastScan))}
                   <div>
                     Time:{" "}
