@@ -8,10 +8,12 @@ const Select = ({ label, options, placeHolder, onchange, value, disabled ,notedi
   const [filteredOptions, setFilteredOptions] = useState(options);
 
   const modalRef = useRef(null);
+  const modalButtRef = useRef(null);
   useModalAutoClose({
     close: () => {
       setShowOptions(false);
     },
+    buttonRefrence:modalButtRef,
     refrence: modalRef,
   });
   // const [value,setValue] = useState('')
@@ -69,6 +71,7 @@ const Select = ({ label, options, placeHolder, onchange, value, disabled ,notedi
           
         </div> */}
          <img
+         ref={modalButtRef}
          onClick={handleArrowClick}
               className={`transition-transform ${!showOptions ? "rotate-180" : ""}`}
               src="./arrow-down.svg"
