@@ -3,6 +3,7 @@ import { Button } from "symphony-ui";
 import NoseCompare from "./NoseCompare";
 import ChinCompare from "./ChinCompare";
 import LipCompare from "./LipCompare";
+import Explation from '../../components/explation/index.jsx';
 import CheekCompare from "./CheekCompare";
 import ForeheadCompare from "./ForeheadCompare";
 import EyebrowCompare from "./EyebrowCompare";
@@ -227,6 +228,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                   </div>
                   <div className=" text-base xl:text-lg font-normal">{clientId}</div>
                 </div>
+                <Explation></Explation>
                 <div className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
                   Last Scan :{" "}
                   {formatDate2(new Date(lastScan))}
