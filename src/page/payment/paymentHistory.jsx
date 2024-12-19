@@ -239,7 +239,7 @@ export const PaymentHistory = () => {
                       {packageCurrent.getRemining()}{" "}
                     </span>{" "}
                     out of {packageCurrent.getInformation().bundle} scan
-                    {packageCurrent.getInformation().bundle > 1 && "s"} remain
+                    {packageCurrent.getInformation().bundle > 1 && "s"} left
                   </p>
 
                   <div className="w-full">
