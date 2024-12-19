@@ -5,6 +5,28 @@ import ContentBox from "../overallAnalysisReport/ContentBox";
 
 const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
     const [date, ] = useState(new Date());
+    const formatDate2 = (date) => {
+        const dateObj = new Date(date); // Ensure date is a Date object
+        const year = dateObj.getFullYear();
+        const monthNames = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+        ];
+        const month = monthNames[dateObj.getMonth()]; // Get the month name
+        const day = dateObj.getDate().toString(); // Get the day
+
+        return ` ${day} ${month} ${year}`;
+    };        
     return (
         <>
             <div className="w-full justify-center flex flex-col items-start mt-10">
@@ -63,21 +85,16 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                     <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                     Measurements Summary
                     <div className="text-[#7E7E7E] font-normal text-sm">
-                    { Number(date.getMonth()+1) +
-                        " /" +
-                        date.getDate()
-                        +
-                        " /" +
-                        date.getFullYear()}
+                        {formatDate2(date)}
                     </div>
                     </div>
-                    <div className="text-[##444444] font-normal text-sm mb-6">
+                    <div className="text-[##444444] font-normal text-sm mb-2">
                         {`Here, you can view a summary of an individual's health
                         status and make the necessary decisions for improving
                         or managing their health.`}
                     </div>
 
-                    <div className="w-[309px] text-[#444444]   left-32 p-4 top-8  bg-white rounded-[8px] min-h-[167px]" style={{boxShadow:'0px 0px 6px 0px #00000026',width:'100%',minHeight:'107px',marginBottom:'16px',color:'#444444'}}>
+                    <div className="w-[309px] text-[#444444]   left-32 p-3 top-2  bg-white rounded-[8px] min-h-[167px]" style={{width:'100%',marginBottom:'8px',color:'#444444'}}>
                        <div className="text-[14px] font-[600]" style={{fontSize:'14px' ,fontWeight:'600'}}> Results Interpretation:</div>
                         <div className="text-[14px] ml-3 font-[600]" style={{fontWeight:'600',fontSize:'14px'}}>
                            . Distances (mm):  <span className="font-[400] w-full text-justify" style={{fontWeight:400}}>Forehead Curve, Steiner's Line, Tail of Eyebrow Height, Slope of Eyebrow </span>
@@ -97,15 +114,15 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                  <div className="  p-4  rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
                 <div className="flex-grow ">
 
-                    <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
+                    <div className="w-full flex  text-2xl font-medium items-center justify-between mb-1">
                         Feminine Face Assessment
-                        <div className="text-[#7E7E7E] font-normal text-sm">
+                        {/* <div className="text-[#7E7E7E] font-normal text-sm">
                         Intercanthal Distance D - 33 mm
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div className="grid grid-cols-1 gap-y-3 mt-6 gap-1 mb-6">
-                        <div className="flex flex-row w-full text-base text-left gap-6">
+                    <div className="grid grid-cols-1 gap-y-3 mt-6 gap-0 mb-6">
+                        <div className="flex flex-row w-full text-base text-left gap-1">
                         <div className="flex flex-col   font-medium" style={{width:'300px'}}>
                             1.Eyebrows height
                         </div>
@@ -190,13 +207,13 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
 
                     <div className="w-full flex flex-row text-2xl font-medium items-center justify-end">
                         {/* Color Guide */}
-                        <div className="text-[#7E7E7E] font-normal  flex justify-end flex-row gap-6" style={{fontSize:'12px'}}>
+                        <div className="text-[#7E7E7E] font-normal  flex justify-end flex-row gap-2" style={{fontSize:'12px'}}>
                         <div className="flex gap-1 items-center">
                             <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                             Action Needed
                         </div>
                         <div className="flex gap-1 items-center">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-green-600 rounded-full" style={{backgroundColor:'#03DAC5'}}></div>
                             No Action Needed
                         </div>
                         </div>

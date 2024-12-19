@@ -18,6 +18,14 @@ const SummaryBox =({data,indexNum}) => {
 
         }
     }
+    const resolvePercent = () => {
+        if(data.side) {
+            if(data.side.left.percent){
+                return data.side.left.percent
+            }
+        }
+        return data.percent
+    }
     return (
         <>
             <div className="flex flex-col my-3 gap-4 xl:my-0 xl:gap-0">
@@ -47,7 +55,7 @@ const SummaryBox =({data,indexNum}) => {
                     }
                     {/* {data.unit} */}
                 </p>
-                <Status status={resolveStatus()}></Status>
+                <Status status={resolveStatus()} percent={resolvePercent()}></Status>
             </div>
             </div>        
         </>

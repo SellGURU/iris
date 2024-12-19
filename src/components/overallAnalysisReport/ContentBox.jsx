@@ -63,7 +63,7 @@ const ContentBox = ({data,category}) => {
                                 {el?.side?.left?.measured_distance}
                                 </>  
                               }({el?.side?.left?.percent}%)</p>
-                        <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                        <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                         </div>
                         <div className="flex flex-row w-full justify-start gap-1 items-center">
                         <p>Right:</p>
@@ -80,13 +80,13 @@ const ContentBox = ({data,category}) => {
                         }
                         
                         ({el?.side?.right?.percent}%)</p>
-                        <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                        <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                         </div>                    
                     </>
                     :
                     <div className="flex flex-row w-full justify-start gap-1 items-center">
                     <p className="text-xs xl:text-sm font-medium">Dist: {el.type == "ratio" ?<>{el.ratio}</> :<>{el.measured_distance}</>}  ({el.percent} %)</p>
-                    <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-blue-500'} rounded-full`}></div>
+                    <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                     </div>
 
                 }
@@ -176,7 +176,7 @@ const ContentBox = ({data,category}) => {
 
                     </div>
                     <div className="w-[260px] mt-4" style={{width:'260px'}}>
-                      <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                      <Status percent={el.side.left.percent} isFull status={resolveStatus(el.side.left.problematic)}></Status>
                     </div>
                   </div>
                   <div className="flex  flex-col items-start justify-start gap-3 ">
@@ -189,7 +189,7 @@ const ContentBox = ({data,category}) => {
 
                     </div>
                     <div className=" mt-4" style={{width:'260px'}}>
-                      <Status isFull status={resolveStatus(el.side.right.problematic)}></Status>
+                      <Status percent={el.side.right.percent} isFull status={resolveStatus(el.side.right.problematic)}></Status>
                     </div>
                   </div>
               </>
@@ -206,9 +206,9 @@ const ContentBox = ({data,category}) => {
               </div>
               <div style={{width:'260px'}} className="w-[260px] mt-4">
                 {el.side ?
-                <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                <Status isFull percent={el.side.left.percent} status={resolveStatus(el.side.left.problematic)}></Status>
                 :
-                <Status isFull status={resolveStatus(el.problematic)}></Status>
+                <Status isFull percent={el.percent} status={resolveStatus(el.problematic)}></Status>
                 }
 
               </div>

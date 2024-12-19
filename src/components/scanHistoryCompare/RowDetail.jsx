@@ -225,7 +225,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
 
                             </div>
                             <div className="w-full mt-4">
-                              <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                              <Status isFull percent={el.side.left.percent} status={resolveStatus(el.side.left.problematic)}></Status>
                             </div>
                           </div>
                           <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
@@ -238,7 +238,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
 
                             </div>
                             <div className="w-full mt-4">
-                              <Status isFull status={resolveStatus(el.side.right.problematic)}></Status>
+                              <Status isFull percent={el.side.right.percent} status={resolveStatus(el.side.right.problematic)}></Status>
                             </div>
                           </div>
                         </div> 
@@ -255,9 +255,9 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                         </div>
                         <div className="w-full mt-4">
                           {el.side ?
-                          <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                          <Status percent={el.side.left.percent} isFull status={resolveStatus(el.side.left.problematic)}></Status>
                           :
-                          <Status isFull status={resolveStatus(el.problematic)}></Status>
+                          <Status isFull percent={el.percent} status={resolveStatus(el.problematic)}></Status>
                           }
 
                         </div>
@@ -278,7 +278,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
 
                                 </div>
                                 <div className="w-full mt-4">
-                                  <Status isFull status={resolveStatus(el2.side.left.problematic)}></Status>
+                                  <Status percent={el2.side.left.percent} isFull status={resolveStatus(el2.side.left.problematic)}></Status>
                                 </div>
                               </div>
                               <div className="flex mt-6 flex-col items-start justify-start gap-3 w-full">
@@ -291,7 +291,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
 
                                 </div>
                                 <div className="w-full mt-4">
-                                  <Status isFull status={resolveStatus(el2.side.right.problematic)}></Status>
+                                  <Status percent={el2.side.right.percent} isFull status={resolveStatus(el2.side.right.problematic)}></Status>
                                 </div>
                               </div>
                             </div> 
@@ -308,9 +308,9 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                             </div>
                             <div className="w-full mt-4">
                               {el2.side ?
-                              <Status isFull status={resolveStatus(el2.side.left.problematic)}></Status>
+                              <Status percent={el2.side.left.percent} isFull status={resolveStatus(el2.side.left.problematic)}></Status>
                               :
-                              <Status isFull status={resolveStatus(el2.problematic)}></Status>
+                              <Status percent={el2.percent} isFull status={resolveStatus(el2.problematic)}></Status>
                               }
 
                             </div>

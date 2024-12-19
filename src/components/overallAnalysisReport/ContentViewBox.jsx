@@ -16,6 +16,14 @@ const ContentViewBox = ({data,category}) => {
         case 'nose': return '/image/Nose.svg'
     }
   }
+    const resolvePercent = (value) => {
+        if(value.side) {
+            if(value.side.left.percent){
+                return value.side.left.percent
+            }
+        }
+        return value.percent
+    }  
     const resolveStatus = (checked) => {
         if(checked == false){
         return 'No Action Needed'
@@ -103,7 +111,7 @@ const ContentViewBox = ({data,category}) => {
 
       {isOpen && (
         <div className="w-full flex flex-row flex-wrap items-start justify-start gap-5 mb-8">
-         {data.filter(el => el.text != 'Intercanthal distance').map(el => {
+         {data.filter(el => el.text != 'Intercanthal distance' ).map(el => {
           return (
             <>
             {
@@ -119,7 +127,7 @@ const ContentViewBox = ({data,category}) => {
 
                     </div>
                     <div className="w-[260px] mt-4">
-                      <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                      <Status percent={el.side.left.percent} isFull status={resolveStatus(el.side.left.problematic)}></Status>
                     </div>
                   </div>
                   <div className="flex  flex-col items-start justify-start gap-3 ">
@@ -132,7 +140,7 @@ const ContentViewBox = ({data,category}) => {
 
                     </div>
                     <div className="w-[260px] mt-4">
-                      <Status isFull status={resolveStatus(el.side.right.problematic)}></Status>
+                      <Status isFull percent={el.side.right.percent} status={resolveStatus(el.side.right.problematic)}></Status>
                     </div>
                   </div>
               </>
@@ -149,9 +157,9 @@ const ContentViewBox = ({data,category}) => {
               </div>
               <div className="w-[260px] mt-4">
                 {el.side ?
-                <Status isFull status={resolveStatus(el.side.left.problematic)}></Status>
+                <Status percent={el.side.left.percent} isFull status={resolveStatus(el.side.left.problematic)}></Status>
                 :
-                <Status isFull status={resolveStatus(el.problematic)}></Status>
+                <Status percent={el.percent} isFull status={resolveStatus(el.problematic)}></Status>
                 }
 
               </div>
