@@ -77,6 +77,7 @@ export const ScanHistory = () => {
     // let [partyId] = useLocalStorage("partyid");
     const [startDate,setStartDate] = useState(null)
     const [endDate,setendDate] = useState(null)
+    const [searchQ,setSearchQ] = useState("")
     const filterModalRefrence = useRef(null)
     const filterModalButtonRefrence = useRef(null)
     const sortRefrence = useRef(null)
@@ -144,7 +145,7 @@ export const ScanHistory = () => {
         
                         }
                     }
-    
+                    filterPatientsHandler()  
                 }
                 toast.dismiss()
             }).catch(() =>{
@@ -186,7 +187,9 @@ export const ScanHistory = () => {
         // setlastItemIndex(page * itemsPerPage)
         // setFirstItemIndex(page * itemsPerPage - itemsPerPage)
     };
-    
+    useEffect(() => {
+        filterPatientsHandler()
+    },[searchQ,patientList,patients])
      const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
      useEffect(() => {
         let resolvedPationts = []
@@ -285,8 +288,8 @@ export const ScanHistory = () => {
     
    
 
-    const filterPatientsHandler = (e) => {
-        const searchValue = e.target.value.trim().toLowerCase();
+    const filterPatientsHandler = () => {
+        const searchValue = searchQ.toLowerCase();
         const searchWords = searchValue.split(" "); // Split input into words
     
         const filteredItem = patients.filter((el) => {
@@ -338,7 +341,7 @@ export const ScanHistory = () => {
 
                         </div>
                         <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
-                            <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                            <SearchBox className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
                         </div>
                         <div
                             className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
