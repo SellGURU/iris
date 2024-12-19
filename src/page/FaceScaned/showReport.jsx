@@ -29,6 +29,28 @@ const ShowReport = (props) => {
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
   const [ScanData, setScanData] = useState(null);
+  const formatDate2 = (date) => {
+    const dateObj = new Date(date); // Ensure date is a Date object
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()]; // Get the month name
+    const day = dateObj.getDate().toString(); // Get the day
+
+    return ` ${day} ${month} ${year}`;
+  };  
   useConstructor(() => {
     Application.getScanDetails({
       scanCode: searchParams.get("scanId"),
@@ -351,12 +373,7 @@ const ShowReport = (props) => {
                         <div className="w-full mt-2 flex justify-between text-base xl:text-2xl font-medium items-center mb-4">
                           Measurements Summary
                           <div className="text-[#7E7E7E] font-normal text-xs xl:text-sm">
-                            {Number(
-                              date.getMonth() + 1)+ 
-                              " /" +
-                              date.getDate() +
-                              " /" +
-                              date.getFullYear()}
+                            {formatDate2(date)}
                           </div>
                         </div>
                         <div className="text-[##444444] font-normal text-xs xl:text-sm mb-6">
@@ -583,13 +600,7 @@ const ShowReport = (props) => {
                           </div>
                           <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                             Date:{" "}
-                            {`${date.getFullYear()}/
-                            ${String(
-                              date.getDate()
-                            ).padStart(2, "0")}                            
-                            /${String(
-                              date.getMonth() + 1
-                            ).padStart(2, "0")}`}
+                            {formatDate2(date)}
                           </div>
                           <div className="text-[#7E7E7E] font-normal text-sm">
                             Time: {date.getHours()}:{date.getMinutes()}

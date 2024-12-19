@@ -61,23 +61,23 @@ export const PaymentHistory = () => {
     const dateObj = new Date(date); // Ensure date is a Date object
     const year = dateObj.getFullYear();
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const month = monthNames[dateObj.getMonth()]; // Get the month name
     const day = dateObj.getDate().toString(); // Get the day
 
-    return `${month} ${day} ${year}`;
+    return ` ${day} ${month} ${year}`;
   };
   useEffect(() => {
     setTimeout(() => {
@@ -238,7 +238,7 @@ export const PaymentHistory = () => {
                     <span className="font-bold">
                       {packageCurrent.getRemining()}{" "}
                     </span>{" "}
-                    out of {packageCurrent.getInformation().bundle} scan
+                    out of {packageCurrent.getInformation().bundle} Scan
                     {packageCurrent.getInformation().bundle > 1 && "s"} left
                   </p>
 
@@ -261,9 +261,8 @@ export const PaymentHistory = () => {
                   {JSON.parse(org).subs_data[0]?.active_to && (
                     <div className=" font-normal text-[#7E7E7E]">
                       Expire Date:{" "}
-                      {new Date(JSON.parse(org).subs_data[0]?.active_to * 1000)
-                        .toDateString()
-                        .substring(3)}
+                      {formatDate(new Date(JSON.parse(org).subs_data[0]?.active_to * 1000))
+                        }
                     </div>
                   )}
                 </div>

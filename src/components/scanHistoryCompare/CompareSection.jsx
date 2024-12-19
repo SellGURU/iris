@@ -121,6 +121,28 @@ const CompareSection = ({ results, clientId, lastScan }) => {
       .padStart(2, "0")}`;
     return `${dayName} ${formattedDate}`;
   };
+  const formatDate2 = (date) => {
+    const dateObj = new Date(date); // Ensure date is a Date object
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()]; // Get the month name
+    const day = dateObj.getDate().toString(); // Get the day
+
+    return ` ${day} ${month} ${year}`;
+  };  
   const filterModalRefrence = useRef(null);
   const filterModalRefrenceButton = useRef(null);
   const [isShowFilter, setIsShowFilter] = useState(false);
@@ -207,11 +229,7 @@ const CompareSection = ({ results, clientId, lastScan }) => {
                 </div>
                 <div className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
                   Last Scan :{" "}
-                  {new Date(lastScan).toLocaleDateString("en-US", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  {formatDate2(new Date(lastScan))}
                   <div>
                     Time:{" "}
                     {new Date(lastScan).toLocaleTimeString("en-GB", {
