@@ -46,23 +46,23 @@ export const PatienCard = ({
     const dateObj = new Date(date); // Ensure date is a Date object
     const year = dateObj.getFullYear();
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const month = monthNames[dateObj.getMonth()]; // Get the month name
     const day = dateObj.getDate().toString(); // Get the day
 
-    return ` ${month} ${day} ${year}`;
+    return ` ${day} ${month} ${year}`;
   };
   const [isCompare, setIsCompare] = useState(false);
   // const {id , result,comment:initComment} = patient;
