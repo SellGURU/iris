@@ -41,6 +41,28 @@ const OverallAnalysisReport = (props) => {
       // let patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
       // setComment(patients[patientIndex].comments);
   }    
+  const formatDate2 = (date) => {
+    const dateObj = new Date(date); // Ensure date is a Date object
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()]; // Get the month name
+    const day = dateObj.getDate().toString(); // Get the day
+
+    return ` ${day} ${month} ${year}`;
+  };    
   const [isShowAddComment, setIsShowAddComment] = useState(false); 
   // console.log(report)
   const navigate = useNavigate()
@@ -243,11 +265,7 @@ const OverallAnalysisReport = (props) => {
                   </div>
                   <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                     Date:{" "}
-                    {date.getDate() +
-                      "   " +
-                      date.toLocaleString("default", { month: "long" }) +
-                      "   " +
-                      date.getFullYear()}
+                    {formatDate2(date)}
                   </div>
                   <div className="text-[#7E7E7E] font-normal text-sm">
                     Time: {date.getHours()}:{date.getMinutes()}
@@ -390,12 +408,7 @@ const OverallAnalysisReport = (props) => {
                           <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                             Measurements Summary
                             <div className="text-[#7E7E7E] font-normal text-sm">
-                              {Number(
-                                date.getMonth() + 1)+ 
-                                " /" +
-                                date.getDate() +
-                                " /" +
-                                date.getFullYear()}
+                              {formatDate2(date)}
                             </div>
                           </div>
                           <div className="text-[##444444] font-normal text-sm mb-6">
