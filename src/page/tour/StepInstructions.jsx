@@ -26,7 +26,7 @@ export const StepInstructions = ({
           onBack()
         }
       }}>
-        <img src="./icons/back2.svg" alt="" />
+        <img src="./image/back2.svg" alt="" />
       </div>
       <h1 className="text-[22px] text-center font-medium text-[#2E2E2E]">
         How The Face Scanner Works

@@ -110,7 +110,7 @@ export const PatientInformation = () => {
                 }
             }
         }).catch((err) => {
-            if(err.data.detail.includes("email")){
+            if(err.status == 406){
                 formik.setFieldError("email", err.data.detail);
             }
             setIsLoading(false)
