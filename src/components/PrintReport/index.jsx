@@ -80,7 +80,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                     <div className="w-[309px] text-[#444444]   left-32 p-4 top-8  bg-white rounded-[8px] min-h-[167px]" style={{boxShadow:'0px 0px 6px 0px #00000026',width:'100%',minHeight:'107px',marginBottom:'16px',color:'#444444'}}>
                        <div className="text-[14px] font-[600]" style={{fontSize:'14px' ,fontWeight:'600'}}> Results Interpretation:</div>
                         <div className="text-[14px] ml-3 font-[600]" style={{fontWeight:'600',fontSize:'14px'}}>
-                           . Distances (mm):  <span className="font-[400] w-full text-justify" style={{fontSize:'14px'}}>Forehead Curve, Steiner's Line, Tail of Eyebrow Height, Slope of Eyebrow </span>
+                           . Distances (mm):  <span className="font-[400] w-full text-justify" style={{fontWeight:400}}>Forehead Curve, Steiner's Line, Tail of Eyebrow Height, Slope of Eyebrow </span>
                         </div>
                         <div className="text-[14px] ml-3 font-[600]"  style={{fontWeight:'600',fontSize:'14px'}} >
                            . Ratios (no units): <span className="font-[400] text-justify " style={{fontWeight:400}}> All other results. </span>                       
