@@ -523,7 +523,7 @@ const ShowReport = (props) => {
                               Normal
                             </div> */}
                             <div className="flex gap-1 items-center">
-                              <div className="w-4 h-4 bg-primary-color rounded-full"></div>
+                              <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
                               No Action Needed
                             </div>
                           </div>

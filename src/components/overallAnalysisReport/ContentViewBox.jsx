@@ -64,7 +64,7 @@ const ContentViewBox = ({data,category}) => {
                       {el?.side?.left?.measured_distance}
                       </>  
                     }({el?.side?.left?.percent}%)</p>
-                      <div className={`xl:w-4 xl:h-4 w-3 h-3 ${el.side?.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                      <div className={`xl:w-4 xl:h-4 w-3 h-3 ${el.side?.left.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                     </div>
                     <div className=" mt-2 flex flex-row w-full justify-between items-center text-xs xl:text-sm font-medium">
                       <p>Right:</p>
@@ -81,14 +81,14 @@ const ContentViewBox = ({data,category}) => {
                         }
                         
                         ({el?.side?.right?.percent}%)</p>
-                      <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.side?.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                      <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.side?.right.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                     </div>
                 </>
                 :
                 <>
                 <div className="flex flex-row w-full justify-between items-center">
                   <p className="text-xs xl:text-sm font-medium">Dist: {el.type == "ratio" ?<>{el.ratio}</> :<>{el.measured_distance}</>}  ({el.percent} %)</p>
-                  <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                  <div className={`xl:w-4 xl:h-4 w-3 h-3  ${el.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                 </div>                
                 </>
                 }

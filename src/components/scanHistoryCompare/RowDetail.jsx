@@ -45,7 +45,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                           ({el.side.left.percent} %)
 
                         </div>
-                        <div className={`w-4 h-4  ${el.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                        <div className={`w-4 h-4  ${el.side.left.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                       </div>
                       <div className=" mt-2 flex items-center justify-between gap-2 w-full">
                         <div className="flex justify-start">
@@ -62,13 +62,13 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                           ({el.side.right.percent} %)
 
                         </div>
-                        <div className={`w-4 h-4  ${el.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                        <div className={`w-4 h-4  ${el.side.right.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                       </div>                  
                       </>
                       :
                         <div className="flex items-center justify-between gap-2 w-full">
                           Dist:{el.type == 'ratio'? <>{el.ratio}</>:<>{el.measured_distance}</>} D ({el.percent}%)
-                          <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                          <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                         </div>
 
                     }
@@ -96,7 +96,7 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                           }({el2.side.left.percent} %)
 
                         </div>
-                        <div className={`w-4 h-4  ${el2.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                        <div className={`w-4 h-4  ${el2.side.left.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                       </div>
                       <div className=" mt-2 flex items-center justify-between gap-2 w-full">
                         <div className="flex justify-start">
@@ -113,13 +113,13 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                           ({el2.side.right.percent} %)
 
                         </div>
-                        <div className={`w-4 h-4  ${el2.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                        <div className={`w-4 h-4  ${el2.side.right.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                       </div>                  
                       </>
                       :
                         <div className="flex items-center justify-between gap-2 w-full">
                           Dist:{el2.type=='ratio' ?<>{el2.ratio}</> :<>{el2.measured_distance}</>} D ({el2.percent}%)
-                          <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                          <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                         </div>
 
                     }
@@ -159,18 +159,18 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                         <>
                           <div className="flex items-center justify-start gap-1 w-full text-[10px] xl:text-sm font-normal text-[#444444]">
                             Left:
-                            <div className={`w-4 h-4  ${el.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                            <div className={`w-4 h-4  ${el.side.left.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                             {resolveStatus(el.side.left.problematic)}
                           </div>  
                           <div className=" mt-2 flex items-center justify-start gap-1 w-full text-[10px] xl:text-sm font-normal text-[#444444]">
                             Right:
-                            <div className={`w-4 h-4  ${el.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                            <div className={`w-4 h-4  ${el.side.right.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                             {resolveStatus(el.side.right.problematic)}
                           </div>                                             
                         </>
                         :
                         <div className="flex items-center justify-start gap-1 w-full text-[10px] xl:text-sm font-normal text-[#444444]">
-                          <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                          <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                           {resolveStatus(el.problematic)}
                         </div>
                         }
@@ -187,18 +187,18 @@ const RowDetail = ({el,el2,images,date1,date2,isShowImages}) => {
                         <>
                           <div className="flex items-center justify-start gap-1 w-full text-nowrap text-[10px] xl:text-sm font-normal text-[#444444]">
                             Left:
-                            <div className={`w-4 h-4  ${el2.side.left.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                            <div className={`w-4 h-4  ${el2.side.left.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                             {resolveStatus(el2.side.left.problematic)}
                           </div>  
                           <div className=" mt-2 flex items-center justify-start gap-1 w-full text-nowrap text-[10px] xl:text-sm font-normal text-[#444444]">
                             Right:
-                            <div className={`w-4 h-4  ${el2.side.right.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                            <div className={`w-4 h-4  ${el2.side.right.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                             {resolveStatus(el2.side.right.problematic)}
                           </div>                                             
                         </>
                         :
                           <div className="flex items-center justify-start gap-1 w-full text-nowrap text-[10px] xl:text-sm font-normal text-[#444444]">
-                            <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-primary-color'} rounded-full`}></div>
+                            <div className={`w-4 h-4  ${el2.problematic ?'bg-red-500':'bg-[#03DAC5]'} rounded-full`}></div>
                             {resolveStatus(el2.problematic)}
                           </div>
                         
