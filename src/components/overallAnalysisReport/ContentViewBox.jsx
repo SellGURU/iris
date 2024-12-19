@@ -103,7 +103,7 @@ const ContentViewBox = ({data,category}) => {
 
       {isOpen && (
         <div className="w-full flex flex-row flex-wrap items-start justify-start gap-5 mb-8">
-         {data.map(el => {
+         {data.filter(el => el.text != 'Intercanthal distance').map(el => {
           return (
             <>
             {
