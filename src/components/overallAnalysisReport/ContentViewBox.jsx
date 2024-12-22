@@ -44,7 +44,7 @@ const ContentViewBox = ({data,category}) => {
           {category}
         </div>
         <div className="flex flex-row flex-wrap items-start justify-start w-full p-8 gap-[69px] rounded-xl bg-[#F5F5F5] font-normal text-[#2E2E2E]  text-sm min-h-[128px]">
-          {data.map((el) => {
+          {data.filter(el =>el.key != 'intercanthal_distance').map((el) => {
             return (
               <>
               <div className="flex flex-col items-start justify-between w-[25%] h-[7vh]">

@@ -39,9 +39,9 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
             </div>
             <div className="text-sm mb-4">AI NEXUS Face Analysis. All measurements estimated in 3D.</div>
             <div>
-            <div className="flex flex-col w-full gap-4">
+            <div className="flex flex-col w-full gap-2">
 
-                <div className="  p-4 pb-0 rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
+                <div className="  p-4 pb-0 rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8',pageBreakAfter:'always'}}>
                 <div className="w-[100%]" style={{width:'100%'}}>
                     <div className="flex justify-between gap-2">
                     <div className="overflow-hidden" style={{width:'30%'}}>
@@ -94,7 +94,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                         or managing their health.`}
                     </div>
 
-                    <div className="w-[309px] text-[#444444]   left-32 p-3 top-2  bg-white rounded-[8px] min-h-[167px]" style={{width:'100%',marginBottom:'8px',color:'#444444'}}>
+                    <div className="w-[309px] text-[#444444]   left-32 p-3 top-2  bg-white rounded-[8px] min-h-[180px]" style={{width:'100%',marginBottom:'16px',borderRadius:'16px',color:'#444444'}}>
                        <div className="text-[14px] font-[600]" style={{fontSize:'14px' ,fontWeight:'600'}}> Results Interpretation:</div>
                         <div className="text-[14px] ml-3 font-[600]" style={{fontWeight:'600',fontSize:'14px'}}>
                            . Distances (mm):  <span className="font-[400] w-full text-justify" style={{fontWeight:400}}>Forehead Curve, Steiner's Line, Tail of Eyebrow Height, Slope of Eyebrow </span>
@@ -111,11 +111,11 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                     
                 </div>
 
-                 <div className="  p-4  rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8'}}>
+                 <div className="  p-4  rounded-3xl bg-[#f8f8f8]" style={{backgroundColor:'#f8f8f8',pageBreakAfter:'always'}}>
                 <div className="flex-grow ">
 
                     <div className="w-full flex  text-2xl font-medium items-center justify-between mb-1">
-                        Feminine Face Assessment
+                        {ScanData.data.pose_analysis[0].gender.charAt(0).toUpperCase()+ScanData.data.pose_analysis[0].gender.slice(1)}  Face Assessment
                         {/* <div className="text-[#7E7E7E] font-normal text-sm">
                         Intercanthal Distance D - 33 mm
                         </div> */}
@@ -224,7 +224,7 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
             </div>
             {categories.map((value,index) => {
                 return (
-                    <div className="mt-2 w-full" key={index}>
+                    <div className="mt-2 w-full" style={{pageBreakAfter:'always'}} key={index}>
                         <ContentBox  category={value} data={resolveArrayMeasurments().filter((el) =>el.category ==value)}  key={index}></ContentBox>
                     </div>
                 )

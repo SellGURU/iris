@@ -99,16 +99,16 @@ export const ScanHistory = () => {
     // })   
     let [getpass,] = useLocalStorage("password")
      let [getEmail,] = useLocalStorage("email")
-    useEffect(() => {
-        // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
-        let patinetsAll =  localStorage.getItem("patients")
-        if(patinetsAll){
-            console.log(JSON.parse(patinetsAll))
-            if(JSON.parse(patinetsAll).status == 'fail'){
-                localStorage.clear()
-            }
-        }
-    })
+    // useEffect(() => {
+    //     // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
+    //     let patinetsAll =  localStorage.getItem("patients")
+    //     if(patinetsAll){
+    //         // console.log(JSON.parse(patinetsAll))
+    //         if(JSON.parse(patinetsAll).status == 'fail'){
+    //             localStorage.clear()
+    //         }
+    //     }
+    // })
     useEffect(() => {
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'instant' });
@@ -189,7 +189,7 @@ export const ScanHistory = () => {
     };
     useEffect(() => {
         filterPatientsHandler()
-    },[searchQ,patientList,patients])
+    },[searchQ,patients])
      const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
      useEffect(() => {
         let resolvedPationts = []
@@ -290,7 +290,7 @@ export const ScanHistory = () => {
 
     const filterPatientsHandler = () => {
         const searchValue = searchQ.toLowerCase();
-        const searchWords = searchValue.split(" "); // Split input into words
+        // const searchWords = searchValue.split(" "); // Split input into words
     
         const filteredItem = patients.filter((el) => {
             const patientData = [

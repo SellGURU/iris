@@ -305,7 +305,7 @@ export const PatienCard = ({
                     <div className="text-[#7E7E7E] text-[14px] font-[300]">
                       Date :{" "}
                       <span className=" ml-1 font-[300] text-[14px] text-[#7E7E7E]">
-                        {formatDate(Date(patientHistory.timestamp).toLocaleString())}
+                        {formatDate(patientHistory.timestamp)}
                         {/* {new Date(patientHistory.timestamp).toLocaleString()} */}
                       </span>{" "}
                     </div>

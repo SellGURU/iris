@@ -16,7 +16,7 @@ const NoseCompare = ({scan1,scan2,date1,date2,images,isShowImages}) => {
           Nose
         </div>
         <div className="flex flex-col gap-2 w-full items-stretch justify-start">
-          {scan1.map((el,index) => {
+          {scan1.filter(el =>el.key != 'intercanthal_distance').map((el,index) => {
             return (
               <RowDetail isShowImages={isShowImages} key={index} date1={date1} date2={date2} el={el} el2={scan2.filter(val =>val.key == el.key)[0]} images={images}></RowDetail>
             )
