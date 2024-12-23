@@ -17,7 +17,7 @@ import PackageApi from "../../api/package.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useConstructor, encryptTextResolver } from "../../help.js";
 import Package2 from "../../model/Package.js";
-import { publish } from "../../utility/event.js";
+import { publish, subscribe } from "../../utility/event.js";
 import {SucessPayemntModal} from './SucessPayemntModal.jsx'
 export const PaymentHistory = () => {
   const appContext = useContext(PatientContext);
@@ -87,7 +87,9 @@ export const PaymentHistory = () => {
   // console.log(appContext.package.getPackage())
   const navigate = useNavigate();
   let [localPartyId] = useLocalStorage("partyid");
-
+  subscribe("updatePackage",() => {
+    setPackageCurrent(appContext.package.getPackage());
+  })
   const [orgs] = useLocalStorage("orgData");
   useConstructor(() => {
     // console.log(new Date(JSON.parse(org).subs_data[0].active_to * 1000).toLocaleDateString())
