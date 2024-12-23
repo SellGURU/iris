@@ -145,7 +145,6 @@ export const ScanHistory = () => {
         
                         }
                     }
-                    filterPatientsHandler()  
                 }
                 toast.dismiss()
             }).catch(() =>{
@@ -189,7 +188,7 @@ export const ScanHistory = () => {
     };
     useEffect(() => {
         filterPatientsHandler()
-    },[searchQ,patients])
+    },[searchQ,patients,isLoading])
      const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
      useEffect(() => {
         let resolvedPationts = []
@@ -341,7 +340,7 @@ export const ScanHistory = () => {
 
                         </div>
                         <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
-                            <SearchBox className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
+                            <SearchBox value={searchQ} className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
                         </div>
                         <div
                             className="flex select-none xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
@@ -426,6 +425,7 @@ export const ScanHistory = () => {
                                             index={i + 1}
                                             loadPationts={() => {
                                                 getPatients()
+                                                setSearchQ("")
                                             }}
                                             key={Number(patient.client_info.clientCode)}
                                             patient={patient}
