@@ -9,6 +9,7 @@ const removeToken =() => {
     localStorage.removeItem("orgData")
     localStorage.removeItem("patients")
     localStorage.removeItem("package")
+    localStorage.removeItem("tour")
     window.location.reload(); 
 }
 

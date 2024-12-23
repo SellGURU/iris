@@ -50,8 +50,8 @@ const ChangePassword = () => {
     return (
         <>
         <div className={" "}>
-            <div className={" h-[80px] xl:h-[100px]  flex items-center justify-between px-5 xl:px-10"}>
-                <img className={" w-auto h-auto h-h"} src={"/image/login/IRIS.svg"} alt="iris"/>
+            <div className={"  flex items-center justify-start mt-3 px-5 xl:px-10"}>
+                <img className={" h-[40px]"} src={"/image/login/IRIS.svg"} alt="iris"/>
                 {/* <ButtonPrimary className={'invisible'}>Account</ButtonPrimary> */}
             </div>
             <div className="w-full h-[75vh] flex items-center text-[#2E2E2E]   justify-center">

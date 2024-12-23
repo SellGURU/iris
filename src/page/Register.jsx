@@ -209,15 +209,15 @@ const Register = () => {
   const [HidePass2, setHidePass2] = useState(false);
   return (
     <div className={"h-[100svh] w-full md:fixed md:overflow-hidden "}>
-      <div className={"h-[100px]  flex items-center justify-between px-10"}>
+      <div className={" flex items-center justify-start mt-2 px-20"}>
         <img
-          className={" w-auto h-auto h-h"}
+          className={" h-[40px] "}
           src={"/image/login/IRIS.svg"}
           alt="iris"
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full  lg:h-[75vh] mt-[8px] md:mt-[20px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[30px]  xl:mt-[30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
 
         <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolvedHight}} />
         {step == 0?

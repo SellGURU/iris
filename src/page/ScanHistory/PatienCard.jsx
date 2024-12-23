@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { Tooltip } from 'react-tooltip'
 
 export const PatienCard = ({
   index,
@@ -178,16 +179,18 @@ export const PatienCard = ({
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
-          <h2 className="text-[14px] md:text-base xl:text-[18px] font-bold text-[#1A1919] flex gap-2 xl:gap-8">
+          <h2 data-tooltip-id="userName"
+              data-tooltip-content={patient.client_info.firstName+patient.client_info.lastName} className="text-[14px] md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
             {" "}
-            <div>
+            <div className="" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
               {" "}
               {patient.client_info.firstName} {patient.client_info.lastName}
             </div>{" "}
-            <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]">
+            <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
           </h2>
+           <Tooltip place="top-start" className="max-w-[240px] bg-white" id="userName"/>
           {/* <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div> */}
           <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
@@ -196,8 +199,11 @@ export const PatienCard = ({
               theme="iris-tertiary-small"
               onClick={() => setIsShowComment(!isShowComment)}
             >
-              {isShowComment ? "Hide Comments" : "Show Comments"}(
-              {comment.length})
+              <div style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+                {isShowComment ? "Hide Comments" : "Show Comments"}(
+                {comment.length})
+
+              </div>
               <span>
                 <div
                   data-mode={isShowComment ? "true" : "false"}

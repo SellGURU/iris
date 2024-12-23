@@ -252,6 +252,7 @@ const Header = () => {
                             localStorage.removeItem("patients")
                             localStorage.removeItem("package")
                             // window.open("/#/login")
+                            localStorage.removeItem("tour")
                             window.location.reload();
                             // navigate('/login')
                         }}>Logout</h1>

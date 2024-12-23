@@ -384,11 +384,12 @@ const ShowReport = (props) => {
                       </div>
                       <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
                       <div className="flex-grow ">
-                        <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
+                        <div className="w-full flex  text-2xl font-medium items-center justify-start gap-2 flex-wrap mb-2">
                           {ScanData.data.pose_analysis[0].gender.charAt(0).toUpperCase()+ScanData.data.pose_analysis[0].gender.slice(1)} Face Assessment
                           {/* <div className="text-[#7E7E7E] font-normal text-sm">
                             Intercanthal Distance D - 33 mm
                           </div> */}
+                          <Explation></Explation>
                         </div>
 
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
@@ -578,7 +579,7 @@ const ShowReport = (props) => {
                     /> */}
 
                   <div className="flex flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                    <div className="w-full text-[#444444] flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                    <div className="w-full text-[#444444] flex flex-row text-2xl flex-wrap font-medium items-center justify-between mb-2">
                       <div className="flex justify-start items-center gap-4 text-lg xl:text-2xl">
                         {activePart != "" && (
                           <img

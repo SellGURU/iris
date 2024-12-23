@@ -258,8 +258,8 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full print:hidden justify-between  flex mt-[-16px] items-center">
-                <div className="invisible justify-start items-center">
+              <div className="w-full print:hidden justify-end lg:justify-between  flex mt-[-16px] items-center">
+                <div className="hidden lg:invisible lg:block  justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
                   </div>
@@ -271,7 +271,7 @@ const OverallAnalysisReport = (props) => {
                     Time: {date.getHours()}:{date.getMinutes()}
                   </div>
                 </div>
-                <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
+                <div className=" flex my-4 justify-end gap-4 items-center">
                   <Button onClick={() => {
                     setIsShowAddComment(true)
                   }} theme="iris-tertiary">
@@ -420,7 +420,7 @@ const OverallAnalysisReport = (props) => {
                         <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
                         <div className="flex-grow ">
 
-                            <div className="w-full flex text-[#444444]  text-2xl font-medium items-center justify-start gap-2 mb-2">
+                            <div className="w-full flex text-[#444444] flex-wrap  text-2xl font-medium items-center justify-start gap-2 mb-2">
                              {ScanData.data.pose_analysis[0].gender.charAt(0).toUpperCase()+ScanData.data.pose_analysis[0].gender.slice(1)} Face Assessment
                               {/* <div className="text-[#7E7E7E] font-normal text-sm">
                                 Intercanthal Distance D - 33 mm
@@ -525,7 +525,7 @@ const OverallAnalysisReport = (props) => {
                                 </div> */}
                                 <div className="flex gap-1 items-center">
                                   <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
-                                  No Action Required
+                                  No Action Needed
                                 </div>
                               </div>
                             </div>
@@ -582,7 +582,7 @@ const OverallAnalysisReport = (props) => {
                     /> */}
 
                     <div className="flex  flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                      <div className="w-full text-[#444444]  flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                      <div className="w-full text-[#444444] flex-wrap  flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         <div className="flex justify-start items-center gap-4">
                           {activePart !='' &&
                             <img className="cursor-pointer" onClick={() => {

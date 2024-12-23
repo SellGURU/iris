@@ -179,7 +179,7 @@ export const PatientInformation = () => {
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/> */}
                             <h1 className={"w-full  md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>Phone Number<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
-                           <div className="relative w-[300px]">
+                           <div className="relative w-full lg:w-[300px]">
                                 <PhoneInput
                                 // {...formik.getFieldProps("phone")} 
                                 value={formik.values.phone}
