@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState ,useRef} from "react";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { useNavigate } from "react-router-dom";
 import { PatientContext } from "../../context/context.jsx";
@@ -19,7 +19,14 @@ export const PatienCard = ({
   loadPationts,
 }) => {
   const { setPdf, setFile, setPhoto } = useContext(PatientContext);
-
+  const textRef = useRef(null);
+  const [isEllipsized, setIsEllipsized] = useState(false);
+  useEffect(() => {
+    if (textRef.current) {
+      const { offsetWidth, scrollWidth } = textRef.current;
+      setIsEllipsized(scrollWidth > offsetWidth); // Check if text is truncated
+    }
+  }, []);  
   useEffect(() => {
     if (result != null) {
       patient.scans.map((e) => {
@@ -179,18 +186,21 @@ export const PatienCard = ({
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
-          <h2 data-tooltip-id="userName"
-              data-tooltip-content={patient.client_info.firstName+"  "+patient.client_info.lastName} className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
-            {" "}
-            <div className="max-w-[80px] xl:max-w-[230px]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+         <div className=" flex justify-start gap-2 flex-wrap items-center">
+            <h2  data-tooltip-id={isEllipsized?"userName":''}
+                data-tooltip-content={patient.client_info.firstName+"  "+patient.client_info.lastName} className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
               {" "}
-              {patient.client_info.firstName} {patient.client_info.lastName}
-            </div>{" "}
+              <div ref={textRef} className="max-w-[80px] w-[80px] xl:w-[230px] xl:max-w-[230px]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+                {" "}
+                {patient.client_info.firstName} {patient.client_info.lastName}
+              </div>{" "}
+            </h2>
             <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
-          </h2>
-           <Tooltip place="top-start"   className="max-w-[240px] h-auto bg-white" style={{overflowWrap:'break-word'}} id="userName"/>
+
+         </div>
+           <Tooltip place="top-start"    className="max-w-[240px] h-auto bg-white" style={{overflowWrap:'break-word'}} id="userName"/>
           {/* <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div> */}
           <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
