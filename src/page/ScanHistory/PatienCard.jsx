@@ -180,9 +180,9 @@ export const PatienCard = ({
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
           <h2 data-tooltip-id="userName"
-              data-tooltip-content={patient.client_info.firstName+patient.client_info.lastName} className="text-[14px] md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
+              data-tooltip-content={patient.client_info.firstName+"  "+patient.client_info.lastName} className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
             {" "}
-            <div className="" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+            <div className="max-w-[80px] xl:max-w-[230px]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
               {" "}
               {patient.client_info.firstName} {patient.client_info.lastName}
             </div>{" "}
@@ -190,7 +190,7 @@ export const PatienCard = ({
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
           </h2>
-           <Tooltip place="top-start" className="max-w-[240px] bg-white" id="userName"/>
+           <Tooltip place="top-start"   className="max-w-[240px] h-auto bg-white" style={{overflowWrap:'break-word'}} id="userName"/>
           {/* <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div> */}
           <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
