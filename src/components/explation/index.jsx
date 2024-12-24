@@ -4,7 +4,11 @@ const Explation = () => {
     const [isvisible,setIsvisible] = useState(false)
     return (
         <>
-            <div onMouseEnter={() => {
+            <div onClick={() => {
+                setTimeout(() => {
+                    setIsvisible(!isvisible)
+                }, 300);
+            }} onMouseEnter={() => {
                 setIsvisible(true)
             }}  onMouseLeave={() => {
                 setIsvisible(false)
