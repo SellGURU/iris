@@ -333,7 +333,7 @@ const ShowReport = (props) => {
                         </div>
                       </div> */}
 
-                    <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
+                    <div className="flex  p-8 pb-2 rounded-3xl bg-[#f8f8f8]">
                       <div className="w-[40%]">
                         <div className="flex w-full justify-between gap-2">
                           <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
@@ -512,7 +512,7 @@ const ShowReport = (props) => {
                           </div>
                         </div>
 
-                        <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
+                        <div className="w-full flex flex-row text-[20px] mb-2 font-medium items-center justify-between">
                           Color Guide
                           <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
                             <div className="flex gap-1 items-center">
