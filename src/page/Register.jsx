@@ -5,14 +5,29 @@ import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useRef, useState ,useEffect} from "react";
 import { useFormik } from "formik";
+import Package from "../model/Package.js";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import Select from "../components/select/index.jsx";
+import {encryptTextResolver} from '../help.js';
+import {PatientContext} from '../context/context.jsx'
+import {useContext} from 'react';
 
+const removeToken =() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("partyid")
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    localStorage.removeItem("orgData")
+    localStorage.removeItem("patients")
+    localStorage.removeItem("package")
+
+}
 const Register = () => {
   const passwordRef = useRef(null);
+  const Appcontext = useContext(PatientContext)
   const [resolvedHight,setResolvedHight] = useState('80vh')
   const resolveHightImage = () => {
     if(document.getElementById("contentBox")){
@@ -70,11 +85,10 @@ const Register = () => {
     validationSchema: Yup.object().shape({
     password: Yup
       .string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters long.')
-      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),      
+      .required('Password is required.')
+      .min(6, 'Password must be at least 6 characters').max(15,'Password must not exceed 15 characters'),     
     confirm: Yup
-      .string()
+      .string().required("Password is required.")
       .oneOf([Yup.ref('password')], 'Passwords must match'),      
     }),
     onSubmit: () => {},
@@ -84,24 +98,85 @@ const Register = () => {
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
+  let [, seveParty] = useLocalStorage("partyid");
+  let [,saveEmail] = useLocalStorage("email")
+  let [,savePass] = useLocalStorage("password")
+  let [,saveOrg] = useLocalStorage("orgData")  
   //   console.log("isAccess l", isAccess);
   const onSubmit = () => {
     setIsPanding(true);
     try {
       // toast.loading("pending ...");
       Auth.signUp({
-        email: form.values.email,
-        password: form2.values.password,
-        cpassword:form2.values.confirm,
+        email: encryptTextResolver(form.values.email),
+        password: encryptTextResolver(form2.values.password),
+        cpassword:encryptTextResolver(form2.values.confirm),
         practiceName:form.values.PracticeName,
         firstName:form.values.firstName,
         lastName:form.values.lastName
       })
         .then((res) => {
           if (res.data.status == 'success') {
+            removeToken()
             setIsPanding(false);
             // toast.info(res.data.msg);
-            navigate("/login");
+              Auth.login({
+                email: encryptTextResolver(form.values.email),
+                password: encryptTextResolver(form2.values.password),
+              })
+                .then((res) => {
+                  if (res.data.token!='') {
+                    setIsPanding(false);
+                    saveIsAccess(res.data.token);
+                    seveParty(res.data.party_id)
+                    saveEmail(form.values.email)
+                    savePass(form2.values.password)
+                    saveOrg(JSON.stringify(res.data.org_data))
+                    dispatch(setUserName("amin"));
+                    Appcontext.user.updateCustomInformation('account',{
+                        PracticeName:res.data.org_data.orgName,
+                        PhoneNumber:"",
+                        EmailAddress:res.data.org_data.orgEmail
+                    })         
+                    Appcontext.user.updateCustomInformation("personal",{
+                      FirstName:res.data.org_data.firstName,
+                      LastName:res.data.org_data.lastName,
+                      
+                    }) 
+                    Appcontext.user.updateCustomInformation("photo",
+                        `https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName              
+                    )             
+                    if(res.data.org_data.subs_data.length> 0){
+                        let newPak = new Package({
+                            name:'No available package',
+                            cycle:'Yearly',
+                            cost:0,
+                            useage:res.data.org_data.subs_data[0].iscan_used,
+                            bundle:res.data.org_data.subs_data[0].iscan_brought,
+                            discount:0,
+                            options:[]                           
+                        })
+                            // console.log(newPak)
+                        Appcontext.package.updatePackage(newPak)
+                    }
+                    // photo:`https://ui-avatars.com/api/?name=`+res.data.org_data.firstName+" "+res.data.org_data.lastName
+                    // toast.
+                    navigate("/");
+                  } else {
+                    // console.log(res.msg);
+                    // toast.error(res.data.error) 
+                    // alert(res.msg)
+                    form.setFieldError("password", "The password is incorrect.");
+                    // setTimeout(() => {
+                    //   toast.pe
+                    // }, 3000);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err)
+                  // form.setFieldError("password", "The password is incorrect.");
+                  // toast.error(err.response?.data?.detail);
+                });
           } else if(res.data.status == 'fail'){
             // console.log(res);
             alert(res.data.msg)
@@ -134,15 +209,15 @@ const Register = () => {
   const [HidePass2, setHidePass2] = useState(false);
   return (
     <div className={"h-[100svh] w-full md:fixed md:overflow-hidden "}>
-      <div className={"h-[100px]  flex items-center justify-between px-10"}>
+      <div className={" flex items-center justify-start mt-2 px-20"}>
         <img
-          className={" w-auto h-auto h-h"}
+          className={" h-[40px] "}
           src={"/image/login/IRIS.svg"}
           alt="iris"
         />
         <ButtonPrimary className={"invisible"}>Account</ButtonPrimary>
       </div>
-      <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[40px] xl:mt-[-30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
+      <div className="w-full  lg:h-[75vh] mt-[40px] md:mt-[30px]  xl:mt-[30px] flex items-center 2xl:items-start text-[#2E2E2E]   justify-center">
 
         <img className=" hidden md:block  " src={"./image/iris-login.png"} style={{height:resolvedHight}} />
         {step == 0?
@@ -234,6 +309,7 @@ const Register = () => {
               <div className="flex justify-start items-center">
                 <input
                   {...form.getFieldProps("accept")}
+                  checked={form.values.accept}
                   id="accept"
                   type="checkbox"
                 />

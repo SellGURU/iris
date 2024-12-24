@@ -99,7 +99,7 @@ const useFaceMesh = (initialImageSrc = null,onClickHandler,colorsData) => {
                 const point = landmarks[index];
                 const x = point.x * canvas.width;
                 const y = point.y * canvas.height;
-                const radius = 3;
+                const radius = 5;
 
                 context.beginPath();
                 context.arc(x, y, radius, 0, 2 * Math.PI);

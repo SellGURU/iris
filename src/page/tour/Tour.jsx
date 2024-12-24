@@ -33,7 +33,7 @@ export const Tour = () => {
                     <StepInstructions
                         step="1"
                         text=" Click 'Start Scan' to open your camera and capture a well-lit and clear image, or use 'Upload Image' to select a recent photo from your gallery."
-                        image={'image/tour-1.svg'}
+                        image={'image/stepone.png'}
                         note="Note: Remove glasses, ensure the subject's face is clear of hair, use a neutral background, and maintain good lighting for optimal results."
                         onNext={handleNext}
                         onBack={() =>{

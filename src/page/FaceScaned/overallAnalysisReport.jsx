@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 // import { useConstructor } from "../../help";
 import Application from "../../api/Application";
+import Explation from '../../components/explation/index.jsx';
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
@@ -24,6 +25,7 @@ import FaceMeshView from '../../components/faceMash/FaceMeshViwe.jsx'
 import {PatientContext} from '../../context/context.jsx'
 import PrintReport from "../../components/PrintReport/index.jsx";
 import ContentViewBox from "../../components/overallAnalysisReport/ContentViewBox.jsx";
+import { butiText } from "../../help.js";
 // import ContentBox from "../../components/overallAnalysisReport/ContentBox.jsx";
 const OverallAnalysisReport = (props) => {
   const [activeTab, setActiveTab] = useState("facial");
@@ -39,6 +41,28 @@ const OverallAnalysisReport = (props) => {
       // let patientIndex = patients.findIndex(mypatient => mypatient.client_info.clientCode === patientID);
       // setComment(patients[patientIndex].comments);
   }    
+  const formatDate2 = (date) => {
+    const dateObj = new Date(date); // Ensure date is a Date object
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[dateObj.getMonth()]; // Get the month name
+    const day = dateObj.getDate().toString(); // Get the day
+
+    return ` ${day} ${month} ${year}`;
+  };    
   const [isShowAddComment, setIsShowAddComment] = useState(false); 
   // console.log(report)
   const navigate = useNavigate()
@@ -80,7 +104,7 @@ const OverallAnalysisReport = (props) => {
     if(activePart == ''){
       return ' Face Measurements Summary'
     }
-    return activePart +' Measurements Summary'    
+    return butiText(activePart)  +' Measurements Summary'    
     // return ""
   }
   const resolveChangePart = (name)=>{
@@ -234,24 +258,20 @@ const OverallAnalysisReport = (props) => {
                   bottom.
                 </div>
               </div>
-              <div className="w-full print:hidden justify-between  flex mt-[-16px] items-center">
-                <div className="invisible justify-start items-center">
+              <div className="w-full print:hidden justify-end lg:justify-between  flex mt-[-16px] items-center">
+                <div className="hidden lg:invisible lg:block  justify-start items-center">
                   <div className="text-[#444444] text-lg font-normal mr-[230px]">
                     Client ID: {searchParams.get("clientId")}
                   </div>
                   <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                     Date:{" "}
-                    {date.getDate() +
-                      "   " +
-                      date.toLocaleString("default", { month: "long" }) +
-                      "   " +
-                      date.getFullYear()}
+                    {formatDate2(date)}
                   </div>
                   <div className="text-[#7E7E7E] font-normal text-sm">
                     Time: {date.getHours()}:{date.getMinutes()}
                   </div>
                 </div>
-                <div className="flex-col md:flex-row flex justify-end gap-4 items-center">
+                <div className=" flex my-4 justify-end gap-4 items-center">
                   <Button onClick={() => {
                     setIsShowAddComment(true)
                   }} theme="iris-tertiary">
@@ -348,76 +368,89 @@ const OverallAnalysisReport = (props) => {
 
                     <div className="flex flex-col w-full gap-4">
 
-                      <div className="flex  p-8 pb-0 rounded-3xl bg-[#f8f8f8]">
+                      <div className="flex  p-8 pb-2 rounded-3xl bg-[#f8f8f8]">
                         <div className="w-[40%]">
-                          <div className="flex justify-between gap-2">
-                            <img
-                                src={ScanData.data.pose_analysis[0].current_image_analysis.images.input}
+                          <div className="flex w-full justify-between gap-2">
+                            <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                              <img
+                                src={
+                                  ScanData.data.pose_analysis[0]
+                                    .current_image_analysis.images.input
+                                }
                                 alt="face-image"
-                                className=" w-[150px] rounded-3xl border-2 border-primary-color"
+                                className="w-full object-cover h-full"
                               />
-                            <img
-                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_annotated}
-                              alt="face-image"
-                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
-                            />         
-                            <img
-                              src={ScanData.data.pose_analysis[0].current_image_analysis.images.aligned_symmetry}
-                              alt="face-image"
-                              className=" w-[150px] rounded-3xl border-2 border-primary-color"
-                            />                                                 
+
+                            </div>
+                            <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                              <img
+                                src={
+                                  ScanData.data.pose_analysis[0]
+                                    .current_image_analysis.images.aligned_annotated
+                                }
+                                alt="face-image"
+                                className="w-full h-full object-cover"
+                              />
+
+                            </div>
+                            <div className="w-auto 2xl:w-[150px] overflow-hidden rounded-3xl border-2 border-primary-color">
+                              <img
+                                src={
+                                  ScanData.data.pose_analysis[0]
+                                    .current_image_analysis.images.aligned_symmetry
+                                }
+                                alt="face-image"
+                                className="w-full h-full object-cover"
+                              />
+
+                            </div>
                           </div>
                           <div className="w-full mt-2 flex justify-between text-2xl font-medium items-center mb-4">
                             Measurements Summary
                             <div className="text-[#7E7E7E] font-normal text-sm">
-                            { Number(date.getMonth()+1) +
-                              " /" +
-                              date.getDate()
-                              +
-                              " /" +
-                              date.getFullYear()}
+                              {formatDate2(date)}
                             </div>
                           </div>
-                            <div className="text-[##444444] font-normal text-sm mb-6">
-                              Here, you can view a summary of an individual's health
-                              status and make the necessary decisions for improving
-                              or managing their health.
-                            </div>
-
+                          <div className="text-[##444444] font-normal text-sm mb-6">
+                            Here, you can view a summary of an individual's health
+                            status and make the necessary decisions for improving
+                            or managing their health.
+                          </div>
                         </div>
                         <div className="w-[1px] h-[300px] mx-4 bg-[#00000033]"></div>
                         <div className="flex-grow ">
 
-                            <div className="w-full flex  text-2xl font-medium items-center justify-between mb-2">
-                              Feminine Face Assessment
-                              <div className="text-[#7E7E7E] font-normal text-sm">
+                            <div className="w-full flex text-[#444444] flex-wrap  text-2xl font-medium items-center justify-start gap-2 mb-2">
+                             {ScanData.data.pose_analysis[0].gender.charAt(0).toUpperCase()+ScanData.data.pose_analysis[0].gender.slice(1)} Face Assessment
+                              {/* <div className="text-[#7E7E7E] font-normal text-sm">
                                 Intercanthal Distance D - 33 mm
-                              </div>
+                              </div> */}
+                              <Explation></Explation>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-y-3 mt-6 gap-1 mb-6">
+                            <div className="grid  grid-cols-1 xl:grid-cols-2  gap-y-3 mt-6 gap-1 mb-6">
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  1.Eyebrows height
+                                <div className="flex flex-col w-[180px] ">
+                                  1. Eyebrows height
                                 </div>
-                                <div className="flex flex-col text-[14px]  font-normal">
+                                <div className="flex flex-col text-[14px] ">
                                   {/* Right side is 1mm higher */}
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  2.Lash line
+                                <div className="flex flex-col w-[180px]  ">
+                                  2. Lash line
                                 </div>
-                                <div className="flex flex-col text-[14px]  font-normal">
+                                <div className="flex flex-col text-[14px]  ">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lash_line.symmetry_text}
                                 </div>
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col min-w-[174px] w-[180px] font-medium">
-                                  3.Inter Limbal Opening
+                                <div className="flex flex-col min-w-[174px] w-[180px] ">
+                                  3. Inter Limbal Opening
                                 </div>
                                 <div className="flex flex-col text-[14px] font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.inter_limbal_opening.symmetry_text}
@@ -425,8 +458,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  4.Apex of cheek
+                                <div className="flex flex-col w-[180px] ">
+                                  4. Apex of cheek
                                 </div>
                                 <div className="flex flex-col text-[14px]   font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.apex_of_cheek.symmetry_text}
@@ -434,8 +467,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  5.Alar base of nose
+                                <div className="flex flex-col w-[180px]  ">
+                                  5. Alar base of nose
                                 </div>
                                 <div className="flex flex-col text-[14px]  font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
@@ -443,8 +476,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  6.Upper lip vermillion
+                                <div className="flex flex-col w-[180px] ">
+                                  6. Upper lip vermillion
                                 </div>
                                 <div className="flex flex-col text-[14px]  font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.upper_lip_vermillion.symmetry_text}
@@ -452,8 +485,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px] font-medium">
-                                  7.Transcommissure line
+                                <div className="flex flex-col w-[180px] ">
+                                  7. Transcommissure line
                                 </div>
                                 <div className="flex flex-col text-[14px] font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.transcommissure_line.symmetry_text}
@@ -461,8 +494,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col text-[14px] w-[180px] font-medium">
-                                  8.Lower lip vermilion
+                                <div className="flex flex-col text-[16px] w-[180px] ">
+                                  8. Lower lip vermilion
                                 </div>
                                 <div className="flex flex-col text-[14px] font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.lower_lip_vermillion.symmetry_text}
@@ -470,8 +503,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
 
                               <div className="flex flex-row w-full text-base text-left gap-6">
-                                <div className="flex flex-col w-[180px]  font-medium">
-                                  9.Chin border
+                                <div className="flex flex-col w-[180px]  ">
+                                  9. Chin border
                                 </div>
                                 <div className="flex flex-col text-[14px]  font-normal">
                                   {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.chin_border.symmetry_text}
@@ -479,20 +512,20 @@ const OverallAnalysisReport = (props) => {
                               </div>
                             </div>
 
-                            <div className="w-full flex flex-row text-2xl font-medium items-center justify-between">
-                              Color Guide
+                            <div className="w-full flex flex-row text-[20px] mb-2 font-medium items-center justify-end">
+                              {/* Color Guide */}
                               <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
                                 <div className="flex gap-1 items-center">
                                   <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
                                   Action Needed
                                 </div>
-                                <div className="flex gap-1 items-center">
+                                {/* <div className="flex gap-1 items-center">
                                   <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
                                   Normal
-                                </div>
+                                </div> */}
                                 <div className="flex gap-1 items-center">
-                                  <div className="w-4 h-4 bg-primary-color rounded-full"></div>
-                                  No Action Required
+                                  <div className="w-4 h-4 bg-[#03DAC5] rounded-full"></div>
+                                  No Action Needed
                                 </div>
                               </div>
                             </div>
@@ -549,27 +582,24 @@ const OverallAnalysisReport = (props) => {
                     /> */}
 
                     <div className="flex  flex-col w-full gap-4 py-8 px-10 rounded-3xl bg-[#f8f8f8]">
-                      <div className="w-full text-[#444444]  flex flex-row text-2xl font-medium items-center justify-between mb-2">
+                      <div className="w-full text-[#444444] flex-wrap  flex flex-row text-2xl font-medium items-center justify-between mb-2">
                         <div className="flex justify-start items-center gap-4">
                           {activePart !='' &&
                             <img className="cursor-pointer" onClick={() => {
                             setActivePart("")
-                            }} src="./icons/back2.svg" alt="" />
+                            }} src="./image/back2.svg" alt="" />
                            }
                           {resolveActivePartName()}
+                          <Explation></Explation>
                         </div>
                         <div className="text-[#7E7E7E] font-normal text-sm">
                           <div className="flex justify-end items-center">
                             <div className="text-[#444444] text-sm font-normal mr-[80px]">
-                              Client ID: 123456789
+                              Client ID: {patientID}
                             </div>
                             <div className="text-[#7E7E7E] font-normal text-sm mr-8">
                               Date:{" "}
-                              {date.getDate() +
-                                "   " +
-                                date.toLocaleString("default", { month: "long" }) +
-                                "   " +
-                                date.getFullYear()}
+                            {formatDate2(date)}
                             </div>
                             <div className="text-[#7E7E7E] font-normal text-sm">
                               Time: {date.getHours()}:{date.getMinutes()}
@@ -590,7 +620,7 @@ const OverallAnalysisReport = (props) => {
                           alt="face-image"
                           className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                         /> */}
-                        <div className="grid grid-cols-2 gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
+                        <div className="grid grid-cols-1 xl:grid-cols-2  gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
                           {resolveFacialData().slice(0,8).map((el,index) => {
                             return (
                               <>

@@ -11,7 +11,18 @@ import { setUserName } from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import Package from "../model/Package.js";
 import {PatientContext} from '../context/context.jsx'
+import {encryptTextResolver} from '../help.js';
 
+
+const removeToken =() => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("partyid")
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    localStorage.removeItem("orgData")
+    localStorage.removeItem("patients")
+    localStorage.removeItem("package")
+}
 const Login = () => {
   const passwordRef = useRef(null);
   const Appcontext = useContext(PatientContext)
@@ -66,10 +77,10 @@ const Login = () => {
     try {
       // toast.loading("pending ...");
       // toast.loading('pending ...');
-      localStorage.clear()
+      removeToken()
       Auth.login({
-        email: form.values.userName,
-        password: form.values.password,
+        email: encryptTextResolver(form.values.userName),
+        password: encryptTextResolver(form.values.password),
       })
         .then((res) => {
           // toast.dismis()
@@ -115,16 +126,19 @@ const Login = () => {
             // console.log(res.msg);
             // toast.error(res.data.error) 
             // alert(res.msg)
-            form.setFieldError("password", "The password is incorrect.");
+            // form.setFieldError("password", "The password is incorrect.");
             // setTimeout(() => {
             //   toast.pe
             // }, 3000);
           }
         })
         .catch((err) => {
-          console.log(err)
-          form.setFieldError("password", "The password is incorrect.");
-          // toast.error(err.response?.data?.detail);
+          console.log(err);
+          if(err.data.detail.includes("Password ")){
+            form.setFieldError("password", err.data.detail);
+          }else {
+            form.setFieldError("userName", err.data.detail);
+          }
         });
     } catch (error) {
       console.log(error);

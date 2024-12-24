@@ -11,6 +11,7 @@ import {setUserName} from "../store/PatientInformationStore.js";
 import { Button } from "symphony-ui";
 import VerificationInput from "react-verification-input";
 import { useSearchParams } from "react-router-dom";
+import {encryptTextResolver} from '../help.js';
 
 const Forget = () => {
     const passwordRef = useRef(null);
@@ -35,8 +36,10 @@ const Forget = () => {
             NewPassword:""
         },
         validationSchema: Yup.object().shape({
-            NewPassword:  Yup.string().required('New password is required.').min(6, 'Current password must be at least 6 characters').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
-            Confirmpassword: Yup.string().required("Confirm password is required.").oneOf([Yup.ref('NewPassword')], 'Confirm password  must match'),
+            NewPassword:   Yup.string().required('New password is required.').min(6,'New password must be at least 6 characters.').max(15),
+            Confirmpassword:Yup
+        .string()
+        .oneOf([Yup.ref('NewPassword')], 'Passwords must match'),
         }),
         onSubmit: () => {
         }
@@ -72,10 +75,10 @@ const Forget = () => {
         try {
             // toast.loading('pending ...')
             Auth.login({
-                username: form.values.userName,
-                password: form.values.password
+                username: encryptTextResolver(form.values.userName),
+                password: encryptTextResolver(form.values.password)
             }).then((res) => {
-                console.log(res)
+                // console.log(res)
                 if (res.data.access_token) {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
@@ -122,7 +125,7 @@ const Forget = () => {
                     // onSubmit={form.submitForm()}
                 >
                     <h1 className={" font-medium text-2xl pb-2"}>Forgot Password</h1>
-                    <div className="text-[#444444] text-[14px] mb-[60px] w-[330px]">Enter the E-mail address asociated with your account and we’ll send you a link to reset your password.</div>
+                    <div className="text-[#444444] text-[14px] mb-[60px] w-[330px]">Please enter your registered email address. We will send you a link to reset your password.</div>
                     <div className="grid mb-[60px] w-[330px]">
                         <label
                             className="flex mb-2 text-[16px] font-medium" htmlFor="email">E-mail Address:</label>
@@ -152,7 +155,7 @@ const Forget = () => {
                         // onSubmit()
                         // setStep(2)
                         Auth.forgetpass({
-                            email:form.values.email
+                            email:encryptTextResolver(form.values.email)
                         }).then(res => {
                             // toast.info(res.data.msg)
                         })
@@ -174,7 +177,7 @@ const Forget = () => {
                 step == 1 &&
                 <div className="w-fit px-10 py-5 gap-5  flex flex-col">
                     <h1 className={" font-medium text-2xl "}>Forgot Password</h1>
-                    <div className="text-[#444444] flex items-center text-[14px] mb-[8px] w-[330px]">We sent a code to <span className="font-medium ml-1"> info@gmail.com</span> <span className="ml-4 flex items-center cursor-pointer"><img src="./icons/edit-2.svg" alt="" /> <span className="text-primary-color ml-2 ">Edit</span></span></div>
+                    <div className="text-[#444444] flex items-center text-[14px] mb-[8px] w-[330px]">We sent a code to <span className="font-medium ml-1"> info@gmail.com</span> <span className="ml-4 flex items-center cursor-pointer"><img src="./image/edit-2.svg" alt="" /> <span className="text-primary-color ml-2 ">Edit</span></span></div>
                     <div className="text-[#444444] flex items-center text-[14px] mb-[16px] w-[330px]">The code expires in <span className=" font-medium ml-1">05 : 00</span></div>
                     <div>
                         <h1 className={" font-medium text-2xl pb-2"}>Enter the Code:</h1>
@@ -272,8 +275,10 @@ const Forget = () => {
                         <Button onClick={() => {
                             Auth.updatePassword({
                                 resetPassToken:searchParams.get("token"),
-                                new_password:form2.values.NewPassword,
-                                new_cpassword:form2.values.Confirmpassword
+                                new_password:encryptTextResolver(form2.values.NewPassword),
+                                new_cpassword:encryptTextResolver(form2.values.Confirmpassword)
+                            }).finally(() => {
+                                navigate('/')
                             })
                         }}  disabled={!form2.isValid || !form2.touched.NewPassword} theme="iris-large">
                             <div className="w-[280px]">

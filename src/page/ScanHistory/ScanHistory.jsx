@@ -10,7 +10,7 @@ import FilterModal from '../modal/Filter.jsx';
 import { Button } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { Tooltip } from 'react-tooltip'
-import { useConstructor } from "../../help.js";
+import { useConstructor ,encryptTextResolver} from "../../help.js";
 // import {updateLocalPatientIHistoty} from "../../utility/updateLocalPatientIHistoty.js";
 import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
@@ -19,7 +19,13 @@ import Package from "../../model/Package.js";
 import { toast } from "react-toastify";
 import CompareSection from "../../components/scanHistoryCompare/CompareSection";
 export const ScanHistory = () => {
+    const [patients,setPatinets] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage,setItemPerPage] = useState('5');
+    let indexOfLastItem = currentPage * itemsPerPage;
+    let indexOfFirstItem =indexOfLastItem - itemsPerPage;    
     // const {patients2,addPatient} = useContext(PatientContext);
+    const [isLoading,setIsLoading] = useState(false)
     const closeCamera= () => {
         const videoElement  = document.getElementById("video-cam")
         if(videoElement){
@@ -57,7 +63,7 @@ export const ScanHistory = () => {
     //     //     ]
     //     // },            
     // ];
-    const [patients,setPatinets] = useState(JSON.parse(localStorage.getItem("patients"))||[])
+    
     const [orgs,] = useLocalStorage("orgData")
     const [results,setResults] = useState([])
     const [activeResult,setActiveResult] = useState(null)
@@ -71,13 +77,16 @@ export const ScanHistory = () => {
     // let [partyId] = useLocalStorage("partyid");
     const [startDate,setStartDate] = useState(null)
     const [endDate,setendDate] = useState(null)
+    const [searchQ,setSearchQ] = useState("")
     const filterModalRefrence = useRef(null)
+    const filterModalButtonRefrence = useRef(null)
     const sortRefrence = useRef(null)
     const [showFilter,setShowFilter] = useState(false)
     const [showMorePage,setShowMorePage] = useState(false)
     const [showSort,setShowSort] = useState(false) 
     useModalAutoClose({
         refrence:filterModalRefrence,
+        buttonRefrence:filterModalButtonRefrence,
         close:() =>{
             setShowSort(false)
         }
@@ -90,44 +99,59 @@ export const ScanHistory = () => {
     // })   
     let [getpass,] = useLocalStorage("password")
      let [getEmail,] = useLocalStorage("email")
+    // useEffect(() => {
+    //     // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
+    //     let patinetsAll =  localStorage.getItem("patients")
+    //     if(patinetsAll){
+    //         // console.log(JSON.parse(patinetsAll))
+    //         if(JSON.parse(patinetsAll).status == 'fail'){
+    //             localStorage.clear()
+    //         }
+    //     }
+    // })
     useEffect(() => {
-        // "{\"msg\":\"no_data\",\"status\":\"fail\"}"
-        let patinetsAll =  localStorage.getItem("patients")
-        if(patinetsAll){
-            console.log(JSON.parse(patinetsAll))
-            if(JSON.parse(patinetsAll).status == 'fail'){
-                localStorage.clear()
-            }
-        }
-    })
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+        }, 500);
+    },[])    
+     const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
     const getPatients = () => {
-        Application.getScanList({
-            orgCode: JSON.parse(orgs).orgCode,
-            orgSCode: JSON.parse(orgs).orgSCode,
-            scanTypeStr:imageBy.trim(),
-            fromDateStr:"",
-            toDateStr:"",
-            pageNo:"1",
-        }).then((res) => {
-            // console.log(res.data == 'Internal Server Error')
-            if(res.data != 'Internal Server Error'){
-                if(res.data){
-                    if(res.data.status == 'fail'){
-                        console.log(res.data)
-                    }else if(!res.data.detail){
-                        if(res.data.length>0){
-                            setPatinets(res.data)
-                            setPatientList(res.data)
-                            localStorage.setItem("patients", JSON.stringify(res.data));
-    
+        setIsLoading(true)
+        setPatinets([])
+        setPatientList([])
+        setTimeout(() => {
+            Application.getScanList({
+                orgCode: JSON.parse(orgs).orgCode,
+                orgSCode: JSON.parse(orgs).orgSCode,
+                scanTypeStr:imageBy.trim(),
+                fromDateStr:"",
+                toDateStr:"",
+                pageNo:"1",
+            }).then((res) => {
+                setIsLoading(false)
+                // console.log(res.data == 'Internal Server Error')
+                if(res.data != 'Internal Server Error'){
+                    if(res.data){
+                        if(res.data.status == 'fail'){
+                            console.log(res.data)
+                        }else if(!res.data.detail){
+                            if(res.data.length>0){
+                                setPatinets([...res.data])
+                                setPatientList([...res.data])
+                                localStorage.setItem("patients", JSON.stringify(res.data));
+        
+                            }
+        
                         }
-    
                     }
                 }
-
-            }
-            toast.dismiss()
-        })        
+                toast.dismiss()
+            }).catch(() =>{
+                setIsLoading(false)
+            })        
+            
+        }, 1000);
     }
     useConstructor(() => {
         if(patients.length > 0){
@@ -138,10 +162,9 @@ export const ScanHistory = () => {
         getPatients()
 
         PackageApi.getIrisSub({
-            email:getEmail,
-            password:getpass
+            email:encryptTextResolver(getEmail +""),
+            // password:getpass
         }).then((res) => {
-            console.log(res)
             if(res.data?.data?.subs_data?.length> 0){
                 let newPak = new Package({
                     name:'No available package',
@@ -157,36 +180,20 @@ export const ScanHistory = () => {
         })
     }) 
     
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage,setItemPerPage] = useState('5');
-    let indexOfLastItem = currentPage * itemsPerPage;
-    let indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
+        // setlastItemIndex(page * itemsPerPage)
+        // setFirstItemIndex(page * itemsPerPage - itemsPerPage)
     };
-    
     useEffect(() => {
-
-        const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
-
-        const indexOfLastItem = Math.min(
-            indexOfFirstItem + itemsPerPage,
-            patients.length
-        );
-
-        console.log("indexOfFirstItem", indexOfFirstItem);
-        console.log("indexOfLastItem", indexOfLastItem);
-
-        setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
-        return () =>{}
-    }, [currentPage]);
-
-
-    const navigate = useNavigate()
-    const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
-    useEffect(() => {
+        filterPatientsHandler()
+    },[searchQ,patients,isLoading])
+     const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
+     useEffect(() => {
+        let resolvedPationts = []
         if(imageBy!= 'all'){
-            setPatientList(patients.filter(el =>{
+            resolvedPationts = patients.filter(el =>{
                 if(el.scans){
                     if(el.scans.filter((e) =>e.scanType.includes(imageBy)).length>0){
                         return true
@@ -197,15 +204,12 @@ export const ScanHistory = () => {
                 }
                 return false
                 
-            }))
+            })
         }else {
-            setPatientList(patients)
+            resolvedPationts = patients
         }
-    },[imageBy])   
-
-    useEffect(() => {
         if(startDate!= null && endDate!= null){
-            setPatientList(patients.filter(el =>{
+            resolvedPationts  = resolvedPationts.filter(el =>{
                 if(el.scans){
                     if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
                         return true
@@ -216,34 +220,95 @@ export const ScanHistory = () => {
                 }
                 return false
                 
-            }))
-        }else {
-            setPatientList(patients)
+            })
+        }        
+        setTotoalPages(Math.ceil(resolvedPationts.length / itemsPerPage))
+        // console.log(resolvedPationts) 
+        const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+        const indexOfLastItem = Math.min(
+            Number(indexOfFirstItem) + Number(itemsPerPage),
+            resolvedPationts.length
+        );
+        // console.log(indexOfFirstItem ,indexOfLastItem )
+        setPatientList(resolvedPationts.slice(indexOfFirstItem, indexOfLastItem));
+        return () =>{}
+    }, [currentPage,itemsPerPage,patients,imageBy,startDate,endDate]);
+
+    useEffect(() => {
+        if(patientList.length == 0) {
+            setCurrentPage(1)
         }
-    },[startDate,endDate])   
+    },[patientList])
+
+    const navigate = useNavigate()
+   
+    // useEffect(() => {
+    //     if(imageBy!= 'all'){
+    //         setPatientList(patients.filter(el =>{
+    //             if(el.scans){
+    //                 if(el.scans.filter((e) =>e.scanType.includes(imageBy)).length>0){
+    //                     return true
+    //                 }else{
+    //                     return false
+    //                 }
+
+    //             }
+    //             return false
+                
+    //         }))
+    //     }else {
+    //         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    //     }
+    // },[imageBy])   
+
+    // useEffect(() => {
+    //     if(startDate!= null && endDate!= null){
+    //         setPatientList(patients.filter(el =>{
+    //             if(el.scans){
+    //                 if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
+    //                     return true
+    //                 }else{
+    //                     return false
+    //                 }
+
+    //             }
+    //             return false
+                
+    //         }))
+    //     }else {
+    //         setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    //     }
+    // },[startDate,endDate])   
     // useEffect(() => {
     //     if(filterType == 'Maximum Scan'){
 
     //     }
     // })
     
-    const totalPages = Math.ceil(patients.length / itemsPerPage);
+   
 
-    const filterPatientsHandler = (e) => {
-        // console.log(patientList)
+    const filterPatientsHandler = () => {
+        const searchValue = searchQ.toLowerCase();
+        // const searchWords = searchValue.split(" "); // Split input into words
+    
         const filteredItem = patients.filter((el) => {
-            return el.client_info.clientCode.includes(e.target.value)
-            || el.client_info.lastName.includes(e.target.value)
-            || el.client_info.firstName.includes(e.target.value)
-            || el.client_info.email.includes(e.target.value)
+            const patientData = [
+                el.client_info.firstName.toLowerCase(),
+                el.client_info.lastName.toLowerCase(),
+                el.client_info.email.toLowerCase(),
+                el.client_info.clientCode.toLowerCase(),
+            ].join(" "); // Combine all searchable fields into one string
+    
+            // Check if all search words are present in the patient data
+            return patientData.includes(searchValue)
+            // return searchWords.every(word => patientData.includes(word));
         });
-        // console.log(patientList)
-        if (e.target.value.length <= 0) {
-            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem))
+    
+        if (searchValue.length <= 0) {
+            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
         } else {
             setPatientList([...filteredItem]);
         }
-        // console.log(filteredItem)
     };
 
     return (
@@ -254,7 +319,7 @@ export const ScanHistory = () => {
                     <div className="w-full flex flex-col items-center gap-3 ">
                         <h1 className="text-[26px] font-semibold text-[#1A1919] ">Scan Library</h1>
                         <p className="text-lg font-normal text-[#606060] max-w-[900px] text-center">
-                            Scan history records past scanned documents, showing details like date, categorization,
+                            Scan Library records past scanned documents, showing details like date, categorization,
                             download options, and patient scan comparisons for easy reference and retrieval.
                         </p>
                     </div>
@@ -275,12 +340,12 @@ export const ScanHistory = () => {
 
                         </div>
                         <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
-                            <SearchBox className="h-8" changeHandler={filterPatientsHandler} placeHolder="Search"/>
+                            <SearchBox value={searchQ} className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
                         </div>
                         <div
-                            className="flex  xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
+                            className="flex select-none xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">
                             <div onClick={() => {
-                                setShowFilter(true)
+                                setShowFilter(!showFilter)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Filter your scan history by specific criteria."
                                  className="flex items-center gap-2 cursor-pointer">
@@ -294,8 +359,8 @@ export const ScanHistory = () => {
                                              refrence={sortRefrence}/>
                                 // <FilterModal filterType={filterType}  filterModalRefrence={filterModalRefrence} sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType} />
                             }
-                            <div onClick={() => {
-                                setShowSort(true)
+                            <div ref={filterModalButtonRefrence} onClick={() => {
+                                setShowSort(!showSort)
                                 setShowFilter(false)
                             }} data-tooltip-id="my-tooltip"
                                  data-tooltip-content="Sort your scan history by date, from newest to oldest or vice versa, or by the number of scans, from most to least or vice vesra."
@@ -310,85 +375,90 @@ export const ScanHistory = () => {
                             }
                         </div>
                     </div>
-                    {patientList?.sort((a, b) => {
-                        if (filterType == 'Maximum Scan') {
-                            if (a.scans.length >= b.scans.length) {
-                                return -1
-                            } else {
-                                return 1
-                            }
-                        }
-                        if (filterType == 'Minimum Scan') {
-                            if (a.scans.length >= b.scans.length) {
-                                return 1
-                            } else {
-                                return -1
-                            }
-                        }
-                        if (filterType == 'Oldest Scan') {
-                            let ADate = a.scans.map(e => e.timestamp)
-                            let BDate = b.scans.map(e => e.timestamp)
-                            var maxDate1 = Math.min.apply(null, ADate);
-                            var maxDate2 = Math.min.apply(null, BDate);
-
-                            if (maxDate1 > maxDate2) {
-                                return 1
-                            } else {
-                                return -1
-                            }
-                        }
-                        if (filterType == 'Newest Scan') {
-                            let ADate = a.scans.map(e => e.timestamp)
-                            let BDate = b.scans.map(e => e.timestamp)
-
-                            let maxDate1 = Math.max.apply(null, ADate);
-                            let maxDate2 = Math.max.apply(null, BDate);
-                            if (maxDate1 < maxDate2) {
-                                return 1
-                            } else {
-                                return -1
-                            }
-
-                        }
-                    }).map((patient, i) => {
-
-                        return (
-                            <>
-                                <PatienCard
-                                    index={i + 1}
-                                    key={Number(patient.client_info.clientCode)}
-                                    patient={patient}
-                                    activeResult={activeResult}
-                                    result={results}
-                                    onaccepted={(e) => {
-                                        setResults(e)
-                                        console.log(e)
-                                        setLastUpdate(
-                                            Math.max(...patient.scans.map((e =>e.timestamp)))
-                                        )
-                                        setActiveResult(patient.client_info.clientCode)
-                                    }}
-                                />
-                                {activeResult == patient.client_info.clientCode && results.length ==2 &&
-                                    <div>
-                                        <CompareSection clientId={activeResult} lastScan={lastUpdate} results={results}></CompareSection>
-                                    </div>
-                                    // <div className="w-full mt-0">
-                                    //     {results.map((el) => {
-                                    //         return (
-                                    //             <iframe className="h-[350px] w-full rounded-[12px] p-2"
-                                    //                     style={{boxShadow: '0px 0px 12px 0px #00000026'}}
-                                    //                     src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>
-                                    //         )
-                                    //     })}</div>
+                    {!isLoading ?
+                    <>
+                            {patientList?.sort((a, b) => {
+                                if (filterType == 'Maximum Scan') {
+                                    if (a.scans.length >= b.scans.length) {
+                                        return -1
+                                    } else {
+                                        return 1
+                                    }
                                 }
-                            </>
-                        );
-                    })}
+                                if (filterType == 'Minimum Scan') {
+                                    if (a.scans.length >= b.scans.length) {
+                                        return 1
+                                    } else {
+                                        return -1
+                                    }
+                                }
+                                if (filterType == 'Oldest Scan') {
+                                    let ADate = a.scans.map(e => e.timestamp)
+                                    let BDate = b.scans.map(e => e.timestamp)
+                                    var maxDate1 = Math.min.apply(null, ADate);
+                                    var maxDate2 = Math.min.apply(null, BDate);
 
+                                    if (maxDate1 > maxDate2) {
+                                        return 1
+                                    } else {
+                                        return -1
+                                    }
+                                }
+                                if (filterType == 'Newest Scan') {
+                                    let ADate = a.scans.map(e => e.timestamp)
+                                    let BDate = b.scans.map(e => e.timestamp)
 
+                                    let maxDate1 = Math.max.apply(null, ADate);
+                                    let maxDate2 = Math.max.apply(null, BDate);
+                                    if (maxDate1 < maxDate2) {
+                                        return 1
+                                    } else {
+                                        return -1
+                                    }
+
+                                }
+                            }).map((patient, i) => {
+
+                                return (
+                                    <>
+                                        <PatienCard
+                                            index={i + 1}
+                                            loadPationts={() => {
+                                                getPatients()
+                                                setSearchQ("")
+                                            }}
+                                            key={Number(patient.client_info.clientCode)}
+                                            patient={patient}
+                                            activeResult={activeResult}
+                                            result={results}
+                                            onaccepted={(e) => {
+                                                setResults(e)
+                                                console.log(e)
+                                                setLastUpdate(
+                                                    Math.max(...patient.scans.map((e =>e.timestamp)))
+                                                )
+                                                setActiveResult(patient.client_info.clientCode)
+                                            }}
+                                        />
+                                        {activeResult == patient.client_info.clientCode && results.length ==2 &&
+                                            <div>
+                                                <CompareSection clientId={activeResult} lastScan={lastUpdate} results={results}></CompareSection>
+                                            </div>
+                                            // <div className="w-full mt-0">
+                                            //     {results.map((el) => {
+                                            //         return (
+                                            //             <iframe className="h-[350px] w-full rounded-[12px] p-2"
+                                            //                     style={{boxShadow: '0px 0px 12px 0px #00000026'}}
+                                            //                     src={`/#/showReportScan/?scanId=${el}&clientId=${patient.client_info.clientCode}`}></iframe>
+                                            //         )
+                                            //     })}</div>
+                                        }
+                                    </>
+                                );
+                            })}
                     <hr className="h-[1px] bg-gray-300 w-full my-5"/>
-                    {patientList == 0 ? (
+                    {patientList == 0 ? 
+                    (
                         <p className="text-center text-[12px] text-[#606060] font-medium">
                             No records found.{" "}
                             {patients.length == 0 &&
@@ -443,7 +513,36 @@ export const ScanHistory = () => {
                             />
                             <div className="w-[180px]"></div>
                         </div>
-                    )}
+                    )}                            
+                    </>
+                :
+                        <>
+          <div className="w-full flex justify-center items-center min-h-[350px]">
+            <div role="status">
+              <svg
+                aria-hidden="true"
+                className="w-16 h-16 text-stone-200 animate-spin  fill-blue-600"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
+              </svg>
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>                        
+                        </>
+                }
+
+
+
 
 
                 </div>

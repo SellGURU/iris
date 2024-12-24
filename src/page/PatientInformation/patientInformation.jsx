@@ -58,7 +58,7 @@ export const PatientInformation = () => {
             firstName:Yup.string().required(),
             lastName:Yup.string().required(),
             phone:Yup.string().min(9,'Phone number must be between 7 and 12 characters.').max(14,'Phone number must be between 7 and 12 characters long.'),
-            email:Yup.string().required().matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+            email:Yup.string().required(' ').matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/," ")
         })
     })
 
@@ -109,7 +109,10 @@ export const PatientInformation = () => {
                     alert(res.data.msg)
                 }
             }
-        }).catch(() => {
+        }).catch((err) => {
+            if(err.status == 406){
+                formik.setFieldError("email", err.data.detail);
+            }
             setIsLoading(false)
         })        
     }
@@ -152,17 +155,22 @@ export const PatientInformation = () => {
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
-                            <input {...formik.getFieldProps("lastName")} className={"border-b px-2 outline-none h-10 w-full "}
+                            <input {...formik.getFieldProps("lastName")} className={"border-b min-w-[226px]  px-2 outline-none h-10 w-full "}
                                 placeholder={"Enter Last Name"}/>
 
                         </div>
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
-                        <div className="flex w-full justify-between items-center">
+                        <div className="flex relative w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>Email Address<span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
-                            <input type="email" {...formik.getFieldProps("email")} className={"border-b px-2 outline-none h-10 w-full "}
-                                placeholder={"Enter E-Mail"}/>
+                            <div className="relative min-w-[226px]  w-full">
+                                <input type="email" {...formik.getFieldProps("email")} className={"border-b px-2 outline-none h-10 w-full "}
+                                    placeholder={"Enter E-Mail"}/>
+                                <div className="text-[10px] flex min-w-[240px] w-full justify-start absolute text-red-500 bottom-[-18px] right-[0px]" >
+                                    {formik.errors.email}
+                                </div>                        
 
+                            </div>
                         </div>
                     </CardPatient>      
                     <CardPatient className={"w-[550px] relative order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
@@ -170,13 +178,14 @@ export const PatientInformation = () => {
                             {/* <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Phone<span className="text-[#444444] font-[400] opacity-50 ml-1">(Optional)</span></h1>
                             <input type="tel" {...formik.getFieldProps("phone")} className={"border-b outline-none h-10 w-full "}
                                 placeholder={"Enter Phone"}/> */}
-                            <h1 className={"w-full  md:w-[500px] lg:w-[300px] lg:[500px]  text-[18px] font-medium"}>Phone Number<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
-                           <div className="relative w-[300px]">
+                            <h1 className={"w-full flex-grow md:w-[500px]  text-[18px] font-medium"}>Phone Number<span className="text-[#444444] font-[400] invisible opacity-50 ml-1">(Optional)</span></h1>
+                           {/* <input {...formik.getFieldProps("lastName")} className={"border-b px-2 outline-none h-10 w-full "}
+                                placeholder={"Enter Last Name"}/> */}
+                           <div className="relative w-full min-w-[226px] ">
                                 <PhoneInput
-                                // {...formik.getFieldProps("phone")} 
                                 value={formik.values.phone}
                                 defaultCountry="US"
-                                className={"border-b outline-none h-10 w-full "}
+                                className={"border-b w-full outline-none h-10  "}
                                 onCountryChange={(e) => {
                                     setValue(e)
                                 }}
@@ -197,7 +206,7 @@ export const PatientInformation = () => {
  </h1>
                                 {/* <img src="./arrow-down.svg" className={`w-[24px] ml-2 ${showMore?'rotate-0':'rotate-180'} `} /> */}
                             </div>
-                            <TabsCustume className={"w-full mt-[0px] rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
+                            <TabsCustume className={"w-full mt-[0px] min-w-[226px]  rounded-md"} setState={setGender} tabs={tabs} state={gender}/>
 
                         </div>
                         {/* {showMore &&

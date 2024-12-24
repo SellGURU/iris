@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 // import MenuBox from "../../components/menuBox"
 import { Button ,TextField} from "symphony-ui"
 import { PatientContext } from "../../context/context"
-import { useContext, useState } from "react"
+import { useContext,useEffect, useState } from "react"
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
@@ -86,9 +86,15 @@ const AccountInfo = () => {
             return 'Edit Address'
         }                     
     }
+    useEffect(() => {
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+        }, 500);
+    },[])
     return (
         <>
-            <div className={"flex gap-5 items-center justify-center px-16  flex-col"}>
+            <div className={"flex gap-2.5 xl:gap-5 items-center justify-center px-16  flex-col"}>
                 <div className="px-0 w-full flex justify-start">
                     <Breadcrumbs aria-label="breadcrumb">
                         <Link underline="hover"  className="text-primary-color" href="/">
@@ -96,15 +102,15 @@ const AccountInfo = () => {
                         </Link>
                         {editPanel != '' &&
                             <Link underline="hover"  className="text-primary-color" href="/#/account">
-                                My Account
+                                My Profile
                             </Link>                        
                         }
                         <Typography className="text-primary-color" >{editPanel== ''?'My Account':resolveComboText()}</Typography>
                     </Breadcrumbs>                
 
                 </div>                  
-                 <h1 className={"text-3xl font-medium"}>My Account</h1>
-                 <div className="text-[#606060] text-[18px] max-w-[830px] text-center">Welcome to your account page! Here, you can access and edit your user information. Keep your details up-to-date to ensure the best experience with our services.</div>
+                 <h1 className={" text-[28px] xl:text-3xl font-medium"}>My Profile</h1>
+                 <div className="text-[#606060] text-base xl:text-[18px] max-w-[830px] text-center">Welcome to your account page! Here, you can access and edit your user information. Keep your details up-to-date to ensure the best experience with our services.</div>
 
                 <div className="w-full flex gap-6 justify-between">
                     {/* <div className="max-w-[330px] w-[330px]">
@@ -146,7 +152,7 @@ const AccountInfo = () => {
                                             <div onClick={() => {
                                                 document.getElementById("imageUploader").click()
                                             }} className="flex justify-center absolute w-full h-full top-0 z-20 items-center">
-                                                <img className="" src="./icons/camera.svg" alt="" />
+                                                <img className="" src="./image/camera.svg" alt="" />
                                             </div>
                                             <div className="absolute w-full h-full bg-black top-0 rounded-full opacity-30"></div>
 
@@ -166,7 +172,7 @@ const AccountInfo = () => {
                                         setEditPanel("")
                                     }} theme="iris">
                                         <div className="flex justify-between items-center">
-                                            <img className="mr-2 cursor-pointer" src="./icons/save.svg" alt="" />
+                                            <img className="mr-2 cursor-pointer" src="./image/save.svg" alt="" />
                                             <div className="cursor-pointer">Save</div>
                                         </div>
                                     </Button>
@@ -196,8 +202,8 @@ const AccountInfo = () => {
                             editPanel != 'personal'?
                             <>
                                 <div>
-                                    <div className="w-full flex mt-10 justify-between items-center">
-                                        <h1 className={"text-[24px] font-medium"}>Personal Information:</h1>
+                                    <div className="w-full flex mt-4 XL:mt-10 justify-between items-center">
+                                        <h1 className={" text-[22px] xl::text-[24px] font-medium"}>Personal Information:</h1>
                                         {/*<Button onClick={() => setEditPanel("personal")} theme="iris-tertiary-small">*/}
                                         {/*    <div className="flex cursor-pointer justify-between items-center">*/}
                                         {/*        <img className="mr-2" src="./icons/Icon-left.svg" alt="" />*/}
@@ -205,15 +211,15 @@ const AccountInfo = () => {
                                         {/*    </div>*/}
                                         {/*</Button>                                */}
                                     </div>
-                                    <div className="grid grid-cols-2 gap-10 mt-10">
+                                    <div className="grid grid-cols-2 gap-10 mt-4 xl:mt-10">
                                         <div>
-                                            <div className="text-[20px] font-medium text-[#2E2E2E]">First Name:</div>
-                                            <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.FirstName}</div>
+                                            <div className=" text-lg xl:text-[20px] font-medium text-[#2E2E2E]">First Name:</div>
+                                            <div className=" text-lg xl:text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.FirstName}</div>
                                         </div>
 
                                         <div>
-                                            <div className="text-[20px] font-medium text-[#2E2E2E]">Last Name:</div>
-                                            <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.LastName}</div>
+                                            <div className=" text-lg xl:text-[20px] font-medium text-[#2E2E2E]">Last Name:</div>
+                                            <div className=" text-lg xl:text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Personal.LastName}</div>
                                         </div>
 
                                         {/* <div>
@@ -227,14 +233,14 @@ const AccountInfo = () => {
                                         </div>                                 */}
                                     </div>
                                 </div>
-                                <div className="w-full mt-10  border-b border-[#00000033]"></div>
+                                <div className="w-full mt-4 xl:mt-10  border-b border-[#00000033]"></div>
                                 {/* <div className="w-full h-[1px] mt-10 bg-[#00000033]"></div>                               */}
                             </>
                             :
                             <>
                                 <div>
-                                    <div className="w-full flex mt-10 justify-between items-center">
-                                        <h1 className={"text-[24px] font-medium"}>Personal information:</h1>
+                                    <div className="w-full flex mt-4 xl:mt-10 justify-between items-center">
+                                        <h1 className={" text-[22px] xl:text-[24px] font-medium"}>Personal information:</h1>
                                         <Button onClick={() => {
                                             appcontext.user.updateCustomInformation('personal',{
                                                 FirstName:personalFormik.values.FirstName,
@@ -246,19 +252,19 @@ const AccountInfo = () => {
                                             setEditPanel("")
                                         }} theme="iris">
                                             <div className="flex justify-between cursor-pointer items-center">
-                                                <img className="mr-2" src="./icons/save.svg" alt="" />
+                                                <img className="mr-2" src="./image/save.svg" alt="" />
                                                 <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
                                     </div>
-                                    <div className="grid grid-cols-2 gap-10 mt-10">
+                                    <div className="grid grid-cols-2 gap-10 mt-4 xl:mt-10">
                                         <TextField {...personalFormik.getFieldProps('FirstName')} theme="iris" label="First Name:" placeholder="Your First name"  inValid={false} name="FirstName" type="text" />
                                         <TextField {...personalFormik.getFieldProps('LastName')} theme="iris" label="Last Name:" placeholder="Your Last name"  inValid={false} name="LastName"  type="text" />     
                                         <TextField {...personalFormik.getFieldProps('Role')} theme="iris" label="Role:" placeholder="Your Role" inValid={false} name="Role"  type="text" />  
                                         <TextField {...personalFormik.getFieldProps('Occupation')} theme="iris" label="Occupation:" placeholder="Your Occupation"  inValid={false} name="Occupation" type="text" />  
                                     </div>
                                 </div>
-                                <div className="w-full mt-10  border-b border-[#00000033]"></div>
+                                <div className="w-full mt-4 xl:mt-10  border-b border-[#00000033]"></div>
                                 {/* <div className="w-full h-[1px] mt-10 bg-[#00000033]"></div>                             */}
                             </>
                         }
@@ -267,8 +273,8 @@ const AccountInfo = () => {
                             editPanel != 'login'?
                             <>
                                 <div>
-                                    <div className="w-full flex mt-10 justify-between items-center">
-                                        <h1 className={"text-[24px] font-medium"}>Login Information:</h1>
+                                    <div className="w-full flex mt-4 xl:mt-10 justify-between items-center">
+                                        <h1 className={" text-[22px] xl:text-[24px] font-medium"}>Login Information:</h1>
                                         {/*<Button onClick={() => setEditPanel("login")} theme="iris-tertiary-small">*/}
                                         {/*    <div className="flex cursor-pointer  justify-between items-center">*/}
                                         {/*        <img className="mr-2" src="./icons/Icon-left.svg" alt="" />*/}
@@ -276,10 +282,10 @@ const AccountInfo = () => {
                                         {/*    </div>*/}
                                         {/*</Button>                               */}
                                     </div>
-                                    <div className="grid grid-cols-2 gap-10 mt-10">
+                                    <div className="grid grid-cols-2 gap-10 mt-4 xl:mt-10">
                                         <div>
-                                            <div className="text-[20px] font-medium text-[#2E2E2E]">E-mail Address:</div>
-                                            <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.EmailAddress}</div>
+                                            <div className=" text-lg xl:text-[20px] font-medium text-[#2E2E2E]">E-mail Address:</div>
+                                            <div className=" text-lg xl:text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.EmailAddress}</div>
                                         </div>
 
                                         {/* <div>
@@ -288,8 +294,8 @@ const AccountInfo = () => {
                                         </div> */}
 
                                         <div>
-                                            <div className="text-[20px] font-medium text-[#2E2E2E]">Practice Name:</div>
-                                            <div className="text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.PracticeName}</div>
+                                            <div className=" text-lg xl:text-[20px] font-medium text-[#2E2E2E]">Practice Name:</div>
+                                            <div className=" text-lg xl:text-[20px]  mt-1 text-[#2E2E2E]">{user.information.Account.PracticeName}</div>
                                         </div>
 
                                     </div>
@@ -300,8 +306,8 @@ const AccountInfo = () => {
                             :
                             <>
                                 <div>
-                                    <div className="w-full flex mt-10 justify-between items-center">
-                                        <h1 className={"text-[24px] font-medium"}>Login Information:</h1>
+                                    <div className="w-full flex mt-4 xl:mt-10 justify-between items-center">
+                                        <h1 className={" text-[22px] xl:text-[24px] font-medium"}>Login Information:</h1>
                                         <Button onClick={() => {
                                             appcontext.user.updateCustomInformation('account',{
                                                 PracticeName:AccountFormik.values.PracticeName,
@@ -312,12 +318,12 @@ const AccountInfo = () => {
                                             setEditPanel("")
                                         }} theme="iris">
                                             <div className="flex cursor-pointer justify-between items-center">
-                                                <img className="mr-2" src="./icons/save.svg" alt="" />
+                                                <img className="mr-2" src="./image/save.svg" alt="" />
                                                 <div className="cursor-pointer">Save</div>
                                             </div>
                                         </Button>                                
                                     </div>
-                                    <div className="grid grid-cols-2 gap-10 mt-10">
+                                    <div className="grid grid-cols-2 gap-10 mt-4 xl:mt-10">
                                         {/* <TextField {...AccountFormik.getFieldProps('Username')} theme="iris" label="Username:" placeholder="Your Username"  inValid={false} name="Username" type="text" /> */}
                                         <TextField {...AccountFormik.getFieldProps('Email')} theme="iris" label="E-mail Address:" placeholder="Your E-mail Address"  inValid={false} name="Email" type="text" />  
                                         {/* <TextField {...AccountFormik.getFieldProps('PhoneNumber')} theme="iris" label="Phone Number:" placeholder="Your Phone Number"  inValid={false} name="PhoneNumber" type="text" />      */}
@@ -443,7 +449,7 @@ const AccountInfo = () => {
                 </div>
 
 
-                <div className="w-full  mt-6 mb-10">
+                <div className="w-full hidden mt-6 mb-10">
                   <div className="flex w-full justify-between items-center">
                     <div className="text-[24px] opacity-40 text-[#2E2E2E] font-bold">
                         Members:
@@ -453,7 +459,7 @@ const AccountInfo = () => {
                             setShowInviteMember(true)
                             publish("openModal");
                         }} theme="iris-tertiary-small">
-                            <img src="./icons/user-add.svg" className="mr-1" alt="" />
+                            <img src="./image/user-add.svg" className="mr-1" alt="" />
                             Invite member</Button>
                     </div>
                   </div>

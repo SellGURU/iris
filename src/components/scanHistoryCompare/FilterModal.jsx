@@ -45,10 +45,20 @@ const FilterModal = ({refrence,categories,setShowImagesOrgin,activeCategories,se
                         <div className='grid grid-cols-2'>
                             <FormControlLabel onChange={() => {
                                 onChangeAll()
-                            }} value="all" control={<Checkbox checked={categories.length == mycategories.length} />} label="All" />
+                            }} value="all" control={<Checkbox    sx={{
+                                color: "#544BF0",
+                                "&.Mui-checked": {
+                                    color: "#544BF0",
+                                },
+                              }}  checked={categories.length == mycategories.length} />} label="All" />
                             {categories.map((el) => {
                                 return (
-                                    <FormControlLabel onChange={() => onchangeCategory(el)} key={el} value={el} control={<Checkbox checked={mycategories.includes(el)} />} label={el} />
+                                    <FormControlLabel onChange={() => onchangeCategory(el)} key={el} value={el} control={<Checkbox  sx={{
+                                        color: "#544BF0",
+                                        "&.Mui-checked": {
+                                            color: "#544BF0",
+                                        },
+                                      }}  checked={mycategories.includes(el)} />} label={el} />
                                 )
                             })}
 
@@ -58,7 +68,20 @@ const FilterModal = ({refrence,categories,setShowImagesOrgin,activeCategories,se
                 <div className='w-full border border-b border-[#0000004D]'></div>
                 <div className='flex justify-between items-center'>
                     <div className="text-[16px] text-[#2E2E2E] font-semibold">Show Images</div>
-                    <Switch checked={showImages} onChange={() => {
+                    <Switch   sx={{
+        "& .MuiSwitch-switchBase": {
+          color: "#544BF0", // Color of the switch when it's off
+          "&.Mui-checked": {
+            color: "#544BF0", // Color of the switch when it's on
+          },
+          "&.Mui-checked + .MuiSwitch-track": {
+            backgroundColor: "#544BF0", // Track color when checked
+          },
+        },
+        "& .MuiSwitch-track": {
+          backgroundColor: "#aaa", // Track color when off
+        },
+      }} checked={showImages} onChange={() => {
                         setShowImages(!showImages)
                     }}></Switch>
                 </div>

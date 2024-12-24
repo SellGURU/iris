@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState ,useRef} from "react";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { useNavigate } from "react-router-dom";
 import { PatientContext } from "../../context/context.jsx";
@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { Tooltip } from 'react-tooltip'
 
 export const PatienCard = ({
   index,
@@ -15,9 +16,17 @@ export const PatienCard = ({
   onaccepted,
   activeResult,
   result,
+  loadPationts,
 }) => {
   const { setPdf, setFile, setPhoto } = useContext(PatientContext);
-
+  const textRef = useRef(null);
+  const [isEllipsized, setIsEllipsized] = useState(false);
+  useEffect(() => {
+    if (textRef.current) {
+      const { offsetWidth, scrollWidth } = textRef.current;
+      setIsEllipsized(scrollWidth > offsetWidth); // Check if text is truncated
+    }
+  }, []);  
   useEffect(() => {
     if (result != null) {
       patient.scans.map((e) => {
@@ -45,23 +54,23 @@ export const PatienCard = ({
     const dateObj = new Date(date); // Ensure date is a Date object
     const year = dateObj.getFullYear();
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const month = monthNames[dateObj.getMonth()]; // Get the month name
     const day = dateObj.getDate().toString(); // Get the day
 
-    return `${day} ${month} ${year}`;
+    return ` ${day} ${month} ${year}`;
   };
   const [isCompare, setIsCompare] = useState(false);
   // const {id , result,comment:initComment} = patient;
@@ -77,9 +86,9 @@ export const PatienCard = ({
   const navigate = useNavigate();
   const [isShowMore, setIsShowMore] = useState(false);
   const updateComment = () => {
-    // let patients= JSON.parse(localStorage.getItem("patients"))
-    // let patientIndex = patients.findIndex(patient => patient.id === id);
-    // setComment(patients[patientIndex].comment);
+    let patients= JSON.parse(localStorage.getItem("patients"))
+    let patientIndex = patients.findIndex(patient => patient.id === patient.client_info.clientCode);
+    setComment(patients[patientIndex].comment);
   };
   // const dispatch = useDispatch();
   const download = (id) => {
@@ -152,16 +161,19 @@ export const PatienCard = ({
         patients[patientIndex].comments = [newComment];
         patient.comments = [newComment]; // Initialize the comment array if it does not exist
       }
-      localStorage.setItem("patients", JSON.stringify(patients));
+      // localStorage.setItem("patients", JSON.stringify(patients));
+      localStorage.removeItem("patients")
       setIsShowAddComment(false);
-      updateComment();
+      // updateComment();
+      setComment(patient.comments)
+      loadPationts()
       setTextComment("");
     } else {
       setIsShowAddComment(false);
     }
   };
   return (
-    <div className="flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-[12px]  md:p-[32px]">
+    <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px]  md:p-[32px]">
       <div className="flex items-start self-start gap-5 ">
         {index}
         <img
@@ -173,30 +185,39 @@ export const PatienCard = ({
         />
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
-        <div className="flex justify-between w-full pb-8 gap-8 border-b py-0">
-          <h2 className="text-[16px] md:text-[18px] font-bold text-[#1A1919] flex gap-8">
-            {" "}
-            <div>
+        <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
+         <div className=" flex justify-start gap-2 flex-wrap items-center">
+            <h2  data-tooltip-id={isEllipsized?"userName":''}
+                data-tooltip-content={patient.client_info.firstName+"  "+patient.client_info.lastName} className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
               {" "}
-              {patient.client_info.firstName} {patient.client_info.lastName}
-            </div>{" "}
-            <span className="text-base font-normal text-[#7E7E7E]">
+              <div ref={textRef} className="max-w-[80px] w-[80px] xl:w-[230px] xl:max-w-[230px]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+                {" "}
+                {patient.client_info.firstName} {patient.client_info.lastName}
+              </div>{" "}
+            </h2>
+            <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
-          </h2>
-          <div>{}</div>
-          <div className=" text-lg font-medium text-[#1A1919]"></div>
-          <div className="flex gap-2 items-center justify-between">
+
+         </div>
+           <Tooltip place="top-start"    className="max-w-[240px] h-auto bg-white" style={{overflowWrap:'break-word'}} id="userName"/>
+          {/* <div>{}</div>
+          <div className=" text-lg font-medium text-[#1A1919]"></div> */}
+          <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
             <Button
+           
               theme="iris-tertiary-small"
               onClick={() => setIsShowComment(!isShowComment)}
             >
-              {isShowComment ? "Hide Comments" : "Show Comments"}(
-              {comment.length})
+              <div style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+                {isShowComment ? "Hide Comments" : "Show Comments"}(
+                {comment.length})
+
+              </div>
               <span>
                 <div
                   data-mode={isShowComment ? "true" : "false"}
-                  className="arowDownIcon-purple ml-1"
+                  className="arowDownIcon-purple tirtryIconHover  xl:ml-1"
                 ></div>
               </span>
             </Button>
@@ -214,7 +235,7 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./icons/close.svg" className="mr-2" alt="" />
+                <img src="./image/close.svg" className="mr-2" alt="" />
                 Cancel
               </Button>
             ) : (
@@ -226,12 +247,12 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./icons/shapes.svg" className="mr-2" alt="" />
+                <img src="./image/shapes.svg" className=" mr-[2px] xl:mr-2" alt="" />
                 Compare
               </Button>
             )}
             <Button onClick={clickHandler} theme="iris-small">
-              <img className="mr-2" src="camera.svg" alt="" />
+              <img className=" mr-[2px] xl:mr-2" src="camera.svg" alt="" />
               New Scan
             </Button>
           </div>
@@ -300,7 +321,8 @@ export const PatienCard = ({
                     <div className="text-[#7E7E7E] text-[14px] font-[300]">
                       Date :{" "}
                       <span className=" ml-1 font-[300] text-[14px] text-[#7E7E7E]">
-                        {new Date(patientHistory.timestamp).toLocaleString()}
+                        {formatDate(patientHistory.timestamp)}
+                        {/* {new Date(patientHistory.timestamp).toLocaleString()} */}
                       </span>{" "}
                     </div>
 
@@ -370,7 +392,7 @@ export const PatienCard = ({
                 }}
                 className="text-[#544BF0] flex justify-center items-center cursor-pointer font-medium text-center mt-4"
               >
-                {isShowMore ? "See Less" : "See More"}
+                {isShowMore ? "Show Less" : "Show More"}
                 <span>
                   <div
                     data-mode={isShowMore ? "true" : "false"}

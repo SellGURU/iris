@@ -67,6 +67,9 @@ const FaceMesh = () => {
             publish('openModal')
             setServiceMode('ziroBundle')
         }
+        return () => {
+            publish("closeModal")
+        };        
     })
     const [, forceUpdate] = useReducer((x) => x + 1, 1)
     const [isCameraStart, setIsCameraStart] = useState(false);
@@ -858,7 +861,7 @@ const FaceMesh = () => {
             <div className={` ${isLoadingResult && " !hidden  "} h-[60vh]`}>
 
                 <div
-                    className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
+                    className={`flex flex-col gap-4 pb-4 xl:pb-5 pt-10 items-center justify-center `}>
                     <div className="px-12 mt-[-20px] w-full flex justify-start">
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link2 underline="hover"  className="text-primary-color" href="/">
@@ -868,8 +871,8 @@ const FaceMesh = () => {
                         </Breadcrumbs>                
 
                     </div>                          
-                    <h1 className={"text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
-                    <p className={"text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>{`Please provide scans of the client's face from the left, right, and front to ensure a complete analysis.`}<Link2 href="/#/tour" underline="hover" className="text-primary-color cursor-pointer"> How to scan a face?</Link2></p>
+                    <h1 className={" text-[24px] xl:text-[28px] mt-[0px] lg:mt-[-60px] font-medium"}>Face Scanner</h1>
+                    <p className={" text-[15px]   xl:text-[18px] max-w-[830px] xl:max-w-full px-[24px] text-center font-normal"}>{`Please provide scans of the client's face from the left, right, and front to ensure a complete analysis.`}<Link2 href="/#/tour" underline="hover" className="text-primary-color cursor-pointer block"> How to scan a face?</Link2></p>
 
                                 {!isCameraStart &&
                                     <div className="flex md:hidden justify-center items-center">
@@ -908,7 +911,7 @@ const FaceMesh = () => {
                         </div>
 
                         <div
-                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[507px] h-[430px] rounded-md flex items-center justify-center ">
+                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[507px] h-[380px] xl:h-[430px] rounded-md flex items-center justify-center ">
 
                             <img src={"/image/cameraPluse.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="camera"/>
@@ -1005,7 +1008,7 @@ const FaceMesh = () => {
                     <div className="flex md:block justify-center w-full md:w-auto md:justify-start">
                         <div className={`flex items-center mt-[16px] md:mt-[0px] ${status=='one'?'justify-start w-[507px] md:w-auto':'justify-center md:justify-start'}  md:justify-start md:flex-col gap-[20px] md:gap-[15px]`}>
                             <div
-                                className="all-poses-auto relative flex-col  w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
+                                className="all-poses-auto relative flex-col  w-[157px] h-[110px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center">
                                 <div className={"w-full absolute top-1 p-4"}><h1>1. Front</h1></div>
                                 {globalGreenLandmarks &&
                                     <AiFillCheckSquare
@@ -1054,7 +1057,7 @@ const FaceMesh = () => {
                                     alt="front pose"/> */}
                             </div>
                             <div
-                                className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                className={`all-poses-auto relative flex-col w-[157px] h-[110px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                                 <div className={"w-full absolute top-1 p-4"}><h1>2. Right</h1></div>
                                 {globalBlueLandmarks &&
                                     <AiFillCheckSquare
@@ -1106,7 +1109,7 @@ const FaceMesh = () => {
 
                             </div>
                             <div
-                                className={`all-poses-auto relative flex-col w-[157px] h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                className={`all-poses-auto relative flex-col w-[157px] h-[130px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                                 {globalRedLandmarks &&
                                     <AiFillCheckSquare
                                         className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
@@ -1179,7 +1182,7 @@ const FaceMesh = () => {
                                         analyzeFacemesh2()
                                         }} theme="iris">
                                         <div className="flex justify-center items-center w-[100px] ">
-                                            <img className="mr-2" src="/icons/print.svg"></img>
+                                            <img className="mr-2" src="/image/print.svg"></img>
                                             Finish                     
                                         </div>
                                     </Button>         
@@ -1214,7 +1217,7 @@ const FaceMesh = () => {
                                         // }, 1000);
                                     }} theme="iris-secondary">
                                         <div className="flex justify-center items-center w-[100px]">
-                                            <img className="mr-2" src="./icons/redo.svg" alt="" />
+                                            <img className="mr-2" src="./image/redo.svg" alt="" />
                                             Rescan
                                         </div>
                                     </Button>                                                           
@@ -1316,9 +1319,22 @@ const FaceMesh = () => {
                                             How to scan face?
                                         </Link> */}
                                         <div className="text-primary-color text-[14px] cursor-pointer">
-                                            single pose
+                                            Single pose
                                         </div>
-                                        <Switch checked={status == 'one'?true:false} onChange={(e) => {
+                                        <Switch  sx={{
+        "& .MuiSwitch-switchBase": {
+          color: "#544BF0", // Color of the switch when it's off
+          "&.Mui-checked": {
+            color: "#544BF0", // Color of the switch when it's on
+          },
+          "&.Mui-checked + .MuiSwitch-track": {
+            backgroundColor: "#544BF0", // Track color when checked
+          },
+        },
+        "& .MuiSwitch-track": {
+          backgroundColor: "#aaa", // Track color when off
+        },
+      }} checked={status == 'one'?true:false} onChange={(e) => {
                                             console.log(e.target.checked)
                                             if(e.target.checked){
                                                 setStatus('one')
