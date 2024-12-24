@@ -512,8 +512,8 @@ const OverallAnalysisReport = (props) => {
                               </div>
                             </div>
 
-                            <div className="w-full flex flex-row text-[20px] mb-2 font-medium items-center justify-between">
-                              Color Guide
+                            <div className="w-full flex flex-row text-[20px] mb-2 font-medium items-center justify-end">
+                              {/* Color Guide */}
                               <div className="text-[#7E7E7E] font-normal text-sm flex flex-row gap-6">
                                 <div className="flex gap-1 items-center">
                                   <div className="w-4 h-4 bg-[#FF3E5D] rounded-full"></div>
