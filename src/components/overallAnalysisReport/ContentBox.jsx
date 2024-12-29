@@ -44,7 +44,7 @@ const ContentBox = ({data,category}) => {
               <>
               <div className="flex flex-col items-start justify-between " style={{width:'100%'}}>
                 <div className="flex flex-row  " >
-                    <div className="" >
+                    <div className="text-sm" >
                         {butiText(el.key)}
                     </div>
                    ={el.ideal_distance?el.ideal_distance+ 'D':'No Data'}
@@ -53,8 +53,8 @@ const ContentBox = ({data,category}) => {
                     el.side ?
                     <>
                         <div className="flex flex-row w-full mt-2 justify-start gap-1 items-center">
-                        <p>Left:</p>
-                        <p>{el.type =='ratio'? 
+                        <p className="text-sm">Left:</p>
+                        <p className="text-sm">{el.type =='ratio'? 
                                 <>
                                 {el?.side?.left?.ratio}
                                 </>
@@ -63,10 +63,10 @@ const ContentBox = ({data,category}) => {
                                 {el?.side?.left?.measured_distance}
                                 </>  
                               }({el?.side?.left?.percent}%)</p>
-                        <div className={`w-4 h-4 ${el.side?.left.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
+                        <div className={`w-2 h-2 ${el.side?.left.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                         </div>
                         <div className="flex flex-row w-full justify-start gap-1 items-center">
-                        <p>Right:</p>
+                        <p className="text-sm">Right:</p>
                       <p>
                         {
                           el.type == 'ratio'?
@@ -80,13 +80,13 @@ const ContentBox = ({data,category}) => {
                         }
                         
                         ({el?.side?.right?.percent}%)</p>
-                        <div className={`w-4 h-4 ${el.side?.right.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
+                        <div className={`w-2 h-2 ${el.side?.right.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                         </div>                    
                     </>
                     :
                     <div className="flex flex-row w-full justify-start gap-1 items-center">
                     <p className="text-xs xl:text-sm font-medium">Dist: {el.type == "ratio" ?<>{el.ratio}</> :<>{el.measured_distance}</>}  ({el.percent} %)</p>
-                    <div className={`w-4 h-4  ${el.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
+                    <div className={`w-2 h-2  ${el.problematic ?'bg-red-500':'bg-green-500'} rounded-full`}></div>
                     </div>
 
                 }
@@ -160,14 +160,14 @@ const ContentBox = ({data,category}) => {
             )
           })} */}
         <div className="w-full flex flex-row flex-wrap mt-3 items-start justify-start gap-5 mb-8">
-         {data.map(el => {
+         {data.filter(el =>el.key != 'intercanthal_distance').map(el => {
           return (
             <>
             {
               el.side ?
               <>
                   <div className="flex flex-col  items-start justify-start gap-3  ">
-                    <div style={{height:'230px',width:'260px'}} className="overflow-hidden  rounded-3xl border-2 border-primary-color">
+                    <div style={{height:'120px',width:'150px'}} className="overflow-hidden  rounded-3xl border-2 border-primary-color">
                         <img
                         src={el.side.left.thumbnail }
                         alt="face-image"
@@ -175,12 +175,12 @@ const ContentBox = ({data,category}) => {
                         />
 
                     </div>
-                    <div className="w-[260px] mt-4" style={{width:'260px'}}>
+                    <div className="w-[260px] mt-4" style={{width:'150px'}}>
                       <Status percent={el.side.left.percent} isFull status={resolveStatus(el.side.left.problematic)}></Status>
                     </div>
                   </div>
                   <div className="flex  flex-col items-start justify-start gap-3 ">
-                    <div style={{height:'230px',width:'260px'}} className=" overflow-hiddenrounded-3xl border-2 border-primary-color">
+                    <div style={{height:'120px',width:'150px'}} className=" overflow-hiddenrounded-3xl border-2 border-primary-color">
                         <img
                         src={el.side.right.thumbnail}
                         alt="face-image"
@@ -188,7 +188,7 @@ const ContentBox = ({data,category}) => {
                         />
 
                     </div>
-                    <div className=" mt-4" style={{width:'260px'}}>
+                    <div className=" mt-4" style={{width:'150px'}}>
                       <Status percent={el.side.right.percent} isFull status={resolveStatus(el.side.right.problematic)}></Status>
                     </div>
                   </div>
@@ -196,7 +196,7 @@ const ContentBox = ({data,category}) => {
               :
 
             <div className="flex flex-col items-start no-split justify-start gap-3 ">
-              <div style={{height:'230px',width:'260px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+              <div style={{height:'120px',width:'150px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
                   <img
                   src={el.side? el.side.left.thumbnail : el.thumbnail}
                   alt="face-image"
@@ -204,7 +204,7 @@ const ContentBox = ({data,category}) => {
                   />
 
               </div>
-              <div style={{width:'260px'}} className="w-[260px] mt-4">
+              <div style={{width:'150px'}} className="w-[260px] mt-4">
                 {el.side ?
                 <Status isFull percent={el.side.left.percent} status={resolveStatus(el.side.left.problematic)}></Status>
                 :
