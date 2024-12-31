@@ -9,6 +9,7 @@ import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Tooltip } from "react-tooltip";
+import useModalAutoClose from '../../hooks/useModalAutoClose.js';
 
 export const PatienCard = ({
   index,
@@ -73,6 +74,7 @@ export const PatienCard = ({
     const minutes = dateObj.getMinutes().toString().padStart(2, '0');
     return ` ${day} ${month} ${year} ${hours}:${minutes} `;
   };
+  const [showModal,setShowModal] = useState(false)
   const [isCompare, setIsCompare] = useState(false);
   // const {id , result,comment:initComment} = patient;
   const [textComment, setTextComment] = useState("");
@@ -131,8 +133,16 @@ export const PatienCard = ({
     setErrorThreshold(patient.errorThreshold);
     navigate("/faceCamera");
   };
+  
   const [accepted, setAccepted] = useState([]);
   const [orgs] = useLocalStorage("orgData");
+  const buttnRef = useRef(null)
+  useModalAutoClose({
+    refrence:buttnRef,
+    close:() => {
+      setShowModal(false)
+    }
+  })
   const {
     register,
     handleSubmit,
@@ -245,72 +255,131 @@ export const PatienCard = ({
           />
           {/* <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div> */}
-          <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
-            <Button
-              theme="iris-tertiary-small"
-              onClick={() => setIsShowComment(!isShowComment)}
-            >
-              <div
-                style={{
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                }}
+          <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-end xl:justify-between">
+            <div className="hidden  xl:flex gap-2 items-center justify-end ">
+              <Button
+                theme="iris-tertiary-small"
+                onClick={() => setIsShowComment(!isShowComment)}
               >
-                {isShowComment ? "Hide Comments" : "Show Comments"}(
-                {comment.length})
-              </div>
-              <span>
                 <div
-                  data-mode={isShowComment ? "true" : "false"}
-                  className="arowDownIcon-purple tirtryIconHover  xl:ml-1"
-                ></div>
-              </span>
-            </Button>
-            <Button
-              onClick={() => {
-                setIsShowComment(false)
-                setIsShowAddComment(true);
-              }}
-              theme="iris-secondary-small"
-            >
-              <img src="./Icon-left.svg" alt="" />
-              Add Comment
-            </Button>
-            {/* <button onClick={clickHandler}
-                                className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
-                            <img className="mr-2" src="camera.svg" alt=""/>
-                            New Scan
-                        </button> */}
-            {isCompare ? (
+                  style={{
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  {isShowComment ? "Hide Comments" : "Show Comments"}(
+                  {comment.length})
+                </div>
+                <span>
+                  <div
+                    data-mode={isShowComment ? "true" : "false"}
+                    className="arowDownIcon-purple tirtryIconHover  xl:ml-1"
+                  ></div>
+                </span>
+              </Button>
               <Button
                 onClick={() => {
-                  setAccepted([]);
-                  onaccepted([]);
-                  setIsCompare(false);
+                  setIsShowComment(false)
+                  setIsShowAddComment(true);
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./image/close.svg" className="mr-2" alt="" />
-                Cancel
+                <img src="./Icon-left.svg" alt="" />
+                Add Comment
               </Button>
-            ) : (
-              <Button
-                disabled={patient.scans.length <= 1}
-                onClick={() => {
-                  // navigate('/compare/'+id)
-                  setIsCompare(true);
-                }}
-                theme="iris-secondary-small"
-              >
-                <img
-                  src="./image/shapes.svg"
-                  className=" mr-[2px] xl:mr-2"
-                  alt=""
-                />
-                Compare
+
+              {isCompare ? (
+                <Button
+                  onClick={() => {
+                    setAccepted([]);
+                    onaccepted([]);
+                    setIsCompare(false);
+                  }}
+                  theme="iris-secondary-small"
+                >
+                  <img src="./image/close.svg" className="mr-2" alt="" />
+                  Cancel
+                </Button>
+              ) : (
+                <Button
+                  disabled={patient.scans.length <= 1}
+                  onClick={() => {
+                    // navigate('/compare/'+id)
+                    setIsCompare(true);
+                  }}
+                  theme="iris-secondary-small"
+                >
+                  <img
+                    src="./image/shapes.svg"
+                    className=" mr-[2px] xl:mr-2"
+                    alt=""
+                  />
+                  Compare
+                </Button>
+              )}
+
+            </div>
+            <div ref={buttnRef} className="block mr-1 cursor-pointer relative xl:hidden">
+              <Button onClick={() => {
+                setShowModal(true)
+              }} theme="iris-secondary-small">
+                <img className="rotate-90" src="./more.svg" alt="" />
               </Button>
-            )}
+              {
+                showModal &&
+                <div className="absolute w-[180px] py-3 cursor-pointer bg-white shadow-lg rounded-[8px] z-30 right-0">
+                  <div onClick={() => {
+                     setIsCompare(!isCompare);
+                     setShowModal(false)      
+                  }} className="flex cursor-pointer justify-start p-2 gap-2 items-center">
+                   {isCompare ?
+                    <>
+                    <img className="" src="./image/shapes2.svg" alt="" />
+                    <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
+                      Cancel
+
+                    </div>                    
+                    </>                   
+                   :
+                   <>
+                    <img className="" src="./image/shapes2.svg" alt="" />
+                    <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
+                      Compare
+
+                    </div>
+                   </>
+                   }
+                  </div>
+                  <div onClick={() => {
+                  setIsShowComment(false)
+                  setIsShowAddComment(true);       
+                  setShowModal(false)                   
+                  }} className="flex cursor-pointer justify-start p-2 gap-2 items-center">
+                    <img className="" src="./Icon-left2.svg" alt="" />
+                    <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
+                      Add Comment
+
+                    </div>
+                  </div>
+                  <div onClick={() => {
+                    setIsShowComment(!isShowComment)      
+                    setShowModal(false)              
+                  }} className="flex cursor-pointer justify-start p-2 gap-2 items-center">
+                    <img className="" src="./image/eye.svg" alt="" />
+                    <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
+                      {isShowComment ?
+                        'Hidden Comments'
+                      :
+                        'Show Comments'
+                      }
+
+                    </div>
+                  </div>                                
+                </div>
+
+              }
+            </div>
             <Button onClick={clickHandler} theme="iris-small">
               <img className=" mr-[2px] xl:mr-2" src="camera.svg" alt="" />
               New Scan
