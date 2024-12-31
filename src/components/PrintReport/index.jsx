@@ -210,11 +210,11 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                         <div className="text-[#7E7E7E] font-normal  flex justify-end flex-row gap-2" style={{fontSize:'12px'}}>
                         <div className="flex gap-1 items-center">
                             <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                            Action Needed
+                            Enhancement Opportunities
                         </div>
                         <div className="flex gap-1 items-center">
                             <div className="w-2 h-2 bg-green-600 rounded-full" style={{backgroundColor:'#03DAC5'}}></div>
-                            No Action Needed
+                            Areas of Strength
                         </div>
                         </div>
                     </div>
