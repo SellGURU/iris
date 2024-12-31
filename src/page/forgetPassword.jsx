@@ -12,7 +12,7 @@ import { Button } from "symphony-ui";
 import VerificationInput from "react-verification-input";
 import { useSearchParams } from "react-router-dom";
 import {encryptTextResolver} from '../help.js';
-
+import { publish } from "../utility/event";
 const Forget = () => {
     const passwordRef = useRef(null);
     const [step,setStep] = useState(0)
@@ -158,6 +158,7 @@ const Forget = () => {
                             email:encryptTextResolver(form.values.email)
                         }).then(res => {
                             // toast.info(res.data.msg)
+                            publish("haveError",{data:'Password reset link has been sent to mail'})
                         })
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
