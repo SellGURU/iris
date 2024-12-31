@@ -356,7 +356,7 @@ const ViewAnalyseComponent = ({ScanData,date,patientID}) => {
                     className="flex flex-col w-[280px] h-[400px] rounded-3xl border-2 border-primary-color"
                 /> */}
                 <div className="grid grid-cols-1 xl:grid-cols-2  gap-1 w-full  gap-x-3 ml-6 font-normal text-base">
-                    {resolveFacialData().slice(0,8).map((el,index) => {
+                    {resolveFacialData().filter((val) => val.key !='intercanthal_distance').slice(0,8).map((el,index) => {
                     return (
                         <>
                         <SummaryBox data={el} indexNum={index}></SummaryBox>

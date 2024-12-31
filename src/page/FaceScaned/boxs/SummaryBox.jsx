@@ -50,7 +50,16 @@ const SummaryBox =({data,indexNum}) => {
                     </>
                     :
                     <>
-                        Measurement: {data.ideal_distance}
+                        Measurement: 
+                         {data.side ?
+                         <>
+                            {data.side.left.measured_distance}
+                         </>
+                         :
+                            <>
+                                {data.measured_distance}
+                            </>
+                         }
                     </>
                     }
                     {/* {data.unit} */}

@@ -185,8 +185,8 @@ export const PatienCard = ({
     const userFirstName = userObject.Personal.FirstName;
     const userLastName = userObject.Personal.LastName;
   
-    console.log('First Name:', userFirstName);
-    console.log('Last Name:', userLastName);
+    // console.log('First Name:', userFirstName);
+    // console.log('Last Name:', userLastName);
 
   return (
     <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px]  md:p-[32px]">
@@ -269,7 +269,7 @@ export const PatienCard = ({
             </Button>
             <Button
               onClick={() => {
-                
+                setIsShowComment(false)
                 setIsShowAddComment(true);
               }}
               theme="iris-secondary-small"
@@ -471,90 +471,89 @@ export const PatienCard = ({
               }
             >
               {/* <div className="text-[14px]">Comments:</div> */}
-              {!isShowAddComment && (
-                <div
-                  className={` ${comment.length > 0 ? "flex-1" : " flex-1"} `}
-                >
-                  {comment.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={
-                          "  gap-3 items-start justify-start w-fit  pb-3"
-                        }
-                      >
-                        {/* <h1 className={"text-nowrap text-[14px] font-[300]"}>
-                          {formatDate(new Date(item.cTextDateTime))}{" "}
-                        </h1> */}
-                        <p className={"w-[90%] font-[300] text-[#444444] text-[14px]"}>
-                          {item.cText}
-                        </p>
-                        <p className="text-[#7E7E7E] text-sm tracking-wide flex ">
-                          <div className="mr-1"> {userFirstName} {userLastName}</div>
-                          ,
-                         
-                          <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>
-                            
-                        </p>
-                      </div>
-                    );
-                  })}
-                  {comment.length <= 0 && !isShowAddComment && (
-                    <div className={" text-center text-[14px] text-[#7E7E7E]"}>
-                      No comment found
+              <div
+                className={` ${comment.length > 0 ? "flex-1" : " flex-1"} `}
+              >
+                {comment.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={
+                        "  gap-3 items-start justify-start w-fit  pb-3"
+                      }
+                    >
+                      {/* <h1 className={"text-nowrap text-[14px] font-[300]"}>
+                        {formatDate(new Date(item.cTextDateTime))}{" "}
+                      </h1> */}
+                      <p className={"w-[90%] font-[300] text-[#444444] text-[14px]"}>
+                        {item.cText}
+                      </p>
+                      <p className="text-[#7E7E7E] text-sm tracking-wide flex ">
+                        <div className="mr-1"> {userFirstName} {userLastName}</div>
+                        ,
+                        
+                        <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>
+                          
+                      </p>
                     </div>
-                  )}
-                </div>
-              )}
-              {!isShowAddComment ? (
-                <div className={" h-full  flex items-center justify-end"}>
-                  <button
-                    disabled={isShowAddComment}
-                    onClick={() => setIsShowAddComment(!isShowAddComment)}
-                    className={
-                      "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full hidden"
-                    }
-                  >
-                    Add Comment
-                  </button>
-                </div>
-              ) : (
-                <div className={"w-full flex items-center justify-center"}>
-                  <div
-                    className={
-                      " px-5 w-full flex items-end gap-5 justify-end  pb-2"
-                    }
-                  >
-                    <input
-                      value={textComment}
-                      onChange={(el) => {
-                        setTextComment(el.target.value);
-                      }}
-                      placeholder={"Write your comment here...."}
-                      className={" w-full border-none-focus  p-2  "}
-                    />
-                    {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
-                                                formHandler()                                       
-                                            }} className={"!text-xs !px-4 !py-2.5"}>
-                                                Add Comment
-                                            </ButtonPrimary> */}
-                    <div className="w-full flex justify-end">
-                      <Button
-                        disabled={textComment.length == 0}
-                        onClick={() => {
-                          formHandler();
-                        }}
-                        theme="iris-tertiary-small"
-                      >
-                        Save
-                      </Button>
-                    </div>
+                  );
+                })}
+                {comment.length <= 0 && !isShowAddComment && (
+                  <div className={" text-center text-[14px] text-[#7E7E7E]"}>
+                    No comment found
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+              
             </div>
           </>
         )}
+        {!isShowAddComment ? (
+          <div className={" h-full  flex items-center justify-end"}>
+            <button
+              disabled={isShowAddComment}
+              onClick={() => setIsShowAddComment(!isShowAddComment)}
+              className={
+                "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full hidden"
+              }
+            >
+              Add Comment
+            </button>
+          </div>
+        ) : (
+          <div className={"w-full flex items-center justify-center"}>
+            <div
+              className={
+                " px-5 w-full flex items-end gap-5 justify-end  pb-2"
+              }
+            >
+              <input
+                value={textComment}
+                onChange={(el) => {
+                  setTextComment(el.target.value);
+                }}
+                placeholder={"Write your comment here...."}
+                className={" w-full border-none-focus  p-2  "}
+              />
+              {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
+                                          formHandler()                                       
+                                      }} className={"!text-xs !px-4 !py-2.5"}>
+                                          Add Comment
+                                      </ButtonPrimary> */}
+              <div className="w-full flex justify-end">
+                <Button
+                  disabled={textComment.length == 0}
+                  onClick={() => {
+                    formHandler();
+                  }}
+                  theme="iris-tertiary-small"
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}        
       </div>
     </div>
   );
