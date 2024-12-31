@@ -311,6 +311,7 @@ export const ScanHistory = () => {
         }
     };
 
+
     return (
         <>
 

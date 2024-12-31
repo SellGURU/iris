@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useState ,useRef} from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import ButtonPrimary from "../../components/button/buttonPrimery";
 import { useNavigate } from "react-router-dom";
 import { PatientContext } from "../../context/context.jsx";
@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from "react-tooltip";
 
 export const PatienCard = ({
   index,
@@ -26,7 +26,7 @@ export const PatienCard = ({
       const { offsetWidth, scrollWidth } = textRef.current;
       setIsEllipsized(scrollWidth > offsetWidth); // Check if text is truncated
     }
-  }, []);  
+  }, []);
   useEffect(() => {
     if (result != null) {
       patient.scans.map((e) => {
@@ -37,10 +37,10 @@ export const PatienCard = ({
     }
   });
   useEffect(() => {
-    if(result.length == 2){
-      setIsShowMore(true)
+    if (result.length == 2) {
+      setIsShowMore(true);
     }
-  },[result])
+  }, [result]);
   // useEffect(() => {
   //   const timerId = setInterval(() => {
   //     setCurrentDateTime(new Date());  // Update the current date and time every minute
@@ -69,8 +69,9 @@ export const PatienCard = ({
     ];
     const month = monthNames[dateObj.getMonth()]; // Get the month name
     const day = dateObj.getDate().toString(); // Get the day
-
-    return ` ${day} ${month} ${year}`;
+    const hours = dateObj.getHours().toString().padStart(2, '0');
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    return ` ${day} ${month} ${year} ${hours}:${minutes} `;
   };
   const [isCompare, setIsCompare] = useState(false);
   // const {id , result,comment:initComment} = patient;
@@ -86,8 +87,10 @@ export const PatienCard = ({
   const navigate = useNavigate();
   const [isShowMore, setIsShowMore] = useState(false);
   const updateComment = () => {
-    let patients= JSON.parse(localStorage.getItem("patients"))
-    let patientIndex = patients.findIndex(patient => patient.id === patient.client_info.clientCode);
+    let patients = JSON.parse(localStorage.getItem("patients"));
+    let patientIndex = patients.findIndex(
+      (patient) => patient.id === patient.client_info.clientCode
+    );
     setComment(patients[patientIndex].comment);
   };
   // const dispatch = useDispatch();
@@ -120,7 +123,7 @@ export const PatienCard = ({
     // downloadLink.download = 'download.html';
     // downloadLink.click();
   };
-  const { setSex, setPatientID, setErrorThreshold } =
+  const { setSex, setPatientID, setErrorThreshold , userName } =
     useContext(PatientContext);
   const clickHandler = () => {
     setSex(patient.sex);
@@ -162,16 +165,29 @@ export const PatienCard = ({
         patient.comments = [newComment]; // Initialize the comment array if it does not exist
       }
       // localStorage.setItem("patients", JSON.stringify(patients));
-      localStorage.removeItem("patients")
+      localStorage.removeItem("patients");
       setIsShowAddComment(false);
       // updateComment();
-      setComment(patient.comments)
-      loadPationts()
+      setComment(patient.comments);
+      loadPationts();
       setTextComment("");
     } else {
       setIsShowAddComment(false);
     }
   };
+  const user = localStorage.getItem('user');
+
+
+    // Parse the JSON string into a JavaScript object
+    const userObject = JSON.parse(user);
+  
+    // Access the first name and last name
+    const userFirstName = userObject.Personal.FirstName;
+    const userLastName = userObject.Personal.LastName;
+  
+    console.log('First Name:', userFirstName);
+    console.log('Last Name:', userLastName);
+
   return (
     <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px]  md:p-[32px]">
       <div className="flex items-start self-start gap-5 ">
@@ -186,33 +202,63 @@ export const PatienCard = ({
       </div>
       <div className="w-full flex flex-col items-start  justify-center ">
         <div className="flex justify-between w-full pb-8 gap-0 xl:gap-8 border-b py-0">
-         <div className=" flex justify-start gap-2 flex-wrap items-center">
-            <h2  data-tooltip-id={isEllipsized?"userName":''}
-                data-tooltip-content={patient.client_info.firstName+"  "+patient.client_info.lastName} className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8" >
+          <div className=" flex justify-start gap-2 flex-wrap items-center">
+            <h2
+              data-tooltip-id={isEllipsized ? "userName" : ""}
+              data-tooltip-content={
+                patient.client_info.firstName +
+                "  " +
+                patient.client_info.lastName
+              }
+              className="text-[14px] flex-wrap md:text-base items-center  xl:text-[18px] font-bold text-[#1A1919] overflow-hidden flex gap-2 xl:gap-8"
+            >
               {" "}
-              <div ref={textRef} className="max-w-[80px] w-[80px] xl:w-[230px] xl:max-w-[230px]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+              <div
+                ref={textRef}
+                className="max-w-[80px] w-[80px] xl:w-[230px] xl:max-w-[230px]"
+                style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
                 {" "}
                 {patient.client_info.firstName} {patient.client_info.lastName}
               </div>{" "}
             </h2>
-            <span className=" text-sm xl:text-base font-normal text-[#7E7E7E]" style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+            <span
+              className=" text-sm xl:text-base font-normal text-[#7E7E7E]"
+              style={{
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
               Client ID: {patient.client_info.clientCode}{" "}
             </span>{" "}
-
-         </div>
-           <Tooltip place="top-start"    className="max-w-[240px] h-auto bg-white" style={{overflowWrap:'break-word'}} id="userName"/>
+          </div>
+          <Tooltip
+            place="top-start"
+            className="max-w-[240px] h-auto bg-white"
+            style={{ overflowWrap: "break-word" }}
+            id="userName"
+          />
           {/* <div>{}</div>
           <div className=" text-lg font-medium text-[#1A1919]"></div> */}
           <div className="flex gap-1  xl:gap-2 min-w-[300px]  xl:min-w-[411px] items-center justify-between">
             <Button
-           
               theme="iris-tertiary-small"
               onClick={() => setIsShowComment(!isShowComment)}
             >
-              <div style={{whiteSpace:'nowrap',textOverflow:'ellipsis',overflow:'hidden'}}>
+              <div
+                style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
                 {isShowComment ? "Hide Comments" : "Show Comments"}(
                 {comment.length})
-
               </div>
               <span>
                 <div
@@ -220,6 +266,16 @@ export const PatienCard = ({
                   className="arowDownIcon-purple tirtryIconHover  xl:ml-1"
                 ></div>
               </span>
+            </Button>
+            <Button
+              onClick={() => {
+                
+                setIsShowAddComment(true);
+              }}
+              theme="iris-secondary-small"
+            >
+              <img src="./Icon-left.svg" alt="" />
+              Add Comment
             </Button>
             {/* <button onClick={clickHandler}
                                 className="flex justify-evenly font-medium items-center rounded-[8px] px-4 text-white bg-[#544BF0] h-[40px]">
@@ -247,7 +303,11 @@ export const PatienCard = ({
                 }}
                 theme="iris-secondary-small"
               >
-                <img src="./image/shapes.svg" className=" mr-[2px] xl:mr-2" alt="" />
+                <img
+                  src="./image/shapes.svg"
+                  className=" mr-[2px] xl:mr-2"
+                  alt=""
+                />
                 Compare
               </Button>
             )}
@@ -319,7 +379,7 @@ export const PatienCard = ({
                       </label>
                     </div>
                     <div className="text-[#7E7E7E] text-[14px] font-[300]">
-                      Date :{" "}
+                      {userFirstName} {userLastName},
                       <span className=" ml-1 font-[300] text-[14px] text-[#7E7E7E]">
                         {formatDate(patientHistory.timestamp)}
                         {/* {new Date(patientHistory.timestamp).toLocaleString()} */}
@@ -349,12 +409,11 @@ export const PatienCard = ({
                                         </RWebShare> */}
 
                       <Button
-                        onClick={() =>{
+                        onClick={() => {
                           navigate(
                             `/showReport/?scanId=${patientHistory.scan_id}&clientId=${patient.client_info.clientCode}&mode=print`
-                          );                          
-                        }
-                        }
+                          );
+                        }}
                         theme="iris-secondary-small"
                       >
                         <div className="downloadIcon-purple"></div>
@@ -411,7 +470,7 @@ export const PatienCard = ({
                 "w-full border-t pt-5 flex items-start gap-5 justify-between"
               }
             >
-              <div className="text-[14px]">Comments:</div>
+              {/* <div className="text-[14px]">Comments:</div> */}
               {!isShowAddComment && (
                 <div
                   className={` ${comment.length > 0 ? "flex-1" : " flex-1"} `}
@@ -421,14 +480,21 @@ export const PatienCard = ({
                       <div
                         key={index}
                         className={
-                          "flex  gap-3 items-start justify-start w-fit text-[#7E7E7E] pb-3"
+                          "  gap-3 items-start justify-start w-fit  pb-3"
                         }
                       >
-                        <h1 className={"text-nowrap text-[14px] font-[300]"}>
+                        {/* <h1 className={"text-nowrap text-[14px] font-[300]"}>
                           {formatDate(new Date(item.cTextDateTime))}{" "}
-                        </h1>
-                        <p className={"w-[90%] font-[300] text-[14px]"}>
+                        </h1> */}
+                        <p className={"w-[90%] font-[300] text-[#444444] text-[14px]"}>
                           {item.cText}
+                        </p>
+                        <p className="text-[#7E7E7E] text-sm tracking-wide flex ">
+                          <div className="mr-1"> {userFirstName} {userLastName}</div>
+                          ,
+                         
+                          <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>
+                            
                         </p>
                       </div>
                     );
@@ -446,7 +512,7 @@ export const PatienCard = ({
                     disabled={isShowAddComment}
                     onClick={() => setIsShowAddComment(!isShowAddComment)}
                     className={
-                      "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full"
+                      "text-nowrap text-[14px] disabled:text-slate-400 font-normal underline text-[#544BF0] h-full hidden"
                     }
                   >
                     Add Comment
@@ -456,7 +522,7 @@ export const PatienCard = ({
                 <div className={"w-full flex items-center justify-center"}>
                   <div
                     className={
-                      " px-5 w-full flex items-end gap-5 justify-end border-b pb-2"
+                      " px-5 w-full flex items-end gap-5 justify-end  pb-2"
                     }
                   >
                     <input
@@ -464,7 +530,7 @@ export const PatienCard = ({
                       onChange={(el) => {
                         setTextComment(el.target.value);
                       }}
-                      placeholder={"Your comment ..."}
+                      placeholder={"Write your comment here...."}
                       className={" w-full border-none-focus  p-2  "}
                     />
                     {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
@@ -478,7 +544,7 @@ export const PatienCard = ({
                         onClick={() => {
                           formHandler();
                         }}
-                        theme="iris-small"
+                        theme="iris-tertiary-small"
                       >
                         Save
                       </Button>

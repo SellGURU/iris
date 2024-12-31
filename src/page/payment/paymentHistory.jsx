@@ -377,7 +377,8 @@ export const PaymentHistory = () => {
                           console.log(res);
                           if (res.data.status == "success") {
                             // console.log(res.data.data)
-                            window.open(res.data.data, "_blank");
+                            window.location.href = res.data.data;
+
                           }
                         });
                         // appContext.package.updatePackage(el)
