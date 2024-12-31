@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from 'react-toastify';
 import {useLocalStorage} from "@uidotdev/usehooks";
 import "./api/axios";
+import NotifManager from "./page/NotifManager";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <>
             <HashRouter basename="/">
                 <AppRoutes/>
+                <NotifManager></NotifManager>
             </HashRouter>        
         </>
     );
