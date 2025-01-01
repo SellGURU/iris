@@ -9,6 +9,7 @@ import { Button, Checkbox } from "symphony-ui";
 import Application from "../../api/Application.js";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { Tooltip } from "react-tooltip";
+import {BeatLoader} from 'react-spinners'
 import useModalAutoClose from '../../hooks/useModalAutoClose.js';
 
 export const PatienCard = ({
@@ -86,6 +87,7 @@ export const PatienCard = ({
   const [isShowComment, setIsShowComment] = useState(false);
   const [isShowAddComment, setIsShowAddComment] = useState(false);
   const [comment, setComment] = useState(patient.comments);
+  const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate();
   const [isShowMore, setIsShowMore] = useState(false);
   const updateComment = () => {
@@ -150,37 +152,37 @@ export const PatienCard = ({
   } = useForm();
   const formHandler = () => {
     if (textComment.length > 0) {
+      setIsLoading(true)
+      // console.log(comment)
       Application.addComment({
         client_id: patient.client_info.clientCode,
         orgCode: JSON.parse(orgs).orgCode,
         orgSCode: JSON.parse(orgs).orgSCode,
         comment_text: textComment,
-      }).then();
-      const patients = JSON.parse(localStorage.getItem("patients"));
-      const patientIndex = patients.findIndex(
-        (mypatient) =>
-          mypatient.client_info.clientCode === patient.client_info.clientCode
-      );
-      const newComment = {
-        cCode: "0e966eff-8e4e-43b2-bf9e-6a7a8414d63b",
-        cText: textComment,
-        cTextDateTime: new Date().toISOString(),
-      };
+      }).then(() => {
+        Application.getComments({
+          client_id: patient.client_info.clientCode,
+          orgCode: JSON.parse(orgs).orgCode,
+          orgSCode: JSON.parse(orgs).orgSCode,        
+        }).then((res) => {
+          setIsLoading(false)
+           setTextComment("");
+          if(res.data.msg == 'success'){
+            setComment(res.data.data)
+            loadPationts( patient.client_info.clientCode,res.data.data);
+          }
+        }).finally(() => {
+          setIsShowAddComment(false);
+        })
+      }).catch(() => {
+        setIsShowAddComment(false);
+      });
 
-      if (patients[patientIndex].comments) {
-        patient.comments.push(newComment);
-        patients[patientIndex].comments.push(newComment);
-      } else {
-        patients[patientIndex].comments = [newComment];
-        patient.comments = [newComment]; // Initialize the comment array if it does not exist
-      }
-      // localStorage.setItem("patients", JSON.stringify(patients));
-      localStorage.removeItem("patients");
-      setIsShowAddComment(false);
+      
       // updateComment();
-      setComment(patient.comments);
-      loadPationts();
-      setTextComment("");
+      // loadPationts();
+
+     
     } else {
       setIsShowAddComment(false);
     }
@@ -613,11 +615,17 @@ export const PatienCard = ({
                 <Button
                   disabled={textComment.length == 0}
                   onClick={() => {
-                    formHandler();
+                    if(!isLoading){
+                      formHandler();
+                    }
                   }}
                   theme="iris-tertiary-small"
                 >
-                  Save
+                  {isLoading ?
+                  <BeatLoader size={8} color="#544BF0"></BeatLoader>
+                  :
+                  'Save'
+                  }
                 </Button>
               </div>
             </div>
