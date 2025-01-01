@@ -5,7 +5,7 @@ import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {createRef, useContext, useEffect, useRef, useState} from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import Auth from "../api/Auth.js";
 import LogOut from "../api/Auth.js";
 import {selectUserName} from "../store/PatientInformationStore.js";
@@ -63,7 +63,7 @@ const Header = () => {
                 if (res.data.state === 200) {
                     console.log(res.data)
                 } else {
-                    toast.error(res.data)
+                    // toast.error(res.data)
                 }
             })
         } catch (error) {

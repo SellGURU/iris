@@ -41,7 +41,10 @@ axios.interceptors.response.use((response) => {
         if (error.response.data.detail && error.response.data.detail.toLowerCase().includes("successfully")) {
             // toast.success(error.response.data.detail)
         }else {
-            publish("haveError",{data:error.response.data.detail})
+            publish("isNotif",{data:{
+                message:error.response.data.detail,
+                type:'error'
+            }})
             // toast.error(error.response.data.detail) 
         }
     }    

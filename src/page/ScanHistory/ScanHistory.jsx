@@ -16,7 +16,7 @@ import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
 import {PatientContext} from '../../context/context.jsx';
 import Package from "../../model/Package.js";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import CompareSection from "../../components/scanHistoryCompare/CompareSection";
 export const ScanHistory = () => {
     const [patients,setPatinets] = useState([])
@@ -146,7 +146,7 @@ export const ScanHistory = () => {
                         }
                     }
                 }
-                toast.dismiss()
+                // toast.dismiss()
             }).catch(() =>{
                 setIsLoading(false)
             })        

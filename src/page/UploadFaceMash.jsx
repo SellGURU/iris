@@ -8,7 +8,7 @@
 import {TabsCustume} from "../components/tabs/tabs.jsx";
 import { useEffect, useState,useContext } from "react";
 import {LoadingReports} from "./loadingReports.jsx";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 // import Analytics from "../api/analytics"
 import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
 import { useNavigate } from "react-router-dom";
@@ -101,7 +101,7 @@ const UploadFaceMash = () => {
             resultHtml.download = 'golden_ratios.html';
             resultHtmldiv.innerHTML += "<br><br>";
             // result.append(resultHtmldiv);    
-            toast.dismiss()       
+            // toast.dismiss()       
         }
         let fileData = new FormData();
         fileData.append('error_threshold', errorThreshold);

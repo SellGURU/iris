@@ -6,7 +6,7 @@ import { useContext,useEffect, useState } from "react"
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
 import { useFormik } from "formik";
 import Select from "../../components/select";
 import {
@@ -168,7 +168,7 @@ const AccountInfo = () => {
                                     </div>
                                     <Button onClick={() => {
                                         appcontext.user.updateCustomInformation("photo",currentImage)
-                                        toast.success("update information")
+                                        // toast.success("update information")
                                         setEditPanel("")
                                     }} theme="iris">
                                         <div className="flex justify-between items-center">

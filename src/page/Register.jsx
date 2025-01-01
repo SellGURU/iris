@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useRef, useState ,useEffect} from "react";
 import { useFormik } from "formik";
@@ -185,7 +185,7 @@ const Register = () => {
           }
         })
         .catch((err) => {
-          toast.dismiss();
+          // toast.dismiss();
           // console.log(err.response.data)
           form.setFieldError("password", "The password is incorrect.");
           // toast.error(err.response.data.detail);
