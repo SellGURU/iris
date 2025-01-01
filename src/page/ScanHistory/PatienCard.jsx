@@ -201,7 +201,7 @@ export const PatienCard = ({
     // console.log('Last Name:', userLastName);
 
   return (
-    <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px]  md:p-[32px]">
+    <div className=" w-full flex gap-12 rounded-[8px]  items-center justify-start shadow-lg border p-2 xl:p-[12px] 2xl:px-[24px]  md:p-[32px]">
       <div className="flex items-start self-start gap-5 ">
         {index}
         <img
@@ -444,14 +444,14 @@ export const PatienCard = ({
                         }}
                         htmlFor={patientHistory.scan_id}
                       >
-                        <h2 className="font-normal text-[14px] text-[#2E2E2E]">
+                        <h2 className="text-[#444444] font-medium text-[14px]">
                           Scan Reports
                         </h2>
                       </label>
                     </div>
-                    <div className="text-[#7E7E7E] text-[14px] font-[300]">
+                    <div className="text-[#7E7E7E] text-[14px] font-[400]">
                       {userFirstName} {userLastName},
-                      <span className=" ml-1 font-[300] text-[14px] text-[#7E7E7E]">
+                      <span className=" ml-1 font-[400] text-[14px] text-[#7E7E7E]">
                         {formatDate(patientHistory.timestamp)}
                         {/* {new Date(patientHistory.timestamp).toLocaleString()} */}
                       </span>{" "}
@@ -545,30 +545,37 @@ export const PatienCard = ({
               <div
                 className={` ${comment.length > 0 ? "flex-1" : " flex-1"} `}
               >
-                {comment.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={
-                        "  gap-3 items-start justify-start w-fit  pb-3"
-                      }
-                    >
-                      {/* <h1 className={"text-nowrap text-[14px] font-[300]"}>
-                        {formatDate(new Date(item.cTextDateTime))}{" "}
-                      </h1> */}
-                      <p className={"w-[90%] font-[300] text-[#444444] text-[14px]"}>
-                        {item.cText}
-                      </p>
-                      <p className="text-[#7E7E7E] text-sm tracking-wide flex ">
-                        <div className="mr-1"> {userFirstName} {userLastName}</div>
-                        ,
-                        
-                        <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>
-                          
-                      </p>
-                    </div>
-                  );
-                })}
+                <div className="w-full flex gap-6 justify-start items-start">
+                  <div className="text-[#444444] font-medium text-[14px]">Comments:</div>
+                  <div className="mt-[2px]">
+                    {comment.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className={
+                            "  gap-3 items-start justify-start w-fit  pb-3"
+                          }
+                        >
+                          {/* <h1 className={"text-nowrap text-[14px] font-[300]"}>
+                            {formatDate(new Date(item.cTextDateTime))}{" "}
+                          </h1> */}
+                          <p className={"w-[90%] font-[300] text-[#444444] text-[13px]"}>
+                            {item.cText}
+                          </p>
+                          <p className="text-[#7E7E7E] text-[12px] tracking-wide flex ">
+                            <div className="mr-1"> {userFirstName} {userLastName}</div>
+                            ,
+                            
+                            <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>
+                              
+                          </p>
+                        </div>
+                      );
+                    })}
+
+                  </div>
+
+                </div>
                 {comment.length <= 0 && !isShowAddComment && (
                   <div className={" text-center text-[14px] text-[#7E7E7E]"}>
                     No comment found
@@ -595,7 +602,7 @@ export const PatienCard = ({
           <div className={"w-full flex items-center justify-center"}>
             <div
               className={
-                " px-5 w-full flex items-end gap-5 justify-end  pb-2"
+                " px-0 w-full flex items-end gap-5 justify-end  pb-2"
               }
             >
               <input
@@ -604,7 +611,7 @@ export const PatienCard = ({
                   setTextComment(el.target.value);
                 }}
                 placeholder={"Write your comment here...."}
-                className={" w-full border-none-focus  p-2  "}
+                className={" w-full border-none-focus placeholder:text-[#7E7E7E] text-[14px]  p-2  px-0 "}
               />
               {/* <ButtonPrimary disabled={textComment.length == 0? true:false}  onClickHandler={() => {
                                           formHandler()                                       
@@ -612,7 +619,18 @@ export const PatienCard = ({
                                           Add Comment
                                       </ButtonPrimary> */}
               <div className="w-full flex justify-end">
-                <Button
+                 <div onClick={() => {
+                    if(!isLoading){
+                      formHandler();
+                    }                  
+                 }} className={`text-[14px] ${textComment.length > 0?' cursor-pointer text-primary-color':'text-gray-400'}  underline `}>
+                  {isLoading ?
+                  <BeatLoader size={8} color="#544BF0"></BeatLoader>
+                  :
+                  'Save'
+                  }                  
+                 </div>
+                {/* <Button
                   disabled={textComment.length == 0}
                   onClick={() => {
                     if(!isLoading){
@@ -626,7 +644,7 @@ export const PatienCard = ({
                   :
                   'Save'
                   }
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>

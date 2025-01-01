@@ -16,6 +16,7 @@ import Link2 from '@mui/material/Link';
 import {PatientContext} from '../context/context.jsx'
 import PackageApi from '../api/package.js';
 import Package from "../model/Package.js";
+import TooltipText from "../components/ToolTipText/index.jsx";
 
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
@@ -129,7 +130,10 @@ const Header = () => {
                         setSowModalBox(!showModalBox)
                     }} className="flex cursor-pointer items-center gap-2">
                         <img className="w-10 h-10 rounded-full object-cover" src={Appcontext.user.information.Personal.photo} alt=""/>
-                        <span className="font-medium text-[18px] text-[#444444]">{Appcontext.user.information.Personal.FirstName} {Appcontext.user.information.Personal.LastName}</span>
+                        <TooltipText tooltipValue={Appcontext.user.information.Personal.FirstName+" "+Appcontext.user.information.Personal.LastName} className="max-w-[180px]">
+                            <span className="font-medium text-[18px]  text-[#444444]">{Appcontext.user.information.Personal.FirstName} {Appcontext.user.information.Personal.LastName}</span>
+
+                        </TooltipText>
                     </div>
                 </div>
             </div>
