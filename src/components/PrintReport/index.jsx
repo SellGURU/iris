@@ -122,11 +122,11 @@ const PrintReport = ({resolveArrayMeasurments,categories,ScanData}) => {
                     </div>
 
                     <div className="grid grid-cols-1 gap-y-3 mt-6 gap-0 mb-6">
-                        <div className="flex flex-row w-full text-sm text-left gap-1">
-                        <div className="flex flex-col   font-medium" style={{width:'300px'}}>
+                        <div className="flex flex-row w-full text-sm text-left gap-6">
+                        <div className="flex flex-col w-[180px]   font-medium" style={{width:'300px'}}>
                             1.Eyebrows height
                         </div>
-                        <div className="flex flex-col text-sm  font-normal">
+                        <div className="flex flex-col text-sm   font-normal">
                             {/* Right side is 1mm higher */}
                             {ScanData.data.pose_analysis[0].current_image_analysis.symmetry.eyebrows.symmetry_text}
                         </div>

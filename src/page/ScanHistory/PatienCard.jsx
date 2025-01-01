@@ -324,15 +324,21 @@ export const PatienCard = ({
             </div>
             <div ref={buttnRef} className="block mr-1 cursor-pointer relative xl:hidden">
               <Button onClick={() => {
-                setShowModal(true)
+                setShowModal(!showModal)
               }} theme="iris-secondary-small">
-                <img className="rotate-90" src="./more.svg" alt="" />
+                <img className="" src="./Icon-left3.svg" alt="" />
               </Button>
               {
                 showModal &&
                 <div className="absolute w-[180px] py-3 cursor-pointer bg-white shadow-lg rounded-[8px] z-30 right-0">
                   <div onClick={() => {
-                     setIsCompare(!isCompare);
+                    if(isCompare) {
+                      setAccepted([]);
+                      onaccepted([]);
+                      setIsCompare(false);                      
+                    }else {
+                      setIsCompare(true);
+                    }
                      setShowModal(false)      
                   }} className="flex cursor-pointer justify-start p-2 gap-2 items-center">
                    {isCompare ?
@@ -371,7 +377,7 @@ export const PatienCard = ({
                     <img className="" src="./image/eye.svg" alt="" />
                     <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
                       {isShowComment ?
-                        'Hidden Comments'
+                        'Hide Comments'
                       :
                         'Show Comments'
                       }
