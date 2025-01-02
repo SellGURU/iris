@@ -332,19 +332,21 @@ export const PatienCard = ({
                 showModal &&
                 <div className="absolute w-[180px] py-3 cursor-pointer bg-white shadow-lg rounded-[8px] z-30 right-0">
                   <div onClick={() => {
-                    if(isCompare) {
-                      setAccepted([]);
-                      onaccepted([]);
-                      setIsCompare(false);                      
-                    }else {
-                      setIsCompare(true);
+                    if(patient.scans.length > 1){
+                        if(isCompare) {
+                          setAccepted([]);
+                          onaccepted([]);
+                          setIsCompare(false);                      
+                        }else {
+                          setIsCompare(true);
+                        }
+                        setShowModal(false)      
                     }
-                     setShowModal(false)      
-                  }} className="flex cursor-pointer justify-start p-2 gap-2 items-center">
+                  }} className={`flex ${patient.scans.length > 1?'cursor-pointer opacity-100':'opacity-50 cursor-not-allowed'} justify-start p-2 gap-2 items-center`}>
                    {isCompare ?
                     <>
                     <img className="" src="./image/shapes2.svg" alt="" />
-                    <div className="text-[14px] cursor-pointer text-[#2E2E2E]">
+                    <div className="text-[14px] text-[#2E2E2E]">
                       Cancel
 
                     </div>                    
