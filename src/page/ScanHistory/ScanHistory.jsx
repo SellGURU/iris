@@ -384,7 +384,7 @@ export const ScanHistory = () => {
                             {
                                 showSort &&
                                 <SortModal filterType={filterType} filterModalRefrence={filterModalRefrence}
-                                           sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType}/>
+                                           sorts={sorts} setShowFilter={setShowSort} setFilterType={setFilterType}/>
                             }
                         </div>
                     </div>

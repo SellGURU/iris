@@ -552,7 +552,18 @@ export const PatienCard = ({
                 className={` ${comment.length > 0 ? "flex-1" : " flex-1"} `}
               >
                 <div className="w-full flex gap-6 justify-start items-start">
-                  <div className="text-[#444444] font-medium text-[14px]">Comments:</div>
+                  <div className="text-[#444444] flex justify-between items-center font-medium text-[14px]" style={{width:(comment.length <= 0 && !isShowAddComment)?'100%':'auto'}}>Comments:
+                      {comment.length <= 0 && !isShowAddComment && (
+                      <div className={" text-center text-[14px] text-[#7E7E7E]"}>
+                        No comment found
+                      </div>
+                    )}
+                     {comment.length <= 0 && !isShowAddComment && 
+                      <div className={" text-center invisible text-[14px] text-[#7E7E7E]"}>
+                        No comment found
+                      </div>
+                     }
+                  </div>
                   <div className="mt-[2px]">
                     {comment.map((item, index) => {
                       return (
@@ -582,11 +593,7 @@ export const PatienCard = ({
                   </div>
 
                 </div>
-                {comment.length <= 0 && !isShowAddComment && (
-                  <div className={" text-center text-[14px] text-[#7E7E7E]"}>
-                    No comment found
-                  </div>
-                )}
+
               </div>
               
             </div>
@@ -608,7 +615,7 @@ export const PatienCard = ({
           <div className={"w-full flex items-center justify-center"}>
             <div
               className={
-                " px-0 w-full flex items-end gap-5 justify-end  pb-2"
+                " px-0 w-full flex items-center gap-5 justify-end  pb-2"
               }
             >
               <input

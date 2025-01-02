@@ -1109,7 +1109,7 @@ const FaceMesh = () => {
 
                             </div>
                             <div
-                                className={`all-poses-auto relative flex-col w-[157px] h-[130px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                className={`all-poses-auto relative flex-col w-[157px] h-[110px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                                 {globalRedLandmarks &&
                                     <AiFillCheckSquare
                                         className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}
