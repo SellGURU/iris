@@ -228,7 +228,7 @@ export const PatientInformation = () => {
                     <Button onClick={() => {
                         setSex(gender)
                         console.log(countries[value].countryCallingCodes[0])
-                        setPatientID(formik.values.id)
+                        setPatientID(formik.values.id.toString())
                         setErrorThreshold(threhold)
                         setIsLoading(true)
                         const patient = {

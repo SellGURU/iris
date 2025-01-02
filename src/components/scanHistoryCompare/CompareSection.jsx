@@ -364,7 +364,8 @@ const CompareSection = ({ results, clientId, lastScan }) => {
             <div className="flex flex-col items-center justify-center min-w-[100px]  w-[10%] p-2 rounded-xl bg-primary-color text-white font-medium text-base xl:text-xl min-h-14">
               Category
             </div>
-            <div className="flex flex-row gap-12 items-start justify-start w-full px-6 py-4 rounded-xl bg-[#F5F5F5] font-medium min-h-14">
+            {/* className="flex flex-row gap-7 xl:gap-12 items-start justify-start w-full px-3 xl:px-6 py-[6px] rounded-xl bg-[#F5F5F5] text-xs xl:text-sm min-h-14 relative" */}
+            <div className="flex flex-row gap-7 xl:gap-12 items-start justify-start w-full px-3 xl:px-6 py-4 rounded-xl bg-[#F5F5F5] font-medium min-h-14">
               <div className="w-1/4 text-base">Factor</div>
 
               <div className="border-l-[#E1E1E1] border-l h-full"></div>
