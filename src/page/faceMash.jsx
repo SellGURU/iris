@@ -911,7 +911,7 @@ const FaceMesh = () => {
                         </div>
 
                         <div
-                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[507px] h-[380px] xl:h-[430px] rounded-md flex items-center justify-center ">
+                            className=" all-poses-auto overflow-hidden bg-[#D9D9D9] relative  w-[507px] h-[380px] xl:h-[430px] rounded-md flex items-center justify-center ">
 
                             <img src={"/image/cameraPluse.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="camera"/>
