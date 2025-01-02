@@ -167,11 +167,11 @@ const ContentBox = ({data,category}) => {
               el.side ?
               <>
                   <div className="flex flex-col  items-start justify-start gap-3  ">
-                    <div style={{height:'120px',width:'150px'}} className="overflow-hidden  rounded-3xl border-2 border-primary-color">
+                    <div style={{width:'150px'}} className="overflow-hidden  rounded-3xl border-2 border-primary-color">
                         <img
                         src={el.side.left.thumbnail }
                         alt="face-image"
-                        className="object-cover w-full h-full"
+                        className="object-fill w-full h-full"
                         />
 
                     </div>
@@ -180,11 +180,11 @@ const ContentBox = ({data,category}) => {
                     </div>
                   </div>
                   <div className="flex  flex-col items-start justify-start gap-3 ">
-                    <div style={{height:'120px',width:'150px'}} className=" overflow-hiddenrounded-3xl border-2 border-primary-color">
+                    <div style={{width:'150px'}} className=" overflow-hidden rounded-3xl border-2 border-primary-color">
                         <img
                         src={el.side.right.thumbnail}
                         alt="face-image"
-                        className="object-cover w-full h-full"
+                        className="object-fill w-full h-full"
                         />
 
                     </div>
@@ -196,11 +196,11 @@ const ContentBox = ({data,category}) => {
               :
 
             <div className="flex flex-col items-start no-split justify-start gap-3 ">
-              <div style={{height:'120px',width:'150px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
+              <div style={{width:'150px'}} className="h-[320px] overflow-hidden w-[260px] rounded-3xl border-2 border-primary-color">
                   <img
                   src={el.side? el.side.left.thumbnail : el.thumbnail}
                   alt="face-image"
-                  className="object-cover w-full h-full"
+                  className="object-fill w-full h-full"
                   />
 
               </div>
