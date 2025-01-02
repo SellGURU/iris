@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import {useLocalStorage} from "@uidotdev/usehooks";
 import {Navigate} from "react-router-dom";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import Package from "../api/package";
 import {PatientContext} from '../context/context.jsx'

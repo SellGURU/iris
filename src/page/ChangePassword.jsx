@@ -150,7 +150,10 @@ const ChangePassword = () => {
                                     navigate('/')
                                 }} theme="iris-tertiary-large">
                                     <img className="w-[24px] mr-2" src="./arrow-left.svg" alt="" />
-                                    Back
+                                    <div className="text-primary-color cursor-pointer">
+                                        Back
+
+                                    </div>
                                 </Button>
                                 <Button onClick={() =>{submit()}} disabled={!form.isValid || form.values.NewPassword == '' || form.values.CurrentPassword == '' || form.values.confirmPassword == ''} theme="iris-large">
                                     <div className="w-full">

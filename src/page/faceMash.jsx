@@ -11,7 +11,7 @@ import {IoCameraOutline} from "react-icons/io5";
 import {LuUploadCloud} from "react-icons/lu";
 import {TabsCustume} from "../components/tabs/tabs.jsx";
 import {useLocalStorage} from "@uidotdev/usehooks";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import {AiFillCheckSquare} from "react-icons/ai";
 import {ProgressbarCustom} from "../components/progressbar/index.jsx";
 import Typography from '@mui/material/Typography';
@@ -95,7 +95,7 @@ const FaceMesh = () => {
     const sendToAnalyze = () => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'https://iris.ainexus.com/api/v1/analyze', true);
-        toast.loading("pending ...")
+        // toast.loading("pending ...")
         xhr.onload = function (e) {
             // console.log(e)
             let response = JSON.parse(e.target.responseText);
@@ -127,7 +127,7 @@ const FaceMesh = () => {
             console.log("face mash")
             navigate('/result')
             // result.append(resultHtmldiv);
-            toast.dismiss()
+            // toast.dismiss()
         }
         let fileData = new FormData();
         fileData.append('error_threshold', errorThreshold);
@@ -243,7 +243,7 @@ const FaceMesh = () => {
             IsglobalDataSend: false
         })
         globalFinished = false
-        toast.dismiss()
+        // toast.dismiss()
     }, [status]);
     const onResultsFaceMesh = (results) => {
         
@@ -686,7 +686,7 @@ const FaceMesh = () => {
                 if (e.target.status !== 200) {
                     // toast.dismiss()
                     if (e.target.status == 401) {
-                        toast.loading("Unauthorized...")
+                        // toast.loading("Unauthorized...")
 
                     }
                     console.log("Error with request, please try another image or contact support if the problem persists.")
@@ -698,9 +698,9 @@ const FaceMesh = () => {
                     // imageAnalysisResultCard.classList.remove("hidden");
                     // el("reset-all-poses").classList.remove("hidden");
                     if (response.success == true) {
-                        toast.dismiss()
+                        // toast.dismiss()
 
-                        toast.success("successes ...")
+                        // toast.success("successes ...")
                         if (response.html_file != null) {
                             let resultHtmldiv = document.createElement("div");
                             let resultLink = document.createElement("a");
@@ -861,7 +861,7 @@ const FaceMesh = () => {
             <div className={` ${isLoadingResult && " !hidden  "} h-[60vh]`}>
 
                 <div
-                    className={`flex flex-col gap-4 pb-4 xl:pb-5 pt-10 items-center justify-center `}>
+                    className={`flex flex-col gap-4 pb-4 xl:pb-1 pt-6 items-center justify-center `}>
                     <div className="px-12 mt-[-20px] w-full flex justify-start">
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link2 underline="hover"  className="text-primary-color" href="/">
@@ -911,7 +911,7 @@ const FaceMesh = () => {
                         </div>
 
                         <div
-                            className=" all-poses-auto bg-[#D9D9D9] relative  w-[507px] h-[380px] xl:h-[430px] rounded-md flex items-center justify-center ">
+                            className=" all-poses-auto overflow-hidden bg-[#D9D9D9] relative  w-[507px] h-[380px] xl:h-[430px] rounded-md flex items-center justify-center ">
 
                             <img src={"/image/cameraPluse.svg"} className={`${isCameraStart ? "hidden" : ""}`}
                                  alt="camera"/>
@@ -1109,7 +1109,7 @@ const FaceMesh = () => {
 
                             </div>
                             <div
-                                className={`all-poses-auto relative flex-col w-[157px] h-[130px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
+                                className={`all-poses-auto relative flex-col w-[157px] h-[110px] xl:h-[133px] bg-[#D9D9D9] rounded-md flex items-center justify-center ${status === "multi" ? "" : "hidden"}`}>
                                 {globalRedLandmarks &&
                                     <AiFillCheckSquare
                                         className={"absolute -top-2 w-7 z-30 h-7 rounded-2xl text-[#544BF0] -right-2"}/>}

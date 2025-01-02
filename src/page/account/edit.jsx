@@ -3,7 +3,7 @@ import MenuBox from "../../components/menuBox"
 import { Button, TextField } from "symphony-ui"
 import { useContext, useEffect, useState } from "react"
 import { PatientContext } from "../../context/context"
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
 import { useSearchParams } from "react-router-dom"
 import Select from "../../components/select"
 import Typography from '@mui/material/Typography';
@@ -109,7 +109,7 @@ const Account = () => {
                             </div>
                             <Button onClick={() => {
                                 appcontext.user.updateCustomInformation("photo",currentImage)
-                                toast.success("update information")
+                                // toast.success("update information")
                             }} theme="iris">
                                 <div className="flex justify-between items-center">
                                     <img className="mr-2" src="./image/save.svg" alt="" />
@@ -138,7 +138,7 @@ const Account = () => {
                                         Role:personalFormik.values.Role,
                                         Occupation:personalFormik.values.Occupation,
                                     })
-                                    toast.success("update information")
+                                    // toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
                                         <img className="mr-2" src="./image/save.svg" alt="" />
@@ -165,7 +165,7 @@ const Account = () => {
                                         PhoneNumber:AccountFormik.values.PhoneNumber,
                                         EmailAddress:AccountFormik.values.Email
                                     })
-                                    toast.success("update information")
+                                    // toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
                                         <img className="mr-2" src="./image/save.svg" alt="" />
@@ -217,7 +217,7 @@ const Account = () => {
                                         Postalcode:AddressFormik.values.Postalcode,
                                         TaxId:AddressFormik.values.TaxId
                                     })
-                                    toast.success("update information")
+                                    // toast.success("update information")
                                 }} theme="iris">
                                     <div className="flex justify-between items-center">
                                         <img className="mr-2" src="./image/save.svg" alt="" />

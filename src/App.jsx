@@ -2,10 +2,9 @@ import {useRoutes} from "react-router-dom";
 import {route} from "./routes";
 import "./App.css";
 import {HashRouter} from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from 'react-toastify';
 import {useLocalStorage} from "@uidotdev/usehooks";
 import "./api/axios";
+import NotifManager from "./page/NotifManager";
 
 
 function App() {
@@ -13,6 +12,7 @@ function App() {
         <>
             <HashRouter basename="/">
                 <AppRoutes/>
+                <NotifManager></NotifManager>
             </HashRouter>        
         </>
     );
@@ -26,7 +26,6 @@ const AppRoutes = () => {
     return (
 
         <div className={"pb-16"}>
-            <ToastContainer/>
             {routes}
         </div>
     );

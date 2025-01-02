@@ -5,7 +5,7 @@ import {Link, NavLink, Outlet, useNavigate} from "react-router-dom";
 import {createRef, useContext, useEffect, useRef, useState} from "react";
 import useModalAutoClose from "../hooks/useModalAutoClose";
 import {useLocalStorage} from "@uidotdev/usehooks";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import Auth from "../api/Auth.js";
 import LogOut from "../api/Auth.js";
 import {selectUserName} from "../store/PatientInformationStore.js";
@@ -16,6 +16,7 @@ import Link2 from '@mui/material/Link';
 import {PatientContext} from '../context/context.jsx'
 import PackageApi from '../api/package.js';
 import Package from "../model/Package.js";
+import TooltipText from "../components/ToolTipText/index.jsx";
 
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
@@ -63,7 +64,7 @@ const Header = () => {
                 if (res.data.state === 200) {
                     console.log(res.data)
                 } else {
-                    toast.error(res.data)
+                    // toast.error(res.data)
                 }
             })
         } catch (error) {
@@ -129,7 +130,10 @@ const Header = () => {
                         setSowModalBox(!showModalBox)
                     }} className="flex cursor-pointer items-center gap-2">
                         <img className="w-10 h-10 rounded-full object-cover" src={Appcontext.user.information.Personal.photo} alt=""/>
-                        <span className="font-medium text-[18px] text-[#444444]">{Appcontext.user.information.Personal.FirstName} {Appcontext.user.information.Personal.LastName}</span>
+                        <TooltipText tooltipValue={Appcontext.user.information.Personal.FirstName+" "+Appcontext.user.information.Personal.LastName} className="max-w-[180px]">
+                            <span className="font-medium text-[18px]  text-[#444444]">{Appcontext.user.information.Personal.FirstName} {Appcontext.user.information.Personal.LastName}</span>
+
+                        </TooltipText>
                     </div>
                 </div>
             </div>
@@ -203,7 +207,7 @@ const Header = () => {
                             </div> */}
                         </div>
                     </div>
-                    <div className="w-full h-[300vh] top-0 bg-[#000000CC] absolute z-50"></div>
+                    <div className="w-full h-[800vh] top-0 bg-[#000000CC] absolute z-50"></div>
                 </>
                 :
                 ""

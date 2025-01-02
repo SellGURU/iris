@@ -134,7 +134,7 @@ export const PatientInformation = () => {
             <form  onSubmit={handleSubmit(onSubmitData)}>
                 <div className={"flex lg:grid lg:grid-cols-2 relative items-center justify-center flex-col gap-5"}>
                     <CardPatient className={"w-[550px] relative order-1 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
-                        <div  className="flex lg:grid xl:flex w-full justify-between items-center">
+                        <div  className="flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>Client ID </h1>
                             <input disabled {...formik.getFieldProps("id")} className={"border-b text-[#7E7E7E] px-2 outline-none bg-white h-10 w-full "}
                                 placeholder={"Enter Patient ID"}/>
@@ -228,7 +228,7 @@ export const PatientInformation = () => {
                     <Button onClick={() => {
                         setSex(gender)
                         console.log(countries[value].countryCallingCodes[0])
-                        setPatientID(formik.values.id)
+                        setPatientID(formik.values.id.toString())
                         setErrorThreshold(threhold)
                         setIsLoading(true)
                         const patient = {

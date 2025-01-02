@@ -1,5 +1,6 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { publish } from "../utility/event";
 
 const removeToken =() => {
     localStorage.removeItem("token")
@@ -38,9 +39,17 @@ axios.interceptors.response.use((response) => {
     // console.log(error)
     if(error.response.data.detail && error.response.status !=406 ){
         if (error.response.data.detail && error.response.data.detail.toLowerCase().includes("successfully")) {
-            toast.success(error.response.data.detail)
+            // toast.success(error.response.data.detail)
+            publish("isNotif",{data:{
+                message:error.response.data.detail,
+                type:'succesApi'
+            }})            
         }else {
-            toast.error(error.response.data.detail) 
+            publish("isNotif",{data:{
+                message:error.response.data.detail,
+                type:'error'
+            }})
+            // toast.error(error.response.data.detail) 
         }
     }    
     if (error.response.status && error.response.data) {

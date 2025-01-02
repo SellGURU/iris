@@ -1,7 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import {useEffect, useRef, useState} from "react";
 import {useFormik} from 'formik';
@@ -12,7 +12,7 @@ import { Button } from "symphony-ui";
 import VerificationInput from "react-verification-input";
 import { useSearchParams } from "react-router-dom";
 import {encryptTextResolver} from '../help.js';
-
+import { publish } from "../utility/event";
 const Forget = () => {
     const passwordRef = useRef(null);
     const [step,setStep] = useState(0)
@@ -83,7 +83,7 @@ const Forget = () => {
                     setIsPanding(false)
                     saveIsAccess(res.data.access_token);
                     dispatch(setUserName("amin"))
-                    toast.dismiss()
+                    // toast.dismiss()
                     navigate("/");
                 } else {
                     console.log("res")
@@ -91,10 +91,10 @@ const Forget = () => {
                 }
 
             }).catch((err) => {
-                toast.dismiss()
+                // toast.dismiss()
                 // console.log(err.response.data)
                 form.setFieldError("password",'The password is incorrect.')
-                toast.error(err.response.data.detail)
+                // toast.error(err.response.data.detail)
             })
         } catch (error) {
             console.log("error1")
@@ -156,8 +156,13 @@ const Forget = () => {
                         // setStep(2)
                         Auth.forgetpass({
                             email:encryptTextResolver(form.values.email)
-                        }).then(res => {
+                        }).then(() => {
                             // toast.info(res.data.msg)
+                            publish("isNotif",{data:{
+                                message:'Password reset link has been sent to mail',
+                                type:'success'
+                            }})
+                            // publish("haveError",{data:'Password reset link has been sent to mail'})
                         })
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">

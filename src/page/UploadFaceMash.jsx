@@ -8,7 +8,7 @@
 import {TabsCustume} from "../components/tabs/tabs.jsx";
 import { useEffect, useState,useContext } from "react";
 import {LoadingReports} from "./loadingReports.jsx";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 // import Analytics from "../api/analytics"
 import {updateLocalPatientIHistoty} from "../utility/updateLocalPatientIHistoty.js";
 import { useNavigate } from "react-router-dom";
@@ -101,7 +101,7 @@ const UploadFaceMash = () => {
             resultHtml.download = 'golden_ratios.html';
             resultHtmldiv.innerHTML += "<br><br>";
             // result.append(resultHtmldiv);    
-            toast.dismiss()       
+            // toast.dismiss()       
         }
         let fileData = new FormData();
         fileData.append('error_threshold', errorThreshold);
@@ -166,7 +166,7 @@ const UploadFaceMash = () => {
             <div className={`${!isLoadingResult && "hidden"}`}><LoadingReports/></div>        
             <div className={`${isLoadingResult && "hidden"}`}>
                     <div
-                        className={`flex flex-col gap-4 pb-5 pt-10 items-center justify-center `}>
+                        className={`flex flex-col gap-4 pb-1 pt-1 items-center justify-center `}>
                         <div className="px-12 w-full flex justify-start">
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link underline="hover"  className="text-primary-color" href="/">

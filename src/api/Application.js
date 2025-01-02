@@ -21,6 +21,11 @@ class Application extends Api {
         return response
     }
 
+    static getComments(data) {
+        const response = this.post('/listComments',data)
+        return response        
+    }
+
 }
 
 export default Application

@@ -11,7 +11,7 @@ import { IoCameraOutline } from "react-icons/io5";
 import { LuUploadCloud } from "react-icons/lu";
 import { TabsCustume } from "../components/tabs/tabs.jsx";
 import { useLocalStorage } from "@uidotdev/usehooks";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { AiFillCheckSquare } from "react-icons/ai";
 import { ProgressbarCustom } from "../components/progressbar/index.jsx";
 import Typography from "@mui/material/Typography";
@@ -71,7 +71,7 @@ const FaceAnalyse = () => {
   const sendToAnalyze = () => {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "https://iris.ainexus.com/api/v1/analyze", true);
-    toast.loading("pending ...");
+    // toast.loading("pending ...");
     xhr.onload = function (e) {
       // console.log(e)
       let response = JSON.parse(e.target.responseText);
@@ -103,7 +103,7 @@ const FaceAnalyse = () => {
       console.log("face mash");
       navigate("/result");
       // result.append(resultHtmldiv);
-      toast.dismiss();
+      // toast.dismiss();
     };
     let fileData = new FormData();
     fileData.append("error_threshold", errorThreshold);
@@ -220,7 +220,7 @@ const FaceAnalyse = () => {
       IsglobalDataSend: false,
     });
     globalFinished = false;
-    toast.dismiss();
+    // toast.dismiss();
   }, [status]);
   const onResultsFaceMesh = (results) => {
     let landmarks;
@@ -684,7 +684,7 @@ const FaceAnalyse = () => {
         if (e.target.status !== 200) {
           // toast.dismiss()
           if (e.target.status == 401) {
-            toast.loading("Unauthorized...");
+            // toast.loading("Unauthorized...");
           }
           console.log(
             "Error with request, please try another image or contact support if the problem persists."
@@ -697,9 +697,9 @@ const FaceAnalyse = () => {
           // imageAnalysisResultCard.classList.remove("hidden");
           // el("reset-all-poses").classList.remove("hidden");
           if (response.success == true) {
-            toast.dismiss();
+            // toast.dismiss();
 
-            toast.success("successes ...");
+            // toast.success("successes ...");
             if (response.html_file != null) {
               let resultHtmldiv = document.createElement("div");
               let resultLink = document.createElement("a");

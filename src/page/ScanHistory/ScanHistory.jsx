@@ -16,7 +16,7 @@ import useModalAutoClose from '../../hooks/useModalAutoClose.js'
 import PackageApi from "../../api/package.js";
 import {PatientContext} from '../../context/context.jsx';
 import Package from "../../model/Package.js";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import CompareSection from "../../components/scanHistoryCompare/CompareSection";
 export const ScanHistory = () => {
     const [patients,setPatinets] = useState([])
@@ -115,7 +115,20 @@ export const ScanHistory = () => {
             
         }, 500);
     },[])    
-     const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
+    const [patientList, setPatientList] = useState(patients.slice(indexOfFirstItem, indexOfLastItem));
+    const updateClientComments = (clientCode, newComments) => {
+        setPatinets((prevClients) =>
+            prevClients.map((client) =>
+                client.client_info.clientCode === clientCode
+                ? {
+                    ...client,
+                    comments: newComments // Update the comments array
+                    }
+                : client // Return other clients as-is
+            )
+        );
+    };    
+    
     const getPatients = () => {
         setIsLoading(true)
         setPatinets([])
@@ -146,7 +159,7 @@ export const ScanHistory = () => {
                         }
                     }
                 }
-                toast.dismiss()
+                // toast.dismiss()
             }).catch(() =>{
                 setIsLoading(false)
             })        
@@ -290,7 +303,6 @@ export const ScanHistory = () => {
     const filterPatientsHandler = () => {
         const searchValue = searchQ.toLowerCase();
         // const searchWords = searchValue.split(" "); // Split input into words
-    
         const filteredItem = patients.filter((el) => {
             const patientData = [
                 el.client_info.firstName.toLowerCase(),
@@ -303,13 +315,14 @@ export const ScanHistory = () => {
             return patientData.includes(searchValue)
             // return searchWords.every(word => patientData.includes(word));
         });
-    
+        
         if (searchValue.length <= 0) {
             setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
         } else {
             setPatientList([...filteredItem]);
         }
     };
+
 
     return (
         <>
@@ -371,7 +384,7 @@ export const ScanHistory = () => {
                             {
                                 showSort &&
                                 <SortModal filterType={filterType} filterModalRefrence={filterModalRefrence}
-                                           sorts={sorts} setShowFilter={setShowFilter} setFilterType={setFilterType}/>
+                                           sorts={sorts} setShowFilter={setShowSort} setFilterType={setFilterType}/>
                             }
                         </div>
                     </div>
@@ -423,8 +436,9 @@ export const ScanHistory = () => {
                                     <>
                                         <PatienCard
                                             index={i + 1}
-                                            loadPationts={() => {
-                                                getPatients()
+                                            loadPationts={(clientCode,comments) => {
+                                                updateClientComments(clientCode,comments)
+                                                // getPatients()
                                                 setSearchQ("")
                                             }}
                                             key={Number(patient.client_info.clientCode)}
