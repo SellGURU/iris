@@ -78,7 +78,7 @@ const Header = () => {
     subscribe("openModal",() => {
         setSHowModal(true)
         document.getElementById('root').style.overflow = 'hidden'
-        document.getElementById('root').style.height = '100vh'
+        document.getElementById('root').style.height = '100svh'
     })
     subscribe("closeModal",() => {
         setSHowModal(false)

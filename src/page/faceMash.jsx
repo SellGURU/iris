@@ -861,7 +861,7 @@ const FaceMesh = () => {
             <div className={` ${isLoadingResult && " !hidden  "} h-[60vh]`}>
 
                 <div
-                    className={`flex flex-col gap-4 pb-4 xl:pb-5 pt-10 items-center justify-center `}>
+                    className={`flex flex-col gap-4 pb-4 xl:pb-1 pt-6 items-center justify-center `}>
                     <div className="px-12 mt-[-20px] w-full flex justify-start">
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link2 underline="hover"  className="text-primary-color" href="/">
