@@ -78,7 +78,7 @@ const Header = () => {
     subscribe("openModal",() => {
         setSHowModal(true)
         document.getElementById('root').style.overflow = 'hidden'
-        document.getElementById('root').style.height = '100svh'
+        document.getElementById('root').style.height = '100vh'
     })
     subscribe("closeModal",() => {
         setSHowModal(false)
@@ -207,7 +207,7 @@ const Header = () => {
                             </div> */}
                         </div>
                     </div>
-                    <div className="w-full h-[300vh] top-0 bg-[#000000CC] absolute z-50"></div>
+                    <div className="w-full h-[800vh] top-0 bg-[#000000CC] absolute z-50"></div>
                 </>
                 :
                 ""
