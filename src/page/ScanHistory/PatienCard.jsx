@@ -582,7 +582,7 @@ export const PatienCard = ({
                             {item.cText}
                           </p>
                           <p className="text-[#7E7E7E] text-[12px] tracking-wide flex ">
-                            <div className="mr-1"> {userFirstName} {userLastName}</div>
+                            <div className="mr-1"> {item.staffName}</div>
                             ,
                             
                             <span className="ml-1"> {formatDate(new Date(item.cTextDateTime))}{" "}</span>

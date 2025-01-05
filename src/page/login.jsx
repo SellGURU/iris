@@ -53,6 +53,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
+  let [, save_uv_token_type ] = useLocalStorage("uv_token_type");
+  let [, save_uv_token ] = useLocalStorage("uv_token");
   let [, seveParty] = useLocalStorage("partyid");
   let [,saveEmail] = useLocalStorage("email")
   let [,savePass] = useLocalStorage("password")
@@ -88,6 +90,8 @@ const Login = () => {
           if (res.data.token!='') {
             setIsPanding(false);
             saveIsAccess(res.data.token);
+            save_uv_token(res.data.uv_token)
+            save_uv_token_type(res.data.uv_token_type)
             seveParty(res.data.party_id)
             saveEmail(form.values.userName)
             savePass(form.values.password)

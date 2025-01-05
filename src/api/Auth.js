@@ -30,6 +30,11 @@ class Auth extends Api {
         const res = this.post('/updatePassword', data)
         return res           
     }
+
+    static refreshToken(data) {
+        const response = this.post("/updateAuthToken",data)
+        return response
+    }
 }
 
 export default Auth
