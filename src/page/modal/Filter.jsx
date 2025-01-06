@@ -16,6 +16,10 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy,setStartDate,setE
     const [localStartDate,setLoclStartDate] = useState(startDate)
     const [localEndDate,setLoclEndDate] = useState(endDate)
     // const [startDate]
+    const today = dayjs();
+    const disableFutureDates = (date) => {
+        return date.isAfter(today, 'day'); // Disable dates after today
+    };    
     return (
         <>
             <div ref={refrence} className="absolute scale-[85%] top-4 gap-2 flex flex-col p-4 right-0 rounded-[8px] z-50 w-[300px] bg-white" style={{
@@ -41,7 +45,7 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy,setStartDate,setE
                 <div className='flex justify-start items-center'>
                     <div className='text-[16px] w-[38px] mr-2'>from:</div>
                     <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                        <DatePicker value={dayjs(startDate)}  ref={refrence} onChange={(e) => {
+                        <DatePicker value={dayjs(startDate)} shouldDisableDate={disableFutureDates}  ref={refrence} onChange={(e) => {
                             // console.log(new Date(e).getTime())
                             setLoclStartDate(new Date(e).getTime())
                         }}  className='w-[180px] py-0 scale-70' />
@@ -51,7 +55,7 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy,setStartDate,setE
                 <div className='flex justify-start mb-4 items-center'>
                     <div className='text-[16px] w-[38px] mr-2'>to:</div>
                     <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                        <DatePicker value={dayjs(endDate)}  onChange={(e) => {
+                        <DatePicker value={dayjs(endDate)}  shouldDisableDate={disableFutureDates}  onChange={(e) => {
                             setLoclEndDate(new Date(e).getTime())
                         }}  className='w-[180px] py-0 scale-70' />
                     </LocalizationProvider>                    
