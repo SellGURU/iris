@@ -56,7 +56,7 @@ const FilterModal =({refrence,setShowFilter,setImageBy,imageBy,setStartDate,setE
                     <div className='text-[16px] w-[38px] mr-2'>to:</div>
                     <LocalizationProvider  dateAdapter={AdapterDayjs}>
                         <DatePicker value={dayjs(endDate)}  shouldDisableDate={disableFutureDates}  onChange={(e) => {
-                            setLoclEndDate(new Date(e).getTime())
+                            setLoclEndDate(new Date(e).getTime() + 24 * 60 * 60 * 1000)
                         }}  className='w-[180px] py-0 scale-70' />
                     </LocalizationProvider>                    
                 </div>                

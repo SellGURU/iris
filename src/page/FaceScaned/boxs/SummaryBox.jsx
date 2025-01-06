@@ -37,7 +37,7 @@ const SummaryBox =({data,indexNum}) => {
                 <p className="decorated-dot text-xs xl:text-[14px] ">
                     {data.type == 'ratio' ?
                     <>
-                        Ratio: 
+                        Ratio:{" "}
                         {data.side ?
                         <>
                             {data.side.left.ratio}

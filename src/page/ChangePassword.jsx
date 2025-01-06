@@ -6,6 +6,7 @@ import { useState } from "react";
 import Auth from "../api/Auth";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import {encryptTextResolver} from '../help.js';
+import { BeatLoader } from "react-spinners";
 
 const ChangePassword = () => {
     const initialValues = {
@@ -26,9 +27,11 @@ const ChangePassword = () => {
         onSubmit: () => {
         }
     })    
+    const [isLoading,setIsLoading] = useState(false)
     const navigate = useNavigate()
     const [orgs,] = useLocalStorage("orgData")    
     const submit = () => {
+        setIsLoading(true)
         Auth.changePassword({
             orgscode: JSON.parse(orgs).orgSCode,
             email:encryptTextResolver(JSON.parse(orgs).orgEmail),
@@ -42,6 +45,8 @@ const ChangePassword = () => {
                 navigate('/login')
 
             }
+        }).finally(() => {
+            setIsLoading(false)
         })
     }
     const [HidePass, setHidePass] = useState(false)
@@ -157,7 +162,15 @@ const ChangePassword = () => {
                                 </Button>
                                 <Button onClick={() =>{submit()}} disabled={!form.isValid || form.values.NewPassword == '' || form.values.CurrentPassword == '' || form.values.confirmPassword == ''} theme="iris-large">
                                     <div className="w-full">
-                                        Change Password
+                                        {
+                                            isLoading ?
+                                            <div className="w-[150px]">
+                                                <BeatLoader color="white" size={10}></BeatLoader>
+
+                                            </div>
+                                            :
+                                            'Change Password'
+                                        }
 
                                     </div>
                                 </Button>
