@@ -219,6 +219,17 @@ export const ScanHistory = () => {
                 return false
                 
             })
+            resolvedPationts =resolvedPationts.map(client => {
+                // Filter scans for each client
+                const filteredScans = client.scans.filter(scan => 
+                    scan.scanType.includes(imageBy)
+                );
+                // Return updated client with filtered scans
+                return {
+                    ...client,
+                    scans: filteredScans
+                };
+            });            
         }else {
             resolvedPationts = patients
         }

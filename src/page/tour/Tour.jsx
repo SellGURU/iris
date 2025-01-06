@@ -61,8 +61,8 @@ export const Tour = () => {
                     <StepInstructions
                         step="3"
                         text=" Repeat the process for the left and right sides of the subject's face. The scanner will capture each side and indicate completion with a checkmark on the right sidebar."
-                        image={'image/tour-3.svg'}
-                        note="Note: To rescan any side, press the rescan button and remove the scan of that side to start again."
+                        image={'image/newTour3.png'}
+                        note="Note: To rescan any side, press the rescan button and remove the scan to start again."
                         onNext={handleNext}
                         onSkip={handleSkip}
                         onBack={() =>{
