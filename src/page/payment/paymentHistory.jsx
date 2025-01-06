@@ -19,6 +19,7 @@ import { useConstructor, encryptTextResolver } from "../../help.js";
 import Package2 from "../../model/Package.js";
 import { publish, subscribe } from "../../utility/event.js";
 import {SucessPayemntModal} from './SucessPayemntModal.jsx'
+import HorizontalSlider from "../../components/SliderHoristical/index.jsx";
 export const PaymentHistory = () => {
   const appContext = useContext(PatientContext);
 
@@ -359,36 +360,39 @@ export const PaymentHistory = () => {
               <h1 className={"text-2xl font-medium "}>Purchase More Scans</h1>
               <div
                 className={
-                  "flex flex-row w-full overflow-y-scroll hiddenScrollBar items-center mt-4 justify-between gap-3  py-6 px-4"
+                  "py-2"
                 }
               >
-                {packages.map((el, index) => {
-                  console.log(el);
-                  return (
-                    <PaymentCard
-                      onselect={() => {
-                        PackageApi.byPackage({
-                          sub_code: el.information.subCode,
-                          subprice_code: el.information.subCode,
-                          orgCode: JSON.parse(orgs).orgCode,
-                          orgSCode: JSON.parse(orgs).orgSCode,
-                          email: encryptTextResolver(localEmail),
-                        }).then((res) => {
-                          console.log(res);
-                          if (res.data.status == "success") {
-                            // console.log(res.data.data)
-                            window.location.href = res.data.data;
+                <HorizontalSlider>
+                  {packages.map((el, index) => {
+                    console.log(el);
+                    return (
+                      <PaymentCard
+                        onselect={() => {
+                          PackageApi.byPackage({
+                            sub_code: el.information.subCode,
+                            subprice_code: el.information.subCode,
+                            orgCode: JSON.parse(orgs).orgCode,
+                            orgSCode: JSON.parse(orgs).orgSCode,
+                            email: encryptTextResolver(localEmail),
+                          }).then((res) => {
+                            console.log(res);
+                            if (res.data.status == "success") {
+                              // console.log(res.data.data)
+                              window.location.href = res.data.data;
 
-                          }
-                        });
-                        // appContext.package.updatePackage(el)
-                        // navigate('/')
-                      }}
-                      key={index}
-                      pak={el}
-                    />
-                  );
-                })}
+                            }
+                          });
+                          // appContext.package.updatePackage(el)
+                          // navigate('/')
+                        }}
+                        key={index}
+                        pak={el}
+                      />
+                    );
+                  })}
+
+                </HorizontalSlider>
                 {/* <PaymentCard package={pa}/>
                             <PaymentCard packageId={"2"} bundle={"50 Scan Bundle"} price={"8"}/>
                             <PaymentCard packageId={"3"} bundle={"100 Scan Bundle"} price={"6"}/>
