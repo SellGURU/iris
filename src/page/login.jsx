@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 // import { toast } from "react-toastify";
+import {BeatLoader} from 'react-spinners'
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useEffect, useRef, useState ,useContext } from "react";
 import { useFormik } from "formik";
@@ -87,6 +88,7 @@ const Login = () => {
         .then((res) => {
           // toast.dismis()
           remember()
+          setIsPanding(false)
           if (res.data.token!='') {
             setIsPanding(false);
             saveIsAccess(res.data.token);
@@ -138,6 +140,7 @@ const Login = () => {
         })
         .catch((err) => {
           console.log(err);
+          setIsPanding(false)
           if(err.data.detail.includes("Password ")){
             form.setFieldError("password", err.data.detail);
           }else {
@@ -268,9 +271,16 @@ const Login = () => {
               onSubmit();
             }}
             theme="iris-large"
-            disabled={!form.isValid}
+            disabled={(!form.isValid || isPanding)}
           >
-            <div className="flex justify-center w-full">Log in</div>
+            {isPanding ?
+              <div className="flex justify-center items-center w-full">
+                <BeatLoader size={10} color="white"></BeatLoader>
+
+              </div>
+            :
+              <div className="flex justify-center w-full">Log in</div>
+            }
           </Button>
           {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {
                         onSubmit()

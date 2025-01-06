@@ -189,7 +189,17 @@ const UploadFaceMash = () => {
                     </div>
                     <div className="flex justify-center items-center">
                         <div className="block md:flex justify-center w-[507px] md:w-full">
-                            <div onClick={() => {
+                            <div  onDrop={(event) => {
+                                            event.preventDefault();
+                                            const file = Array.from(event.dataTransfer.files)[0];
+                                            var reader = new FileReader();
+                                            reader.onloadend = function () {
+                                                setResolvedFile(reader.result)
+                                            }
+                                            reader.readAsDataURL(file);
+                                        }} onDragOver={(event) => {
+                                            event.preventDefault();
+                                        }} onClick={() => {
                                 document.getElementById('fileUploader').click()
                             }} className="w-[507px]  h-[380px] xl:h-[430px]  relative overflow-hidden  bg-[#D9D9D9] rounded-[8px] flex justify-center items-center">
                                     <div className="grid grid-cols-1 ">

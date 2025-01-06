@@ -151,7 +151,7 @@ export const PatienCard = ({
     formState: { errors },
   } = useForm();
   const formHandler = () => {
-    if (textComment.length > 0) {
+    if (textComment.trim().length > 0) {
       setIsLoading(true)
       // console.log(comment)
       Application.addComment({
@@ -638,7 +638,7 @@ export const PatienCard = ({
                     if(!isLoading){
                       formHandler();
                     }                  
-                 }} className={`text-[14px] ${textComment.length > 0?' cursor-pointer text-primary-color':'text-gray-400'}  underline `}>
+                 }} className={`text-[14px] ${textComment.trim().length > 0?' cursor-pointer text-primary-color':'text-gray-400'}  underline `}>
                   {isLoading ?
                   <BeatLoader size={8} color="#544BF0"></BeatLoader>
                   :
