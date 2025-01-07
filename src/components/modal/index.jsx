@@ -21,6 +21,12 @@ export const Modal = ({text,onClose,type}) => {
             if(type == 'success'){
               navigate('/login')
             }
+            if(window.location.href.includes("showReport")){
+              navigate(-1)
+            }
+            if(window.location.href.includes("faceMashFile")){
+              navigate("/")
+            }
           }} theme="iris-small">
             {" "}
             <div className="w-[140px]">Got it</div>

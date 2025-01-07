@@ -192,7 +192,7 @@ const OverallAnalysisReport = (props) => {
     // document.getElementById("mydiv").innerHTML = decodedHTML;
   };
   const formHandler = () => {
-      if(textComment.length>0){
+      if(textComment.trim().length>0){
           Application.addComment({
               client_id:patientID,
               orgCode: JSON.parse(orgs).orgCode,
@@ -318,10 +318,10 @@ const OverallAnalysisReport = (props) => {
                                     Add Comment
                                 </ButtonPrimary> */}
                                 <div className="w-full flex justify-end">
-                                    <Button disabled={textComment.length == 0} onClick={() => {
+                                    <Button disabled={textComment.trim().length == 0} onClick={() => {
                                         formHandler()
                                     }} theme="iris-small">
-                                        {textComment.length>0?
+                                        {textComment.trim().length>0?
                                         'Save'
                                         :
                                         'Add Comment'
