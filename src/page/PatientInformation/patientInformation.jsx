@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import Application from "../../api/Application.js";
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import { BeatLoader } from "react-spinners";
 
 export const PatientInformation = () => {
     const getRand = () => {
@@ -244,7 +245,11 @@ export const PatientInformation = () => {
                         }
                         submitForm(patient)
                     }} disabled={!formik.isValid || !formik.touched.firstName || isLaoding} type="submit" theme="iris-large">
-                        Save & Continue
+                        {isLaoding ?
+                        <BeatLoader color="white" size={10}></BeatLoader>
+                        :
+                        'Save & Continue'
+                        }
                     </Button>
 
                 </div>

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
+import {BeatLoader} from 'react-spinners'
 // import { toast } from "react-toastify";
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import { useRef, useState ,useEffect} from "react";
@@ -98,6 +99,8 @@ const Register = () => {
   const navigate = useNavigate();
   const [isPanding, setIsPanding] = useState(false);
   let [, saveIsAccess] = useLocalStorage("token");
+  let [, save_uv_token_type ] = useLocalStorage("uv_token_type");
+  let [, save_uv_token ] = useLocalStorage("uv_token");
   let [, seveParty] = useLocalStorage("partyid");
   let [,saveEmail] = useLocalStorage("email")
   let [,savePass] = useLocalStorage("password")
@@ -118,7 +121,6 @@ const Register = () => {
         .then((res) => {
           if (res.data.status == 'success') {
             removeToken()
-            setIsPanding(false);
             // toast.info(res.data.msg);
               Auth.login({
                 email: encryptTextResolver(form.values.email),
@@ -128,6 +130,8 @@ const Register = () => {
                   if (res.data.token!='') {
                     setIsPanding(false);
                     saveIsAccess(res.data.token);
+                    save_uv_token(res.data.uv_token)
+                    save_uv_token_type(res.data.uv_token_type)                    
                     seveParty(res.data.party_id)
                     saveEmail(form.values.email)
                     savePass(form2.values.password)
@@ -174,12 +178,12 @@ const Register = () => {
                 })
                 .catch((err) => {
                   console.log(err)
+                  setIsPanding(false)
                   // form.setFieldError("password", "The password is incorrect.");
                   // toast.error(err.response?.data?.detail);
                 });
           } else if(res.data.status == 'fail'){
             // console.log(res);
-            alert(res.data.msg)
             // toast.error(res.data.msg);
             // toast.error(res.data)
           }
@@ -187,6 +191,7 @@ const Register = () => {
         .catch((err) => {
           // toast.dismiss();
           // console.log(err.response.data)
+          setIsPanding(false)
           form.setFieldError("password", "The password is incorrect.");
           // toast.error(err.response.data.detail);
         });
@@ -412,14 +417,21 @@ const Register = () => {
               </div>
             </div>
             <Button
-            disabled={!form2.isValid || form2.values.confirm == ''}
+            disabled={!form2.isValid || form2.values.confirm == '' || isPanding}
               onClick={() => {
                 onSubmit()
               }}
               theme="iris-large"
               
             >
+              {isPanding ?
+              <div className="flex justify-center items-center w-full">
+                <BeatLoader size={10} color="white"></BeatLoader>
+
+              </div> 
+              :
               <div className="flex justify-center w-full">Sign up</div>
+              }
             </Button>
 
             <div onClick={() => {

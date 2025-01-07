@@ -37,3 +37,7 @@ h1,h2,h3,h4,h5,h6,div {
     outline: none;
     margin-left: 4px;
 }
+
+option[value="ZZ"] {
+  display: none;
+}

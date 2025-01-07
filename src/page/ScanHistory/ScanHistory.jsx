@@ -204,6 +204,7 @@ export const ScanHistory = () => {
     },[searchQ,patients,isLoading])
      const [totalPages,setTotoalPages] =  useState(Math.ceil(patients.length / itemsPerPage));
      useEffect(() => {
+        const searchValue = searchQ.toLowerCase();
         let resolvedPationts = []
         if(imageBy!= 'all'){
             resolvedPationts = patients.filter(el =>{
@@ -218,13 +219,24 @@ export const ScanHistory = () => {
                 return false
                 
             })
+            resolvedPationts =resolvedPationts.map(client => {
+                // Filter scans for each client
+                const filteredScans = client.scans.filter(scan => 
+                    scan.scanType.includes(imageBy)
+                );
+                // Return updated client with filtered scans
+                return {
+                    ...client,
+                    scans: filteredScans
+                };
+            });            
         }else {
             resolvedPationts = patients
         }
         if(startDate!= null && endDate!= null){
             resolvedPationts  = resolvedPationts.filter(el =>{
                 if(el.scans){
-                    if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp < endDate  ).length>0){
+                    if(el.scans.filter((e) =>e.timestamp >= startDate && e.timestamp <= endDate  ).length>0){
                         return true
                     }else{
                         return false
@@ -234,7 +246,32 @@ export const ScanHistory = () => {
                 return false
                 
             })
-        }        
+            resolvedPationts =resolvedPationts.map(client => {
+                // Filter scans for each client
+                const filteredScans = client.scans.filter(scan => 
+                    scan.timestamp >= startDate && scan.timestamp <= endDate
+                );
+                // Return updated client with filtered scans
+                return {
+                    ...client,
+                    scans: filteredScans
+                };
+            });
+        }      
+        if(searchValue.length>=0){
+           resolvedPationts= resolvedPationts.filter((el) => {
+                        const patientData = [
+                            el.client_info.firstName.toLowerCase(),
+                            el.client_info.lastName.toLowerCase(),
+                            el.client_info.email.toLowerCase(),
+                            el.client_info.clientCode.toLowerCase(),
+                        ].join(" "); // Combine all searchable fields into one string
+                
+                        // Check if all search words are present in the patient data
+                        return patientData.includes(searchValue)
+                        // return searchWords.every(word => patientData.includes(word));
+            });        
+        }  
         setTotoalPages(Math.ceil(resolvedPationts.length / itemsPerPage))
         // console.log(resolvedPationts) 
         const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
@@ -245,7 +282,7 @@ export const ScanHistory = () => {
         // console.log(indexOfFirstItem ,indexOfLastItem )
         setPatientList(resolvedPationts.slice(indexOfFirstItem, indexOfLastItem));
         return () =>{}
-    }, [currentPage,itemsPerPage,patients,imageBy,startDate,endDate]);
+    }, [currentPage,itemsPerPage,patients,imageBy,startDate,searchQ,endDate]);
 
     useEffect(() => {
         if(patientList.length == 0) {
@@ -301,26 +338,26 @@ export const ScanHistory = () => {
    
 
     const filterPatientsHandler = () => {
-        const searchValue = searchQ.toLowerCase();
-        // const searchWords = searchValue.split(" "); // Split input into words
-        const filteredItem = patients.filter((el) => {
-            const patientData = [
-                el.client_info.firstName.toLowerCase(),
-                el.client_info.lastName.toLowerCase(),
-                el.client_info.email.toLowerCase(),
-                el.client_info.clientCode.toLowerCase(),
-            ].join(" "); // Combine all searchable fields into one string
+        // const searchValue = searchQ.toLowerCase();
+        // // const searchWords = searchValue.split(" "); // Split input into words
+        // const filteredItem = patients.filter((el) => {
+        //     const patientData = [
+        //         el.client_info.firstName.toLowerCase(),
+        //         el.client_info.lastName.toLowerCase(),
+        //         el.client_info.email.toLowerCase(),
+        //         el.client_info.clientCode.toLowerCase(),
+        //     ].join(" "); // Combine all searchable fields into one string
     
-            // Check if all search words are present in the patient data
-            return patientData.includes(searchValue)
-            // return searchWords.every(word => patientData.includes(word));
-        });
+        //     // Check if all search words are present in the patient data
+        //     return patientData.includes(searchValue)
+        //     // return searchWords.every(word => patientData.includes(word));
+        // });
         
-        if (searchValue.length <= 0) {
-            setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
-        } else {
-            setPatientList([...filteredItem]);
-        }
+        // if (searchValue.length <= 0) {
+        //     setPatientList(patients.slice(indexOfFirstItem, indexOfLastItem));
+        // } else {
+        //     setPatientList([...filteredItem]);
+        // }
     };
 
 
@@ -353,7 +390,7 @@ export const ScanHistory = () => {
 
                         </div>
                         <div className="absolute z-[10] w-full h-8 left-0 flex justify-center items-center">
-                            <SearchBox value={searchQ} className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.trim().toLowerCase())} placeHolder="Search"/>
+                            <SearchBox value={searchQ} className="h-8" changeHandler={(e) =>setSearchQ(e.target.value.toLowerCase())} placeHolder="Search"/>
                         </div>
                         <div
                             className="flex select-none xl:w-[280px] justify-end relative z-[20] text-[12px] gap-6 items-center">

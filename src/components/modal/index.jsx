@@ -2,6 +2,7 @@
 // import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "symphony-ui";
+import { publish } from "../../utility/event";
 // import useModalAutoClose from "../../hooks/useModalAutoClose";
 
 
@@ -20,6 +21,13 @@ export const Modal = ({text,onClose,type}) => {
             onClose()
             if(type == 'success'){
               navigate('/login')
+            }
+            if(window.location.href.includes("showReport")){
+              navigate(-1)
+            }
+            if(window.location.href.includes("faceMashFile")){
+              navigate("/faceCamera")
+              publish("reloadScan",{})             
             }
           }} theme="iris-small">
             {" "}

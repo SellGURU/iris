@@ -17,6 +17,7 @@ import {PatientContext} from '../context/context.jsx'
 import PackageApi from '../api/package.js';
 import Package from "../model/Package.js";
 import TooltipText from "../components/ToolTipText/index.jsx";
+import CheckExpiredData from "../components/CheckExpiredDate/index.jsx";
 
 const Header = () => {
     const [token, setToken] = useLocalStorage("token");
@@ -265,6 +266,7 @@ const Header = () => {
             :
                 undefined
             }
+            <CheckExpiredData></CheckExpiredData>
         </div>
     );
 };

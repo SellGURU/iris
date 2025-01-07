@@ -2,6 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 import Auth from "../api/Auth";
 // import {toast} from "react-toastify";
+import {BeatLoader} from 'react-spinners'
 import ButtonPrimary from "../components/button/buttonPrimery.jsx";
 import {useEffect, useRef, useState} from "react";
 import {useFormik} from 'formik';
@@ -154,6 +155,7 @@ const Forget = () => {
                     <Button onClick={() => {
                         // onSubmit()
                         // setStep(2)
+                        setIsPanding(true)
                         Auth.forgetpass({
                             email:encryptTextResolver(form.values.email)
                         }).then(() => {
@@ -163,10 +165,16 @@ const Forget = () => {
                                 type:'success'
                             }})
                             // publish("haveError",{data:'Password reset link has been sent to mail'})
+                        }).catch(() => {
+                            setIsPanding(false)
                         })
                     }} theme="iris-large" disabled={!form.isValid}>
                         <div className="flex justify-center w-full">
-                            Send Link
+                        {isPanding ?
+                            <BeatLoader size={10} color="white"></BeatLoader>
+                        :
+                            'Send Link'
+                        }
                         </div>
                     </Button>
                     {/* <ButtonPrimary className="h-[52px] mt-[50px] rounded-[12px]" onClickHandler={() => {

@@ -2,6 +2,7 @@ import Servise from "./modal/service.jsx";
 / eslint-disable no-undef /;
 import {useContext, useEffect, useReducer} from "react";
 import {useRef} from "react";
+import {subscribe} from '../utility/event.js'
 import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
 import {Link} from "react-router-dom";
@@ -855,6 +856,33 @@ const FaceMesh = () => {
         }
 
     }
+    subscribe("reloadScan",() => {
+        setIsLoadingResult(false)
+        setIsCameraStart(false)
+        closeCamera()                                     
+        setGlobalData({
+            globalGreenLandmarks: null,
+            globalBlueLandmarks: null,
+            globalRedLandmarks: null,
+            globalGreenImages: [],
+            globalBlueImages: [],
+            globalRedImages: [],
+            globalGreens: [],
+            globalBlues: [],
+            globalReds: [],
+            globalDataNotSent: false,
+            globalFinished: false,
+            greenLandmarksData: null,
+            blueLandmarksData: null,
+            redLandmarksData: null,
+            globalPreviousPose: 0,
+            IsglobalDataSend: false
+        })           
+        setStarttimer(false) 
+        setStarttimer2(false)
+        setStarttimer3(false)
+        setIscomplete(false)             
+    })
     return (
         <>
             <div className={`${!isLoadingResult && "hidden"}`}><LoadingReports/></div>
