@@ -2,6 +2,7 @@
 // import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "symphony-ui";
+import { publish } from "../../utility/event";
 // import useModalAutoClose from "../../hooks/useModalAutoClose";
 
 
@@ -25,7 +26,8 @@ export const Modal = ({text,onClose,type}) => {
               navigate(-1)
             }
             if(window.location.href.includes("faceMashFile")){
-              navigate("/")
+              navigate("/faceCamera")
+              publish("reloadScan",{})             
             }
           }} theme="iris-small">
             {" "}
