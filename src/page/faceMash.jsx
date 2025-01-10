@@ -858,30 +858,33 @@ const FaceMesh = () => {
     }
     subscribe("reloadScan",() => {
         setIsLoadingResult(false)
-        setIsCameraStart(false)
-        closeCamera()                                     
-        setGlobalData({
-            globalGreenLandmarks: null,
-            globalBlueLandmarks: null,
-            globalRedLandmarks: null,
-            globalGreenImages: [],
-            globalBlueImages: [],
-            globalRedImages: [],
-            globalGreens: [],
-            globalBlues: [],
-            globalReds: [],
-            globalDataNotSent: false,
-            globalFinished: false,
-            greenLandmarksData: null,
-            blueLandmarksData: null,
-            redLandmarksData: null,
-            globalPreviousPose: 0,
-            IsglobalDataSend: false
-        })           
-        setStarttimer(false) 
-        setStarttimer2(false)
-        setStarttimer3(false)
-        setIscomplete(false)             
+        setTimeout(() => {
+            setIsCameraStart(false)
+            closeCamera()                                     
+            setGlobalData({
+                globalGreenLandmarks: null,
+                globalBlueLandmarks: null,
+                globalRedLandmarks: null,
+                globalGreenImages: [],
+                globalBlueImages: [],
+                globalRedImages: [],
+                globalGreens: [],
+                globalBlues: [],
+                globalReds: [],
+                globalDataNotSent: false,
+                globalFinished: false,
+                greenLandmarksData: null,
+                blueLandmarksData: null,
+                redLandmarksData: null,
+                globalPreviousPose: 0,
+                IsglobalDataSend: false
+            })           
+            setStarttimer(false) 
+            setStarttimer2(false)
+            setStarttimer3(false)
+            setIscomplete(false)             
+            
+        }, 500);
     })
     return (
         <>

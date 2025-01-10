@@ -203,10 +203,7 @@ const ShowReport = (props) => {
                     textAlignLast: "center",
                   }}
                 >
-                  Here is the preview of your report. Use the top-right buttons
-                  to download the PDF or share the document. To remove the
-                  report or return to the home page, use the buttons at the
-                  bottom.
+                  Here is the preview of your report. Use the top-right download report button to get a PDF copy of your report. To return to the home page, use the button at the top left.
                 </div>
               </div>
 
@@ -247,7 +244,7 @@ const ShowReport = (props) => {
                                     </RWebShare> */}
                   <Button onClick={download} theme="iris">
                     <img className="mr-2" src="print.svg" alt="" />
-                    Finish
+                    Download Report
                   </Button>
                 </div>
               </div>
@@ -291,6 +288,15 @@ const ShowReport = (props) => {
             ></PrintReport>
           </div>
         )}
+      <div className="w-full flex mt-[48px] pr-4  justify-end">
+
+          <Button theme="iris" onClick={() => {
+          // navigate('/')
+          }}>
+              Go to Home
+              <div className="ml-2 arrow-right-white" />
+          </Button>
+      </div>            
       </div>
     </>
   );

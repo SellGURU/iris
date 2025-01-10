@@ -367,13 +367,7 @@ const OverallAnalysisReport = (props) => {
    
         <div id="mydiv" className="px-12"></div>
         <div className="w-full flex mt-[48px] pr-12 justify-end">
-            {/* <button onClick={() => {
-            navigate('/')
-            }}
-                    className="w-[161px] text-white bg-[#544BF0] text-[18px] h-[52px] rounded-[12px] ml-4 flex justify-center items-center">
-                Go to Home
-                <div className="ml-2 arrow-right-white" />
-            </button> */}
+
             <Button theme="iris" onClick={() => {
             navigate('/')
             }}>
