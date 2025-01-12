@@ -56,10 +56,10 @@ export const PatientInformation = () => {
             gender:''
         },
         validationSchema:Yup.object().shape({
-            firstName:Yup.string().required(),
-            lastName:Yup.string().required(),
+            firstName:Yup.string().max(30,'First Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and spaces').required('First Name is required.'),
+            lastName:Yup.string().required('Last Name is required.').max(30,'Last Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and spaces'),
             phone:Yup.string().min(9,'Phone number must be between 7 and 12 characters.').max(14,'Phone number must be between 7 and 12 characters long.'),
-            email:Yup.string().required(' ').matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/," ")
+            email:Yup.string().required('Please enter valid email').matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Please enter valid email")
         })
     })
 
@@ -148,16 +148,26 @@ export const PatientInformation = () => {
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] lg:w-[300px] lg:[500px] text-[18px] font-medium"}>First Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
-                            <input  {...formik.getFieldProps("firstName")} className={"border-b px-2 outline-none h-10 w-full "}
-                                placeholder={"Enter First Name"}/>
-
+                            <div className="relative min-w-[226px]  w-full">
+                                <input  {...formik.getFieldProps("firstName")} className={"border-b px-2 outline-none h-10 w-full "}
+                                    placeholder={"Enter First Name"}/>
+                                <div className="text-[10px] flex min-w-[240px] w-full justify-start absolute text-red-500 bottom-[-18px] right-[0px]" >
+                                    {formik.errors.firstName}
+                                </div>   
+                            
+                            </div>
                         </div>
                     </CardPatient>
                     <CardPatient className={"w-[550px] order-2 md:w-[600px] lg:w-[480px] 2xl:w-[550px] bg-white z-20 h-[105px] md:h-[88px] border"}>
                         <div className="flex w-full justify-between items-center">
                             <h1 className={"w-full md:w-[500px] text-[18px] font-medium"}>Last Name <span className={"text-red-500 ml-1 mt-[-8px]"} >*</span></h1>
-                            <input {...formik.getFieldProps("lastName")} className={"border-b min-w-[226px]  px-2 outline-none h-10 w-full "}
-                                placeholder={"Enter Last Name"}/>
+                            <div className="relative min-w-[226px]  w-full">
+                                <input {...formik.getFieldProps("lastName")} className={"border-b min-w-[226px]  px-2 outline-none h-10 w-full "}
+                                    placeholder={"Enter Last Name"}/>
+                                    <div className="text-[10px] flex min-w-[240px] w-full justify-start absolute text-red-500 bottom-[-18px] right-[0px]" >
+                                        {formik.errors.lastName}
+                                    </div>                                   
+                            </div>
 
                         </div>
                     </CardPatient>
