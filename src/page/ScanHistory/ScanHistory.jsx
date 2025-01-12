@@ -18,6 +18,7 @@ import {PatientContext} from '../../context/context.jsx';
 import Package from "../../model/Package.js";
 // import { toast } from "react-toastify";
 import CompareSection from "../../components/scanHistoryCompare/CompareSection";
+import { publish } from "../../utility/event.js";
 export const ScanHistory = () => {
     const [patients,setPatinets] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
@@ -189,6 +190,7 @@ export const ScanHistory = () => {
                     options:[]                           
                 })
                 Appcontext.package.updatePackage(newPak)
+                publish("updatePackage",{})
             }
         })
     }) 

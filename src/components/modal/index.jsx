@@ -25,9 +25,8 @@ export const Modal = ({text,onClose,type}) => {
             if(window.location.href.includes("showReport")){
               navigate(-1)
             }
-            if(window.location.href.includes("faceMashFile")){
-              navigate("/faceCamera")
-              publish("reloadScan",{})             
+            if(window.location.href.includes("faceMashFile") ||window.location.href.includes("faceCamera")){
+              navigate(0)         
             }
           }} theme="iris-small">
             {" "}

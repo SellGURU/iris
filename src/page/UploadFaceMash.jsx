@@ -6,6 +6,7 @@
 // The component renders an upload section where users can select an image, an ANALYZE button to initiate the analysis, and a Download File button to download the analysis report once available.
 // It uses a file input element to allow users to upload an image, and a FileReader to read the file as a data URL for display.
 import {TabsCustume} from "../components/tabs/tabs.jsx";
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useState,useContext } from "react";
 import {LoadingReports} from "./loadingReports.jsx";
 // import { toast } from "react-toastify";
@@ -28,8 +29,10 @@ const UploadFaceMash = () => {
         {state: "one", label: "Single pose"}
     ];
     const appContext = useContext(PatientContext)
+    const [searchParams,] = useSearchParams();
+    const patientID = searchParams.get("patientId")    
     const {
-        patientID,
+        // patientID,
         setPdf,
         setFile,
         setPhoto,

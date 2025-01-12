@@ -130,10 +130,11 @@ export const PatienCard = ({
   const { setSex, setPatientID, setErrorThreshold , userName } =
     useContext(PatientContext);
   const clickHandler = () => {
-    setSex(patient.sex);
+    setSex(patient.client_info.gender);
+    console.log(patient)
     setPatientID(patient.client_info.clientCode);
     setErrorThreshold(patient.errorThreshold);
-    navigate("/faceCamera");
+    navigate(`/faceCamera?gender=${patient.client_info.gender}&patientId=${patient.client_info.clientCode}`);
   };
   
   const [accepted, setAccepted] = useState([]);

@@ -6,7 +6,7 @@ import {subscribe} from '../utility/event.js'
 import {CustCamera, CustFaceMash} from "../utility/camera";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,useSearchParams} from "react-router-dom";
 import { publish } from "../utility/event.js";
 import {IoCameraOutline} from "react-icons/io5";
 import {LuUploadCloud} from "react-icons/lu";
@@ -34,19 +34,21 @@ const FaceMesh = () => {
     const [showService,setShowService] = useState(false)
     const [showPermision,setShowPermision] = useState(false)
     const navigate = useNavigate();
+    const [searchParams,] = useSearchParams();
+    const patientId = searchParams.get("patientId")
     useEffect(() => {
-        if(patientID == 1){
+        if(patientId == 1){
             navigate('/')
         }
     },[])
     const [orgs,] = useLocalStorage("orgData")
     // const sex = useSelector(selectSex);
-    // const id = useSelector(selectPatientID);
+    // const id = useSelector(selectpatientId);
     // const errorThreshold = useSelector(selectErrorThreshold);
     // const dispatch = useDispatch();
     const appContext = useContext(PatientContext)
     const {
-        patientID,
+        // patientId,
         sex,
         errorThreshold,
         setPdf,
@@ -56,6 +58,7 @@ const FaceMesh = () => {
         photo,
         addPatient
     } = useContext(PatientContext);
+
     const [serviceMode,setServiceMode] = useState('empty')
     useEffect(() => {
         if(!appContext.package.getPackage().isExist()){
@@ -117,7 +120,7 @@ const FaceMesh = () => {
             setPdf('data:text/html;base64,' + response['html_file'])
             setPhoto(resolvedFile)
             const responce = {
-                id: patientID,
+                id: patientId,
                 sex: sex,
                 errorThreshold: errorThreshold,
                 photo: photo,
@@ -462,7 +465,7 @@ const FaceMesh = () => {
     const faceMesh = CustFaceMash();
     faceMesh.onResults(onResultsFaceMesh);
     // useEffect(() => {
-    //     if(patientID == '1'){
+    //     if(patientId == '1'){
     //         navigate()
     //     }
     // })
@@ -675,7 +678,7 @@ const FaceMesh = () => {
                 setPhoto(globalGreenImages[0])
                 setFile(response['request_id'])
                 const patient = {
-                    id: patientID,
+                    id: patientId,
                     sex: sex,
                     errorThreshold: errorThreshold,
                     htmlId: response['request_id'],
@@ -787,7 +790,7 @@ const FaceMesh = () => {
         // video2.current.srcObject = null;
         closeCamera()
         Analytics.analyticsImage({
-            client_id:patientID.toString(),
+            client_id:patientId.toString(),
             error_threshold:errorThreshold?errorThreshold:10,
             frontal_current:globalGreenImages[0].split(",")[1],
             orgSCode: JSON.parse(orgs).orgSCode,
@@ -807,7 +810,7 @@ const FaceMesh = () => {
                 setPhoto(globalGreenImages[0])
                 setFile(res.data.data.request_id)
                 const patient = {
-                    id: patientID,
+                    id: patientId,
                     sex: sex,
                     errorThreshold: errorThreshold,
                     htmlId: res.data.data.request_id,
@@ -1333,7 +1336,7 @@ const FaceMesh = () => {
                                                 reader.readAsDataURL(file);
                                             }} id="upload-file" type="file"></input>                                
                                         <Button onClick={() => {
-                                            navigate('/faceMashFile')
+                                            navigate(`/faceMashFile?patientId=${patientId}`)
                                             // document.getElementById("upload-file").click()
                                         }} disabled={isCameraStart}  theme="iris-secondary"> 
                                             <LuUploadCloud className="mr-2"/>
