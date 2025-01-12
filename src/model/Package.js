@@ -22,7 +22,7 @@ class Package {
     }
 
     isExist() {
-        return this.information!= undefined
+        return this.information!= undefined && this.information.bundle > 0
     }
 
     getInformation() {

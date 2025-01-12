@@ -98,9 +98,9 @@ export const PatientInformation = () => {
             if(res.data.status == 'success'){
                 updateLocalPatientIHistoty(patient);
                 if (isShowTour) {
-                    navigate("/tour")
+                    navigate(`/tour?gender=${patient.sex == 'masculine'? 'male':'female'}&patientId=${patient.id}`)
                 } else {
-                    navigate("/faceCamera")
+                    navigate(`/faceCamera?gender=${patient.sex == 'masculine'? 'male':'female'}&patientId=${patient.id}`)
                 }                        
 
             }else{

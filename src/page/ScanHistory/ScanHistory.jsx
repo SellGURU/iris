@@ -191,6 +191,18 @@ export const ScanHistory = () => {
                 })
                 Appcontext.package.updatePackage(newPak)
                 publish("updatePackage",{})
+            }else {
+                let newPak = new Package({
+                    name:'No available package',
+                    cycle:'Yearly',
+                    cost:0,
+                    useage:0,
+                    bundle:0,
+                    discount:0,
+                    options:[]                           
+                })
+                Appcontext.package.updatePackage(newPak)
+                publish("updatePackage",{})                
             }
         })
     }) 

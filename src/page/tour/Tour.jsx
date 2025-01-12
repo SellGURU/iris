@@ -8,13 +8,14 @@
 
 import {useState} from "react";
 import {StepInstructions} from "./StepInstructions";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,useSearchParams} from "react-router-dom";
 import {useLocalStorage} from "@uidotdev/usehooks";
 
 export const Tour = () => {
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(1);
      const [isShowTour,setIsShowTour] = useLocalStorage("tour")
+    const [searchParams,] = useSearchParams();
     const handleNext = () => {
         if (currentStep < 5) {
             setCurrentStep(currentStep + 1);
@@ -23,7 +24,7 @@ export const Tour = () => {
 
     const handleSkip = () => {
         setIsShowTour(false)
-        navigate("/facecamera");
+        navigate(`/facecamera?gender=${searchParams.get("gender")}&patientId=${searchParams.get("patientId")}`);
     };
 
     const getStepContent = (step) => {
@@ -79,7 +80,7 @@ export const Tour = () => {
                         note="Note: You can also perform a new scan, and all records will be saved in your scan library."
                         onNext={() => {
                             setIsShowTour(false)
-                            navigate("/facecamera")
+                            navigate(`/facecamera?gender=${searchParams.get("gender")}&patientId=${searchParams.get("patientId")}`)
                         }}
                         onBack={() =>{
                             setCurrentStep(currentStep - 1);

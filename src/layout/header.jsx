@@ -114,7 +114,7 @@ const Header = () => {
                 <div className="flex w-[410px] gap-6 justify-end">
                     
                     {
-                        Appcontext.package.getPackage().isExist()?
+                        Appcontext.package.getPackage().isExist() && reminedpak!=0?
                             <div className="hidden md:flex justify-center items-center text-gray-400">
                                 <div>{reminedpak} Scan{reminedpak > 1 && 's'} left </div>
                                 {/* <Button disabled theme="iris-tertiary">{Appcontext.package.getPackage().getRemining()} Scan{Appcontext.package.getPackage().getRemining() > 1 && 's'} remained</Button> */}
