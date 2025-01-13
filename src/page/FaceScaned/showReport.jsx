@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { butiText, useConstructor } from "../../help";
 import Application from "../../api/Application";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams,useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -26,6 +26,7 @@ import Explation from "../../components/explation/index.jsx";
 // import SummaryBox from "./boxs/SummaryBox";
 const ShowReport = (props) => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
@@ -288,15 +289,17 @@ const ShowReport = (props) => {
             ></PrintReport>
           </div>
         )}
-      <div className="w-full flex mt-[48px] pr-4  justify-end">
+        {!isLoading &&
+          <div className="w-full flex mt-[48px] pr-4  justify-end">
 
-          <Button theme="iris" onClick={() => {
-          // navigate('/')
-          }}>
-              Go to Home
-              <div className="ml-2 arrow-right-white" />
-          </Button>
-      </div>            
+              <Button theme="iris" onClick={() => {
+              navigate('/')
+              }}>
+                  Go to Home
+                  <div className="ml-2 arrow-right-white" />
+              </Button>
+          </div>            
+        }
       </div>
     </>
   );
