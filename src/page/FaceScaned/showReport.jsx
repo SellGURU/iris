@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { butiText, useConstructor } from "../../help";
 import Application from "../../api/Application";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams,useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -26,6 +26,7 @@ import Explation from "../../components/explation/index.jsx";
 // import SummaryBox from "./boxs/SummaryBox";
 const ShowReport = (props) => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true);
   const [date, setDate] = useState(new Date());
   const [orgs] = useLocalStorage("orgData");
@@ -203,10 +204,7 @@ const ShowReport = (props) => {
                     textAlignLast: "center",
                   }}
                 >
-                  Here is the preview of your report. Use the top-right buttons
-                  to download the PDF or share the document. To remove the
-                  report or return to the home page, use the buttons at the
-                  bottom.
+                  Here is the preview of your report. Use the top-right download report button to get a PDF copy of your report. To return to the home page, use the button at the top left.
                 </div>
               </div>
 
@@ -247,7 +245,7 @@ const ShowReport = (props) => {
                                     </RWebShare> */}
                   <Button onClick={download} theme="iris">
                     <img className="mr-2" src="print.svg" alt="" />
-                    Finish
+                    Download Report
                   </Button>
                 </div>
               </div>
@@ -291,6 +289,17 @@ const ShowReport = (props) => {
             ></PrintReport>
           </div>
         )}
+        {!isLoading &&
+          <div className="w-full flex mt-[48px] pr-4  justify-end">
+
+              <Button theme="iris" onClick={() => {
+              navigate('/')
+              }}>
+                  Go to Home
+                  <div className="ml-2 arrow-right-white" />
+              </Button>
+          </div>            
+        }
       </div>
     </>
   );

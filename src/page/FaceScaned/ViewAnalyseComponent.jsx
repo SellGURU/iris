@@ -332,13 +332,13 @@ const ViewAnalyseComponent = ({ScanData,date,patientID}) => {
                     <div className="text-[#444444] text-sm font-normal mr-[80px]">
                         Client ID: {patientID}
                     </div>
-                    <div className="text-[#7E7E7E] font-normal text-sm mr-8">
+                    <div className="text-[#7E7E7E] font-normal text-sm ">
                         Date:{" "}
-                    {formatDate2(date)}
+                    {formatDate2(date)+" "+date.getHours()}:{date.getMinutes()>9?date.getMinutes():0+date.getMinutes()}
                     </div>
-                    <div className="text-[#7E7E7E] font-normal text-sm">
+                    {/* <div className="text-[#7E7E7E] font-normal text-sm">
                         Time: {date.getHours()}:{date.getMinutes()}
-                    </div>                           
+                    </div>                            */}
                     </div>
                     {/* 2024/02/02 */}
                 </div>
