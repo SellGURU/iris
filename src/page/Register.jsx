@@ -56,8 +56,8 @@ const Register = () => {
   };
   const validationSchema = Yup.object().shape({
     // fullName: Yup.string(),
-    firstName:Yup.string().max(30,'First Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').required('First Name is required.'),
-    lastName:Yup.string().required('Last Name is required.').max(30,'Last Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space'),
+    firstName:Yup.string().max(30,'First name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').required('First name is required.'),
+    lastName:Yup.string().required('Last name is required.').max(30,'Last name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space'),
     email: Yup.string()
       .email("Please enter a valid email address.")
       .required("E-mail address is required."),
@@ -71,7 +71,7 @@ const Register = () => {
   // .string()
   // .oneOf([Yup.ref('password')], 'Passwords must match'),
   PracticeName: Yup
-    .string().required("Practice name must be alphanumeric.").max(50,'Practice Name should be  max of 50 characters').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').matches(/^[^!@#$%^&*+=<>:;|~]*$/,'Practice name must be alphanumeric.')
+    .string().required("Practice name must be alphanumeric.").max(50,'Practice name should be  max of 50 characters').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').matches(/^[^!@#$%^&*+=<>:;|~]*$/,'Practice name must be alphanumeric.')
   });
   const form = useFormik({
     initialValues: initialValues,

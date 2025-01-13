@@ -56,8 +56,8 @@ export const PatientInformation = () => {
             gender:''
         },
         validationSchema:Yup.object().shape({
-            firstName:Yup.string().max(30,'First Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').required('First Name is required.'),
-            lastName:Yup.string().required('Last Name is required.').max(30,'Last Name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space'),
+            firstName:Yup.string().max(30,'First name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space').required('First name is required.'),
+            lastName:Yup.string().required('Last name is required.').max(30,'Last name should be max of 30 characters.').matches(/^[a-zA-Z0-9 ]*$/, 'Use only a-z, A-Z, 0-9, and space'),
             phone:Yup.string().min(9,'Phone number must be between 7 and 12 characters.').max(14,'Phone number must be between 7 and 12 characters long.'),
             email:Yup.string().required('Please enter valid email').matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Please enter valid email")
         })
