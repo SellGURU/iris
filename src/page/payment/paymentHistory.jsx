@@ -50,11 +50,8 @@ export const PaymentHistory = () => {
     appContext.package.getPackage()
   );
   useEffect(() => {
-    const interval = setInterval(() => {
       checkOrg();
       setPackageCurrent(appContext.package.getPackage());
-    }, 20000);
-
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
@@ -121,7 +118,6 @@ export const PaymentHistory = () => {
       }
       // console.log(res)
     });
-    checkOrg();
   });
 
   const [packages, setPackages] = useState([
